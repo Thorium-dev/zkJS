@@ -301,5 +301,30 @@ Array.prototype.removeMiddle = function(){
     return this.slice(0, (x == 2) ? n - 1 : n).concat(this.slice(n + x - (x - 1)));
 };
 
+var arrayRemoveLastPath = "_ENTITY_._PARAMETERS_.array.removeLast.";
+zk().setContainer(arrayRemoveLastPath + "number", function (el, param) {
+    param = Math.abs(param); return el.slice(0, -param)
+});
+zk().setContainer(arrayRemoveLastPath+"string", function(el, param){
+    var i, k = el.length;
+    for (i = k - 1; i > -1; i--) {
+        if (el[i] == param) { el.splice(i, 1); return el }
+    }
+    return el;
+});
+zk().setContainer(arrayRemoveLastPath+"regexp", function(el, param){
+    var i, k = el.length;
+    for (i = k - 1; i > -1; i--) {
+        if (param.test(el[i])) { el.splice(i, 1); return el }
+    }
+    return el;
+});
+Array.prototype.removeLast = function(param){
+    if(param===undefined){param=1}
+    var paramFunc = zk().getContainer(arrayRemoveLastPath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param) : this;
+};
+
+
 
 
