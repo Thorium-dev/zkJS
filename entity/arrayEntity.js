@@ -325,6 +325,73 @@ Array.prototype.removeLast = function(param){
     return paramFunc ? paramFunc(this, param) : this;
 };
 
+var arrayRemoveBeforePath = "_ENTITY_._PARAMETERS_.array.removeBefore.";
+zk().setContainer(arrayRemoveBeforePath + "number", function (el, param) {
+    param = Math.abs(param); return el.slice(param)
+});
+zk().setContainer(arrayRemoveBeforePath+"string", function(el, param){
+    var i, k = el.length;
+    for (i = 0; i < k; i++) {
+        if (el[i] == param) { return el.slice(i) }
+    }
+    return el;
+});
+zk().setContainer(arrayRemoveBeforePath+"regexp", function(el, param){
+    var i, k = el.length;
+    for (i = 0; i < k; i++) {
+        if (param.test(el[i])) { return el.slice(i) }
+    }
+    return el;
+});
+Array.prototype.removeBefore = function(param){
+    var paramFunc = zk().getContainer(arrayRemoveBeforePath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param) : this;
+};
+
+var arrayRemoveAfterPath = "_ENTITY_._PARAMETERS_.array.removeAfter.";
+zk().setContainer(arrayRemoveAfterPath + "number", function (el, param) {
+    param = Math.abs(param); return el.slice(0, param + 1)
+});
+zk().setContainer(arrayRemoveAfterPath+"string", function(el, param){
+    var i, k = el.length;
+    for (i = 0; i < k; i++) {
+        if (el[i] == param) { return el.slice(0, i + 1) }
+    }
+    return el;
+});
+zk().setContainer(arrayRemoveAfterPath+"regexp", function(el, param){
+    var i, k = el.length;
+    for (i = 0; i < k; i++) {
+        if (param.test(el[i])) { return el.slice(0, i + 1) }
+    }
+    return el;
+});
+Array.prototype.removeAfter = function(param){
+    var paramFunc = zk().getContainer(arrayRemoveAfterPath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param) : this;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
