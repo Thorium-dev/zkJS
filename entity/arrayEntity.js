@@ -71,6 +71,10 @@ Array.prototype.has = function(param){
 };
 
 
+/**
+ * ========================================= LES METHODES AVEC GET =============================================
+ */
+
 var arrayGetFirstPath = "_ENTITY_._PARAMETERS_.array.getFirst.";
 zk().setContainer(arrayGetFirstPath+"number", function(el, param){ return el.slice(0, Math.abs(param)) });
 zk().setContainer(arrayGetFirstPath+"string", function(el, param){
@@ -157,7 +161,6 @@ Array.prototype.getAfter = function(param){
 };
 
 var arrayGetBetweenPath = "_ENTITY_._PARAMETERS_.array.getBetween.";
-
 var doArrayGetBetweenByObj = {
     "number": function(el,param){
         return Math.abs(param);
@@ -188,13 +191,11 @@ zk().setContainer(arrayGetBetweenPath+"array", function(el, param){
     }
     return res;
 });
-
 Array.prototype.getBetween = function(param){
     if(param===undefined){param=1}
     var paramFunc = zk().getContainer(arrayGetBetweenPath+zk().toolbox().is(param));
     return paramFunc ? paramFunc(this, param) : "";
 };
-
 
 var arrayGetAtPath = "_ENTITY_._PARAMETERS_.array.getAt.";
 zk().setContainer(arrayGetAtPath + "number", function (el, param) { return zk().getContainer(arrayGetAtPath + "array")(el, [param]) });
@@ -263,6 +264,38 @@ Array.prototype.get = function(param){
     var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_.array.get."+zk().toolbox().is(param));
     return paramFunc ? paramFunc(this, param) : "";
 };
+
+
+
+/**
+ * ========================================= LES METHODES AVEC REMOVE =============================================
+ */
+
+var arrayRemoveFirstPath = "_ENTITY_._PARAMETERS_.array.removeFirst.";
+zk().setContainer(arrayRemoveFirstPath + "number", function (el, param) {
+    param = Math.abs(param);
+    return el.slice(param)
+});
+zk().setContainer(arrayRemoveFirstPath+"string", function(el, param){
+    var i, k = el.length;
+    for (i = 0; i < k; i++) {
+        if (el[i] == param) { el.splice(i, 1); return el }
+    }
+    return el;
+});
+zk().setContainer(arrayRemoveFirstPath+"regexp", function(el, param){
+    var i, k = el.length;
+    for (i = 0; i < k; i++) {
+        if (param.test(el[i])) { el.splice(i, 1); return el }
+    }
+    return el;
+});
+Array.prototype.removeFirst = function(param){
+    if(param===undefined){param=1}
+    var paramFunc = zk().getContainer(arrayRemoveFirstPath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param) : this;
+};
+
 
 
 
