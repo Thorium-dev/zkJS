@@ -296,7 +296,10 @@ Array.prototype.removeFirst = function(param){
     return paramFunc ? paramFunc(this, param) : this;
 };
 
-
+Array.prototype.removeMiddle = function(){
+    var l = this.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
+    return this.slice(0, (x == 2) ? n - 1 : n).concat(this.slice(n + x - (x - 1)));
+};
 
 
 
