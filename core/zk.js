@@ -80,7 +80,7 @@
     APP._CONTAINER_ = new _CONTAINER_();
 
     function _TOOLBOX_() {
-        var This = this;
+        var self = this;
         this.is = function (el, type) {
             if (el === null) {
                 return null
@@ -114,7 +114,7 @@
         };
         var doEachByObj = {
             string: function (el, f, args) {
-                var i, k, res = (This.is(el, 'string')) ? '' : [], r, ob;
+                var i, k, res = (self.is(el, 'string')) ? '' : [], r, ob;
                 k = el.length;
                 for (i = 0; i < k; i++) {
                     ob = {i: i, k: i, v: el[i], l: k, all: el};
@@ -193,11 +193,11 @@
          * @return {[Array/Object]}          Elle retourne l'objet sur lequel elle s'applique
          */
         this.each = function (el, f, args) {
-            if (This.is(f, 'function')) {
-                var t = This.is(el);
+            if (self.is(f, 'function')) {
+                var t = self.is(el);
                 if (doEachByObj.hasOwnProperty(t)) {
                     if (args === undefined) { args = [] }
-                    if (!This.is(args, 'array')) { args = [args] }
+                    if (!self.is(args, 'array')) { args = [args] }
                     el = doEachByObj[t](el, f, args);
                 }
             }
@@ -215,6 +215,62 @@
                 }
             })
         };
+        /**
+         * Elle supprime les éléments dupliqués d'un tableau.
+         * @param tab
+         * @returns {Array}
+         */
+        this.removeDuplicate = function(tab) {
+            var res = [], r; tab.sort();
+            self.each(tab, function(tab){
+                var v = this.v;
+                if (r !== v) {
+                    res.push(v);
+                    r = v
+                }
+            }, tab);
+            return res
+        };
+        /**
+         * Permet d'obtenir l'index d'une valeur dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie -1.
+         * @param el
+         * @param param
+         * @returns {number}
+         */
+        this.index = function(el, param){
+            var paramType = zk().toolbox().is(param);
+            if(paramType !== "regexp"){ paramType = "other" }
+            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+zk().toolbox().is(el)+".index."+paramType);
+            return paramFunc ? paramFunc(el, param) : -1;
+        };
+        /**
+         * Permet de compter le nombre de fois q'une valeur existe dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie 0.
+         * @param el
+         * @param param
+         * @returns {number}
+         */
+        this.count = function(el, param){
+            var paramType = zk().toolbox().is(param);
+            if(paramType !== "regexp"){ paramType = "other" }
+            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+zk().toolbox().is(el)+".count."+paramType);
+            return paramFunc ? paramFunc(el, param) : 0;
+        };
+
+        /**
+         * Permet de vérifier si une valeur existe dans un élément (Array, String, Node ...)
+         * @param el
+         * @param param
+         * @returns {boolean}
+         */
+        this.has = function(el, param){
+            var paramType = zk().toolbox().is(param);
+            if(paramType !== "regexp"){ paramType = "other" }
+            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+zk().toolbox().is(el)+".index."+paramType);
+            var ok =  paramFunc ? paramFunc(el, param)+1 : false;
+            return ok ? true : false;
+
+        };
+
     }
 
     APP._TOOLBOX_ = new _TOOLBOX_();

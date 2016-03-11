@@ -1,23 +1,14 @@
 Array.prototype.each = function(func, args){ return zk().toolbox().each(this, func, args) };
 
-
-
 var arrayIndexPath = "_ENTITY_._PARAMETERS_.array.index.";
-/**
- *  Pour un argument de type number :
- * Le résulat est un nombre correspondant à l'index de l'élément recherché
- */
-zk().setContainer(arrayIndexPath+"number", function(el, param){
+zk().setContainer(arrayIndexPath+"other", function(el, param){
     var k = el.length;
     for(var i=0; i < k; i++){
         if(el[i] === param){
             return i;
         }
     }
-    return null;
-});
-zk().setContainer(arrayIndexPath+"string", function(el, param){
-    return zk().getContainer(arrayIndexPath+"regexp")(el, new RegExp(param));
+    return -1;
 });
 zk().setContainer(arrayIndexPath+"regexp", function(el, param){
     var k = el.length;
@@ -26,16 +17,12 @@ zk().setContainer(arrayIndexPath+"regexp", function(el, param){
             return i;
         }
     }
-    return null;
+    return -1;
 });
-Array.prototype.index = function(param){
-    if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(arrayIndexPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : [];
-};
+Array.prototype.index = function(param){ return zk().toolbox().index(this, param) };
 
 var arrayCountPath = "_ENTITY_._PARAMETERS_.array.count.";
-zk().setContainer(arrayCountPath+"number", function(el, param){
+zk().setContainer(arrayCountPath+"other", function(el, param){
     var count = 0;
     zk().toolbox().each(el,function(){
         if(this.v === param){
@@ -43,9 +30,6 @@ zk().setContainer(arrayCountPath+"number", function(el, param){
         }
     });
     return count;
-});
-zk().setContainer(arrayCountPath+"string", function(el, param){
-    return zk().getContainer(arrayCountPath+"regexp")(el, new RegExp(param));
 });
 zk().setContainer(arrayCountPath+"regexp", function(el, param){
     var count = 0;
@@ -56,19 +40,9 @@ zk().setContainer(arrayCountPath+"regexp", function(el, param){
     });
     return count;
 });
-Array.prototype.count = function(param){
-    if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(arrayCountPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : [];
-};
+Array.prototype.count = function(param){ return zk().toolbox().count(this, param) };
 
-
-Array.prototype.has = function(param){
-    if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(arrayIndexPath+zk().toolbox().is(param));
-    var ok =  paramFunc ? paramFunc(this, param)+1 : false;
-    return ok ? true : false;
-};
+Array.prototype.has = function(param){ return zk().toolbox().has(this, param) };
 
 
 /**
@@ -271,6 +245,9 @@ Array.prototype.get = function(param){
  * ========================================= LES METHODES AVEC REMOVE =============================================
  */
 
+
+Array.prototype.removeDuplicate = function() { return zk().toolbox().removeDuplicate(this) };
+
 var arrayRemoveFirstPath = "_ENTITY_._PARAMETERS_.array.removeFirst.";
 zk().setContainer(arrayRemoveFirstPath + "number", function (el, param) {
     param = Math.abs(param);
@@ -372,17 +349,43 @@ Array.prototype.removeAfter = function(param){
 };
 
 
+// Faire between
 
 
 
 
 
+/*var arrayRemoveAtPath = "_ENTITY_._PARAMETERS_.array.removeAt.";
+zk().setContainer(arrayRemoveAtPath + "number", function (el, param) { return zk().getContainer(arrayRemoveAtPath + "array")(el, [param]) });
+zk().setContainer(arrayRemoveAtPath + "array", function (el, param) {
+    var n, k = el.length, res = [];
+
+    zk().toolbox().each(param, function () {
+        n = Math.abs(this.v);
+        if (zk().toolbox().is(n, 'number')) {
+            if (n < k) {
+                res = res.concat(el[n])
+            }
+        }
+    });
 
 
+    tab = onceInArray(nSortD(tab));
+    each(tab, function () {
+        var n = this.v;
+        if (is(n, 'number')) {
+            el = el.slice(0, n).concat(el.slice(n + 1))
+        }
+    });
 
 
-
-
+    return res
+});
+Array.prototype.getAt = function(param){
+    //if(param===undefined){ return [] }
+    var paramFunc = zk().getContainer(arrayRemoveAtPath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param) : this;
+};*/
 
 
 
