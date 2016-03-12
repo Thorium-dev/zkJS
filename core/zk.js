@@ -21,9 +21,9 @@
             return this._CONTAINER_.remove(path);
         },
 
-        // Raccourcis vers _TOOL_
-        "tool": function () {
-            return this._TOOL_;
+        // Raccourcis vers _TOOLBOX_
+        "toolbox": function () {
+            return this._TOOLBOX_;
         },
 
     };
@@ -53,8 +53,8 @@
                     temp = temp[arrayPath[i]];
                 }
                 var v = temp[arrayPath[n - 1]];
-                if (!APP._TOOL_.is(v, "object") && v !== undefined) {
-                    if (!APP._TOOL_.is(v, "array")) {
+                if (!APP._TOOLBOX_.is(v, "object") && v !== undefined) {
+                    if (!APP._TOOLBOX_.is(v, "array")) {
                         v = [v]
                     }
                     value = v.concat(value);
@@ -79,8 +79,8 @@
 
     APP._CONTAINER_ = new _CONTAINER_();
 
-    function _TOOL_() {
-        var This = this;
+    function _TOOLBOX_() {
+        var self = this;
         this.is = function (el, type) {
             if (el === null) {
                 return null
@@ -113,63 +113,26 @@
             return str.replace(reg, '')
         };
         var doEachByObj = {
-            string: function (el, f, args, strIndex, node) {
-                var i, k, isOk, res = '', r, ob, strIndex2 = ' ' + strIndex + ' ';
+            string: function (el, f, args) {
+                var i, k, res = (self.is(el, 'string')) ? '' : [], r, ob;
                 k = el.length;
                 for (i = 0; i < k; i++) {
                     ob = {i: i, k: i, v: el[i], l: k, all: el};
-                    if (node === ZKID) {
-                        ob.node = el[i];
-                        ob.name = trim(el[i].nodeName.toLowerCase(), '#')
-                    }
-                    //console.log(ob);
-                    if (strIndex) {
-                        isOk = RegExp(' 0*' + i + ' ').test(strIndex2);
-                        if (isOk) {
-                            r = el[i]
-                        } else {
-                            r = f.apply(ob, args);
-                            if (r === undefined) {
-                                r = el[i]
-                            }
-                        }
-                        if (is(el, 'array')) {
-                            el[i] = r
-                        } else {
-                            res = res.concat(r)
-                        }
-                    } else {
-                        r = f.apply(ob, args);
-                        if (r === undefined) {
-                            r = el[i]
-                        }
-                        if (is(el, 'array')) {
-                            el[i] = r
-                        } else {
-                            res = res.concat(r)
-                        }
-                    }
+                    r = f.apply(ob, args);
+                    if (r === undefined) { r = el[i] }
+                    res = res.concat(r)
                 }
-                return is(el, 'array') ? el : res;
+                return res;
             },
-            number: function (el, f, args, strIndex) {
-                var i, isOk;
+            number: function (el, f, args) {
                 el = Math.abs(el);
-                for (i = 0; i < el; i++) {
-                    if (strIndex) {
-                        isOk = RegExp(' 0*' + i + ' ').test(' ' + strIndex + ' ');
-                        if (!isOk) {
-                            f.apply({i: i, all: el}, args)
-                        }
-                    } else {
-                        f.apply({i: i, all: el}, args);
-                    }
+                for (var i = 0; i < el; i++) {
+                    f.apply({i: i, all: el}, args);
                 }
                 return el
             },
-            array: function (el, f, args, strIndex, node) {
-                return doEachByObj.string(el, f, args, strIndex, node)
-            },
+            array: function (el, f, args) { return doEachByObj.string(el, f, args) },
+
             object: function (el, f, args, strIndex) {
                 var i, isOk, r, ob;
                 for (i in el) {
@@ -229,25 +192,88 @@
          * @param  {[String]} strIndex [Les index ou les clés à ignorer séparé par des espaces]
          * @return {[Array/Object]}          Elle retourne l'objet sur lequel elle s'applique
          */
-        this.each = function (el, f, args, strIndex) {
-            if (This.is(f, 'function')) {
-                var t = This.is(el);
+        this.each = function (el, f, args) {
+            if (self.is(f, 'function')) {
+                var t = self.is(el);
                 if (doEachByObj.hasOwnProperty(t)) {
-                    if (args === undefined) {
-                        args = []
-                    }
-                    if (!This.is(args, 'array')) {
-                        args = [args]
-                    }
-                    el = doEachByObj[t](el, f, args, strIndex);
+                    if (args === undefined) { args = [] }
+                    if (!self.is(args, 'array')) { args = [args] }
+                    el = doEachByObj[t](el, f, args);
                 }
             }
             return el
-        }
-        this.toArray = function (el) { return [].slice.call(el) }
+        };
+        this.toArray = function (el) { return [].slice.call(el) };
+        this.nSort = function(array){
+            return array.sort(function (a, b) {
+                if (a < b) {
+                    return -1
+                } else if (a > b) {
+                    return 1
+                } else {
+                    return 0
+                }
+            })
+        };
+        /**
+         * Elle supprime les éléments dupliqués d'un tableau.
+         * @param tab
+         * @returns {Array}
+         */
+        this.removeDuplicate = function(tab) {
+            var res = [], r; tab.sort();
+            self.each(tab, function(tab){
+                var v = this.v;
+                if (r !== v) {
+                    res.push(v);
+                    r = v
+                }
+            }, tab);
+            return res
+        };
+        /**
+         * Permet d'obtenir l'index d'une valeur dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie -1.
+         * @param el
+         * @param param
+         * @returns {number}
+         */
+        this.index = function(el, param){
+            var paramType = zk().toolbox().is(param);
+            if(paramType !== "regexp"){ paramType = "other" }
+            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+zk().toolbox().is(el)+".index."+paramType);
+            return paramFunc ? paramFunc(el, param) : -1;
+        };
+        /**
+         * Permet de compter le nombre de fois q'une valeur existe dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie 0.
+         * @param el
+         * @param param
+         * @returns {number}
+         */
+        this.count = function(el, param){
+            var paramType = zk().toolbox().is(param);
+            if(paramType !== "regexp"){ paramType = "other" }
+            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+zk().toolbox().is(el)+".count."+paramType);
+            return paramFunc ? paramFunc(el, param) : 0;
+        };
+
+        /**
+         * Permet de vérifier si une valeur existe dans un élément (Array, String, Node ...)
+         * @param el
+         * @param param
+         * @returns {boolean}
+         */
+        this.has = function(el, param){
+            var paramType = zk().toolbox().is(param);
+            if(paramType !== "regexp"){ paramType = "other" }
+            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+zk().toolbox().is(el)+".index."+paramType);
+            var ok =  paramFunc ? paramFunc(el, param)+1 : false;
+            return ok ? true : false;
+
+        };
+
     }
 
-    APP._TOOL_ = new _TOOL_();
+    APP._TOOLBOX_ = new _TOOLBOX_();
 
     function _ENTITY_() {
         /**
@@ -275,17 +301,17 @@
             if ((typeof(entityFunc)).toLowerCase() !== 'function') { return false }
             var name = entityFunc.name;
             if (!name || APP._CONTAINER_.get("_ENTITY_." + (name.toLowerCase()))) { return false }
-            if (!APP._TOOL_.is(methods, "object")) { methods = {} }
-            APP._TOOL_.each(methods, function () { entityFunc.prototype[this.k] = this.v; });
+            if (!APP._TOOLBOX_.is(methods, "object")) { methods = {} }
+            APP._TOOLBOX_.each(methods, function () { entityFunc.prototype[this.k] = this.v; });
             APP.setContainer("_ENTITY_." + (name.toLowerCase()), entityFunc);
-            if (!APP._TOOL_.is(parameters, "object")) { parameters = {} }
-            APP._TOOL_.each(parameters, function () {
+            if (!APP._TOOLBOX_.is(parameters, "object")) { parameters = {} }
+            APP._TOOLBOX_.each(parameters, function () {
                 APP.setContainer("_ENTITY_._PARAMETERS_." + (name.toLowerCase()) + "." + this.k, this.v);
             });
             return APP;
         };
         this.get = function (selector) {
-            var name = APP._TOOL_.is(selector), func = APP.getContainer("_ENTITY_._CONVERTOR_." + name), res;
+            var name = APP._TOOLBOX_.is(selector), func = APP.getContainer("_ENTITY_._CONVERTOR_." + name), res;
             if (func) { res = func(selector); name = res[0]; selector = res[1]; }
             var entity = APP.getContainer("_ENTITY_." + name);
             if ((typeof(entityFunc)).toLowerCase() !== 'function') {
@@ -307,10 +333,22 @@
      *
      */
     APP.setContainer("_ENTITY_._CONVERTOR_.nodeelement", function (el) { return ["node", [el]] });
-    APP.setContainer("_ENTITY_._CONVERTOR_.htmlcollection", function (el) { return ["node", APP._TOOL_.toArray(el)] });
-    APP.setContainer("_ENTITY_._CONVERTOR_.nodelist", function (el) { return ["node", APP._TOOL_.toArray(el)] });
+    APP.setContainer("_ENTITY_._CONVERTOR_.htmlcollection", function (el) { return ["node", APP._TOOLBOX_.toArray(el)] });
+    APP.setContainer("_ENTITY_._CONVERTOR_.nodelist", function (el) { return ["node", APP._TOOLBOX_.toArray(el)] });
 
-    $W.$ = function (selector) { return APP.get(selector); };
+    function launcher(selector){
+        var type = APP.toolbox().is(selector);
+        if(type == "array"){
+            selector = selector.join(",");
+            type = "string";
+        }
+        if(type == "string"){
+           selector = document.querySelectorAll(selector);
+        }
+
+        return APP.get(selector);
+    }
+    $W.$ = function (selector) { return launcher(selector) };
     $W.zk = function (selector) { if (selector === undefined) { return APP } };
 
 
