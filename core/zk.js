@@ -204,6 +204,11 @@
             return el
         };
         this.toArray = function (el) { return [].slice.call(el) };
+        /**
+         * Permet de trier les tableaux numériques dans l'ordre croissant
+         * @param array
+         * @returns {Array.<T>}
+         */
         this.nSort = function(array){
             return array.sort(function (a, b) {
                 if (a < b) {
@@ -216,19 +221,34 @@
             })
         };
         /**
-         * Elle supprime les éléments dupliqués d'un tableau.
-         * @param tab
+         * Permet de trier les tableaux numériques dans l'ordre décroissant
+         * @param array
+         * @returns {Array.<T>}
+         */
+        this.nSortD = function(array) {
+            return array.sort(function (a, b) {
+                if (a > b) {
+                    return -1
+                } else if (a < b) {
+                    return 1
+                } else {
+                    return 0
+                }
+            })
+        };
+        /**
+         * Elle supprime les éléments dupliqués d'un tableau. Le tableau est trié par ordre croissant ou décroissant selon la valeur de reverse
+         * @param tab "Tableau à traiter"
+         * @param reverse "Boolean qui indique l'ordre croissant ou décroissant"
          * @returns {Array}
          */
-        this.removeDuplicate = function(tab) {
-            var res = [], r; tab.sort();
-            self.each(tab, function(tab){
+        this.removeDuplicate = function(tab, reverse) {
+            var res = [], r;
+            tab = (reverse !== true) ? self.nSort(tab) : self.nSortD(tab) ;
+            self.each(tab, function(){
                 var v = this.v;
-                if (r !== v) {
-                    res.push(v);
-                    r = v
-                }
-            }, tab);
+                if (r !== v) { res.push(v); r = v }
+            });
             return res
         };
         /**
@@ -277,7 +297,6 @@
 
     function _ENTITY_() {
         /**
-         *
          * Function register
          *
          * Elle permet l'enregistrement des entités et leurs méthodes dans le container.
