@@ -271,7 +271,6 @@ Array.prototype.get = function(param){
  * ========================================= LES METHODES AVEC REMOVE =============================================
  */
 
-
 Array.prototype.removeDuplicate = function(reverse) { return zk().toolbox().removeDuplicate(this, reverse) };
 
 var arrayRemoveFirstPath = "_ENTITY_._PARAMETERS_.array.removeFirst.";
@@ -477,6 +476,55 @@ Array.prototype.remove = function(param){
  * ========================================= LES METHODES AVEC ADD =============================================
  */
 
+var arrayAddFirstPath = "_ENTITY_._PARAMETERS_.array.addFirst.";
+zk().setContainer(arrayAddFirstPath+"other", function(el, value){
+    if(!zk().toolbox().is(value, "array")){ value = [value] }
+    return value.concat(el);
+});
+/**
+ * Permet d'ajouter des valeurs au début du tableau.
+ * @param value
+ * @returns {*}
+ */
+Array.prototype.addFirst = function(value){
+    if(value===undefined){ return this }
+    return zk().getContainer(arrayAddFirstPath+"other")(this, value);
+};
+
+/**
+ * Cette fonction permet de slicé un élément
+ * @param  {[string/array]} el [Elément a slicer]
+ * @param  {[int]} i1 [Slice de 0 à i1 exclus]
+ * @param  {[int]} i2 [Slice de i2 à la fin]
+ * @param  {[string/array]} v  [Valeur à ajouter à la plage slicé. Facultatif]
+ * @return {[string/array]}    [Elément slicé]
+ */
+function doSlice(el, i1, i2, v) {
+    i1 = i1 || 0;
+    i2 = i2 || i1;
+    i1 = el.slice(0, i1);
+    i2 = el.slice(i2);
+    return (v !== undefined) ? i1.concat(v).concat(i2) : i1.concat(i2);
+}
+Array.prototype.addMiddle = function(value){
+    var l = this.length, n = parseInt(l / 2);
+    return doSlice(this, n, n, value);
+};
+
+var arrayAddLastPath = "_ENTITY_._PARAMETERS_.array.addLast.";
+zk().setContainer(arrayAddLastPath+"other", function(el, value){
+    if(!zk().toolbox().is(value, "array")){ value = [value] }
+    return el.concat(value);
+});
+/**
+ * Permet d'ajouter des valeurs à la fin du tableau.
+ * @param value
+ * @returns {*}
+ */
+Array.prototype.addLast = function(value){
+    if(value===undefined){ return this }
+    return zk().getContainer(arrayAddLastPath+"other")(this, value);
+};
 
 
 /**
