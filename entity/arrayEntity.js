@@ -21,6 +21,27 @@ zk().setContainer(arrayIndexPath+"regexp", function(el, param){
 });
 Array.prototype.index = function(param){ return zk().toolbox().index(this, param) };
 
+var arrayIndexesPath = "_ENTITY_._PARAMETERS_.array.indexes.";
+zk().setContainer(arrayIndexesPath+"other", function(el, param){
+    var k = el.length, indexes = [];
+    for(var i=0; i < k; i++){
+        if(el[i] === param){
+            indexes.push(i);
+        }
+    }
+    return indexes;
+});
+zk().setContainer(arrayIndexesPath+"regexp", function(el, param){
+    var k = el.length, indexes = [];
+    for(var i = 0; i < k ; i++){
+        if(param.test(el[i])){
+            indexes.push(i);
+        }
+    }
+    return indexes;
+});
+Array.prototype.indexes = function(param){ return zk().toolbox().indexes(this, param) };
+
 var arrayCountPath = "_ENTITY_._PARAMETERS_.array.count.";
 zk().setContainer(arrayCountPath+"other", function(el, param){
     var count = 0;
@@ -409,6 +430,43 @@ zk().setContainer(arrayRemoveAtPath + "array", function (el, param) {
  */
 Array.prototype.removeAt = function(param){
     var paramFunc = zk().getContainer(arrayRemoveAtPath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param) : this;
+};
+
+var arrayRemovePath = "_ENTITY_._PARAMETERS_.array.remove.";
+zk().setContainer(arrayRemovePath+"string", function(el, param){
+    var res = [];
+    zk().toolbox().each(el,function(){
+        if(param !== this.v){ res.push(this.v) }
+    });
+    return res;
+});
+zk().setContainer(arrayRemovePath+"regexp", function(el, param){
+    var res = [];
+    zk().toolbox().each(el,function(){
+        if(!param.test(this.v)){ res.push(this.v) }
+    });
+    return res;
+});
+zk().setContainer(arrayRemovePath + "number", function (el, param) { return ( param < 0 ) ? el.slice(0, param) : el.slice(param); });
+zk().setContainer(arrayRemovePath + "array", function (el, param) {
+    var indexes = [], box = zk().toolbox();
+    box.each(param, function () {
+        indexes = indexes.concat(box.indexes(el, this.v));
+    });
+    return zk().getContainer(arrayRemoveAtPath + "array")(el, indexes);
+});
+/**
+ * Permet de supprimer des valeurs dans le tableau.
+ * @param param (string|regexp|number|array)
+ *      - string : Elément(s) à retirer du tableau.
+ *      - regexp : Expression régulières des éléments qu'on souhaite supprimer du tableau.
+ *      - number : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
+ *      - array : Paramètres multiples (string|regexp|number). Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau.
+ * @returns {Array}
+ */
+Array.prototype.remove = function(param){
+    var paramFunc = zk().getContainer(arrayRemovePath+zk().toolbox().is(param));
     return paramFunc ? paramFunc(this, param) : this;
 };
 

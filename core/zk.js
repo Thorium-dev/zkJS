@@ -258,9 +258,21 @@
          * @returns {number}
          */
         this.index = function(el, param){
-            var paramType = zk().toolbox().is(param);
+            var box = zk().toolbox(), paramType = box.is(param);
             if(paramType !== "regexp"){ paramType = "other" }
-            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+zk().toolbox().is(el)+".index."+paramType);
+            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+box.is(el)+".index."+paramType);
+            return paramFunc ? paramFunc(el, param) : -1;
+        };
+        /**
+         * Permet d'obtenir les index d'une valeur dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie -1.
+         * @param el
+         * @param param
+         * @returns {array}
+         */
+        this.indexes = function(el, param){
+            var box = zk().toolbox(), paramType = box.is(param);
+            if(paramType !== "regexp"){ paramType = "other" }
+            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+box.is(el)+".indexes."+paramType);
             return paramFunc ? paramFunc(el, param) : -1;
         };
         /**
