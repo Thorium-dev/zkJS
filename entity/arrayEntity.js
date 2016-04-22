@@ -526,6 +526,54 @@ Array.prototype.addLast = function(value){
     return zk().getContainer(arrayAddLastPath+"other")(this, value);
 };
 
+var arrayAddBeforePath = "_ENTITY_._PARAMETERS_.array.addBefore.";
+zk().setContainer(arrayAddBeforePath+"other", function(el, index, value){
+    var box = zk().toolbox();
+    if(!box.is(index, "number")){ index = box.index(el, index) }
+    if(index > -1 ){
+        if(!box.is(value, "array")){ value = [value] }
+        return doSlice(el, index, index, value)
+    }
+    return el;
+});
+/**
+ * Permet d'ajouter des éléments (value) avant index
+ * @param index (int|other)
+ *      - int : Entier qui indique l'index. Pas de nombre négatifs.
+ *      - other : N'importe quel objet qui se trouve dans le tableau.
+ * @param value (other)
+ *      - other : Une valeur quelconque.
+ * @returns {*}
+ */
+Array.prototype.addBefore = function(index, value){
+    if(value===undefined){ return this }
+    return zk().getContainer(arrayAddBeforePath+"other")(this, index, value);
+};
+
+var arrayAddAfterPath = "_ENTITY_._PARAMETERS_.array.addAfter.";
+zk().setContainer(arrayAddAfterPath+"other", function(el, index, value){
+    var box = zk().toolbox();
+    if(!box.is(index, "number")){ index = box.index(el, index) }
+    if(index > -1 ){
+        if(!box.is(value, "array")){ value = [value] }
+        return doSlice(el, index + 1, index + 1, value)
+    }
+    return el;
+});
+/**
+ * Permet d'ajouter des éléments (value) après index
+ * @param index (int|other)
+ *      - int : Entier qui indique l'index. Pas de nombre négatifs.
+ *      - other : N'importe quel objet qui se trouve dans le tableau.
+ * @param value (other)
+ *      - other : Une valeur quelconque.
+ * @returns {*}
+ */
+Array.prototype.addAfter = function(index, value){
+    if(value===undefined){ return this }
+    return zk().getContainer(arrayAddAfterPath+"other")(this, index, value);
+};
+
 
 /**
  * ========================================= LES METHODES AVEC UPPER ===========================================
