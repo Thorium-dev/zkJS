@@ -274,7 +274,7 @@ var arrayRemoveFirstPath = "_ENTITY_._PARAMETERS_.array.removeFirst.";
 zk().setContainer(arrayRemoveFirstPath+"number", function (el, param) {
     return (param < 1) ? el : el.slice(param)
 });
-zk().setContainer(arrayRemoveFirstPath+"string", function(el, param){
+zk().setContainer(arrayRemoveFirstPath+"other", function(el, param){
     var i, k = el.length;
     for (i = 0; i < k; i++) {
         if (el[i] == param) { el.splice(i, 1); return el }
@@ -290,15 +290,17 @@ zk().setContainer(arrayRemoveFirstPath+"regexp", function(el, param){
 });
 /**
  * Permet de supprimer les premiers éléments du tableau.
- * @param param (number|string|regexp)
+ * @param param (number|other|regexp)
  *      - number : Nombre de premiers éléments à supprimer.
- *      - string : Le premier élément à supprimer. La fonction fait une égalité stricte.
+ *      - other : Le premier élément à supprimer. La fonction fait une égalité stricte.
  *      - regexp : Expression régulière de l'élément à supprimer.
  * @returns {Array}
  */
 Array.prototype.removeFirst = function(param){
     if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(arrayRemoveFirstPath+zk().toolbox().is(param));
+    var paramType = zk().toolbox().is(param);
+    if(!/number|regexp/.test(paramType)){ paramType = "other" }
+    var paramFunc = zk().getContainer(arrayRemoveFirstPath+paramType);
     return paramFunc ? paramFunc(this, param) : this;
 };
 
@@ -315,7 +317,7 @@ var arrayRemoveLastPath = "_ENTITY_._PARAMETERS_.array.removeLast.";
 zk().setContainer(arrayRemoveLastPath + "number", function (el, param) {
     return (param < 1) ? this : el.slice(0, -param);
 });
-zk().setContainer(arrayRemoveLastPath+"string", function(el, param){
+zk().setContainer(arrayRemoveLastPath+"other", function(el, param){
     var i, k = el.length;
     for (i = k - 1; i > -1; i--) {
         if (el[i] == param) { el.splice(i, 1); return el }
@@ -331,15 +333,17 @@ zk().setContainer(arrayRemoveLastPath+"regexp", function(el, param){
 });
 /**
  * Permet de supprimer les derniers éléments du tableau.
- * @param param (number|string|regexp)
+ * @param param (number|other|regexp)
  *      - number : Nombre de derniers éléments à supprimer.
- *      - string : Le dernier élément à supprimer. La fonction fait une égalité stricte.
+ *      - other : Le dernier élément à supprimer. La fonction fait une égalité stricte.
  *      - regexp : Expression régulière de l'élément à supprimer.
  * @returns {Array}
  */
 Array.prototype.removeLast = function(param){
     if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(arrayRemoveLastPath+zk().toolbox().is(param));
+    var paramType = zk().toolbox().is(param);
+    if(!/number|regexp/.test(paramType)){ paramType = "other" }
+    var paramFunc = zk().getContainer(arrayRemoveLastPath+paramType);
     return paramFunc ? paramFunc(this, param) : this;
 };
 
@@ -430,7 +434,7 @@ Array.prototype.removeAt = function(param){
 };
 
 var arrayRemovePath = "_ENTITY_._PARAMETERS_.array.remove.";
-zk().setContainer(arrayRemovePath+"string", function(el, param){
+zk().setContainer(arrayRemovePath+"other", function(el, param){
     var res = [];
     zk().toolbox().each(el,function(){
         if(param !== this.v){ res.push(this.v) }
@@ -454,15 +458,17 @@ zk().setContainer(arrayRemovePath + "array", function (el, param) {
 });
 /**
  * Permet de supprimer des valeurs dans le tableau.
- * @param param (string|regexp|number|array)
- *      - string : Elément(s) à retirer du tableau.
+ * @param param (other|regexp|number|array)
+ *      - other : Elément(s) à retirer du tableau. On fait une égalité stricte.
  *      - regexp : Expression régulières des éléments qu'on souhaite supprimer du tableau.
  *      - number : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
  *      - array : Paramètres multiples (string|regexp|number). Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau.
  * @returns {Array}
  */
 Array.prototype.remove = function(param){
-    var paramFunc = zk().getContainer(arrayRemovePath+zk().toolbox().is(param));
+    var paramType = zk().toolbox().is(param);
+    if(!/regexp|number|array/.test(paramType)){ paramType = "other" }
+    var paramFunc = zk().getContainer(arrayRemovePath+paramType);
     return paramFunc ? paramFunc(this, param) : this;
 };
 
