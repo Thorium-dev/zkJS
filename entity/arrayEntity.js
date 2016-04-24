@@ -65,7 +65,6 @@ Array.prototype.count = function(param){ return zk().toolbox().count(this, param
 
 Array.prototype.has = function(param){ return zk().toolbox().has(this, param) };
 
-
 /**
  * ========================================= LES METHODES AVEC GET =============================================
  */
@@ -264,8 +263,6 @@ Array.prototype.get = function(param){
     var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_.array.get."+zk().toolbox().is(param));
     return paramFunc ? paramFunc(this, param) : [];
 };
-
-
 
 /**
  * ========================================= LES METHODES AVEC REMOVE =============================================
@@ -469,9 +466,6 @@ Array.prototype.remove = function(param){
     return paramFunc ? paramFunc(this, param) : this;
 };
 
-
-
-
 /**
  * ========================================= LES METHODES AVEC ADD =============================================
  */
@@ -574,7 +568,7 @@ Array.prototype.addAfter = function(index, value){
     return zk().getContainer(arrayAddAfterPath+"other")(this, index, value);
 };
 
-// Between
+// addBetween n'existe pas
 
 var arrayAddAtPath = "_ENTITY_._PARAMETERS_.array.addAt.";
 zk().setContainer(arrayAddAtPath + "array", function (el, indexes, value) {
@@ -621,4 +615,3 @@ Array.prototype.add = function(value){
 /**
  * ========================================= LES METHODES AVEC LOWER ============================================
  */
-
