@@ -604,6 +604,11 @@ Array.prototype.addAt = function(indexes, value){
     return zk().getContainer(arrayAddAtPath+"array")(this, indexes, value);
 };
 
+Array.prototype.add = function(value){
+    if(value===undefined){ return this }
+    return zk().getContainer(arrayAddLastPath+"other")(this, value);
+};
+
 
 
 /**
