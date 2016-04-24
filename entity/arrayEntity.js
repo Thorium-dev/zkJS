@@ -574,6 +574,37 @@ Array.prototype.addAfter = function(index, value){
     return zk().getContainer(arrayAddAfterPath+"other")(this, index, value);
 };
 
+// Between
+
+var arrayAddAtPath = "_ENTITY_._PARAMETERS_.array.addAt.";
+zk().setContainer(arrayAddAtPath + "array", function (el, indexes, value) {
+    var box = zk().toolbox();
+    if(!box.is(indexes, "array")){ indexes = [indexes] }
+    indexes = box.removeDuplicate(indexes, true);
+    if(box.is(value, "array")){ value = value[0] }
+    if(!box.is(value, "array")){ value = [value] }
+    box.each(indexes, function () {
+        el = zk().getContainer(arrayAddBeforePath+"other")(el, this.v, value);
+    });
+    return el;
+});
+
+/**
+ * Permet d'ajouter des valeurs à des positions spécifiques.
+ * @param indexes (int|array)
+ *      - int : Un index.
+ *      - array : Tableau des index.
+ * @param value (array|other)
+ *      - array : Si un tableau est indiqué, seul la première valuer est prise en compte.
+ *      - other : Une valeur quelconque.
+ * @returns {*}
+ */
+Array.prototype.addAt = function(indexes, value){
+    if(value===undefined){ return this }
+    return zk().getContainer(arrayAddAtPath+"array")(this, indexes, value);
+};
+
+
 
 /**
  * ========================================= LES METHODES AVEC UPPER ===========================================
