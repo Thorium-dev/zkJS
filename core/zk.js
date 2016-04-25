@@ -1,6 +1,9 @@
 (function ($W) {
     'use strict';
 
+
+    var THIS = this, ZKID = parseInt(Math.random() * 100000000000);
+
     var APP = {
         // Raccourcis vers _ENTITY_
         "register": function (entityFunc, methods, parameters) {

@@ -615,9 +615,138 @@ Array.prototype.add = function(value){
  * ========================================= LES METHODES AVEC UPPER ===========================================
  */
 
+var arrayUpperFirstPath = "_ENTITY_._PARAMETERS_.array.upperFirst.";
+zk().setContainer(arrayUpperFirstPath+"number", function (el, param, lower) {
+    if(param < 1 ){ return el }
+    var l = el.length;
+    if( param > l ){ param = l }
+    for(var i = 0; i < param; i++){
+        if(zk().toolbox().is(el[i], "string")){
+            el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+        }
+    }
+    return el
+});
+zk().setContainer(arrayUpperFirstPath+"string", function(el, param, lower){
+    var i, k = el.length;
+    for (i = 0; i < k; i++) {
+        if (el[i] == param) {
+            if(zk().toolbox().is(el[i], "string")){
+                el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+                return el
+            }
+        }
+    }
+    return el;
+});
+zk().setContainer(arrayUpperFirstPath+"regexp", function(el, param, lower){
+    var i, k = el.length;
+    for (i = 0; i < k; i++) {
+        if (param.test(el[i])) {
+            if(zk().toolbox().is(el[i], "string")){
+                el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+                return el
+            }
+        }
+    }
+    return el;
+});
+/**
+ * Permet de mettre en majuscule des chaînes de caractères correspondant à param.
+ * @param param (number|string|regexp)
+ *      - number : Les premiers éléments du tableau.
+ *      - string : La première chaîne de caractères du tableau qui est égale à cette valeur.
+ *      - regexp : La première chaîne de caractères du tableau correspondant à l'expression régulière.
+ * @returns {Array}
+ */
+Array.prototype.upperFirst = function(param){
+    if(param===undefined){param=1}
+    var paramFunc = zk().getContainer(arrayUpperFirstPath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param) : this;
+};
 
+var arrayUpperLastPath = "_ENTITY_._PARAMETERS_.array.upperLast.";
+zk().setContainer(arrayUpperLastPath+"number", function (el, param, lower) {
+    if(param < 1 ){ return el }
+    var l = el.length;
+    if( param > l ){ param = l }
+    for(var i = l-param; i < l; i++){
+        if(zk().toolbox().is(el[i], "string")){
+            el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+        }
+    }
+    return el
+});
+zk().setContainer(arrayUpperLastPath+"string", function(el, param, lower){
+    var i, k = el.length;
+    for (i = k - 1; i > -1; i--) {
+        if (el[i] == param) {
+            if(zk().toolbox().is(el[i], "string")){
+                el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+                return el
+            }
+        }
+    }
+    return el;
+});
+zk().setContainer(arrayUpperLastPath+"regexp", function(el, param, lower){
+    var i, k = el.length;
+    for (i = k - 1; i > -1; i--) {
+        if (param.test(el[i])) {
+            if(zk().toolbox().is(el[i], "string")){
+                el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+                return el
+            }
+        }
+    }
+    return el;
+});
+/**
+ * Permet de mettre en majuscule des chaînes de caractères correspondant à param.
+ * @param param (number|string|regexp)
+ *      - number : Les derniers éléments du tableau.
+ *      - string : La dernière chaîne de caractères du tableau qui est égale à cette valeur.
+ *      - regexp : La dernière chaîne de caractères du tableau correspondant à l'expression régulière.
+ * @returns {Array}
+ */
+Array.prototype.upperLast = function(param){
+    if(param===undefined){param=1}
+    var paramFunc = zk().getContainer(arrayUpperLastPath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param) : this;
+};
+
+function upperLowerTab(tab, UL) {
+    var box = zk().toolbox();
+    return box.each(tab, function(){
+        var v = this.v;
+        if(box.is(v, 'string')){ v = v['to' + UL + 'Case']() }
+        return v;
+    }) ;
+}
+Array.prototype.upperMiddle = function(){
+    var el = this, l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
+    return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Upper"));
+};
 
 
 /**
  * ========================================= LES METHODES AVEC LOWER ============================================
  */
+
+
+Array.prototype.lowerFirst = function(param){
+    if(param===undefined){param=1}
+    var paramFunc = zk().getContainer(arrayUpperFirstPath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param, true) : this;
+};
+
+Array.prototype.lowerLast = function(param){
+    if(param===undefined){param=1}
+    var paramFunc = zk().getContainer(arrayUpperLastPath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param, true) : this;
+};
+
+Array.prototype.lowerMiddle = function(){
+    var el = this, l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
+    return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Lower"));
+};
