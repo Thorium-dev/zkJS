@@ -610,41 +610,40 @@ Array.prototype.add = function(value){
 };
 
 
-
 /**
  * ========================================= LES METHODES AVEC UPPER ===========================================
  */
 
 var arrayUpperFirstPath = "_ENTITY_._PARAMETERS_.array.upperFirst.";
-zk().setContainer(arrayUpperFirstPath+"number", function (el, param, lower) {
+zk().setContainer(arrayUpperFirstPath+"number", function (el, param, upperLower) {
     if(param < 1 ){ return el }
     var l = el.length;
     if( param > l ){ param = l }
     for(var i = 0; i < param; i++){
         if(zk().toolbox().is(el[i], "string")){
-            el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+            el[i] = el[i]["to"+upperLower+"Case"]();
         }
     }
     return el
 });
-zk().setContainer(arrayUpperFirstPath+"string", function(el, param, lower){
+zk().setContainer(arrayUpperFirstPath+"string", function(el, param, upperLower){
     var i, k = el.length;
     for (i = 0; i < k; i++) {
         if (el[i] == param) {
             if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+                el[i] = el[i]["to"+upperLower+"Case"]();
                 return el
             }
         }
     }
     return el;
 });
-zk().setContainer(arrayUpperFirstPath+"regexp", function(el, param, lower){
+zk().setContainer(arrayUpperFirstPath+"regexp", function(el, param, upperLower){
     var i, k = el.length;
     for (i = 0; i < k; i++) {
         if (param.test(el[i])) {
             if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+                el[i] = el[i]["to"+upperLower+"Case"]();
                 return el
             }
         }
@@ -662,39 +661,39 @@ zk().setContainer(arrayUpperFirstPath+"regexp", function(el, param, lower){
 Array.prototype.upperFirst = function(param){
     if(param===undefined){param=1}
     var paramFunc = zk().getContainer(arrayUpperFirstPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : this;
+    return paramFunc ? paramFunc(this, param, "Upper") : this;
 };
 
 var arrayUpperLastPath = "_ENTITY_._PARAMETERS_.array.upperLast.";
-zk().setContainer(arrayUpperLastPath+"number", function (el, param, lower) {
+zk().setContainer(arrayUpperLastPath+"number", function (el, param, upperLower) {
     if(param < 1 ){ return el }
     var l = el.length;
     if( param > l ){ param = l }
     for(var i = l-param; i < l; i++){
         if(zk().toolbox().is(el[i], "string")){
-            el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+            el[i] = el[i]["to"+upperLower+"Case"]();
         }
     }
     return el
 });
-zk().setContainer(arrayUpperLastPath+"string", function(el, param, lower){
+zk().setContainer(arrayUpperLastPath+"string", function(el, param, upperLower){
     var i, k = el.length;
     for (i = k - 1; i > -1; i--) {
         if (el[i] == param) {
             if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+                el[i] = el[i]["to"+upperLower+"Case"]();
                 return el
             }
         }
     }
     return el;
 });
-zk().setContainer(arrayUpperLastPath+"regexp", function(el, param, lower){
+zk().setContainer(arrayUpperLastPath+"regexp", function(el, param, upperLower){
     var i, k = el.length;
     for (i = k - 1; i > -1; i--) {
         if (param.test(el[i])) {
             if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+((lower)?"Lower":"Upper")+"Case"]();
+                el[i] = el[i]["to"+upperLower+"Case"]();
                 return el
             }
         }
@@ -712,14 +711,14 @@ zk().setContainer(arrayUpperLastPath+"regexp", function(el, param, lower){
 Array.prototype.upperLast = function(param){
     if(param===undefined){param=1}
     var paramFunc = zk().getContainer(arrayUpperLastPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : this;
+    return paramFunc ? paramFunc(this, param, "Upper") : this;
 };
 
-function upperLowerTab(tab, UL) {
+function upperLowerTab(tab, upperLower) {
     var box = zk().toolbox();
     return box.each(tab, function(){
         var v = this.v;
-        if(box.is(v, 'string')){ v = v['to' + UL + 'Case']() }
+        if(box.is(v, 'string')){ v = v['to' + upperLower + 'Case']() }
         return v;
     }) ;
 }
@@ -728,25 +727,80 @@ Array.prototype.upperMiddle = function(){
     return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Upper"));
 };
 
+var arrayUpperBeforePath = "_ENTITY_._PARAMETERS_.array.upperBefore.";
+zk().setContainer(arrayUpperBeforePath+"other", function(el, param, upperLower){
+    var box = zk().toolbox(), k = el.length;
+    if(!box.is(param, "number")){ param = box.index(el, param) }
+    if (param > -1) {
+        if(param >= k){ param = k }
+        for (var i = 0; i < param; i++){
+            if(box.is(el[i], "string")){
+                el[i] = el[i]["to"+upperLower+"Case"]();
+            }
+        }
+    }
+    return el;
+});
+/**
+ * Permet de mettre en majuscule les éléments qui se situent avant param dans le tableau.
+ * @param param (number|other)
+ *      - number : Index du tableau.
+ *      - other : Objet quelconque qui se trouve dans le tableau.
+ * @returns {Array}
+ */
+Array.prototype.upperBefore = function(param){
+    return zk().getContainer(arrayUpperBeforePath+"other")(this, param, "Upper");
+};
+
+var arrayUpperAfterPath = "_ENTITY_._PARAMETERS_.array.upperAfter.";
+zk().setContainer(arrayUpperAfterPath+"other", function(el, param, upperLower){
+    var box = zk().toolbox(), k = el.length;
+    if(!box.is(param, "number")){ param = box.index(el, param) }
+    if (param > -1 && param < k) {
+        for (var i = param + 1; i < k; i++){
+            if(box.is(el[i], "string")){
+                el[i] = el[i]["to"+upperLower+"Case"]();
+            }
+        }
+    }
+    return el;
+});
+/**
+ * Permet de mettre en majuscule les éléments qui se situent après param dans le tableau.
+ * @param param (number|other)
+ *      - number : Index du tableau.
+ *      - other : Objet quelconque qui se trouve dans le tableau.
+ * @returns {Array}
+ */
+Array.prototype.upperAfter = function(param){
+    return zk().getContainer(arrayUpperAfterPath+"other")(this, param, "Upper");
+};
 
 /**
  * ========================================= LES METHODES AVEC LOWER ============================================
  */
 
-
 Array.prototype.lowerFirst = function(param){
     if(param===undefined){param=1}
     var paramFunc = zk().getContainer(arrayUpperFirstPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param, true) : this;
+    return paramFunc ? paramFunc(this, param, "Lower") : this;
 };
 
 Array.prototype.lowerLast = function(param){
     if(param===undefined){param=1}
     var paramFunc = zk().getContainer(arrayUpperLastPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param, true) : this;
+    return paramFunc ? paramFunc(this, param, "Lower") : this;
 };
 
 Array.prototype.lowerMiddle = function(){
     var el = this, l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
     return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Lower"));
+};
+
+Array.prototype.lowerBefore = function(param){
+    return zk().getContainer(arrayUpperBeforePath+"other")(this, param, "Lower");
+};
+
+Array.prototype.lowerAfter = function(param){
+    return zk().getContainer(arrayUpperAfterPath+"other")(this, param, "Lower");
 };
