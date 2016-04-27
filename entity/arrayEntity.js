@@ -1,69 +1,69 @@
 Array.prototype.each = function(func, args){ return zk().toolbox().each(this, func, args) };
 
 var arrayIndexPath = "_ENTITY_._PARAMETERS_.array.index.";
-zk().setContainer(arrayIndexPath+"other", function(el, param){
+zk().setContainer(arrayIndexPath+"other", function(el, value){
     var k = el.length;
     for(var i=0; i < k; i++){
-        if(el[i] === param){
+        if(el[i] === value){
             return i;
         }
     }
     return -1;
 });
-zk().setContainer(arrayIndexPath+"regexp", function(el, param){
+zk().setContainer(arrayIndexPath+"regexp", function(el, value){
     var k = el.length;
     for(var i = 0; i < k ; i++){
-        if(param.test(el[i])){
+        if(zk().toolbox().is(el[i], 'string') && value.test(el[i])){
             return i;
         }
     }
     return -1;
 });
-Array.prototype.index = function(param){ return zk().toolbox().index(this, param) };
+Array.prototype.index = function(value){ return zk().toolbox().index(this, value) };
 
 var arrayIndexesPath = "_ENTITY_._PARAMETERS_.array.indexes.";
-zk().setContainer(arrayIndexesPath+"other", function(el, param){
+zk().setContainer(arrayIndexesPath+"other", function(el, value){
     var k = el.length, indexes = [];
     for(var i=0; i < k; i++){
-        if(el[i] === param){
+        if(el[i] === value){
             indexes.push(i);
         }
     }
     return indexes;
 });
-zk().setContainer(arrayIndexesPath+"regexp", function(el, param){
+zk().setContainer(arrayIndexesPath+"regexp", function(el, value){
     var k = el.length, indexes = [];
     for(var i = 0; i < k ; i++){
-        if(param.test(el[i])){
+        if(zk().toolbox().is(el[i], 'string') && value.test(el[i])){
             indexes.push(i);
         }
     }
     return indexes;
 });
-Array.prototype.indexes = function(param){ return zk().toolbox().indexes(this, param) };
+Array.prototype.indexes = function(value){ return zk().toolbox().indexes(this, value) };
 
 var arrayCountPath = "_ENTITY_._PARAMETERS_.array.count.";
-zk().setContainer(arrayCountPath+"other", function(el, param){
+zk().setContainer(arrayCountPath+"other", function(el, value){
     var count = 0;
     zk().toolbox().each(el,function(){
-        if(this.v === param){
+        if(this.v === value){
             count++;
         }
     });
     return count;
 });
-zk().setContainer(arrayCountPath+"regexp", function(el, param){
+zk().setContainer(arrayCountPath+"regexp", function(el, value){
     var count = 0;
     zk().toolbox().each(el,function(){
-        if(param.test(this.v)){
+        if(value.test(this.v)){
             count++;
         }
     });
     return count;
 });
-Array.prototype.count = function(param){ return zk().toolbox().count(this, param) };
+Array.prototype.count = function(value){ return zk().toolbox().count(this, value) };
 
-Array.prototype.has = function(param){ return zk().toolbox().has(this, param) };
+Array.prototype.has = function(value){ return zk().toolbox().has(this, value) };
 
 /**
  * ========================================= LES METHODES AVEC GET =============================================
@@ -776,7 +776,35 @@ Array.prototype.upperAfter = function(index){
     return zk().getContainer(arrayUpperAfterPath+"other")(this, index, "Upper");
 };
 
-// upperBetween
+var arrayUpperBetweenPath = "_ENTITY_._PARAMETERS_.array.upperBetween.";
+zk().setContainer(arrayUpperBetweenPath+"array", function(el, indexes, lowerUpper){
+    var box = zk().toolbox(), z, i, k, param;
+    if (!box.is(indexes, 'array')) { indexes = [indexes] }
+    if (indexes.length % 2) { indexes.push(el.length - 1) }
+    k = indexes.length;
+    for (z = 0; z < k; z += 2) {
+        param = [indexes[z], indexes[z+1]];
+        for (i = 0; i < 2; i++){
+            if(!box.is(param[i], "number")){ param[i] = box.index(el, param[i]) }
+            if(param[i] < 0){ param[i] = NaN }
+        }
+        if(box.is(param[0], "number") && box.is(param[1], "number")){
+            param = box.nSort(param);
+            el = doSlice(el, param[0] + 1, param[1], upperLowerTab(el.slice(param[0] + 1, param[1]), lowerUpper));
+        }
+    }
+    return el;
+});
+/**
+ * Met en majuscule une ou plusieurs plages du tableau
+ * @param param (array|int)
+ *      - int : Valeur de début. La taille du tableau est utilisée comme valeur complémentaire.
+ *      - array : Tableau contenant des valeurs quelconques.
+ * @returns {*}
+ */
+Array.prototype.upperBetween = function(param){
+    return zk().getContainer(arrayUpperBetweenPath+"array")(this, param, 'Upper');
+};
 
 var arrayUpperAtPath = "_ENTITY_._PARAMETERS_.array.upperAt.";
 zk().setContainer(arrayUpperAtPath + "number", function (el, index, upperLower) { return zk().getContainer(arrayUpperAtPath + "array")(el, [index], upperLower) });
@@ -875,6 +903,10 @@ Array.prototype.lowerAfter = function(index){
     return zk().getContainer(arrayUpperAfterPath+"other")(this, index, "Lower");
 };
 
+Array.prototype.lowerBetween = function(indexes){
+    return zk().getContainer(arrayUpperBetweenPath+"array")(this, indexes, 'lower');
+};
+
 Array.prototype.lowerAt = function(indexes){
     var paramFunc = zk().getContainer(arrayUpperAtPath+zk().toolbox().is(indexes));
     return paramFunc ? paramFunc(this, indexes, 'Lower') : this;
@@ -884,3 +916,4 @@ Array.prototype.lower = function(param){
     var paramFunc = zk().getContainer(arrayUpperPath+zk().toolbox().is(param));
     return paramFunc ? paramFunc(this, param, 'Lower') : this;
 };
+
