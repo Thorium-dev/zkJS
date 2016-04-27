@@ -21,11 +21,11 @@
 <!--<script src="entity/nodeEntity.js"></script>-->
 <script>
 
-    var tab = [document.querySelector("ul"),"a1","a2","a3","a4",true,"b6", 4, "b8","b9", 9];
+    var tab = [document.querySelector("ul"),"a1","a2","a3","a4",true,"b6", 4, "b8","b9", 9, 'b6'];
     var tab1 = [document.querySelector("ul"),"A1","A2","A3","A4",true,"B6", 4, "B8","B9", 9];
     var tab2 = [2, 1, "TEST", "coucou", 2, 4, "oui"];
 
-//    console.log(tab2.lowerAt([3, 6, 5, 2]));
+    console.log(tab1.lower(['a2', /b/i]));
 
 </script>
 

@@ -776,6 +776,8 @@ Array.prototype.upperAfter = function(index){
     return zk().getContainer(arrayUpperAfterPath+"other")(this, index, "Upper");
 };
 
+// upperBetween
+
 var arrayUpperAtPath = "_ENTITY_._PARAMETERS_.array.upperAt.";
 zk().setContainer(arrayUpperAtPath + "number", function (el, index, upperLower) { return zk().getContainer(arrayUpperAtPath + "array")(el, [index], upperLower) });
 zk().setContainer(arrayUpperAtPath + "array", function (el, indexes, upperLower) {
@@ -801,6 +803,47 @@ zk().setContainer(arrayUpperAtPath + "array", function (el, indexes, upperLower)
 Array.prototype.upperAt = function(indexes){
     var paramFunc = zk().getContainer(arrayUpperAtPath+zk().toolbox().is(indexes));
     return paramFunc ? paramFunc(this, indexes, 'Upper') : this;
+};
+
+var arrayUpperPath = "_ENTITY_._PARAMETERS_.array.upper.";
+zk().setContainer(arrayUpperPath+"string", function(el, param, upperLower){
+    return zk().toolbox().each(el,function(){
+        if(this.v === param){
+            return this.v["to"+upperLower+"Case"]()
+        }
+    });
+});
+zk().setContainer(arrayUpperPath+"regexp", function(el, param, upperLower){
+    var box = zk().toolbox();
+    return box.each(el,function(){
+        if(param.test(this.v) && box.is(this.v, 'string')){
+            return this.v["to"+upperLower+"Case"]()
+        }
+    });
+});
+zk().setContainer(arrayUpperPath + "number", function (el, param, upperLower) {
+    var path = (param < 0 ) ? arrayUpperLastPath : arrayUpperFirstPath;
+    return zk().getContainer(path+'number')(el, Math.abs(param), upperLower);
+});
+zk().setContainer(arrayUpperPath + "array", function (el, param, upperLower) {
+    var indexes = [], box = zk().toolbox();
+    box.each(param, function () {
+        indexes = indexes.concat(box.indexes(el, this.v));
+    });
+    return zk().getContainer(arrayUpperAtPath + "array")(el, indexes, upperLower);
+});
+/**
+ * Permet de mettre en majuscule des valeurs dans le tableau.
+ * @param param (string|regexp|number|array)
+ *      - string : Elément(s) à mettre en majuscule dans le tableau. On fait une égalité stricte.
+ *      - regexp : Expression régulières des éléments qu'on souhaite mettre en majuscule dans le tableau.
+ *      - number : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
+ *      - array : Paramètres multiples (string|regexp|number). Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau.
+ * @returns {Array}
+ */
+Array.prototype.upper = function(param){
+    var paramFunc = zk().getContainer(arrayUpperPath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param, 'Upper') : this;
 };
 
 /**
@@ -835,4 +878,9 @@ Array.prototype.lowerAfter = function(index){
 Array.prototype.lowerAt = function(indexes){
     var paramFunc = zk().getContainer(arrayUpperAtPath+zk().toolbox().is(indexes));
     return paramFunc ? paramFunc(this, indexes, 'Lower') : this;
+};
+
+Array.prototype.lower = function(param){
+    var paramFunc = zk().getContainer(arrayUpperPath+zk().toolbox().is(param));
+    return paramFunc ? paramFunc(this, param, 'Lower') : this;
 };
