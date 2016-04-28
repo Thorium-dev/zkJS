@@ -611,6 +611,38 @@ Array.prototype.add = function(value){
 
 
 /**
+ * ========================================= LES METHODES AVEC CHANGE ===========================================
+ */
+
+var arrayChangeFirstPath = "_ENTITY_._PARAMETERS_.array.changeFirst.";
+zk().setContainer(arrayChangeFirstPath+"number", function (el, oldValue, newValue) {
+    if(oldValue > 0){
+        el = zk().getContainer(arrayAddFirstPath+"other")(el.slice(oldValue), newValue);
+    }
+    return el;
+});
+zk().setContainer(arrayChangeFirstPath+"other", function(el, oldValue, newValue){
+    var box = zk().toolbox(), index = box.index(el, oldValue);
+    if(index > -1){ el[index] = newValue }
+    return el;
+});
+/**
+ * Permet de modifier les premiers éléments du tableau.
+ * @param oldValue (number|other)
+ *      - number : Nombre de premiers éléments à modifier.
+ *      - regexp : Expression régulière de l'élément à modifier.
+ * @returns {Array}
+ */
+Array.prototype.changeFirst = function(oldValue, newValue){
+    if(oldValue===undefined){oldValue=1}
+    if(newValue===undefined){newValue=[]}
+    var oldValueType = zk().toolbox().is(oldValue);
+    if(!/number/.test(oldValueType)){ oldValueType = "other" }
+    var paramFunc = zk().getContainer(arrayChangeFirstPath+oldValueType);
+    return paramFunc ? paramFunc(this, oldValue, newValue) : this;
+};
+
+/**
  * ========================================= LES METHODES AVEC UPPER ===========================================
  */
 
