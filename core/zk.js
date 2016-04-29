@@ -306,6 +306,24 @@
 
         };
 
+        /**
+         * Permet d'obtenir les premiers éléments d'un tableau.
+         *
+         *@param el (string|array)
+         * @param param (number|string|regexp)
+         *      - Si param n'est pas indiqué, elle retourne le premier élément du tableau.
+         *      - number : Elle retourne les param premiers éléments du tableau. Les nombres négatifs sont convertis en valeurs absolus.
+         *      - string : L'argument param est converti en regexp.
+         *      - regexp : Elle retourne le premier élément du tableau qui correspond à l'expression régulière.
+         * @returns {Array}
+         */
+        this.getFirst = function(el, param){
+            var elType = self.is(el), path = (elType === 'string') ? '' : arrayGetFirstPath;
+            if(param===undefined){param=1}
+            var paramFunc = zk().getContainer(path+self.is(param));
+            return paramFunc ? paramFunc(el, param) : ((elType === 'string') ? '' : [] );
+        };
+
     }
 
     APP._TOOLBOX_ = new _TOOLBOX_();

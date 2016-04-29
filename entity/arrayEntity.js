@@ -81,20 +81,7 @@ zk().setContainer(arrayGetFirstPath+"regexp", function(el, param){
     }
     return [];
 });
-/**
- * Permet d'obtenir les premiers éléments d'un tableau
- * @param param (number|string|regexp)
- *      - Si param n'est pas indiqué, elle retourne le premier élément du tableau.
- *      - number : Elle retourne les param premiers éléments du tableau. Les nombres négatifs sont convertis en valeurs absolus.
- *      - string : L'argument param est converti en regexp.
- *      - regexp : Elle retourne le premier élément du tableau qui correspond à l'expression régulière.
- * @returns {Array}
- */
-Array.prototype.getFirst = function(param){
-    if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(arrayGetFirstPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : [];
-};
+Array.prototype.getFirst = function(param){ return zk().toolbox().getFirst(this, param) };
 
 /**
  * Permet d'obtenir le ou les éléments qui se trouvent au milieu du tableau.
@@ -642,6 +629,8 @@ Array.prototype.changeFirst = function(oldValue, newValue){
     var paramFunc = zk().getContainer(arrayChangeFirstPath+oldValueType);
     return paramFunc ? paramFunc(this, oldValue, newValue) : this;
 };
+
+// changeMiddle
 
 var arrayChangeLastPath = "_ENTITY_._PARAMETERS_.array.changeLast.";
 zk().setContainer(arrayChangeLastPath+"number", function (el, oldValue, newValue) {
