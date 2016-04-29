@@ -276,7 +276,7 @@
             var box = zk().toolbox(), paramType = box.is(param);
             if(paramType !== "regexp"){ paramType = "other" }
             var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+box.is(el)+".indexes."+paramType);
-            return paramFunc ? paramFunc(el, param) : -1;
+            return paramFunc ? paramFunc(el, param) : [];
         };
         /**
          * Permet de compter le nombre de fois q'une valeur existe dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie 0.

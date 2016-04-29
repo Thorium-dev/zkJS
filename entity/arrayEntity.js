@@ -627,18 +627,48 @@ zk().setContainer(arrayChangeFirstPath+"other", function(el, oldValue, newValue)
     return el;
 });
 /**
- * Permet de modifier les premiers éléments du tableau.
+ * Permet de changer les premiers éléments.
  * @param oldValue (number|other)
- *      - number : Nombre de premiers éléments à modifier.
- *      - regexp : Expression régulière de l'élément à modifier.
+ *      - number : Les premiers du tableau.
+ *      - other : N'importe quel objet qui se trouve dans le tableau.
+ * @param newValue
  * @returns {Array}
  */
 Array.prototype.changeFirst = function(oldValue, newValue){
+    if(newValue===undefined){ return this }
     if(oldValue===undefined){oldValue=1}
-    if(newValue===undefined){newValue=[]}
     var oldValueType = zk().toolbox().is(oldValue);
     if(!/number/.test(oldValueType)){ oldValueType = "other" }
     var paramFunc = zk().getContainer(arrayChangeFirstPath+oldValueType);
+    return paramFunc ? paramFunc(this, oldValue, newValue) : this;
+};
+
+var arrayChangeLastPath = "_ENTITY_._PARAMETERS_.array.changeLast.";
+zk().setContainer(arrayChangeLastPath+"number", function (el, oldValue, newValue) {
+    if(oldValue > 0){
+        el = zk().getContainer(arrayAddLastPath+"other")(el.slice(0, -oldValue), newValue);
+    }
+    return el;
+});
+zk().setContainer(arrayChangeLastPath+"other", function(el, oldValue, newValue){
+    var box = zk().toolbox(), indexes = box.indexes(el, oldValue), index = indexes[indexes.length-1];
+    if(index){ el[index] = newValue }
+    return el;
+});
+/**
+ * Permet de changer les derniers éléments.
+ * @param oldValue (number|other)
+ *      - number : Les derniers du tableau.
+ *      - other : N'importe quel objet qui se trouve dans le tableau.
+ * @param newValue
+ * @returns {Array}
+ */
+Array.prototype.changeLast = function(oldValue, newValue){
+    if(newValue===undefined){ return this }
+    if(oldValue===undefined){oldValue=1}
+    var oldValueType = zk().toolbox().is(oldValue);
+    if(!/number/.test(oldValueType)){ oldValueType = "other" }
+    var paramFunc = zk().getContainer(arrayChangeLastPath+oldValueType);
     return paramFunc ? paramFunc(this, oldValue, newValue) : this;
 };
 
