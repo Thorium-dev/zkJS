@@ -323,6 +323,14 @@
             var paramFunc = zk().getContainer(path+self.is(param));
             return paramFunc ? paramFunc(el, param) : ((elType === 'string') ? '' : [] );
         };
+        /**
+         * Permet d'obtenir le ou les éléments qui se trouvent au milieu du tableau.
+         * @returns {Array.<*>}
+         */
+        this.getMiddle = function(el){
+            var l = el.length, n = parseInt(l / 2);
+            return (l % 2) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1)
+        };
 
     }
 

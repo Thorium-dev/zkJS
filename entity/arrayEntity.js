@@ -88,8 +88,7 @@ Array.prototype.getFirst = function(param){ return zk().toolbox().getFirst(this,
  * @returns {Array.<*>}
  */
 Array.prototype.getMiddle = function(){
-    var l = this.length, n = parseInt(l / 2);
-    return (l % 2) ? this.slice(n, n + 1) : this.slice(n - 1, n + 1)
+    return zk().toolbox().getMiddle(this)
 };
 
 var arrayGetLastPath = "_ENTITY_._PARAMETERS_.array.getLast.";
