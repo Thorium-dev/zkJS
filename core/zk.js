@@ -84,6 +84,7 @@
 
     function _TOOLBOX_() {
         var self = this;
+        
         this.is = function (el, type) {
             if (el === null) {
                 return null
@@ -290,7 +291,6 @@
             var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+zk().toolbox().is(el)+".count."+paramType);
             return paramFunc ? paramFunc(el, param) : 0;
         };
-
         /**
          * Permet de vérifier si une valeur existe dans un élément (Array, String, Node ...)
          * @param el
@@ -306,17 +306,8 @@
 
         };
 
-        /**
-         * Permet d'obtenir les premiers éléments d'un tableau.
-         *
-         *@param el
-         * @param param (number|string|regexp)
-         *      - Si param n'est pas indiqué, elle retourne le premier élément du tableau.
-         *      - number : Elle retourne les param premiers éléments du tableau. Les nombres négatifs sont convertis en valeurs absolus.
-         *      - string : L'argument param est converti en regexp.
-         *      - regexp : Elle retourne le premier élément du tableau qui correspond à l'expression régulière.
-         * @returns {Array}
-         */
+        // GET
+
         this.getFirst = function(el, param){
             var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
             var path = basePath+"getFirst.";
@@ -324,25 +315,10 @@
             var f = zk().getContainer(path+self.is(param));
             return f ? f(el, param) : zk().getContainer(basePath+"getNotFound")(el, param);
         };
-        /**
-         * Permet d'obtenir le ou les éléments qui se trouvent au milieu du tableau.
-         * @returns {Array.<*>}
-         */
         this.getMiddle = function(el){
             var l = el.length, n = parseInt(l / 2);
             return (l % 2) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1)
         };
-        /**
-         * Permet d'obtenir les derniers éléments d'un tableau
-         *
-         * @param el
-         * @param param (number|string|regexp)
-         *      - Si param n'est pas indiqué, elle retourne le dernier élément du tableau.
-         *      - number : Elle retourne les param derniers éléments du tableau. Les nombres négatifs sont convertis en valeurs absolus.
-         *      - string : L'argument param est converti en regexp.
-         *      - regexp : Elle retourne le dernier élément du tableau qui correspond à l'expression régulière.
-         * @returns {Array}
-         */
         this.getLast = function(el, param){
             var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
             var path = basePath+"getLast.";
@@ -350,73 +326,64 @@
             var f = zk().getContainer(path+self.is(param));
             return f ? f(el, param) : zk().getContainer(basePath+"getNotFound")(el, param);
         };
-        /**
-         * Permet d'obtenir les éléments qui se situent avant param dans le tableau.
-         * @param el
-         * @param param (number|other)
-         *      - number : Index du tableau.
-         *      - other : Objet quelconque qui se trouve dans le tableau.
-         * @returns {Array}
-         */
         this.getBefore = function(el, param){
             return zk().getContainer("_ENTITY_._PARAMETERS_."+self.is(el)+".getBefore.other")(el, param);
         };
-        /**
-         * Permet d'obtenir les éléments qui se situent après param dans le tableau.
-         * @param el
-         * @param param (number|other)
-         *      - number : Index du tableau.
-         *      - other : Objet quelconque qui se trouve dans le tableau.
-         * @returns {Array}
-         */
         this.getAfter = function(el, param){
             return zk().getContainer("_ENTITY_._PARAMETERS_."+self.is(el)+".getAfter.other")(el, param);
         };
-        /**
-         * Permet d'obtenir une ou plusieurs plages dans un tableau.
-         * @param el
-         * @param param
-         *      - Si param n'est pas indiqué, alors il vaut 1.
-         *      - Si ce n'est pas un tableau, il est converti en tableau.
-         *      - Si la taille est impaire, on ajoute la taille du tableau pour le rendre paire.
-         *      - Les valeurs numériques dans param sont les index des plages.
-         *      - Les nombres négatifs ne sont pas pris en compte.
-         * @returns {Array}
-         */
         this.getBetween = function(el, param){
             if(param===undefined){param=1}
             return zk().getContainer("_ENTITY_._PARAMETERS_."+self.is(el)+".getBetween.array")(el, param);
         };
-        /**
-         * Permet d'obtenir des éléments qui se trouvent à des index spécifiés.
-         * @param el
-         * @param param (int|array)
-         *      - int : Index de l'élément qu'on veut obtenir. Pas de nombres négatifs.
-         *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite obtenir.
-         * @returns {Array}
-         */
         this.getAt = function(el, param){
             var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
             var path = basePath+"getAt.";
             var f = zk().getContainer(path+self.is(param));
             return f ? f(el, param) : zk().getContainer(basePath+"getNotFound")(el, param);
         };
-        /**
-         * Permet d'obtenir des valeurs dans le tableau.
-         * @param el
-         * @param param (string|regexp|number|array)
-         *      - string : Conversion en regexp.
-         *      - regexp : Expression régulières des éléments qu'on souhaite obtenir dans le tableau.
-         *      - number : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
-         *      - array : Paramètres multiples (string|regexp|number). Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau.
-         * @returns {Array}
-         */
         this.get = function(el, param){
             var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
             var path = basePath+"get.";
             var f = zk().getContainer(path+self.is(param));
             return f ? f(el, param) : zk().getContainer(basePath+"getNotFound")(el, param);
         };
+
+        // REMOVE
+
+        function rmFirstLast(el, param, firstLast){
+            var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
+            var path = basePath+"remove"+firstLast+".";
+            if(param===undefined){param=1}
+            var f = zk().getContainer(path+self.is(param));
+            return f ? f(el, param) : zk().getContainer(path+"other")(el, param);
+        }
+        this.removeFirst = function(el, param){ return rmFirstLast(el, param, "First") };
+        this.removeMiddle = function(el){
+            var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
+            return el.slice(0, (x == 2) ? n - 1 : n).concat(el.slice(n + x - (x - 1)));
+        };
+        this.removeLast = function(el, param){ return rmFirstLast(el, param, "Last") };
+        function rmBeforeAfter(el, param, what, argType){
+            return zk().getContainer("_ENTITY_._PARAMETERS_." +
+                self.is(el)+".remove"+what+"."+argType)(el, param);
+        }
+        this.removeBefore = function(el, param){ return rmBeforeAfter(el, param, 'Before', 'other') };
+        this.removeAfter = function(el, param){ return rmBeforeAfter(el, param, 'After', 'other') };
+        this.removeBetween = function(el, param){ return rmBeforeAfter(el, param, 'Between', 'array') };
+        this.removeAt = function (el, param) {
+            var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
+            var path = basePath+"removeAt.";
+            var f = zk().getContainer(path+self.is(param));
+            return f ? f(el, param) : zk().getContainer(basePath+"removeNotFound")(el, param);
+        };
+        this.remove = function (el, param) {
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el)+".remove.";
+            var f = zk().getContainer(path+self.is(param));
+            return f ? f(el, param) : zk().getContainer(path+"other")(el, param);
+        };
+
+
 
     }
 
