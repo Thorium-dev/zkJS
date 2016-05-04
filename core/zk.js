@@ -383,7 +383,36 @@
             return f ? f(el, param) : zk().getContainer(path+"other")(el, param);
         };
 
+        // ADD
 
+        function addFirstLast(el, value, firstLast) {
+            if(value===undefined){ return el }
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el)+".add"+firstLast+".other";
+            return zk().getContainer(path)(el, value);
+        }
+        this.addFirst = function (el, value) { return addFirstLast(el, value, "First") };
+        this.addMiddle = function (el, value) {
+            var l = el.length, n = parseInt(l / 2);
+            return doSlice(el, n, n, value);
+        };
+        this.addLast = function (el, value) { return addFirstLast(el, value, "Last") };
+        function addBeforeAfter(el, index, value, beforeAfter) {
+            if(value===undefined){ return el }
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el)+".add"+beforeAfter+".other";
+            return zk().getContainer(path)(el, index, value);
+        }
+        this.addBefore = function (el, index, value) { return addBeforeAfter(el, index, value, "Before") };
+        this.addAfter = function (el, index, value) { return addBeforeAfter(el, index, value, "After") };
+        this.addAt = function (el, index, value) {
+            if(value===undefined){ return el }
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el)+".addAt.array";
+            return zk().getContainer(path)(el, index, value);
+        };
+        this.add = function (el, value) {
+            if(value===undefined){ return el }
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el)+".addLast.other";
+            return zk().getContainer(path)(el, value);
+        };
 
     }
 

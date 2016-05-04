@@ -438,10 +438,21 @@ zk().setContainer(arrayAddFirstPath+"other", function(el, value){
  * @param value
  * @returns {*}
  */
-Array.prototype.addFirst = function(value){
-    if(value===undefined){ return this }
-    return zk().getContainer(arrayAddFirstPath+"other")(this, value);
-};
+Array.prototype.addFirst = function(value){ return zk().toolbox().addFirst(this, value) };
+
+Array.prototype.addMiddle = function(value){ return zk().toolbox().addMiddle(this, value) };
+
+var arrayAddLastPath = "_ENTITY_._PARAMETERS_.array.addLast.";
+zk().setContainer(arrayAddLastPath+"other", function(el, value){
+    if(!zk().toolbox().is(value, "array")){ value = [value] }
+    return el.concat(value);
+});
+/**
+ * Permet d'ajouter des valeurs à la fin du tableau.
+ * @param value
+ * @returns {*}
+ */
+Array.prototype.addLast = function(value){ return zk().toolbox().addLast(this, value) };
 
 /**
  * Cette fonction permet de slicé un élément
@@ -458,26 +469,6 @@ function doSlice(el, i1, i2, v) {
     i2 = el.slice(i2);
     return (v !== undefined) ? i1.concat(v).concat(i2) : i1.concat(i2);
 }
-Array.prototype.addMiddle = function(value){
-    var l = this.length, n = parseInt(l / 2);
-    return doSlice(this, n, n, value);
-};
-
-var arrayAddLastPath = "_ENTITY_._PARAMETERS_.array.addLast.";
-zk().setContainer(arrayAddLastPath+"other", function(el, value){
-    if(!zk().toolbox().is(value, "array")){ value = [value] }
-    return el.concat(value);
-});
-/**
- * Permet d'ajouter des valeurs à la fin du tableau.
- * @param value
- * @returns {*}
- */
-Array.prototype.addLast = function(value){
-    if(value===undefined){ return this }
-    return zk().getContainer(arrayAddLastPath+"other")(this, value);
-};
-
 var arrayAddBeforePath = "_ENTITY_._PARAMETERS_.array.addBefore.";
 zk().setContainer(arrayAddBeforePath+"other", function(el, index, value){
     var box = zk().toolbox();
@@ -497,10 +488,7 @@ zk().setContainer(arrayAddBeforePath+"other", function(el, index, value){
  *      - other : Une valeur quelconque.
  * @returns {*}
  */
-Array.prototype.addBefore = function(index, value){
-    if(value===undefined){ return this }
-    return zk().getContainer(arrayAddBeforePath+"other")(this, index, value);
-};
+Array.prototype.addBefore = function(index, value){ return zk().toolbox().addBefore(this, index, value) };
 
 var arrayAddAfterPath = "_ENTITY_._PARAMETERS_.array.addAfter.";
 zk().setContainer(arrayAddAfterPath+"other", function(el, index, value){
@@ -521,10 +509,7 @@ zk().setContainer(arrayAddAfterPath+"other", function(el, index, value){
  *      - other : Une valeur quelconque.
  * @returns {*}
  */
-Array.prototype.addAfter = function(index, value){
-    if(value===undefined){ return this }
-    return zk().getContainer(arrayAddAfterPath+"other")(this, index, value);
-};
+Array.prototype.addAfter = function(index, value){ return zk().toolbox().addAfter(this, index, value) };
 
 // addBetween n'existe pas
 
@@ -540,7 +525,6 @@ zk().setContainer(arrayAddAtPath + "array", function (el, indexes, value) {
     });
     return el;
 });
-
 /**
  * Permet d'ajouter des valeurs à des positions spécifiques.
  * @param indexes (int|array)
@@ -551,15 +535,9 @@ zk().setContainer(arrayAddAtPath + "array", function (el, indexes, value) {
  *      - other : Une valeur quelconque.
  * @returns {*}
  */
-Array.prototype.addAt = function(indexes, value){
-    if(value===undefined){ return this }
-    return zk().getContainer(arrayAddAtPath+"array")(this, indexes, value);
-};
+Array.prototype.addAt = function(indexes, value){ return zk().toolbox().addAt(this, indexes, value) };
 
-Array.prototype.add = function(value){
-    if(value===undefined){ return this }
-    return zk().getContainer(arrayAddLastPath+"other")(this, value);
-};
+Array.prototype.add = function(value){ return zk().toolbox().add(this, value) };
 
 
 /**
