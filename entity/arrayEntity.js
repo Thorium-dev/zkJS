@@ -652,11 +652,7 @@ zk().setContainer(arrayUpperFirstPath+"regexp", function(el, param, upperLower){
  *      - regexp : La première chaîne de caractères du tableau correspondant à l'expression régulière.
  * @returns {Array}
  */
-Array.prototype.upperFirst = function(param){
-    if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(arrayUpperFirstPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param, "Upper") : this;
-};
+Array.prototype.upperFirst = function(param){ return zk().toolbox().upperFirst(this, param) };
 
 var arrayUpperLastPath = "_ENTITY_._PARAMETERS_.array.upperLast.";
 zk().setContainer(arrayUpperLastPath+"number", function (el, param, upperLower) {
@@ -702,11 +698,7 @@ zk().setContainer(arrayUpperLastPath+"regexp", function(el, param, upperLower){
  *      - regexp : La dernière chaîne de caractères du tableau correspondant à l'expression régulière.
  * @returns {Array}
  */
-Array.prototype.upperLast = function(param){
-    if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(arrayUpperLastPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param, "Upper") : this;
-};
+Array.prototype.upperLast = function(param){ return zk().toolbox().upperLast(this, param) };
 
 function upperLowerTab(tab, upperLower) {
     var box = zk().toolbox();
@@ -716,10 +708,7 @@ function upperLowerTab(tab, upperLower) {
         return v;
     }) ;
 }
-Array.prototype.upperMiddle = function(){
-    var el = this, l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
-    return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Upper"));
-};
+Array.prototype.upperMiddle = function(){ return zk().toolbox().upperMiddle(this) };
 
 var arrayUpperBeforePath = "_ENTITY_._PARAMETERS_.array.upperBefore.";
 zk().setContainer(arrayUpperBeforePath+"other", function(el, index, upperLower){
@@ -742,9 +731,7 @@ zk().setContainer(arrayUpperBeforePath+"other", function(el, index, upperLower){
  *      - other : Objet quelconque qui se trouve dans le tableau.
  * @returns {Array}
  */
-Array.prototype.upperBefore = function(index){
-    return zk().getContainer(arrayUpperBeforePath+"other")(this, index, "Upper");
-};
+Array.prototype.upperBefore = function(index){ return zk().toolbox().upperBefore(this, index) };
 
 var arrayUpperAfterPath = "_ENTITY_._PARAMETERS_.array.upperAfter.";
 zk().setContainer(arrayUpperAfterPath+"other", function(el, index, upperLower){
@@ -766,9 +753,7 @@ zk().setContainer(arrayUpperAfterPath+"other", function(el, index, upperLower){
  *      - other : Objet quelconque qui se trouve dans le tableau.
  * @returns {Array}
  */
-Array.prototype.upperAfter = function(index){
-    return zk().getContainer(arrayUpperAfterPath+"other")(this, index, "Upper");
-};
+Array.prototype.upperAfter = function(index){ return zk().toolbox().upperAfter(this, index) };
 
 var arrayUpperBetweenPath = "_ENTITY_._PARAMETERS_.array.upperBetween.";
 zk().setContainer(arrayUpperBetweenPath+"array", function(el, indexes, lowerUpper){
@@ -796,9 +781,7 @@ zk().setContainer(arrayUpperBetweenPath+"array", function(el, indexes, lowerUppe
  *      - array : Tableau contenant des valeurs quelconques.
  * @returns {*}
  */
-Array.prototype.upperBetween = function(param){
-    return zk().getContainer(arrayUpperBetweenPath+"array")(this, param, 'Upper');
-};
+Array.prototype.upperBetween = function(indexes){ return zk().toolbox().upperBetween(this, indexes) };
 
 var arrayUpperAtPath = "_ENTITY_._PARAMETERS_.array.upperAt.";
 zk().setContainer(arrayUpperAtPath + "number", function (el, index, upperLower) { return zk().getContainer(arrayUpperAtPath + "array")(el, [index], upperLower) });
@@ -822,10 +805,7 @@ zk().setContainer(arrayUpperAtPath + "array", function (el, indexes, upperLower)
  *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite obtenir.
  * @returns {Array}
  */
-Array.prototype.upperAt = function(indexes){
-    var paramFunc = zk().getContainer(arrayUpperAtPath+zk().toolbox().is(indexes));
-    return paramFunc ? paramFunc(this, indexes, 'Upper') : this;
-};
+Array.prototype.upperAt = function(indexes){ return zk().toolbox().upperAt(this, indexes) };
 
 var arrayUpperPath = "_ENTITY_._PARAMETERS_.array.upper.";
 zk().setContainer(arrayUpperPath+"string", function(el, param, upperLower){
@@ -863,51 +843,24 @@ zk().setContainer(arrayUpperPath + "array", function (el, param, upperLower) {
  *      - array : Paramètres multiples (string|regexp|number). Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau.
  * @returns {Array}
  */
-Array.prototype.upper = function(param){
-    var paramFunc = zk().getContainer(arrayUpperPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param, 'Upper') : this;
-};
+Array.prototype.upper = function(param){ return zk().toolbox().upper(this, param) };
 
 /**
  * ========================================= LES METHODES AVEC LOWER ============================================
  */
 
-Array.prototype.lowerFirst = function(param){
-    if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(arrayUpperFirstPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param, "Lower") : this;
-};
+Array.prototype.lowerFirst = function(param){ return zk().toolbox().lowerFirst(this, param) };
 
-Array.prototype.lowerLast = function(param){
-    if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(arrayUpperLastPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param, "Lower") : this;
-};
+Array.prototype.lowerLast = function(param){ return zk().toolbox().lowerLast(this, param) };
 
-Array.prototype.lowerMiddle = function(){
-    var el = this, l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
-    return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Lower"));
-};
+Array.prototype.lowerMiddle = function(){ return zk().toolbox().lowerMiddle(this) };
 
-Array.prototype.lowerBefore = function(index){
-    return zk().getContainer(arrayUpperBeforePath+"other")(this, index, "Lower");
-};
+Array.prototype.lowerBefore = function(index){ return zk().toolbox().lowerBefore(this, index) };
 
-Array.prototype.lowerAfter = function(index){
-    return zk().getContainer(arrayUpperAfterPath+"other")(this, index, "Lower");
-};
+Array.prototype.lowerAfter = function(index){ return zk().toolbox().lowerAfter(this, index) };
 
-Array.prototype.lowerBetween = function(indexes){
-    return zk().getContainer(arrayUpperBetweenPath+"array")(this, indexes, 'lower');
-};
+Array.prototype.lowerBetween = function(indexes){ return zk().toolbox().lowerBetween(this, indexes) };
 
-Array.prototype.lowerAt = function(indexes){
-    var paramFunc = zk().getContainer(arrayUpperAtPath+zk().toolbox().is(indexes));
-    return paramFunc ? paramFunc(this, indexes, 'Lower') : this;
-};
+Array.prototype.lowerAt = function(indexes){ return zk().toolbox().lowerAt(this, indexes) };
 
-Array.prototype.lower = function(param){
-    var paramFunc = zk().getContainer(arrayUpperPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param, 'Lower') : this;
-};
-
+Array.prototype.lower = function(param){ return zk().toolbox().lower(this, param) };

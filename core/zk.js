@@ -414,6 +414,66 @@
             return zk().getContainer(path)(el, value);
         };
 
+        // UPPER
+
+        function upperLowerFirstLast(el, param, firstLast, upperLower) {
+            if(param===undefined){param=1}
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el) +
+                ".upper" + firstLast + "." + self.is(param);
+            var f = zk().getContainer(path);
+            return f ? f(el, param, upperLower) : el;
+        }
+        this.upperFirst = function (el, param) { return upperLowerFirstLast(el, param, "First", "Upper") };
+        this.upperLast = function (el, param) { return upperLowerFirstLast(el, param, "Last", "Upper") };
+        this.upperMiddle = function (el) {
+            var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
+            return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Upper"));
+        };
+        function upperLowerBeforeAfter(el, index, beforeAfter, upperLower) {
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el) +
+                ".upper" + beforeAfter + ".other";
+            return zk().getContainer(path)(el, index, upperLower);
+        }
+        this.upperBefore = function (el, index) { return upperLowerBeforeAfter(el, index, "Before", "Upper") };
+        this.upperAfter = function (el, index) { return upperLowerBeforeAfter(el, index, "After", "Upper") };
+        function upperLowerBetween(el, indexes, upperLower) {
+            if(indexes===undefined){ return el }
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el) +
+                ".upperBetween.array";
+            return zk().getContainer(path)(el, indexes, upperLower);
+        }
+        this.upperBetween = function (el, indexes) { return upperLowerBetween(el, indexes, "Upper") };
+        function upperLowerAt(el, indexes, upperLower) {
+            if(indexes===undefined){ return el }
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el) +
+                ".upperAt." + self.is(indexes);
+            var f = zk().getContainer(path);
+            return f ? f(el, indexes, upperLower) : el;
+        }
+        this.upperAt = function (el, indexes) { return upperLowerAt(el, indexes, "Upper") };
+        function upperLower(el, indexes, upperLower) {
+            if(indexes===undefined){ indexes = el }
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el) +
+                ".upper." + self.is(indexes);
+            var f = zk().getContainer(path);
+            return f ? f(el, indexes, upperLower) : el;
+        }
+        this.upper = function (el, param) { return upperLower(el, param, "Upper") };
+
+        // LOWER
+
+        this.lowerFirst = function (el, param) { return upperLowerFirstLast(el, param, "First", "Lower") };
+        this.lowerLast = function (el, param) { return upperLowerFirstLast(el, param, "Last", "Lower") };
+        this.lowerMiddle = function (el) {
+            var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
+            return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Lower"));
+        };
+        this.lowerBefore = function (el, index) { return upperLowerBeforeAfter(el, index, "Before", "Lower") };
+        this.lowerAfter = function (el, index) { return upperLowerBeforeAfter(el, index, "After", "Lower") };
+        this.lowerBetween = function (el, indexes) { return upperLowerBetween(el, indexes, "Lower") };
+        this.lowerAt = function (el, indexes) { return upperLowerAt(el, indexes, "Lower") };
+        this.lower = function (el, param) { return upperLower(el, param, "Lower") };
+
     }
 
     APP._TOOLBOX_ = new _TOOLBOX_();
