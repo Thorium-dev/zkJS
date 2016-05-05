@@ -375,9 +375,10 @@
             var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
             var path = basePath+"removeAt.";
             var f = zk().getContainer(path+self.is(param));
-            return f ? f(el, param) : zk().getContainer(basePath+"removeNotFound")(el, param);
+            return f ? f(el, param) : el;
         };
         this.remove = function (el, param) {
+            if(param  === undefined ){ return el }
             var path = "_ENTITY_._PARAMETERS_."+self.is(el)+".remove.";
             var f = zk().getContainer(path+self.is(param));
             return f ? f(el, param) : zk().getContainer(path+"other")(el, param);

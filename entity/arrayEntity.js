@@ -247,8 +247,6 @@ Array.prototype.get = function(param){ return zk().toolbox().get(this, param) };
  * ========================================= LES METHODES AVEC REMOVE =============================================
  */
 
-zk().setContainer("_ENTITY_._PARAMETERS_.array.removeNotFound", function(el){ return el });
-
 Array.prototype.removeDuplicate = function(reverse) { return zk().toolbox().removeDuplicate(this, reverse) };
 
 var arrayRemoveFirstPath = "_ENTITY_._PARAMETERS_.array.removeFirst.";
