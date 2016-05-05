@@ -343,6 +343,7 @@
             return f ? f(el, param) : zk().getContainer(basePath+"getNotFound")(el, param);
         };
         this.get = function(el, param){
+            if(param === undefined ){ return el }
             var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
             var path = basePath+"get.";
             var f = zk().getContainer(path+self.is(param));

@@ -65,11 +65,13 @@ Array.prototype.count = function(value){ return zk().toolbox().count(this, value
 
 Array.prototype.has = function(value){ return zk().toolbox().has(this, value) };
 
+// @TODO : Faire la fonction reverse
+
 /**
  * ========================================= LES METHODES AVEC GET =============================================
  */
 
-zk().setContainer("_ENTITY_._PARAMETERS_.array.getNotFound", function(){ return [] });
+// zk().setContainer("_ENTITY_._PARAMETERS_.array.getNotFound", function(){ return [] });
 
 var arrayGetFirstPath = "_ENTITY_._PARAMETERS_.array.getFirst.";
 zk().setContainer(arrayGetFirstPath+"number", function(el, param){ return el.slice(0, Math.abs(param)) });
@@ -413,7 +415,8 @@ zk().setContainer(arrayRemovePath + "array", function (el, param) {
 });
 /**
  * Permet de supprimer des valeurs dans le tableau.
- * @param param (other|regexp|number|array)
+ * @param param (void|other|regexp|number|array)
+ *      - void : Si aucun paramètre n'est donné, elle renvoie le tableau d'origine.
  *      - other : Elément(s) à retirer du tableau. On fait une égalité stricte.
  *      - regexp : Expression régulières des éléments qu'on souhaite supprimer du tableau.
  *      - number : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
@@ -571,7 +574,7 @@ Array.prototype.changeFirst = function(oldValue, newValue){
     return paramFunc ? paramFunc(this, oldValue, newValue) : this;
 };
 
-// changeMiddle
+// @TODO : Faire la fonction changeMiddle
 
 var arrayChangeLastPath = "_ENTITY_._PARAMETERS_.array.changeLast.";
 zk().setContainer(arrayChangeLastPath+"number", function (el, oldValue, newValue) {
