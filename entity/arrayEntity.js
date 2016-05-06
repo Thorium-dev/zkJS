@@ -65,7 +65,8 @@ Array.prototype.count = function(value){ return zk().toolbox().count(this, value
 
 Array.prototype.has = function(value){ return zk().toolbox().has(this, value) };
 
-// @TODO : Faire la fonction reverse
+Array.prototype.reverse = function(){ return zk().toolbox().reverse(this) };
+
 
 /**
  * ========================================= LES METHODES AVEC GET =============================================
