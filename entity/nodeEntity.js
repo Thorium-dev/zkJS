@@ -1,3 +1,5 @@
+// @TODO : getTextFirst, getTextMiddle, getTextLast, ...
+
 var methods = {
 
     "getFirst": function(param){

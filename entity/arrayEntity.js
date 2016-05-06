@@ -13,7 +13,7 @@ zk().setContainer(arrayIndexPath+"other", function(el, value){
 zk().setContainer(arrayIndexPath+"regexp", function(el, value){
     var k = el.length;
     for(var i = 0; i < k ; i++){
-        if(zk().toolbox().is(el[i], 'string') && value.test(el[i])){
+        if(zk().toolbox().is(el[i], 'string|number') && value.test(el[i])){
             return i;
         }
     }
@@ -321,13 +321,13 @@ zk().setContainer(arrayRemoveBeforePath+"other", function(el, param){
     return el;
 });
 /**
- * Permet de supprimer les éléments qui se situent avant param dans le tableau.
- * @param param (number|other)
+ * Permet de supprimer les éléments qui se situent avant index dans le tableau.
+ * @param index (number|other)
  *      - number : Index du tableau.
  *      - other : Objet quelconque qui se trouve dans le tableau.
  * @returns {Array}
  */
-Array.prototype.removeBefore = function(param){ return zk().toolbox().removeBefore(this, param) };
+Array.prototype.removeBefore = function(index){ return zk().toolbox().removeBefore(this, index) };
 
 var arrayRemoveAfterPath = "_ENTITY_._PARAMETERS_.array.removeAfter.";
 zk().setContainer(arrayRemoveAfterPath+"other", function(el, param){
@@ -346,36 +346,36 @@ zk().setContainer(arrayRemoveAfterPath+"other", function(el, param){
 Array.prototype.removeAfter = function(param){ return zk().toolbox().removeAfter(this, param) };
 
 var arrayRemoveBetweenPath = "_ENTITY_._PARAMETERS_.array.removeBetween.";
-zk().setContainer(arrayRemoveBetweenPath+"array", function(el, param){
+zk().setContainer(arrayRemoveBetweenPath+"array", function(el, indexes){
     var box = zk().toolbox();
-    if (!box.is(param, 'array')) { param = [param] }
-    if (param.length % 2) { param.push(el.length - 1) }
-    param = param.slice(0, 2);
+    if (!box.is(indexes, 'array')) { indexes = [indexes] }
+    if (indexes.length % 2) { indexes.push(el.length - 1) }
+    indexes = indexes.slice(0, 2);
     for (var i = 0; i < 2; i++){
-        if(!box.is(param[i], "number")){ param[i] = box.index(el, param[i]) }
-        if(param[i] < 0){ param[i] = NaN }
+        if(!box.is(indexes[i], "number")){ indexes[i] = box.index(el, indexes[i]) }
+        if(indexes[i] < 0){ indexes[i] = NaN }
     }
-    if(box.is(param[0], "number") && box.is(param[1], "number")){
-        param = box.nSort(param);
-        el = el.slice(0, param[0]+1).concat(el.slice(param[1]));
+    if(box.is(indexes[0], "number") && box.is(indexes[1], "number")){
+        indexes = box.nSort(indexes);
+        el = el.slice(0, indexes[0]+1).concat(el.slice(indexes[1]));
     }
     return el;
 });
 /**
  * Supprime une plage du tableau
- * @param param (array|int)
+ * @param indexes (array|int)
  *      - int : Valeur de début. La taille du tableau est utilisée comme valeur complémentaire.
  *      - array : Tableau contenant des valeurs quelconques.
  * @returns {*}
  */
-Array.prototype.removeBetween = function(param){ return zk().toolbox().removeBetween(this, param) };
+Array.prototype.removeBetween = function(indexes){ return zk().toolbox().removeBetween(this, indexes) };
 
 var arrayRemoveAtPath = "_ENTITY_._PARAMETERS_.array.removeAt.";
-zk().setContainer(arrayRemoveAtPath + "number", function (el, param) { return zk().getContainer(arrayRemoveAtPath + "array")(el, [param]) });
-zk().setContainer(arrayRemoveAtPath + "array", function (el, param) {
+zk().setContainer(arrayRemoveAtPath + "number", function (el, indexes) { return zk().getContainer(arrayRemoveAtPath + "array")(el, [indexes]) });
+zk().setContainer(arrayRemoveAtPath + "array", function (el, indexes) {
     var box = zk().toolbox();
-    param = box.removeDuplicate(param, true);
-    box.each(param, function () {
+    indexes = box.removeDuplicate(indexes, true);
+    box.each(indexes, function () {
         var n = this.v;
         if (box.is(n, 'number') && n > -1) { el = el.slice(0, n).concat(el.slice(n + 1)) }
     });
@@ -383,12 +383,12 @@ zk().setContainer(arrayRemoveAtPath + "array", function (el, param) {
 });
 /**
  * Permet de supprimer des éléments qui se trouvent à des index spécifiés.
- * @param param (int|array)
- *      - int : Index de l'élément qu'on veut obtenir. Pas de nombres négatifs.
- *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite obtenir.
+ * @param indexes (int|array)
+ *      - int : Index de l'élément qu'on veut supprimer. Pas de nombres négatifs.
+ *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite supprimer.
  * @returns {Array}
  */
-Array.prototype.removeAt = function(param){ return zk().toolbox().removeAt(this, param) };
+Array.prototype.removeAt = function(indexes){ return zk().toolbox().removeAt(this, indexes) };
 
 var arrayRemovePath = "_ENTITY_._PARAMETERS_.array.remove.";
 zk().setContainer(arrayRemovePath+"other", function(el, param){
@@ -565,16 +565,9 @@ zk().setContainer(arrayChangeFirstPath+"other", function(el, oldValue, newValue)
  * @param newValue
  * @returns {Array}
  */
-Array.prototype.changeFirst = function(oldValue, newValue){
-    if(newValue===undefined){ return this }
-    if(oldValue===undefined){oldValue=1}
-    var oldValueType = zk().toolbox().is(oldValue);
-    if(!/number/.test(oldValueType)){ oldValueType = "other" }
-    var paramFunc = zk().getContainer(arrayChangeFirstPath+oldValueType);
-    return paramFunc ? paramFunc(this, oldValue, newValue) : this;
-};
+Array.prototype.changeFirst = function(oldValue, newValue){ return zk().toolbox().changeFirst(this, oldValue, newValue) };
 
-// @TODO : Faire la fonction changeMiddle
+Array.prototype.changeMiddle = function(value){ return zk().toolbox().changeMiddle(this, value) };
 
 var arrayChangeLastPath = "_ENTITY_._PARAMETERS_.array.changeLast.";
 zk().setContainer(arrayChangeLastPath+"number", function (el, oldValue, newValue) {
@@ -596,14 +589,91 @@ zk().setContainer(arrayChangeLastPath+"other", function(el, oldValue, newValue){
  * @param newValue
  * @returns {Array}
  */
-Array.prototype.changeLast = function(oldValue, newValue){
-    if(newValue===undefined){ return this }
-    if(oldValue===undefined){oldValue=1}
-    var oldValueType = zk().toolbox().is(oldValue);
-    if(!/number/.test(oldValueType)){ oldValueType = "other" }
-    var paramFunc = zk().getContainer(arrayChangeLastPath+oldValueType);
-    return paramFunc ? paramFunc(this, oldValue, newValue) : this;
-};
+Array.prototype.changeLast = function(oldValue, newValue){ return zk().toolbox().changeLast(this, oldValue, newValue) };
+
+var arrayChangeBeforePath = "_ENTITY_._PARAMETERS_.array.changeBefore.";
+zk().setContainer(arrayChangeBeforePath+"other", function(el, index, value){
+    var box = zk().toolbox();
+    var el2 = box.removeBefore(el, index);
+    if(el2.length < el.length){ el = box.addFirst(el2, value) }
+    return el;
+});
+/**
+ * Permet de changer les éléments qui se situent avant index dans le tableau.
+ * @param index (number|other)
+ *      - number : Index du tableau.
+ *      - other : Objet quelconque qui se trouve dans le tableau.
+ * @param value
+ * @returns {Array}
+ */
+Array.prototype.changeBefore = function(index, value){ return zk().toolbox().changeBefore(this, index, value) };
+
+var arrayChangeAfterPath = "_ENTITY_._PARAMETERS_.array.changeAfter.";
+zk().setContainer(arrayChangeAfterPath+"other", function(el, index, value){
+    var box = zk().toolbox();
+    var el2 = box.removeAfter(el, index);
+    if(el2.length < el.length){ el = box.addLast(el2, value) }
+    return el;
+});
+/**
+ * Permet de changer les éléments qui se situent après index dans le tableau.
+ * @param index (number|other)
+ *      - number : Index du tableau.
+ *      - other : Objet quelconque qui se trouve dans le tableau.
+ * @param value
+ * @returns {Array}
+ */
+Array.prototype.changeAfter = function(index, value){ return zk().toolbox().changeAfter(this, index, value) };
+
+var arrayChangeBetweenPath = "_ENTITY_._PARAMETERS_.array.changeBetween.";
+zk().setContainer(arrayChangeBetweenPath+"array", function(el, indexes, value){
+    var box = zk().toolbox();
+    if (!box.is(indexes, 'array')) { indexes = [indexes] }
+    if (indexes.length % 2) { indexes.push(el.length - 1) }
+    indexes = indexes.slice(0, 2);
+    for (var i = 0; i < 2; i++){
+        if(!box.is(indexes[i], "number")){ indexes[i] = box.index(el, indexes[i]) }
+        if(indexes[i] < 0){ indexes[i] = NaN }
+    }
+    if(box.is(indexes[0], "number") && box.is(indexes[1], "number")){
+        indexes = box.nSort(indexes);
+        el = el.slice(0, indexes[0]+1).concat(value).concat(el.slice(indexes[1]));
+    }
+    return el;
+});
+/**
+ * Change une plage du tableau
+ * @param indexes (array|int)
+ *      - int : Valeur de début. La taille du tableau est utilisée comme valeur complémentaire.
+ *      - array : Tableau contenant des valeurs quelconques.
+ * @param value
+ * @returns {*}
+ */
+Array.prototype.changeBetween = function(indexes, value){ return zk().toolbox().changeBetween(this, indexes, value) };
+
+var arrayChangeAtPath = "_ENTITY_._PARAMETERS_.array.changeAt.";
+zk().setContainer(arrayChangeAtPath + "array", function (el, indexes, value) {
+    var box = zk().toolbox();
+    if(box.is(indexes, 'number')){ indexes = [indexes] }
+    indexes = box.removeDuplicate(indexes, true);
+    box.each(indexes, function () {
+        var n = this.v;
+        if (box.is(n, 'number') && n > -1) { el[n] = value }
+    });
+    return el
+});
+/**
+ * Permet de changer des éléments qui se trouvent à des index spécifiés.
+ * @param indexes (int|array)
+ *      - int : Index de l'élément qu'on veut changer. Pas de nombres négatifs.
+ *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite changer.
+ * @param value
+ * @returns {Array}
+ */
+Array.prototype.changeAt = function(indexes, value){ return zk().toolbox().changeAt(this, indexes, value) };
+
+// @TODO : Faire la fonction change
+
 
 /**
  * ========================================= LES METHODES AVEC UPPER ===========================================

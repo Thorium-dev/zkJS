@@ -371,7 +371,7 @@
         }
         this.removeBefore = function(el, param){ return rmBeforeAfter(el, param, 'Before', 'other') };
         this.removeAfter = function(el, param){ return rmBeforeAfter(el, param, 'After', 'other') };
-        this.removeBetween = function(el, param){ return rmBeforeAfter(el, param, 'Between', 'array') };
+        this.removeBetween = function(el, indexes){ return rmBeforeAfter(el, indexes, 'Between', 'array') };
         this.removeAt = function (el, param) {
             var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
             var path = basePath+"removeAt.";
@@ -414,6 +414,39 @@
             if(value===undefined){ return el }
             var path = "_ENTITY_._PARAMETERS_."+self.is(el)+".addLast.other";
             return zk().getContainer(path)(el, value);
+        };
+
+        // CHANGE
+        function changeFirstLast(el, oldValue, newValue, firstLast) {
+            if(oldValue===undefined){ return el }
+            if(newValue===undefined){ newValue = oldValue; oldValue = 1 }
+            var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
+            var path = basePath+"change" + firstLast + "." + ( (self.is(oldValue)==='number') ? 'number' : 'other' );
+            return zk().getContainer(path)(el, oldValue, newValue);
+        }
+        this.changeFirst = function (el, oldValue, newValue) { return changeFirstLast(el, oldValue, newValue, "First") };
+        this.changeMiddle = function (el, value) {
+            return self.addMiddle(self.removeMiddle(el), value);
+        };
+        this.changeLast = function (el, oldValue, newValue) { return changeFirstLast(el, oldValue, newValue, "Last") };
+
+        function changeBeforeAfter(el, index, value, beforeAfter) {
+            if(index===undefined || value === undefined){ return el }
+            var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
+            var path = basePath+"change" + beforeAfter + ".other";
+            return zk().getContainer(path)(el, index, value);
+        }
+        this.changeBefore = function (el, index, value) { return changeBeforeAfter(el, index, value, "Before") };
+        this.changeAfter = function (el, index, value) { return changeBeforeAfter(el, index, value, "After") };
+        this.changeBetween = function (el, indexes, value) {
+            if(indexes===undefined || value === undefined){ return el }
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el)+".changeBetween.array";
+            return zk().getContainer(path)(el, indexes, value);
+        };
+        this.changeAt = function (el, indexes, value) {
+            if(indexes===undefined || value === undefined){ return el }
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el)+".changeAt.array";
+            return zk().getContainer(path)(el, indexes, value);
         };
 
         // UPPER
