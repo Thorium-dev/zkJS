@@ -34,7 +34,7 @@ zk().setContainer(arrayIndexesPath+"other", function(el, value){
 zk().setContainer(arrayIndexesPath+"regexp", function(el, value){
     var k = el.length, indexes = [];
     for(var i = 0; i < k ; i++){
-        if(zk().toolbox().is(el[i], 'string') && value.test(el[i])){
+        if(zk().toolbox().is(el[i], 'string|number') && value.test(el[i])){
             indexes.push(i);
         }
     }
@@ -672,8 +672,34 @@ zk().setContainer(arrayChangeAtPath + "array", function (el, indexes, value) {
  */
 Array.prototype.changeAt = function(indexes, value){ return zk().toolbox().changeAt(this, indexes, value) };
 
-// @TODO : Faire la fonction change
-
+var arrayChangePath = "_ENTITY_._PARAMETERS_.array.change.";
+zk().setContainer(arrayChangePath+"other", function(el, param, value){
+    return zk().toolbox().each(el,function(){ if (param === this.v){ return value } });
+});
+zk().setContainer(arrayChangePath+"regexp", function(el, param, value){
+    return zk().toolbox().each(el,function(){ if (param.test(this.v)){ return value } });
+});
+zk().setContainer(arrayChangePath + "number", function (el, param, value) {
+    return  zk().toolbox()['change'+(param<0?'Last':'First')](el, Math.abs(param), value) ;
+});
+zk().setContainer(arrayChangePath + "array", function (el, param, value) {
+    var indexes = [], box = zk().toolbox();
+    box.each(param, function () {
+        indexes = indexes.concat(box.indexes(el, this.v));
+    });
+    return zk().getContainer(arrayChangeAtPath + "array")(el, indexes, value);
+});
+/**
+ * Permet de changer des valeurs dans le tableau.
+ * @param param (other|regexp|number|array)
+ *      - other : Elément(s) à changer dans tableau. On fait une égalité stricte.
+ *      - regexp : Expression régulières des éléments qu'on souhaite changer dans tableau.
+ *      - number : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
+ *      - array : Paramètres multiples (string|regexp|number). Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau.
+ * @param value
+ * @returns {Array}
+ */
+Array.prototype.change = function(param, value){ return zk().toolbox().change(this, param, value) };
 
 /**
  * ========================================= LES METHODES AVEC UPPER ===========================================

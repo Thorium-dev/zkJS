@@ -417,6 +417,7 @@
         };
 
         // CHANGE
+
         function changeFirstLast(el, oldValue, newValue, firstLast) {
             if(oldValue===undefined){ return el }
             if(newValue===undefined){ newValue = oldValue; oldValue = 1 }
@@ -429,7 +430,6 @@
             return self.addMiddle(self.removeMiddle(el), value);
         };
         this.changeLast = function (el, oldValue, newValue) { return changeFirstLast(el, oldValue, newValue, "Last") };
-
         function changeBeforeAfter(el, index, value, beforeAfter) {
             if(index===undefined || value === undefined){ return el }
             var basePath = "_ENTITY_._PARAMETERS_."+self.is(el)+".";
@@ -447,6 +447,12 @@
             if(indexes===undefined || value === undefined){ return el }
             var path = "_ENTITY_._PARAMETERS_."+self.is(el)+".changeAt.array";
             return zk().getContainer(path)(el, indexes, value);
+        };
+        this.change = function (el, param, value) {
+            if(param === undefined || value === undefined){ return el }
+            var path = "_ENTITY_._PARAMETERS_."+self.is(el)+".change.";
+            var f = zk().getContainer(path+self.is(param));
+            return f ? f(el, param, value) : zk().getContainer(path+"other")(el, param, value);
         };
 
         // UPPER
