@@ -109,18 +109,11 @@
             }
             return (type === undefined || !t) ? t : (type2.test(t))
         };
-        this.isEntity = function () {
-        };
+        this.isEntity = function () { };
         this.trim = function (str, reg) {
-            if (str === undefined) {
-                str = ''
-            }
-            ;
+            if (str === undefined) { str = '' }
             str += '';
-            if (reg === undefined) {
-                reg = ' '
-            }
-            ;
+            if (reg === undefined) { reg = ' ' }
             reg = new RegExp('^(?:' + reg + ')|(?:' + reg + ')$', 'g');
             return str.replace(reg, '')
         };
@@ -145,9 +138,7 @@
                 }
                 return el
             },
-            array: function (el, f, args) {
-                return doEachByObj.string(el, f, args)
-            },
+            array: function (el, f, args) { return doEachByObj.string(el, f, args) },
 
             object: function (el, f, args, strIndex) {
                 var i, isOk, r, ob;
@@ -274,34 +265,29 @@
             });
             return res
         };
+
+        function indexAndIndexes(el, value, what){
+            var box = zk().toolbox(), pType = box.is(value);
+            var basePath = "_ENTITY_._PARAMETERS_." + box.is(el) + "." + what + ".";
+            var f = zk().getContainer( basePath + pType);
+            return f ? f(el, value) : zk().getContainer( basePath + "other")(el, value);
+        }
+
         /**
          * Permet d'obtenir l'index d'une valeur dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie -1.
          * @param el
-         * @param param
+         * @param value
          * @returns {number}
          */
-        this.index = function (el, param) {
-            var box = zk().toolbox(), paramType = box.is(param);
-            if (paramType !== "regexp") {
-                paramType = "other"
-            }
-            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_." + box.is(el) + ".index." + paramType);
-            return paramFunc ? paramFunc(el, param) : -1;
-        };
+        this.index = function (el, value) { return indexAndIndexes(el, value, "index") };
         /**
          * Permet d'obtenir les index d'une valeur dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie -1.
          * @param el
-         * @param param
+         * @param value
          * @returns {array}
          */
-        this.indexes = function (el, param) {
-            var box = zk().toolbox(), paramType = box.is(param);
-            if (paramType !== "regexp") {
-                paramType = "other"
-            }
-            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_." + box.is(el) + ".indexes." + paramType);
-            return paramFunc ? paramFunc(el, param) : [];
-        };
+        this.indexes = function (el, value) { return indexAndIndexes(el, value, "indexes") };
+
         /**
          * Permet de compter le nombre de fois q'une valeur existe dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie 0.
          * @param el
