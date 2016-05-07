@@ -1,6 +1,9 @@
 (function ($W) {
     'use strict';
 
+
+    var THIS = this, ZKID = parseInt(Math.random() * 100000000000);
+
     var APP = {
         // Raccourcis vers _ENTITY_
         "register": function (entityFunc, methods, parameters) {
@@ -81,6 +84,7 @@
 
     function _TOOLBOX_() {
         var self = this;
+
         this.is = function (el, type) {
             if (el === null) {
                 return null
@@ -107,9 +111,10 @@
         };
         this.isEntity = function () { };
         this.trim = function (str, reg) {
-            if (str === undefined){str = ''}; str += '';
-            if (reg === undefined){reg = ' '};
-            reg = new RegExp('^(?:'+reg+')|(?:'+reg+')$','g');
+            if (str === undefined) { str = '' }
+            str += '';
+            if (reg === undefined) { reg = ' ' }
+            reg = new RegExp('^(?:' + reg + ')|(?:' + reg + ')$', 'g');
             return str.replace(reg, '')
         };
         var doEachByObj = {
@@ -119,7 +124,9 @@
                 for (i = 0; i < k; i++) {
                     ob = {i: i, k: i, v: el[i], l: k, all: el};
                     r = f.apply(ob, args);
-                    if (r === undefined) { r = el[i] }
+                    if (r === undefined) {
+                        r = el[i]
+                    }
                     res = res.concat(r)
                 }
                 return res;
@@ -196,15 +203,24 @@
             if (self.is(f, 'function')) {
                 var t = self.is(el);
                 if (doEachByObj.hasOwnProperty(t)) {
-                    if (args === undefined) { args = [] }
-                    if (!self.is(args, 'array')) { args = [args] }
+                    if (args === undefined) {
+                        args = []
+                    }
+                    if (!self.is(args, 'array')) {
+                        args = [args]
+                    }
                     el = doEachByObj[t](el, f, args);
                 }
             }
             return el
         };
         this.toArray = function (el) { return [].slice.call(el) };
-        this.nSort = function(array){
+        /**
+         * Permet de trier les tableaux numériques dans l'ordre croissant
+         * @param array
+         * @returns {Array.<T>}
+         */
+        this.nSort = function (array) {
             return array.sort(function (a, b) {
                 if (a < b) {
                     return -1
@@ -216,59 +232,413 @@
             })
         };
         /**
-         * Elle supprime les éléments dupliqués d'un tableau.
-         * @param tab
+         * Permet de trier les tableaux numériques dans l'ordre décroissant
+         * @param array
+         * @returns {Array.<T>}
+         */
+        this.nSortD = function (array) {
+            return array.sort(function (a, b) {
+                if (a > b) {
+                    return -1
+                } else if (a < b) {
+                    return 1
+                } else {
+                    return 0
+                }
+            })
+        };
+        /**
+         * Elle supprime les éléments dupliqués d'un tableau. Le tableau est trié par ordre croissant ou décroissant selon la valeur de reverse
+         * @param tab "Tableau à traiter"
+         * @param reverse "Boolean qui indique l'ordre croissant ou décroissant"
          * @returns {Array}
          */
-        this.removeDuplicate = function(tab) {
-            var res = [], r; tab.sort();
-            self.each(tab, function(tab){
+        this.removeDuplicate = function (tab, reverse) {
+            var res = [], r;
+            tab = (reverse !== true) ? self.nSort(tab) : self.nSortD(tab);
+            self.each(tab, function () {
                 var v = this.v;
                 if (r !== v) {
                     res.push(v);
                     r = v
                 }
-            }, tab);
+            });
             return res
         };
+
+        function indexAndIndexes(el, value, what){
+            var box = zk().toolbox(), pType = box.is(value);
+            var basePath = "_ENTITY_._PARAMETERS_." + box.is(el) + "." + what + ".";
+            var f = zk().getContainer( basePath + pType);
+            return f ? f(el, value) : zk().getContainer( basePath + "other")(el, value);
+        }
+
         /**
          * Permet d'obtenir l'index d'une valeur dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie -1.
          * @param el
-         * @param param
+         * @param value
          * @returns {number}
          */
-        this.index = function(el, param){
-            var paramType = zk().toolbox().is(param);
-            if(paramType !== "regexp"){ paramType = "other" }
-            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+zk().toolbox().is(el)+".index."+paramType);
-            return paramFunc ? paramFunc(el, param) : -1;
-        };
+        this.index = function (el, value) { return indexAndIndexes(el, value, "index") };
+        /**
+         * Permet d'obtenir les index d'une valeur dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie -1.
+         * @param el
+         * @param value
+         * @returns {array}
+         */
+        this.indexes = function (el, value) { return indexAndIndexes(el, value, "indexes") };
+
         /**
          * Permet de compter le nombre de fois q'une valeur existe dans un élément (Array, String, Node ...). Si la valeur n'existe pas, elle renvoie 0.
          * @param el
          * @param param
          * @returns {number}
          */
-        this.count = function(el, param){
+        this.count = function (el, param) {
             var paramType = zk().toolbox().is(param);
-            if(paramType !== "regexp"){ paramType = "other" }
-            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+zk().toolbox().is(el)+".count."+paramType);
+            if (paramType !== "regexp") {
+                paramType = "other"
+            }
+            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_." + zk().toolbox().is(el) + ".count." + paramType);
             return paramFunc ? paramFunc(el, param) : 0;
         };
-
         /**
          * Permet de vérifier si une valeur existe dans un élément (Array, String, Node ...)
          * @param el
          * @param param
          * @returns {boolean}
          */
-        this.has = function(el, param){
+        this.has = function (el, param) {
             var paramType = zk().toolbox().is(param);
-            if(paramType !== "regexp"){ paramType = "other" }
-            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_."+zk().toolbox().is(el)+".index."+paramType);
-            var ok =  paramFunc ? paramFunc(el, param)+1 : false;
+            if (paramType !== "regexp") {
+                paramType = "other"
+            }
+            var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_." + zk().toolbox().is(el) + ".index." + paramType);
+            var ok = paramFunc ? paramFunc(el, param) + 1 : false;
             return ok ? true : false;
 
+        };
+        this.reverse = function (el) {
+            var res = [];
+            self.each(el, function () {
+                res = [this.v].concat(res);
+            });
+            return res;
+        };
+
+        // GET
+
+        this.getFirst = function (el, param) {
+            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
+            var path = basePath + "getFirst.";
+            if (param === undefined) {
+                param = 1
+            }
+            var f = zk().getContainer(path + self.is(param));
+            return f ? f(el, param) : zk().getContainer(basePath + "getNotFound")(el, param);
+        };
+        this.getMiddle = function (el) {
+            var l = el.length, n = parseInt(l / 2);
+            return (l % 2) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1)
+        };
+        this.getLast = function (el, param) {
+            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
+            var path = basePath + "getLast.";
+            if (param === undefined) {
+                param = 1
+            }
+            var f = zk().getContainer(path + self.is(param));
+            return f ? f(el, param) : zk().getContainer(basePath + "getNotFound")(el, param);
+        };
+        this.getBefore = function (el, param) {
+            return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBefore.other")(el, param);
+        };
+        this.getAfter = function (el, param) {
+            return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAfter.other")(el, param);
+        };
+        this.getBetween = function (el, param) {
+            if (param === undefined) {
+                param = 1
+            }
+            return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBetween.array")(el, param);
+        };
+        this.getAt = function (el, param) {
+            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
+            var path = basePath + "getAt.";
+            var f = zk().getContainer(path + self.is(param));
+            return f ? f(el, param) : zk().getContainer(basePath + "getNotFound")(el, param);
+        };
+        this.get = function (el, param) {
+            if (param === undefined) {
+                return el
+            }
+            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
+            var path = basePath + "get.";
+            var f = zk().getContainer(path + self.is(param));
+            return f ? f(el, param) : zk().getContainer(basePath + "getNotFound")(el, param);
+        };
+
+        // REMOVE
+
+        function rmFirstLast(el, param, firstLast) {
+            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
+            var path = basePath + "remove" + firstLast + ".";
+            if (param === undefined) {
+                param = 1
+            }
+            var f = zk().getContainer(path + self.is(param));
+            return f ? f(el, param) : zk().getContainer(path + "other")(el, param);
+        }
+
+        this.removeFirst = function (el, param) {
+            return rmFirstLast(el, param, "First")
+        };
+        this.removeMiddle = function (el) {
+            var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
+            return el.slice(0, (x == 2) ? n - 1 : n).concat(el.slice(n + x - (x - 1)));
+        };
+        this.removeLast = function (el, param) {
+            return rmFirstLast(el, param, "Last")
+        };
+        function rmBeforeAfter(el, param, what, argType) {
+            return zk().getContainer("_ENTITY_._PARAMETERS_." +
+                self.is(el) + ".remove" + what + "." + argType)(el, param);
+        }
+
+        this.removeBefore = function (el, param) {
+            return rmBeforeAfter(el, param, 'Before', 'other')
+        };
+        this.removeAfter = function (el, param) {
+            return rmBeforeAfter(el, param, 'After', 'other')
+        };
+        this.removeBetween = function (el, indexes) {
+            return rmBeforeAfter(el, indexes, 'Between', 'array')
+        };
+        this.removeAt = function (el, param) {
+            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
+            var path = basePath + "removeAt.";
+            var f = zk().getContainer(path + self.is(param));
+            return f ? f(el, param) : el;
+        };
+        this.remove = function (el, param) {
+            if (param === undefined) {
+                return el
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".remove.";
+            var f = zk().getContainer(path + self.is(param));
+            return f ? f(el, param) : zk().getContainer(path + "other")(el, param);
+        };
+
+        // ADD
+
+        function addFirstLast(el, value, firstLast) {
+            if (value === undefined) {
+                return el
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + firstLast + ".other";
+            return zk().getContainer(path)(el, value);
+        }
+
+        this.addFirst = function (el, value) {
+            return addFirstLast(el, value, "First")
+        };
+        this.addMiddle = function (el, value) {
+            var l = el.length, n = parseInt(l / 2);
+            return doSlice(el, n, n, value);
+        };
+        this.addLast = function (el, value) {
+            return addFirstLast(el, value, "Last")
+        };
+        function addBeforeAfter(el, index, value, beforeAfter) {
+            if (value === undefined) {
+                return el
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + beforeAfter + ".other";
+            return zk().getContainer(path)(el, index, value);
+        }
+
+        this.addBefore = function (el, index, value) {
+            return addBeforeAfter(el, index, value, "Before")
+        };
+        this.addAfter = function (el, index, value) {
+            return addBeforeAfter(el, index, value, "After")
+        };
+        this.addAt = function (el, index, value) {
+            if (value === undefined) {
+                return el
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".addAt.array";
+            return zk().getContainer(path)(el, index, value);
+        };
+        this.add = function (el, value) {
+            if (value === undefined) {
+                return el
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".addLast.other";
+            return zk().getContainer(path)(el, value);
+        };
+
+        // CHANGE
+
+        function changeFirstLast(el, oldValue, newValue, firstLast) {
+            if (oldValue === undefined) {
+                return el
+            }
+            if (newValue === undefined) {
+                newValue = oldValue;
+                oldValue = 1
+            }
+            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
+            var path = basePath + "change" + firstLast + "." + ( (self.is(oldValue) === 'number') ? 'number' : 'other' );
+            return zk().getContainer(path)(el, oldValue, newValue);
+        }
+
+        this.changeFirst = function (el, oldValue, newValue) {
+            return changeFirstLast(el, oldValue, newValue, "First")
+        };
+        this.changeMiddle = function (el, value) {
+            return self.addMiddle(self.removeMiddle(el), value);
+        };
+        this.changeLast = function (el, oldValue, newValue) {
+            return changeFirstLast(el, oldValue, newValue, "Last")
+        };
+        function changeBeforeAfter(el, index, value, beforeAfter) {
+            if (index === undefined || value === undefined) {
+                return el
+            }
+            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
+            var path = basePath + "change" + beforeAfter + ".other";
+            return zk().getContainer(path)(el, index, value);
+        }
+
+        this.changeBefore = function (el, index, value) {
+            return changeBeforeAfter(el, index, value, "Before")
+        };
+        this.changeAfter = function (el, index, value) {
+            return changeBeforeAfter(el, index, value, "After")
+        };
+        this.changeBetween = function (el, indexes, value) {
+            if (indexes === undefined || value === undefined) {
+                return el
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".changeBetween.array";
+            return zk().getContainer(path)(el, indexes, value);
+        };
+        this.changeAt = function (el, indexes, value) {
+            if (indexes === undefined || value === undefined) {
+                return el
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".changeAt.array";
+            return zk().getContainer(path)(el, indexes, value);
+        };
+        this.change = function (el, param, value) {
+            if (param === undefined || value === undefined) {
+                return el
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".change.";
+            var f = zk().getContainer(path + self.is(param));
+            return f ? f(el, param, value) : zk().getContainer(path + "other")(el, param, value);
+        };
+
+        // UPPER
+
+        function upperLowerFirstLast(el, param, firstLast, upperLower) {
+            if (param === undefined) {
+                param = 1
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
+                ".upper" + firstLast + "." + self.is(param);
+            var f = zk().getContainer(path);
+            return f ? f(el, param, upperLower) : el;
+        }
+
+        this.upperFirst = function (el, param) {
+            return upperLowerFirstLast(el, param, "First", "Upper")
+        };
+        this.upperLast = function (el, param) {
+            return upperLowerFirstLast(el, param, "Last", "Upper")
+        };
+        this.upperMiddle = function (el) {
+            var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
+            return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Upper"));
+        };
+        function upperLowerBeforeAfter(el, index, beforeAfter, upperLower) {
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
+                ".upper" + beforeAfter + ".other";
+            return zk().getContainer(path)(el, index, upperLower);
+        }
+
+        this.upperBefore = function (el, index) {
+            return upperLowerBeforeAfter(el, index, "Before", "Upper")
+        };
+        this.upperAfter = function (el, index) {
+            return upperLowerBeforeAfter(el, index, "After", "Upper")
+        };
+        function upperLowerBetween(el, indexes, upperLower) {
+            if (indexes === undefined) {
+                return el
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
+                ".upperBetween.array";
+            return zk().getContainer(path)(el, indexes, upperLower);
+        }
+
+        this.upperBetween = function (el, indexes) {
+            return upperLowerBetween(el, indexes, "Upper")
+        };
+        function upperLowerAt(el, indexes, upperLower) {
+            if (indexes === undefined) {
+                return el
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
+                ".upperAt." + self.is(indexes);
+            var f = zk().getContainer(path);
+            return f ? f(el, indexes, upperLower) : el;
+        }
+
+        this.upperAt = function (el, indexes) {
+            return upperLowerAt(el, indexes, "Upper")
+        };
+        function upperLower(el, indexes, upperLower) {
+            if (indexes === undefined) {
+                indexes = el
+            }
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
+                ".upper." + self.is(indexes);
+            var f = zk().getContainer(path);
+            return f ? f(el, indexes, upperLower) : el;
+        }
+
+        this.upper = function (el, param) {
+            return upperLower(el, param, "Upper")
+        };
+
+        // LOWER
+
+        this.lowerFirst = function (el, param) {
+            return upperLowerFirstLast(el, param, "First", "Lower")
+        };
+        this.lowerLast = function (el, param) {
+            return upperLowerFirstLast(el, param, "Last", "Lower")
+        };
+        this.lowerMiddle = function (el) {
+            var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
+            return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Lower"));
+        };
+        this.lowerBefore = function (el, index) {
+            return upperLowerBeforeAfter(el, index, "Before", "Lower")
+        };
+        this.lowerAfter = function (el, index) {
+            return upperLowerBeforeAfter(el, index, "After", "Lower")
+        };
+        this.lowerBetween = function (el, indexes) {
+            return upperLowerBetween(el, indexes, "Lower")
+        };
+        this.lowerAt = function (el, indexes) {
+            return upperLowerAt(el, indexes, "Lower")
+        };
+        this.lower = function (el, param) {
+            return upperLower(el, param, "Lower")
         };
 
     }
@@ -277,7 +647,6 @@
 
     function _ENTITY_() {
         /**
-         *
          * Function register
          *
          * Elle permet l'enregistrement des entités et leurs méthodes dans le container.
@@ -298,13 +667,23 @@
          * @returns {APP/false}
          */
         this.register = function (entityFunc, methods, parameters) {
-            if ((typeof(entityFunc)).toLowerCase() !== 'function') { return false }
+            if ((typeof(entityFunc)).toLowerCase() !== 'function') {
+                return false
+            }
             var name = entityFunc.name;
-            if (!name || APP._CONTAINER_.get("_ENTITY_." + (name.toLowerCase()))) { return false }
-            if (!APP._TOOLBOX_.is(methods, "object")) { methods = {} }
-            APP._TOOLBOX_.each(methods, function () { entityFunc.prototype[this.k] = this.v; });
+            if (!name || APP._CONTAINER_.get("_ENTITY_." + (name.toLowerCase()))) {
+                return false
+            }
+            if (!APP._TOOLBOX_.is(methods, "object")) {
+                methods = {}
+            }
+            APP._TOOLBOX_.each(methods, function () {
+                entityFunc.prototype[this.k] = this.v;
+            });
             APP.setContainer("_ENTITY_." + (name.toLowerCase()), entityFunc);
-            if (!APP._TOOLBOX_.is(parameters, "object")) { parameters = {} }
+            if (!APP._TOOLBOX_.is(parameters, "object")) {
+                parameters = {}
+            }
             APP._TOOLBOX_.each(parameters, function () {
                 APP.setContainer("_ENTITY_._PARAMETERS_." + (name.toLowerCase()) + "." + this.k, this.v);
             });
@@ -312,11 +691,15 @@
         };
         this.get = function (selector) {
             var name = APP._TOOLBOX_.is(selector), func = APP.getContainer("_ENTITY_._CONVERTOR_." + name), res;
-            if (func) { res = func(selector); name = res[0]; selector = res[1]; }
+            if (func) {
+                res = func(selector);
+                name = res[0];
+                selector = res[1];
+            }
             var entity = APP.getContainer("_ENTITY_." + name);
             if ((typeof(entityFunc)).toLowerCase() !== 'function') {
-                entity = new entity(selector, function(pathParam){
-                    return APP.getContainer("_ENTITY_._PARAMETERS_."+name+"."+pathParam);
+                entity = new entity(selector, function (pathParam) {
+                    return APP.getContainer("_ENTITY_._PARAMETERS_." + name + "." + pathParam);
                 });
             } else {
                 entity = null
@@ -332,24 +715,42 @@
      * Renvoie un tableau contenant le nom de l'entité et l'objet converti
      *
      */
-    APP.setContainer("_ENTITY_._CONVERTOR_.nodeelement", function (el) { return ["node", [el]] });
-    APP.setContainer("_ENTITY_._CONVERTOR_.htmlcollection", function (el) { return ["node", APP._TOOLBOX_.toArray(el)] });
-    APP.setContainer("_ENTITY_._CONVERTOR_.nodelist", function (el) { return ["node", APP._TOOLBOX_.toArray(el)] });
+    APP.setContainer("_ENTITY_._CONVERTOR_.nodeelement", function (el) {
+        return ["node", [el]]
+    });
+    APP.setContainer("_ENTITY_._CONVERTOR_.htmlcollection", function (el) {
+        return ["node", APP._TOOLBOX_.toArray(el)]
+    });
+    APP.setContainer("_ENTITY_._CONVERTOR_.nodelist", function (el) {
+        return ["node", APP._TOOLBOX_.toArray(el)]
+    });
 
-    function launcher(selector){
+    function launcher(selector) {
         var type = APP.toolbox().is(selector);
-        if(type == "array"){
+        if (type == "array") {
             selector = selector.join(",");
             type = "string";
         }
-        if(type == "string"){
-           selector = document.querySelectorAll(selector);
+        if (type == "string") {
+            selector = document.querySelectorAll(selector);
         }
 
         return APP.get(selector);
     }
-    $W.$ = function (selector) { return launcher(selector) };
-    $W.zk = function (selector) { if (selector === undefined) { return APP } };
+
+    $W.$ = function (selector) {
+        return launcher(selector)
+    };
+    $W.zk = function (selector) {
+        if (selector === undefined) {
+            return APP
+        }
+    };
+
+
+    /**
+     * *********
+     */
 
 
 })(window);
