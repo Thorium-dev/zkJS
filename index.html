@@ -15,17 +15,19 @@
     <li>test5</li>
 </ul>
 
+<a href="out/index.html">Doc</a>
+
 <script src="core/zk.js"></script>
 <script src="entity/stringEntity.js"></script>
 <script src="entity/arrayEntity.js"></script>
 <!--<script src="entity/nodeEntity.js"></script>-->
 <script>
 
-    var str = "abcdefghijde";
+    var str = "abcdefghijde3";
     
-    var tab = ["zero", "un", "deux"];
+    var tab = ["zero", "un", "deux", 3];
     
-    console.log(str.index(/dE/gi));
+    console.log(zk().toolbox().getBetween(tab));
     
 
 </script>

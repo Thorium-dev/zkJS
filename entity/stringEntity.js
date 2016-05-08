@@ -3,6 +3,7 @@ String.prototype.each = function(func, args){ return zk().toolbox().each(this, f
 var stringIndexPath = "_ENTITY_._PARAMETERS_.string.index.";
 zk().setContainer(stringIndexPath+"other", function(){ return -1 });
 zk().setContainer(stringIndexPath+"string", function(el, value){ return el.indexOf(value) });
+zk().setContainer(stringIndexPath+"number", function(el, value){ return el.indexOf(value+"") });
 zk().setContainer(stringIndexPath+"regexp", function(el, value){
     var index = value.exec(el);
     return index ? index['index'] : -1;
@@ -16,6 +17,9 @@ zk().setContainer(stringIndexesPath + "string", function (el, value) {
     while ((i = el.indexOf(value, i+1)) != -1){ indexes.push(i) }
     return indexes;
 });
+zk().setContainer(stringIndexesPath + "number", function (el, value) {
+    return zk().getContainer(stringIndexesPath + "string")(el, value + "");
+});
 zk().setContainer(stringIndexesPath+"regexp", function(el, value){
     var result, indexes = [], flags = "g";
     if (value.ignoreCase){ flags += "i" }
@@ -25,53 +29,17 @@ zk().setContainer(stringIndexesPath+"regexp", function(el, value){
 });
 String.prototype.indexes = function(value){ return zk().toolbox().indexes(this, value) };
 
-
-
-
-var stringCountPath = "_ENTITY_._PARAMETERS_.string.count.";
-zk().setContainer(stringCountPath+"other", function(el, value){
-    var count = 0;
-    zk().toolbox().each(el,function(){
-        if(this.v === value){
-            count++;
-        }
-    });
-    return count;
-});
-zk().setContainer(stringCountPath+"regexp", function(el, value){
-    var count = 0;
-    zk().toolbox().each(el,function(){
-        if(value.test(this.v)){
-            count++;
-        }
-    });
-    return count;
-});
 String.prototype.count = function(value){ return zk().toolbox().count(this, value) };
 
 String.prototype.has = function(value){ return zk().toolbox().has(this, value) };
 
 String.prototype.reverse = function(){ return zk().toolbox().reverse(this) };
 
-
-/**
- * Permet de supprimer des caractères au début et à la fin d'une chaîne
- * @param strReg
- *      Par exemple : "[abg]", "a|b|c"
- * @returns {string}
- */
-String.prototype.trim = function(strReg){ return zk().toolbox().trim(this, strReg) };
+String.prototype.trim = function(strReg, direction){ return zk().toolbox().trim(this, strReg, direction) };
 
 
 
-/**
- * ========================================= LES METHODES AVEC GET =============================================
- */
-
-
-
-
-
+// ========================================= LES METHODES AVEC GET =============================================
 
 var stringGetFirstPath = "_ENTITY_._PARAMETERS_.string.getFirst.";
 zk().setContainer(stringGetFirstPath+"regexp", function(el, param){ var r = el.match(param); return r ? r[0] : ''; });

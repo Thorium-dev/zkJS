@@ -42,25 +42,6 @@ zk().setContainer(arrayIndexesPath+"regexp", function(el, value){
 });
 Array.prototype.indexes = function(value){ return zk().toolbox().indexes(this, value) };
 
-var arrayCountPath = "_ENTITY_._PARAMETERS_.array.count.";
-zk().setContainer(arrayCountPath+"other", function(el, value){
-    var count = 0;
-    zk().toolbox().each(el,function(){
-        if(this.v === value){
-            count++;
-        }
-    });
-    return count;
-});
-zk().setContainer(arrayCountPath+"regexp", function(el, value){
-    var count = 0;
-    zk().toolbox().each(el,function(){
-        if(value.test(this.v)){
-            count++;
-        }
-    });
-    return count;
-});
 Array.prototype.count = function(value){ return zk().toolbox().count(this, value) };
 
 Array.prototype.has = function(value){ return zk().toolbox().has(this, value) };
@@ -68,11 +49,7 @@ Array.prototype.has = function(value){ return zk().toolbox().has(this, value) };
 Array.prototype.reverse = function(){ return zk().toolbox().reverse(this) };
 
 
-/**
- * ========================================= LES METHODES AVEC GET =============================================
- */
-
-// zk().setContainer("_ENTITY_._PARAMETERS_.array.getNotFound", function(){ return [] });
+// ========================================= LES METHODES AVEC GET =============================================
 
 var arrayGetFirstPath = "_ENTITY_._PARAMETERS_.array.getFirst.";
 zk().setContainer(arrayGetFirstPath+"number", function(el, param){ return el.slice(0, Math.abs(param)) });
@@ -86,22 +63,8 @@ zk().setContainer(arrayGetFirstPath+"regexp", function(el, param){
     }
     return [];
 });
-/**
- * Permet d'obtenir les premiers éléments d'un tableau.
- *
- * @param param (number|string|regexp)
- *      - Si param n'est pas indiqué, elle retourne le premier élément du tableau.
- *      - number : Elle retourne les param premiers éléments du tableau. Les nombres négatifs sont convertis en valeurs absolus.
- *      - string : L'argument param est converti en regexp.
- *      - regexp : Elle retourne le premier élément du tableau qui correspond à l'expression régulière.
- * @returns {Array}
- */
 Array.prototype.getFirst = function(param){ return zk().toolbox().getFirst(this, param) };
 
-/**
- * Permet d'obtenir le ou les éléments qui se trouvent au milieu du tableau.
- * @returns {Array.<*>}
- */
 Array.prototype.getMiddle = function(){ return zk().toolbox().getMiddle(this) };
 
 var arrayGetLastPath = "_ENTITY_._PARAMETERS_.array.getLast.";
@@ -116,59 +79,35 @@ zk().setContainer(arrayGetLastPath+"regexp", function(el, param){
     }
     return [];
 });
-/**
- * Permet d'obtenir les derniers éléments d'un tableau
- *
- * @param param (number|string|regexp)
- *      - Si param n'est pas indiqué, elle retourne le dernier élément du tableau.
- *      - number : Elle retourne les param derniers éléments du tableau. Les nombres négatifs sont convertis en valeurs absolus.
- *      - string : L'argument param est converti en regexp.
- *      - regexp : Elle retourne le dernier élément du tableau qui correspond à l'expression régulière.
- * @returns {Array}
- */
 Array.prototype.getLast = function(param){ return zk().toolbox().getLast(this, param) };
 
 var arrayGetBeforePath = "_ENTITY_._PARAMETERS_.array.getBefore.";
-zk().setContainer(arrayGetBeforePath+"other", function(el, param){
+zk().setContainer(arrayGetBeforePath+"other", function(el, index){
     var box = zk().toolbox();
-    if(!box.is(param, "number")){ param = box.index(el, param) }
-    if(param > -1 ){ return el.slice(0,param) }
+    if(!box.is(index, "number")){ index = box.index(el, index) }
+    if(index > -1 ){ return el.slice(0,index) }
     return [];
 });
-/**
- * Permet d'obtenir les éléments qui se situent avant param dans le tableau.
- * @param param (number|other)
- *      - number : Index du tableau.
- *      - other : Objet quelconque qui se trouve dans le tableau.
- * @returns {Array}
- */
-Array.prototype.getBefore = function(param){ return zk().toolbox().getBefore(this, param) };
+Array.prototype.getBefore = function(index){ return zk().toolbox().getBefore(this, index) };
 
 var arrayGetAfterPath = "_ENTITY_._PARAMETERS_.array.getAfter.";
-zk().setContainer(arrayGetAfterPath+"other", function(el, param){
+zk().setContainer(arrayGetAfterPath+"other", function(el, index){
     var box = zk().toolbox();
-    if(!box.is(param, "number")){ param = box.index(el, param) }
-    if(param > -1 ){ return el.slice(param+1) }
+    if(!box.is(index, "number")){ index = box.index(el, index) }
+    if(index > -1 ){ return el.slice(index+1) }
     return [];
 });
-/**
- * Permet d'obtenir les éléments qui se situent après param dans le tableau.
- * @param param (number|other)
- *      - number : Index du tableau.
- *      - other : Objet quelconque qui se trouve dans le tableau.
- * @returns {Array}
- */
-Array.prototype.getAfter = function(param){ return zk().toolbox().getAfter(this, param) };
+Array.prototype.getAfter = function(index){ return zk().toolbox().getAfter(this, index) };
 
 var arrayGetBetweenPath = "_ENTITY_._PARAMETERS_.array.getBetween.";
-zk().setContainer(arrayGetBetweenPath+"array", function(el, param){
+zk().setContainer(arrayGetBetweenPath+"array", function(el, indexes){
     var i, k, res = [];
     var box = zk().toolbox();
-    if (!box.is(param, 'array')) { param = [param] }
-    if (param.length % 2) { param.push(el.length - 1) }
-    k = param.length;
+    if (!box.is(indexes, 'array')) { indexes = [indexes] }
+    if (indexes.length % 2) { indexes.push(el.length - 1) }
+    k = indexes.length;
     for (i = 0; i < k; i += 2) {
-        var tab = [param[i], param[i+1]];
+        var tab = [indexes[i], indexes[i+1]];
         for (var j = 0; j < 2; j++){
             if(!box.is(tab[j], "number")){ tab[j] = box.index(el, tab[j]) }
             if(tab[j] < 0){ tab[j] = NaN }
@@ -180,23 +119,13 @@ zk().setContainer(arrayGetBetweenPath+"array", function(el, param){
     }
     return res;
 });
-/**
- * Permet d'obtenir une ou plusieurs plages dans un tableau.
- * @param param
- *      - Si param n'est pas indiqué, alors il vaut 1.
- *      - Si ce n'est pas un tableau, il est converti en tableau.
- *      - Si la taille est impaire, on ajoute la taille du tableau pour le rendre paire.
- *      - Les valeurs numériques dans param sont les index des plages.
- *      - Les nombres négatifs ne sont pas pris en compte.
- * @returns {Array}
- */
-Array.prototype.getBetween = function(param){ return zk().toolbox().getBetween(this, param) };
+Array.prototype.getBetween = function(indexes){ return zk().toolbox().getBetween(this, indexes) };
 
 var arrayGetAtPath = "_ENTITY_._PARAMETERS_.array.getAt.";
-zk().setContainer(arrayGetAtPath + "number", function (el, param) { return zk().getContainer(arrayGetAtPath + "array")(el, [param]) });
-zk().setContainer(arrayGetAtPath + "array", function (el, param) {
+zk().setContainer(arrayGetAtPath + "number", function (el, indexes) { return zk().getContainer(arrayGetAtPath + "array")(el, [indexes]) });
+zk().setContainer(arrayGetAtPath + "array", function (el, indexes) {
     var n, k = el.length, res = [];
-    zk().toolbox().each(param, function () {
+    zk().toolbox().each(indexes, function () {
         n = this.v;
         if (zk().toolbox().is(n, 'number') && n > -1) {
             if (n < k) {
@@ -206,14 +135,7 @@ zk().setContainer(arrayGetAtPath + "array", function (el, param) {
     });
     return res
 });
-/**
- * Permet d'obtenir des éléments qui se trouvent à des index spécifiés.
- * @param param (int|array)
- *      - int : Index de l'élément qu'on veut obtenir. Pas de nombres négatifs.
- *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite obtenir.
- * @returns {Array}
- */
-Array.prototype.getAt = function(param){ return zk().toolbox().getAt(this, param) };
+Array.prototype.getAt = function(indexes){ return zk().toolbox().getAt(this, indexes) };
 
 var arrayGetPath = "_ENTITY_._PARAMETERS_.array.get.";
 zk().setContainer(arrayGetPath + "string", function(el, param){
@@ -235,20 +157,9 @@ zk().setContainer(arrayGetPath + "array", function (el, param) {
     });
     return res
 });
-/**
- * Permet d'obtenir des valeurs dans le tableau.
- * @param param (string|regexp|number|array)
- *      - string : Conversion en regexp.
- *      - regexp : Expression régulières des éléments qu'on souhaite obtenir dans le tableau.
- *      - number : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
- *      - array : Paramètres multiples (string|regexp|number). Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau.
- * @returns {Array}
- */
 Array.prototype.get = function(param){ return zk().toolbox().get(this, param) };
 
-/**
- * ========================================= LES METHODES AVEC REMOVE =============================================
- */
+// ========================================= LES METHODES AVEC REMOVE =============================================
 
 Array.prototype.removeDuplicate = function(reverse) { return zk().toolbox().removeDuplicate(this, reverse) };
 
@@ -426,9 +337,7 @@ zk().setContainer(arrayRemovePath + "array", function (el, param) {
  */
 Array.prototype.remove = function(param){ return zk().toolbox().remove(this, param) };
 
-/**
- * ========================================= LES METHODES AVEC ADD =============================================
- */
+// ========================================= LES METHODES AVEC ADD =============================================
 
 var arrayAddFirstPath = "_ENTITY_._PARAMETERS_.array.addFirst.";
 zk().setContainer(arrayAddFirstPath+"other", function(el, value){
@@ -542,9 +451,7 @@ Array.prototype.addAt = function(indexes, value){ return zk().toolbox().addAt(th
 Array.prototype.add = function(value){ return zk().toolbox().add(this, value) };
 
 
-/**
- * ========================================= LES METHODES AVEC CHANGE ===========================================
- */
+// ========================================= LES METHODES AVEC CHANGE ===========================================
 
 var arrayChangeFirstPath = "_ENTITY_._PARAMETERS_.array.changeFirst.";
 zk().setContainer(arrayChangeFirstPath+"number", function (el, oldValue, newValue) {
@@ -702,9 +609,7 @@ zk().setContainer(arrayChangePath + "array", function (el, param, value) {
  */
 Array.prototype.change = function(param, value){ return zk().toolbox().change(this, param, value) };
 
-/**
- * ========================================= LES METHODES AVEC UPPER ===========================================
- */
+// ========================================= LES METHODES AVEC UPPER ===========================================
 
 var arrayUpperFirstPath = "_ENTITY_._PARAMETERS_.array.upperFirst.";
 zk().setContainer(arrayUpperFirstPath+"number", function (el, param, upperLower) {
@@ -943,9 +848,7 @@ zk().setContainer(arrayUpperPath + "array", function (el, param, upperLower) {
  */
 Array.prototype.upper = function(param){ return zk().toolbox().upper(this, param) };
 
-/**
- * ========================================= LES METHODES AVEC LOWER ============================================
- */
+// ========================================= LES METHODES AVEC LOWER ============================================
 
 Array.prototype.lowerFirst = function(param){ return zk().toolbox().lowerFirst(this, param) };
 
