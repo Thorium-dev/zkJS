@@ -83,27 +83,25 @@ zk().setContainer(arrayGetLastPath+"regexp", function(el, value){
 });
 Array.prototype.getLast = function(value){ return zk().toolbox().getLast(this, value) };
 
-
-
-
-
 var arrayGetBeforePath = "_ENTITY_._PARAMETERS_.array.getBefore.";
-zk().setContainer(arrayGetBeforePath+"other", function(el, index){
+zk().setContainer(arrayGetBeforePath+"other", function(el, index, isAfter){
     var box = zk().toolbox();
     if(!box.is(index, "number")){ index = box.index(el, index) }
-    if(index > -1 ){ return el.slice(0,index) }
+    if(index > -1 ){ return isAfter ? el.slice(index+1) : el.slice(0,index) }
     return [];
 });
 Array.prototype.getBefore = function(index){ return zk().toolbox().getBefore(this, index) };
 
 var arrayGetAfterPath = "_ENTITY_._PARAMETERS_.array.getAfter.";
 zk().setContainer(arrayGetAfterPath+"other", function(el, index){
-    var box = zk().toolbox();
-    if(!box.is(index, "number")){ index = box.index(el, index) }
-    if(index > -1 ){ return el.slice(index+1) }
-    return [];
+    return zk().getContainer(arrayGetBeforePath+"other")(el, index, true);
 });
 Array.prototype.getAfter = function(index){ return zk().toolbox().getAfter(this, index) };
+
+
+
+
+
 
 var arrayGetBetweenPath = "_ENTITY_._PARAMETERS_.array.getBetween.";
 zk().setContainer(arrayGetBetweenPath+"array", function(el, indexes){

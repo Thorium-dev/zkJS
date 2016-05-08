@@ -64,55 +64,33 @@ zk().setContainer(stringGetLastPath+"regexp", function(el, value){
 });
 String.prototype.getLast = function(value){ return zk().toolbox().getLast(this, value) };
 
-
-
-
-
-
-
-
-
-
-
-
-
 var stringGetBeforePath = "_ENTITY_._PARAMETERS_.string.getBefore.";
-zk().setContainer(stringGetBeforePath + "string", function (el, param) {
-    param = el.match(param);
-    if (!param) { return '' }
-    param = param[0];
-    var i = el.search(param);
-    return zk().getContainer(stringGetBeforePath + "number")(el, i);
+zk().setContainer(stringGetBeforePath+"other", function(el, index){
+    var box = zk().toolbox();
+    if(!box.is(index, "string|regexp|number")){ return "" }
+    if(!box.is(index, "number")){ index = box.index(el, index) }
+    if(index > -1 ){ return el.slice(0,index) }
+    return "";
 });
-zk().setContainer(stringGetBeforePath+"regexp", function(el, param){
-    (''+param).replace(/^\/(.*)\/([gi]*)$/, function(str, s1, s2){ param = new RegExp(s1, s2.trim("g")+"g") });
-    return zk().getContainer(stringGetBeforePath + "string")(el, param);
-});
-zk().setContainer(stringGetBeforePath + "number", function (el, param) { return el.slice(0, Math.abs(param)) });
-String.prototype.getBefore = function(param){
-    if(param===undefined){ return "" }
-    var paramFunc = zk().getContainer(stringGetBeforePath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : "";
-};
+String.prototype.getBefore = function(index){ return zk().toolbox().getBefore(this, index) };
 
 var stringGetAfterPath = "_ENTITY_._PARAMETERS_.string.getAfter.";
-zk().setContainer(stringGetAfterPath + "string", function (el, param) {
-    param = el.match(param);
-    if (!param) { return '' }
-    param = param[0];
-    var i = el.search(param); i += param.length - 1;
-    return zk().getContainer(stringGetAfterPath + "number")(el, i);
+zk().setContainer(stringGetAfterPath+"other", function(el, index){
+    var box = zk().toolbox(), indexType = box.is(index);
+    if(!/string|number|regexp/.test(indexType)){ return "" }
+    if (indexType === "string") { index = el.indexOf(index) + index.length -1 }
+    if (indexType === "regexp") {
+        var indexReg = index.exec(el);
+        index = indexReg ? indexReg.index + indexReg[0].length - 1 : -1;
+    }
+    if(index > -1 ){ return el.slice(index+1) }
+    return "";
 });
-zk().setContainer(stringGetAfterPath+"regexp", function(el, param){
-    (''+param).replace(/^\/(.*)\/([gi]*)$/, function(str, s1, s2){ param = new RegExp(s1, s2.trim("g")+"g") });
-    return zk().getContainer(stringGetAfterPath + "string")(el, param);
-});
-zk().setContainer(stringGetAfterPath + "number", function (el, param) { return el.slice(Math.abs(param) + 1) });
-String.prototype.getAfter = function(param){
-    if(param===undefined){ return "" }
-    var paramFunc = zk().getContainer(stringGetAfterPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : "";
-};
+String.prototype.getAfter = function(index){ return zk().toolbox().getAfter(this, index) };
+
+
+
+
 
 var stringGetBetweenPath = "_ENTITY_._PARAMETERS_.string.getBetween.";
 zk().setContainer(stringGetBetweenPath + "array", function (el, param) {

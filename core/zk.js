@@ -391,7 +391,6 @@
             var f = zk().getContainer(path + self.is(value));
             return f ? f(el, value) : zk().getContainer(path + "other")();
         }
-
         /**
          * Permet d'obtenir les premiers éléments d'un objet.
          *
@@ -432,11 +431,6 @@
          * @since 1.0
          */
         this.getLast = function (el, value) { return getFirstLast(el, value, "Last") };
-
-
-
-
-        
         /**
          * Permet d'obtenir les éléments qui se situent avant l'argument index dans un objet.
          *
@@ -465,6 +459,10 @@
         this.getAfter = function (el, index) {
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAfter.other")(el, index);
         };
+
+
+
+
         /**
          * Permet d'obtenir une ou plusieurs plages d'un objet.
          *
