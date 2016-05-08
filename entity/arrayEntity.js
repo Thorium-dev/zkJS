@@ -52,34 +52,40 @@ Array.prototype.reverse = function(){ return zk().toolbox().reverse(this) };
 // ========================================= LES METHODES AVEC GET =============================================
 
 var arrayGetFirstPath = "_ENTITY_._PARAMETERS_.array.getFirst.";
-zk().setContainer(arrayGetFirstPath+"number", function(el, param){ return el.slice(0, Math.abs(param)) });
-zk().setContainer(arrayGetFirstPath+"string", function(el, param){
-    return zk().getContainer(arrayGetFirstPath+"regexp")(el, new RegExp(param));
+zk().setContainer(arrayGetFirstPath+"other", function(){ return [] });
+zk().setContainer(arrayGetFirstPath+"number", function(el, value){ return el.slice(0, Math.abs(value)) });
+zk().setContainer(arrayGetFirstPath+"string", function(el, value){
+    return zk().getContainer(arrayGetFirstPath+"regexp")(el, new RegExp(value));
 });
-zk().setContainer(arrayGetFirstPath+"regexp", function(el, param){
+zk().setContainer(arrayGetFirstPath+"regexp", function(el, value){
     var k = el.length;
     for(var i = 0; i < k; i++){
-        if(param.test(el[i])){ return [el[i]] }
+        if(value.test(el[i])){ return [el[i]] }
     }
     return [];
 });
-Array.prototype.getFirst = function(param){ return zk().toolbox().getFirst(this, param) };
+Array.prototype.getFirst = function(value){ return zk().toolbox().getFirst(this, value) };
 
 Array.prototype.getMiddle = function(){ return zk().toolbox().getMiddle(this) };
 
 var arrayGetLastPath = "_ENTITY_._PARAMETERS_.array.getLast.";
-zk().setContainer(arrayGetLastPath+"number", function(el, param){ return el.slice(-Math.abs(param)) });
-zk().setContainer(arrayGetLastPath+"string", function(el, param){
-    return zk().getContainer(arrayGetLastPath+"regexp")(el, new RegExp(param));
+zk().setContainer(arrayGetLastPath+"other", function(){ return [] });
+zk().setContainer(arrayGetLastPath+"number", function(el, value){ return el.slice(-Math.abs(value)) });
+zk().setContainer(arrayGetLastPath+"string", function(el, value){
+    return zk().getContainer(arrayGetLastPath+"regexp")(el, new RegExp(value));
 });
-zk().setContainer(arrayGetLastPath+"regexp", function(el, param){
+zk().setContainer(arrayGetLastPath+"regexp", function(el, value){
     var k = el.length;
     for(var i = (k-1); i+1 ; i--){
-        if(param.test(el[i])){ return [el[i]] }
+        if(value.test(el[i])){ return [el[i]] }
     }
     return [];
 });
-Array.prototype.getLast = function(param){ return zk().toolbox().getLast(this, param) };
+Array.prototype.getLast = function(value){ return zk().toolbox().getLast(this, value) };
+
+
+
+
 
 var arrayGetBeforePath = "_ENTITY_._PARAMETERS_.array.getBefore.";
 zk().setContainer(arrayGetBeforePath+"other", function(el, index){
