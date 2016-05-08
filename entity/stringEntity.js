@@ -42,33 +42,39 @@ String.prototype.trim = function(strReg, direction){ return zk().toolbox().trim(
 // ========================================= LES METHODES AVEC GET =============================================
 
 var stringGetFirstPath = "_ENTITY_._PARAMETERS_.string.getFirst.";
-zk().setContainer(stringGetFirstPath+"regexp", function(el, param){ var r = el.match(param); return r ? r[0] : ''; });
-zk().setContainer(stringGetFirstPath+"number", function(el, param){ return el.slice(0, Math.abs(param)) });
-String.prototype.getFirst = function(param){
-    if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(stringGetFirstPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : "";
-};
+zk().setContainer(stringGetFirstPath+"other", function(){ return "" });
+zk().setContainer(stringGetFirstPath+"number", function(el, value){ return el.slice(0, Math.abs(value)) });
+zk().setContainer(stringGetFirstPath+"string", function(el, value){
+    return zk().getContainer(stringGetFirstPath+"regexp")(el, new RegExp(value));
+});
+zk().setContainer(stringGetFirstPath+"regexp", function(el, value){ var r = el.match(value); return r ? r[0] : ''; });
+String.prototype.getFirst = function(value){ return zk().toolbox().getFirst(this, value) };
 
-String.prototype.getMiddle = function(){
-    var l = this.length, n = parseInt(l / 2);
-    return (l % 2) ? this.slice(n, n + 1) : this.slice(n - 1, n + 1)
-};
+String.prototype.getMiddle = function(){ return zk().toolbox().getMiddle(this) };
 
 var stringGetLastPath = "_ENTITY_._PARAMETERS_.string.getLast.";
-zk().setContainer(stringGetLastPath+"regexp", function(el, param){
-    (''+param).replace(/^\/(.*)\/([gi]*)$/, function(str, s1, s2){
-        param = new RegExp(s1, s2.trim("g")+"g");
-    });
-    var r = el.match(param);
+zk().setContainer(stringGetLastPath+"other", function(){ return "" });
+zk().setContainer(stringGetLastPath+"number", function(el, value){ return el.slice(-Math.abs(value)) });
+zk().setContainer(stringGetLastPath+"string", function(el, value){
+    return zk().getContainer(stringGetLastPath+"regexp")(el, value)
+});
+zk().setContainer(stringGetLastPath+"regexp", function(el, value){
+    var r = el.match(new RegExp(value, "g"));
     return r ? r[r.length - 1] : '';
 });
-zk().setContainer(stringGetLastPath+"number", function(el, param){ return el.slice(-param) });
-String.prototype.getLast = function(param){
-    if(param===undefined){param=1}
-    var paramFunc = zk().getContainer(stringGetLastPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : "";
-};
+String.prototype.getLast = function(value){ return zk().toolbox().getLast(this, value) };
+
+
+
+
+
+
+
+
+
+
+
+
 
 var stringGetBeforePath = "_ENTITY_._PARAMETERS_.string.getBefore.";
 zk().setContainer(stringGetBeforePath + "string", function (el, param) {
