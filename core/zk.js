@@ -524,7 +524,6 @@
             var f = zk().getContainer(path + self.is(param));
             return f ? f(el, param) : zk().getContainer(path + "other")(el, param);
         }
-
         /**
          * Permet de supprimer les premiers éléments dans un objet.
          *
@@ -538,7 +537,6 @@
          * @since 1.0
          */
         this.removeFirst = function (el, value) { return rmFirstLast(el, value, "First") };
-
         /**
          * Permet de supprimer le ou les éléments qui se trouvent au milieu d'un objet.
          *
@@ -552,16 +550,38 @@
             return el.slice(0, (x == 2) ? n - 1 : n).concat(el.slice(n + x - (x - 1)));
         };
 
-        this.removeLast = function (el, param) {
-            return rmFirstLast(el, param, "Last")
-        };
+        /**
+         * Permet de supprimer les derniers éléments dans un objet.
+         *
+         * @method removeFirst
+         * @param {*} el Objet de référence.
+         * @param {string|RegExp|int} value
+         *      - string : Conversion en RegExp.
+         *      - RegExp : Expression régulières.
+         *      - int : Les derniers éléments.
+         * @returns {*}
+         * @since 1.0
+         */
+        this.removeLast = function (el, value) { return rmFirstLast(el, value, "Last") };
+        
         function rmBeforeAfter(el, param, what, argType) {
             return zk().getContainer("_ENTITY_._PARAMETERS_." +
                 self.is(el) + ".remove" + what + "." + argType)(el, param);
         }
-
-        this.removeBefore = function (el, param) {
-            return rmBeforeAfter(el, param, 'Before', 'other')
+        /**
+         * Permet de supprimer les éléments qui se situent avant index dans un objet.
+         *
+         * @method removeBefore
+         * @param {*} el Objet de référence.
+         * @param {string|RegExp|int} index
+         *      - string : Conversion en RegExp.
+         *      - RegExp : Expression régulières.
+         *      - int : Index numérique.
+         * @returns {*}
+         * @since 1.0
+         */
+        this.removeBefore = function (el, index) {
+            return rmBeforeAfter(el, index, 'Before', 'other')
         };
         this.removeAfter = function (el, param) {
             return rmBeforeAfter(el, param, 'After', 'other')
