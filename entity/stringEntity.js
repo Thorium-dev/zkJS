@@ -92,7 +92,6 @@ zk().setContainer(stringGetAfterPath+"other", function(el, index){
 });
 String.prototype.getAfter = function(index){ return zk().toolbox().getAfter(this, index) };
 
-
 var stringGetBetweenPath = "_ENTITY_._PARAMETERS_.string.getBetween.";
 zk().setContainer(stringGetBetweenPath+"array", function(el, indexes){
     var box = zk().toolbox(), i, k, res = "";
@@ -137,15 +136,13 @@ zk().setContainer(stringGetBetweenPath+"array", function(el, indexes){
 String.prototype.getBetween = function(indexes){ return zk().toolbox().getBetween(this, indexes) };
 
 
-
-
-
 var stringGetAtPath = "_ENTITY_._PARAMETERS_.string.getAt.";
-zk().setContainer(stringGetAtPath + "array", function (el, param) {
-    var n, k = el.length, res = '';
-    zk().toolbox().each(param, function () {
-        n = Math.abs(this.v);
-        if (zk().toolbox().is(n, 'number')) {
+zk().setContainer(stringGetAtPath + "number", function (el, indexes) { return zk().getContainer(stringGetAtPath + "array")(el, [indexes]) });
+zk().setContainer(stringGetAtPath + "array", function (el, indexes) {
+    var n, k = el.length, res = "";
+    zk().toolbox().each(indexes, function () {
+        n = this.v;
+        if (zk().toolbox().is(n, 'number') && n > -1) {
             if (n < k) {
                 res = res.concat(el[n])
             }
@@ -153,12 +150,10 @@ zk().setContainer(stringGetAtPath + "array", function (el, param) {
     });
     return res
 });
-zk().setContainer(stringGetAtPath + "number", function (el, param) { return zk().getContainer(stringGetAtPath + "array")(el, [param]) });
-String.prototype.getAt = function(param){
-    if(param===undefined){ return "" }
-    var paramFunc = zk().getContainer(stringGetAtPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : "";
-};
+String.prototype.getAt = function(indexes){ return zk().toolbox().getAt(this, indexes) };
+
+
+
 
 var stringGetPath = "_ENTITY_._PARAMETERS_.string.get.";
 /**

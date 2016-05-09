@@ -459,7 +459,6 @@
         this.getAfter = function (el, index) {
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAfter.other")(el, index);
         };
-
         /**
          * Permet d'obtenir une ou plusieurs plages d'un objet.
          *
@@ -496,12 +495,16 @@
          * @returns {Array}
          */
         this.getAt = function (el, indexes) {
-            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
+            /*var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
             var path = basePath + "getAt.";
             var f = zk().getContainer(path + self.is(indexes));
             // @TODO : Vérifier getNotFound
-            return f ? f(el, indexes) : zk().getContainer(basePath + "getNotFound")(el, indexes);
+            return f ? f(el, indexes) : zk().getContainer(basePath + "getNotFound")(el, indexes);*/
+            return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAt.array")(el, indexes);
         };
+
+
+
         /**
          * Permet d'obtenir des valeurs dans un objet.
          *

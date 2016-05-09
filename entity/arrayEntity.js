@@ -98,11 +98,6 @@ zk().setContainer(arrayGetAfterPath+"other", function(el, index){
 });
 Array.prototype.getAfter = function(index){ return zk().toolbox().getAfter(this, index) };
 
-
-
-
-
-
 var arrayGetBetweenPath = "_ENTITY_._PARAMETERS_.array.getBetween.";
 zk().setContainer(arrayGetBetweenPath+"array", function(el, indexes){
     var box = zk().toolbox(), i, k, res = [];
@@ -124,13 +119,15 @@ zk().setContainer(arrayGetBetweenPath+"array", function(el, indexes){
 });
 Array.prototype.getBetween = function(indexes){ return zk().toolbox().getBetween(this, indexes) };
 
+
+
 var arrayGetAtPath = "_ENTITY_._PARAMETERS_.array.getAt.";
-zk().setContainer(arrayGetAtPath + "number", function (el, indexes) { return zk().getContainer(arrayGetAtPath + "array")(el, [indexes]) });
 zk().setContainer(arrayGetAtPath + "array", function (el, indexes) {
-    var n, k = el.length, res = [];
-    zk().toolbox().each(indexes, function () {
+    var box = zk().toolbox(), n, k = el.length, res = [];
+    if(!box.is(indexes, "array")){ indexes = [indexes] }
+    box.each(indexes, function () {
         n = this.v;
-        if (zk().toolbox().is(n, 'number') && n > -1) {
+        if (box.is(n, 'number') && n > -1) {
             if (n < k) {
                 res = res.concat(el[n])
             }
@@ -139,6 +136,8 @@ zk().setContainer(arrayGetAtPath + "array", function (el, indexes) {
     return res
 });
 Array.prototype.getAt = function(indexes){ return zk().toolbox().getAt(this, indexes) };
+
+
 
 var arrayGetPath = "_ENTITY_._PARAMETERS_.array.get.";
 zk().setContainer(arrayGetPath + "string", function(el, param){
