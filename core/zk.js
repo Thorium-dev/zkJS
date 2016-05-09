@@ -539,6 +539,14 @@
          */
         this.removeFirst = function (el, value) { return rmFirstLast(el, value, "First") };
 
+        /**
+         * Permet de supprimer le ou les éléments qui se trouvent au milieu d'un objet.
+         *
+         * @method removeMiddle
+         * @param {*} el Objet de référence.
+         * @returns {*}
+         * @since 1.0
+         */
         this.removeMiddle = function (el) {
             var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
             return el.slice(0, (x == 2) ? n - 1 : n).concat(el.slice(n + x - (x - 1)));

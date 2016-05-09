@@ -181,16 +181,13 @@ zk().setContainer(arrayRemoveFirstPath+"regexp", function(el, value){
 });
 Array.prototype.removeFirst = function(value){ return zk().toolbox().removeFirst(this, value) };
 
-
-
-
-
-
-/**
- * Permet de supprimer le ou les éléments qui se trouvent au milieu du tableau.
- * @returns {Array.<*>}
- */
 Array.prototype.removeMiddle = function(){ return zk().toolbox().removeMiddle(this) };
+
+
+
+
+
+
 
 var arrayRemoveLastPath = "_ENTITY_._PARAMETERS_.array.removeLast.";
 zk().setContainer(arrayRemoveLastPath + "number", function (el, param) {

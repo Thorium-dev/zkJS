@@ -174,6 +174,7 @@ zk().setContainer(stringRemoveFirstPath+"regexp", function(el, value){
 });
 String.prototype.removeFirst = function(value){ return zk().toolbox().removeFirst(this, value) };
 
+String.prototype.removeMiddle = function(){ return zk().toolbox().removeMiddle(this) };
 
 
 
@@ -181,15 +182,6 @@ String.prototype.removeFirst = function(value){ return zk().toolbox().removeFirs
 
 
 
-
-
-
-
-/**
- * Permet de supprimer le ou les éléments qui se trouvent au milieu du tableau.
- * @returns {Array.<*>}
- */
-Array.prototype.removeMiddle = function(){ return zk().toolbox().removeMiddle(this) };
 
 var arrayRemoveLastPath = "_ENTITY_._PARAMETERS_.array.removeLast.";
 zk().setContainer(arrayRemoveLastPath + "number", function (el, param) {
