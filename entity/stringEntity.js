@@ -165,4 +165,184 @@ String.prototype.get = function(value){ return zk().toolbox().get(this, value) }
 
 // ========================================= LES METHODES AVEC REMOVE =============================================
 
+var stringRemoveFirstPath = "_ENTITY_._PARAMETERS_.string.removeFirst.";
+zk().setContainer(stringRemoveFirstPath+"other", function (el) { return el });
+zk().setContainer(stringRemoveFirstPath+"number", function (el, value) { return (value < 1) ? el : el.slice(value) });
+zk().setContainer(stringRemoveFirstPath+"string", function(el, value){ return el.replace(new RegExp(value), "") });
+zk().setContainer(stringRemoveFirstPath+"regexp", function(el, value){
+    var i = -1; return el.replace(value, function (str) { i++; return i ? str : "" })
+});
+String.prototype.removeFirst = function(value){ return zk().toolbox().removeFirst(this, value) };
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Permet de supprimer le ou les éléments qui se trouvent au milieu du tableau.
+ * @returns {Array.<*>}
+ */
+Array.prototype.removeMiddle = function(){ return zk().toolbox().removeMiddle(this) };
+
+var arrayRemoveLastPath = "_ENTITY_._PARAMETERS_.array.removeLast.";
+zk().setContainer(arrayRemoveLastPath + "number", function (el, param) {
+    return (param < 1) ? this : el.slice(0, -param);
+});
+zk().setContainer(arrayRemoveLastPath+"other", function(el, param){
+    var i, k = el.length;
+    for (i = k - 1; i > -1; i--) {
+        if (el[i] == param) { el.splice(i, 1); return el }
+    }
+    return el;
+});
+zk().setContainer(arrayRemoveLastPath+"regexp", function(el, param){
+    var i, k = el.length;
+    for (i = k - 1; i > -1; i--) {
+        if (param.test(el[i])) { el.splice(i, 1); return el }
+    }
+    return el;
+});
+/**
+ * Permet de supprimer les derniers éléments du tableau.
+ * @param param (number|other|regexp)
+ *      - number : Nombre de derniers éléments à supprimer.
+ *      - other : Le dernier élément à supprimer. La fonction fait une égalité stricte.
+ *      - regexp : Expression régulière de l'élément à supprimer.
+ * @returns {Array}
+ */
+Array.prototype.removeLast = function(param){ return zk().toolbox().removeLast(this, param) };
+
+var arrayRemoveBeforePath = "_ENTITY_._PARAMETERS_.array.removeBefore.";
+zk().setContainer(arrayRemoveBeforePath+"other", function(el, param){
+    var box = zk().toolbox();
+    if(!box.is(param, "number")){ param = box.index(el, param) }
+    if(param > -1 ){ return el.slice(param) }
+    return el;
+});
+/**
+ * Permet de supprimer les éléments qui se situent avant index dans le tableau.
+ * @param index (number|other)
+ *      - number : Index du tableau.
+ *      - other : Objet quelconque qui se trouve dans le tableau.
+ * @returns {Array}
+ */
+Array.prototype.removeBefore = function(index){ return zk().toolbox().removeBefore(this, index) };
+
+var arrayRemoveAfterPath = "_ENTITY_._PARAMETERS_.array.removeAfter.";
+zk().setContainer(arrayRemoveAfterPath+"other", function(el, param){
+    var box = zk().toolbox();
+    if(!box.is(param, "number")){ param = box.index(el, param) }
+    if(param > -1 ){ return el.slice(0, param + 1) }
+    return el;
+});
+/**
+ * Permet de supprimer les éléments qui se situent après param dans le tableau.
+ * @param param (number|other)
+ *      - number : Index du tableau.
+ *      - other : Objet quelconque qui se trouve dans le tableau.
+ * @returns {Array}
+ */
+Array.prototype.removeAfter = function(param){ return zk().toolbox().removeAfter(this, param) };
+
+var arrayRemoveBetweenPath = "_ENTITY_._PARAMETERS_.array.removeBetween.";
+zk().setContainer(arrayRemoveBetweenPath+"array", function(el, indexes){
+    var box = zk().toolbox();
+    if (!box.is(indexes, 'array')) { indexes = [indexes] }
+    if (indexes.length % 2) { indexes.push(el.length - 1) }
+    indexes = indexes.slice(0, 2);
+    for (var i = 0; i < 2; i++){
+        if(!box.is(indexes[i], "number")){ indexes[i] = box.index(el, indexes[i]) }
+        if(indexes[i] < 0){ indexes[i] = NaN }
+    }
+    if(box.is(indexes[0], "number") && box.is(indexes[1], "number")){
+        indexes = box.nSort(indexes);
+        el = el.slice(0, indexes[0]+1).concat(el.slice(indexes[1]));
+    }
+    return el;
+});
+/**
+ * Supprime une plage du tableau
+ * @param indexes (array|int)
+ *      - int : Valeur de début. La taille du tableau est utilisée comme valeur complémentaire.
+ *      - array : Tableau contenant des valeurs quelconques.
+ * @returns {*}
+ */
+Array.prototype.removeBetween = function(indexes){ return zk().toolbox().removeBetween(this, indexes) };
+
+var arrayRemoveAtPath = "_ENTITY_._PARAMETERS_.array.removeAt.";
+zk().setContainer(arrayRemoveAtPath + "number", function (el, indexes) { return zk().getContainer(arrayRemoveAtPath + "array")(el, [indexes]) });
+zk().setContainer(arrayRemoveAtPath + "array", function (el, indexes) {
+    var box = zk().toolbox();
+    indexes = box.removeDuplicate(indexes, true);
+    box.each(indexes, function () {
+        var n = this.v;
+        if (box.is(n, 'number') && n > -1) { el = el.slice(0, n).concat(el.slice(n + 1)) }
+    });
+    return el
+});
+/**
+ * Permet de supprimer des éléments qui se trouvent à des index spécifiés.
+ * @param indexes (int|array)
+ *      - int : Index de l'élément qu'on veut supprimer. Pas de nombres négatifs.
+ *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite supprimer.
+ * @returns {Array}
+ */
+Array.prototype.removeAt = function(indexes){ return zk().toolbox().removeAt(this, indexes) };
+
+var arrayRemovePath = "_ENTITY_._PARAMETERS_.array.remove.";
+zk().setContainer(arrayRemovePath+"other", function(el, param){
+    var res = [];
+    zk().toolbox().each(el,function(){
+        if(param !== this.v){ res.push(this.v) }
+    });
+    return res;
+});
+zk().setContainer(arrayRemovePath+"regexp", function(el, param){
+    var res = [];
+    zk().toolbox().each(el,function(){
+        if(!param.test(this.v)){ res.push(this.v) }
+    });
+    return res;
+});
+zk().setContainer(arrayRemovePath + "number", function (el, param) { return ( param < 0 ) ? el.slice(0, param) : el.slice(param); });
+zk().setContainer(arrayRemovePath + "array", function (el, param) {
+    var indexes = [], box = zk().toolbox();
+    box.each(param, function () {
+        indexes = indexes.concat(box.indexes(el, this.v));
+    });
+    return zk().getContainer(arrayRemoveAtPath + "array")(el, indexes);
+});
+/**
+ * Permet de supprimer des valeurs dans le tableau.
+ * @param param (void|other|regexp|number|array)
+ *      - void : Si aucun paramètre n'est donné, elle renvoie le tableau d'origine.
+ *      - other : Elément(s) à retirer du tableau. On fait une égalité stricte.
+ *      - regexp : Expression régulières des éléments qu'on souhaite supprimer du tableau.
+ *      - number : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
+ *      - array : Paramètres multiples (string|regexp|number). Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau.
+ * @returns {Array}
+ */
+Array.prototype.remove = function(param){ return zk().toolbox().remove(this, param) };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

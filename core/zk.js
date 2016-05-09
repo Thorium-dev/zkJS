@@ -488,6 +488,7 @@
          *      - int : Index de l'élément qu'on veut obtenir. Pas de nombres négatifs.
          *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite obtenir.
          * @returns {*}
+         * @since 1.0
          */
         this.getAt = function (el, indexes) {
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAt.array")(el, indexes);
@@ -503,6 +504,7 @@
          *      - int : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
          *      - array : Paramètres multiples (string|regexp|int). Le résulat est obtenu en fonction du type des éléments qui se trouve dans l'objet.
          * @returns {*}
+         * @since 1.0
          */
         this.get = function (el, value) {
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get.";
@@ -523,13 +525,25 @@
             return f ? f(el, param) : zk().getContainer(path + "other")(el, param);
         }
 
-        this.removeFirst = function (el, param) {
-            return rmFirstLast(el, param, "First")
-        };
+        /**
+         * Permet de supprimer les premiers éléments dans un objet.
+         *
+         * @method removeFirst
+         * @param {*} el Objet de référence.
+         * @param {string|RegExp|int} value
+         *      - string : Conversion en RegExp.
+         *      - RegExp : Expression régulières.
+         *      - int : Les premiers éléments.
+         * @returns {*}
+         * @since 1.0
+         */
+        this.removeFirst = function (el, value) { return rmFirstLast(el, value, "First") };
+
         this.removeMiddle = function (el) {
             var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
             return el.slice(0, (x == 2) ? n - 1 : n).concat(el.slice(n + x - (x - 1)));
         };
+
         this.removeLast = function (el, param) {
             return rmFirstLast(el, param, "Last")
         };

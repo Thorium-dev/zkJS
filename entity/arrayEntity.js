@@ -136,58 +136,55 @@ zk().setContainer(arrayGetAtPath + "array", function (el, indexes) {
 Array.prototype.getAt = function(indexes){ return zk().toolbox().getAt(this, indexes) };
 
 var arrayGetPath = "_ENTITY_._PARAMETERS_.array.get.";
-zk().setContainer(arrayGetPath + "string", function(el, param){
-    return zk().getContainer(arrayGetPath+"regexp")(el, new RegExp(param));
+zk().setContainer(arrayGetPath + "string", function(el, value){
+    return zk().getContainer(arrayGetPath+"regexp")(el, new RegExp(value));
 });
-zk().setContainer(arrayGetPath + "regexp", function(el, param){
+zk().setContainer(arrayGetPath + "regexp", function(el, value){
     var res = [];
     zk().toolbox().each(el,function(){
-        if(param.test(this.v)){ res.push(this.v) }
+        if(value.test(this.v)){ res.push(this.v) }
     });
     return res;
 });
-zk().setContainer(arrayGetPath + "number", function (el, param) { return ( param < 0 ) ? el.slice(param) : el.slice(0, param); });
-zk().setContainer(arrayGetPath + "array", function (el, param) {
+zk().setContainer(arrayGetPath + "number", function (el, value) { return ( value < 0 ) ? el.slice(value) : el.slice(0, value); });
+zk().setContainer(arrayGetPath + "array", function (el, value) {
     var res = [];
-    zk().toolbox().each(param, function () {
-        var paramFunc = zk().getContainer(arrayGetPath+zk().toolbox().is(this.v));
-        if (paramFunc) { res = res.concat(paramFunc(el, this.v)) }
+    zk().toolbox().each(value, function () {
+        var f = zk().getContainer(arrayGetPath+zk().toolbox().is(this.v));
+        if (f) { res = res.concat(f(el, this.v)) }
     });
     return res
 });
-Array.prototype.get = function(param){ return zk().toolbox().get(this, param) };
+Array.prototype.get = function(value){ return zk().toolbox().get(this, value) };
 
 // ========================================= LES METHODES AVEC REMOVE =============================================
 
 Array.prototype.removeDuplicate = function(isDesc) { return zk().toolbox().removeDuplicate(this, isDesc) };
 
 var arrayRemoveFirstPath = "_ENTITY_._PARAMETERS_.array.removeFirst.";
-zk().setContainer(arrayRemoveFirstPath+"number", function (el, param) {
-    return (param < 1) ? el : el.slice(param)
+zk().setContainer(arrayRemoveFirstPath+"number", function (el, value) {
+    return (value < 1) ? el : el.slice(value)
 });
-zk().setContainer(arrayRemoveFirstPath+"other", function(el, param){
+zk().setContainer(arrayRemoveFirstPath+"other", function(el, value){
     var i, k = el.length;
     for (i = 0; i < k; i++) {
-        if (el[i] == param) { el.splice(i, 1); return el }
+        if (el[i] == value) { el.splice(i, 1); return el }
     }
     return el;
 });
-zk().setContainer(arrayRemoveFirstPath+"regexp", function(el, param){
+zk().setContainer(arrayRemoveFirstPath+"regexp", function(el, value){
     var i, k = el.length;
     for (i = 0; i < k; i++) {
-        if (param.test(el[i])) { el.splice(i, 1); return el }
+        if (value.test(el[i])) { el.splice(i, 1); return el }
     }
     return el;
 });
-/**
- * Permet de supprimer les premiers éléments du tableau.
- * @param param (number|other|regexp)
- *      - number : Nombre de premiers éléments à supprimer.
- *      - other : Le premier élément à supprimer. La fonction fait une égalité stricte.
- *      - regexp : Expression régulière de l'élément à supprimer.
- * @returns {Array}
- */
-Array.prototype.removeFirst = function(param){ return zk().toolbox().removeFirst(this, param) };
+Array.prototype.removeFirst = function(value){ return zk().toolbox().removeFirst(this, value) };
+
+
+
+
+
 
 /**
  * Permet de supprimer le ou les éléments qui se trouvent au milieu du tableau.
