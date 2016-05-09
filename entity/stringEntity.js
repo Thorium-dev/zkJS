@@ -59,8 +59,7 @@ zk().setContainer(stringGetLastPath+"string", function(el, value){
     return zk().getContainer(stringGetLastPath+"regexp")(el, value)
 });
 zk().setContainer(stringGetLastPath+"regexp", function(el, value){
-    var r = el.match(new RegExp(value, "g"));
-    return r ? r[r.length - 1] : '';
+    var r = el.match(new RegExp(value, "g")); return r ? r[r.length - 1] : '';
 });
 String.prototype.getLast = function(value){ return zk().toolbox().getLast(this, value) };
 
@@ -141,53 +140,27 @@ zk().setContainer(stringGetAtPath + "array", function (el, indexes) {
 });
 String.prototype.getAt = function(indexes){ return zk().toolbox().getAt(this, indexes) };
 
-
-
-
 var stringGetPath = "_ENTITY_._PARAMETERS_.string.get.";
-/**
- *  Pour un argument de type string :
- *  Renvoie le résultat dans un tableau
- */
-zk().setContainer(stringGetPath+"string", function(el, param){
-    var res = el.match(new RegExp(param, 'g'));
-    return res ? res : [];
+zk().setContainer(stringGetPath+"other", function(){ return "" });
+zk().setContainer(stringGetPath + "string", function(el, value){
+    return zk().getContainer(stringGetPath+"regexp")(el, value);
 });
-/**
- *  Pour un argument de type regexp :
- *  Renvoie le résultat dans un tableau
- */
-zk().setContainer(stringGetPath+"regexp", function(el, param){
-    (''+param).replace(/^\/(.*)\/([gi]*)$/, function(str, s1, s2){ param = new RegExp(s1, s2.trim("g")+"g") });
-    var res = el.match(param);
-    return res ? res : [];
+zk().setContainer(stringGetPath + "regexp", function(el, value){
+    var res = el.match(new RegExp(value, "g"));
+    return res ? res.join("") : "";
 });
-/**
- * Pour un argument de type number :
- * - Renvoie les premiers résultats si l'argument <param> est positif
- * - Sinon renvoie les derniers éléments
- */
-zk().setContainer(stringGetPath + "number", function (el, param) { return ( param < 0 ) ? el.slice(param) : el.slice(0, param); });
-/**
- * Pour un argument de type array :
- * Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau
- */
+zk().setContainer(stringGetPath + "number", function (el, value) {
+    return ( value < 0 ) ? el.slice(value) : el.slice(0, value)
+});
 zk().setContainer(stringGetPath + "array", function (el, param) {
     var res = [];
     zk().toolbox().each(param, function () {
         var paramFunc = zk().getContainer(stringGetPath+zk().toolbox().is(this.v));
-        if (paramFunc) {
-            var r = paramFunc(el, this.v);
-            if(r){ res = res.concat(r) }
-        }
+        if (paramFunc) { res = res.concat(paramFunc(el, this.v)) }
     });
-    return res
+    return res.join("")
 });
-String.prototype.get = function(param){
-    if(param===undefined){ return "" }
-    var paramFunc = zk().getContainer("_ENTITY_._PARAMETERS_.string.get."+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : "";
-};
+String.prototype.get = function(value){ return zk().toolbox().get(this, value) };
 
 
 

@@ -490,14 +490,11 @@
          * @param {int|array} indexes
          *      - int : Index de l'élément qu'on veut obtenir. Pas de nombres négatifs.
          *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite obtenir.
-         * @returns {Array}
+         * @returns {*}
          */
         this.getAt = function (el, indexes) {
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAt.array")(el, indexes);
         };
-
-
-
         /**
          * Permet d'obtenir des valeurs dans un objet.
          *
@@ -508,17 +505,13 @@
          *      - RegExp : Expression régulières des éléments qu'on souhaite obtenir dans l'objet.
          *      - int : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
          *      - array : Paramètres multiples (string|regexp|int). Le résulat est obtenu en fonction du type des éléments qui se trouve dans l'objet.
-         * @returns {Array}
+         * @returns {*}
          */
         this.get = function (el, value) {
-            if (value === undefined) {
-                return el
-            }
-            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
-            var path = basePath + "get.";
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get.";
+            if (value === undefined) { el }
             var f = zk().getContainer(path + self.is(value));
-            // @TODO : Vérifier getNotFound
-            return f ? f(el, value) : zk().getContainer(basePath + "getNotFound")(el, value);
+            return f ? f(el, value) : zk().getContainer(path + "other")();
         };
 
         // REMOVE
