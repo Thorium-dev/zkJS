@@ -135,8 +135,6 @@ zk().setContainer(arrayGetAtPath + "array", function (el, indexes) {
 });
 Array.prototype.getAt = function(indexes){ return zk().toolbox().getAt(this, indexes) };
 
-
-
 var arrayGetPath = "_ENTITY_._PARAMETERS_.array.get.";
 zk().setContainer(arrayGetPath + "string", function(el, param){
     return zk().getContainer(arrayGetPath+"regexp")(el, new RegExp(param));
@@ -161,7 +159,7 @@ Array.prototype.get = function(param){ return zk().toolbox().get(this, param) };
 
 // ========================================= LES METHODES AVEC REMOVE =============================================
 
-Array.prototype.removeDuplicate = function(reverse) { return zk().toolbox().removeDuplicate(this, reverse) };
+Array.prototype.removeDuplicate = function(isDesc) { return zk().toolbox().removeDuplicate(this, isDesc) };
 
 var arrayRemoveFirstPath = "_ENTITY_._PARAMETERS_.array.removeFirst.";
 zk().setContainer(arrayRemoveFirstPath+"number", function (el, param) {

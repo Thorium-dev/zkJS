@@ -382,9 +382,6 @@
 
         // GET
 
-        // @TODO : Adapter getNotFound
-        // @TODO : Changer param en value dans les fonctions et la doc.
-
         function getFirstLast(el, value, firstLast){
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get"+firstLast+".";
             if (value === undefined) { value = 1 }

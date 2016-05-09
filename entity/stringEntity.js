@@ -163,5 +163,6 @@ zk().setContainer(stringGetPath + "array", function (el, param) {
 String.prototype.get = function(value){ return zk().toolbox().get(this, value) };
 
 
+// ========================================= LES METHODES AVEC REMOVE =============================================
 
 
