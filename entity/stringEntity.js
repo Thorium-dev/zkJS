@@ -78,7 +78,11 @@ var stringGetAfterPath = "_ENTITY_._PARAMETERS_.string.getAfter.";
 zk().setContainer(stringGetAfterPath+"other", function(el, index){
     var box = zk().toolbox(), indexType = box.is(index);
     if(!/string|number|regexp/.test(indexType)){ return "" }
-    if (indexType === "string") { index = el.indexOf(index) + index.length -1 }
+    if (indexType === "string") {
+        var indexLength = index.length - 1;
+        index = el.indexOf(index);
+        if(index > -1){ index += indexLength}
+    }
     if (indexType === "regexp") {
         var indexReg = index.exec(el);
         index = indexReg ? indexReg.index + indexReg[0].length - 1 : -1;
@@ -89,28 +93,52 @@ zk().setContainer(stringGetAfterPath+"other", function(el, index){
 String.prototype.getAfter = function(index){ return zk().toolbox().getAfter(this, index) };
 
 
-
-
-
 var stringGetBetweenPath = "_ENTITY_._PARAMETERS_.string.getBetween.";
-zk().setContainer(stringGetBetweenPath + "array", function (el, param) {
-    var i, t, k, res = "";
-    k = param.length;
+zk().setContainer(stringGetBetweenPath+"array", function(el, indexes){
+    var box = zk().toolbox(), i, k, res = "";
+    if (!box.is(indexes, 'array')) { indexes = [indexes] }
+    if (indexes.length % 2) { indexes.push(el.length - 1) }
+    k = indexes.length;
     for (i = 0; i < k; i += 2) {
-        t = [Math.abs(param[i]), Math.abs(param[i + 1])];
-        if(isNaN(t[1])){ t[1] = el.length }
-        if (zk().toolbox().is(t[0], 'number') && zk().toolbox().is(t[1], 'number')) {
-            t = zk().toolbox().nSort(t);
-            res = res.concat(el.slice(t[0] + 1, t[1]))
+        var tab = box.nSort([indexes[i], indexes[i+1]]);
+        for (var j = 0; j < 2; j++){
+            var indexType = box.is(tab[j]);
+            if (/string|number|regexp/.test(indexType)) {
+                if (indexType === "string") {
+                    var indexLength = tab[j].length - 1;
+                    tab[j] = el.indexOf(tab[j]);
+                    if ((j === 0 || (j === 1 && box.is(tab[0], "number"))) && tab[j] > -1) {
+                        tab[j] += indexLength
+                    }
+                }
+                if (indexType === "regexp") {
+                    var indexReg = tab[j].exec(el);
+                    if(indexReg){
+                        tab[j] = indexReg.index;
+                        if ((j === 0 || (j===1 && box.is(tab[0], "number"))) && tab[j] > -1) {
+                            tab[j] += indexReg[0].length - 1
+                        }
+                    }else {
+                        tab[j] = -1
+                    }
+                }
+            } else {
+                tab[j] = -1
+            }
+            if(tab[j] < 0){ tab[j] = NaN }
+        }
+        if(box.is(tab[0], "number") && box.is(tab[1], "number")){
+            tab = box.nSort(tab);
+            res = res.concat(el.slice(tab[0]+1,tab[1]));
         }
     }
-    return res
+    return res;
 });
-String.prototype.getBetween = function(param){
-    if(param===undefined){ return "" }
-    var paramFunc = zk().getContainer(stringGetBetweenPath+zk().toolbox().is(param));
-    return paramFunc ? paramFunc(this, param) : "";
-};
+String.prototype.getBetween = function(indexes){ return zk().toolbox().getBetween(this, indexes) };
+
+
+
+
 
 var stringGetAtPath = "_ENTITY_._PARAMETERS_.string.getAt.";
 zk().setContainer(stringGetAtPath + "array", function (el, param) {

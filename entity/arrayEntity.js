@@ -105,8 +105,7 @@ Array.prototype.getAfter = function(index){ return zk().toolbox().getAfter(this,
 
 var arrayGetBetweenPath = "_ENTITY_._PARAMETERS_.array.getBetween.";
 zk().setContainer(arrayGetBetweenPath+"array", function(el, indexes){
-    var i, k, res = [];
-    var box = zk().toolbox();
+    var box = zk().toolbox(), i, k, res = [];
     if (!box.is(indexes, 'array')) { indexes = [indexes] }
     if (indexes.length % 2) { indexes.push(el.length - 1) }
     k = indexes.length;

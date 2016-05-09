@@ -460,9 +460,6 @@
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAfter.other")(el, index);
         };
 
-
-
-
         /**
          * Permet d'obtenir une ou plusieurs plages d'un objet.
          *
@@ -486,6 +483,8 @@
             if (indexes === undefined) { indexes = 0 }
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBetween.array")(el, indexes);
         };
+
+
         /**
          * Permet d'obtenir des éléments qui se trouvent à des index spécifiés.
          *
