@@ -482,8 +482,6 @@
             if (indexes === undefined) { indexes = 0 }
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBetween.array")(el, indexes);
         };
-
-
         /**
          * Permet d'obtenir des éléments qui se trouvent à des index spécifiés.
          *
@@ -495,11 +493,6 @@
          * @returns {Array}
          */
         this.getAt = function (el, indexes) {
-            /*var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
-            var path = basePath + "getAt.";
-            var f = zk().getContainer(path + self.is(indexes));
-            // @TODO : Vérifier getNotFound
-            return f ? f(el, indexes) : zk().getContainer(basePath + "getNotFound")(el, indexes);*/
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAt.array")(el, indexes);
         };
 

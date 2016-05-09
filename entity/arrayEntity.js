@@ -119,11 +119,9 @@ zk().setContainer(arrayGetBetweenPath+"array", function(el, indexes){
 });
 Array.prototype.getBetween = function(indexes){ return zk().toolbox().getBetween(this, indexes) };
 
-
-
 var arrayGetAtPath = "_ENTITY_._PARAMETERS_.array.getAt.";
 zk().setContainer(arrayGetAtPath + "array", function (el, indexes) {
-    var box = zk().toolbox(), n, k = el.length, res = [];
+    var box = zk().toolbox(), n, k = el.length, res = box.is(el, "string") ? "" : [];
     if(!box.is(indexes, "array")){ indexes = [indexes] }
     box.each(indexes, function () {
         n = this.v;
