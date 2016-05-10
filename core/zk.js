@@ -647,17 +647,42 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + firstLast + ".other";
             return zk().getContainer(path)(el, value);
         }
-
-        this.addFirst = function (el, value) {
-            return addFirstLast(el, value, "First")
-        };
+        /**
+         * Permet d'ajouter des valeurs au début.
+         *
+         * @method addFirst
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
+        this.addFirst = function (el, value) { return addFirstLast(el, value, "First") };
+        /**
+         * Permet d'ajouter des valeurs au milieu.
+         *
+         * @method addMiddle
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
         this.addMiddle = function (el, value) {
             var l = el.length, n = parseInt(l / 2);
             return doSlice(el, n, n, value);
         };
-        this.addLast = function (el, value) {
-            return addFirstLast(el, value, "Last")
-        };
+        /**
+         * Permet d'ajouter des valeurs à la fin.
+         *
+         * @method addLast
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
+        this.addLast = function (el, value) { return addFirstLast(el, value, "Last") };
+
+
+
         function addBeforeAfter(el, index, value, beforeAfter) {
             if (value === undefined) {
                 return el
@@ -665,7 +690,6 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + beforeAfter + ".other";
             return zk().getContainer(path)(el, index, value);
         }
-
         this.addBefore = function (el, index, value) {
             return addBeforeAfter(el, index, value, "Before")
         };

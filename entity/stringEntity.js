@@ -281,31 +281,32 @@ String.prototype.remove = function(value){ return zk().toolbox().remove(this, va
 
 // ========================================= LES METHODES AVEC ADD =============================================
 
-var arrayAddFirstPath = "_ENTITY_._PARAMETERS_.array.addFirst.";
-zk().setContainer(arrayAddFirstPath+"other", function(el, value){
-    if(!zk().toolbox().is(value, "array")){ value = [value] }
-    return value.concat(el);
+var stringAddFirstPath = "_ENTITY_._PARAMETERS_.string.addFirst.";
+zk().setContainer(stringAddFirstPath+"other", function(el, value){
+    if(zk().toolbox().is(value, "string")){ el = value + el }
+    return el;
 });
-/**
- * Permet d'ajouter des valeurs au début du tableau.
- * @param value
- * @returns {*}
- */
-Array.prototype.addFirst = function(value){ return zk().toolbox().addFirst(this, value) };
+String.prototype.addFirst = function(value){ return zk().toolbox().addFirst(this, value) };
 
-Array.prototype.addMiddle = function(value){ return zk().toolbox().addMiddle(this, value) };
+String.prototype.addMiddle = function(value){ return zk().toolbox().addMiddle(this, value) };
 
-var arrayAddLastPath = "_ENTITY_._PARAMETERS_.array.addLast.";
-zk().setContainer(arrayAddLastPath+"other", function(el, value){
-    if(!zk().toolbox().is(value, "array")){ value = [value] }
-    return el.concat(value);
+var stringAddLastPath = "_ENTITY_._PARAMETERS_.string.addLast.";
+zk().setContainer(stringAddLastPath+"other", function(el, value){
+    if(zk().toolbox().is(value, "string")){ el += value }
+    return el;
 });
-/**
- * Permet d'ajouter des valeurs à la fin du tableau.
- * @param value
- * @returns {*}
- */
-Array.prototype.addLast = function(value){ return zk().toolbox().addLast(this, value) };
+String.prototype.addLast = function(value){ return zk().toolbox().addLast(this, value) };
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Cette fonction permet de slicé un élément
