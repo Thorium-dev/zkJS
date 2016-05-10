@@ -256,51 +256,28 @@ zk().setContainer(stringRemoveAtPath + "array", function (el, indexes) {
 });
 String.prototype.removeAt = function(indexes){ return zk().toolbox().removeAt(this, indexes) };
 
-
-
-
-
-
-
-
-var arrayRemovePath = "_ENTITY_._PARAMETERS_.array.remove.";
-zk().setContainer(arrayRemovePath+"other", function(el, param){
-    var res = [];
-    zk().toolbox().each(el,function(){
-        if(param !== this.v){ res.push(this.v) }
-    });
-    return res;
+var stringRemovePath = "_ENTITY_._PARAMETERS_.string.remove.";
+zk().setContainer(stringRemovePath+"other", function(el){ return el });
+zk().setContainer(stringRemovePath + "string", function (el, value) {
+    return zk().getContainer(stringRemovePath + "regexp")(el, value)
 });
-zk().setContainer(arrayRemovePath+"regexp", function(el, param){
-    var res = [];
-    zk().toolbox().each(el,function(){
-        if(!param.test(this.v)){ res.push(this.v) }
-    });
-    return res;
+zk().setContainer(stringRemovePath+"regexp", function(el, value){
+    value = new RegExp(value, "g"); return el.replace(value, "");
 });
-zk().setContainer(arrayRemovePath + "number", function (el, param) { return ( param < 0 ) ? el.slice(0, param) : el.slice(param); });
-zk().setContainer(arrayRemovePath + "array", function (el, param) {
-    var indexes = [], box = zk().toolbox();
-    box.each(param, function () {
-        indexes = indexes.concat(box.indexes(el, this.v));
-    });
-    return zk().getContainer(arrayRemoveAtPath + "array")(el, indexes);
+zk().setContainer(stringRemovePath + "number", function (el, value) {
+    return ( value < 0 ) ? el.slice(0, value) : el.slice(value);
 });
-/**
- * Permet de supprimer des valeurs dans le tableau.
- * @param param (void|other|regexp|number|array)
- *      - void : Si aucun paramètre n'est donné, elle renvoie le tableau d'origine.
- *      - other : Elément(s) à retirer du tableau. On fait une égalité stricte.
- *      - regexp : Expression régulières des éléments qu'on souhaite supprimer du tableau.
- *      - number : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
- *      - array : Paramètres multiples (string|regexp|number). Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau.
- * @returns {Array}
- */
-Array.prototype.remove = function(param){ return zk().toolbox().remove(this, param) };
-
-
-
-
+zk().setContainer(stringRemovePath + "array", function (el, value) {
+    var box = zk().toolbox();
+    box.each(value, function () {
+        var type = box.is(this.v);
+        if(/string|regexp|number/.test(type)){
+            el = zk().getContainer(stringRemovePath + type)(el, this.v);
+        }
+    });
+    return el
+});
+String.prototype.remove = function(value){ return zk().toolbox().remove(this, value) };
 
 // ========================================= LES METHODES AVEC ADD =============================================
 

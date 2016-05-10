@@ -622,19 +622,20 @@
             var f = zk().getContainer(path + self.is(indexes));
             return f ? f(el, indexes) : el;
         };
-
-
-
-
-
-
-        this.remove = function (el, param) {
-            if (param === undefined) {
-                return el
-            }
+        /**
+         * Permet de supprimer des valeurs.
+         *
+         * @method remove
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
+        this.remove = function (el, value) {
+            if (value === undefined) { return el }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".remove.";
-            var f = zk().getContainer(path + self.is(param));
-            return f ? f(el, param) : zk().getContainer(path + "other")(el, param);
+            var f = zk().getContainer(path + self.is(value));
+            return f ? f(el, value) : zk().getContainer(path + "other")(el, value);
         };
 
         // ADD
