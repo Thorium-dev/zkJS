@@ -29,6 +29,8 @@ zk().setContainer(stringIndexesPath+"regexp", function(el, value){
 });
 String.prototype.indexes = function(value){ return zk().toolbox().indexes(this, value) };
 
+//@TODO : Faire la fonction lastIndex => Utiliser la fonction indexes
+
 String.prototype.count = function(value){ return zk().toolbox().count(this, value) };
 
 String.prototype.has = function(value){ return zk().toolbox().has(this, value) };
@@ -205,18 +207,36 @@ zk().setContainer(stringRemoveAfterPath+"other", function(el, index){
 });
 String.prototype.removeAfter = function(index){ return zk().toolbox().removeAfter(this, index) };
 
-
-
-
-
-var arrayRemoveBetweenPath = "_ENTITY_._PARAMETERS_.array.removeBetween.";
-zk().setContainer(arrayRemoveBetweenPath+"array", function(el, indexes){
+var stringRemoveBetweenPath = "_ENTITY_._PARAMETERS_.string.removeBetween.";
+zk().setContainer(stringRemoveBetweenPath+"array", function(el, indexes){
     var box = zk().toolbox();
     if (!box.is(indexes, 'array')) { indexes = [indexes] }
     if (indexes.length % 2) { indexes.push(el.length - 1) }
-    indexes = indexes.slice(0, 2);
+    indexes = box.nSort(indexes.slice(0, 2));
     for (var i = 0; i < 2; i++){
-        if(!box.is(indexes[i], "number")){ indexes[i] = box.index(el, indexes[i]) }
+        var indexType = box.is(indexes[i]);
+        if (/string|number|regexp/.test(indexType)) {
+            if (indexType === "string") {
+                var indexLength = indexes[i].length - 1;
+                indexes[i] = el.indexOf(indexes[i]);
+                if ((i === 0 || (i === 1 && box.is(indexes[0], "number"))) && indexes[i] > -1) {
+                    indexes[i] += indexLength
+                }
+            }
+            if (indexType === "regexp") {
+                var indexReg = indexes[i].exec(el);
+                if(indexReg){
+                    indexes[i] = indexReg.index;
+                    if ((i === 0 || (i===1 && box.is(indexes[0], "number"))) && indexes[i] > -1) {
+                        indexes[i] += indexReg[0].length - 1
+                    }
+                }else {
+                    indexes[i] = -1
+                }
+            }
+        } else {
+            indexes[i] = -1
+        }
         if(indexes[i] < 0){ indexes[i] = NaN }
     }
     if(box.is(indexes[0], "number") && box.is(indexes[1], "number")){
@@ -225,14 +245,12 @@ zk().setContainer(arrayRemoveBetweenPath+"array", function(el, indexes){
     }
     return el;
 });
-/**
- * Supprime une plage du tableau
- * @param indexes (array|int)
- *      - int : Valeur de début. La taille du tableau est utilisée comme valeur complémentaire.
- *      - array : Tableau contenant des valeurs quelconques.
- * @returns {*}
- */
-Array.prototype.removeBetween = function(indexes){ return zk().toolbox().removeBetween(this, indexes) };
+String.prototype.removeBetween = function(indexes){ return zk().toolbox().removeBetween(this, indexes) };
+
+
+
+
+
 
 var arrayRemoveAtPath = "_ENTITY_._PARAMETERS_.array.removeAt.";
 zk().setContainer(arrayRemoveAtPath + "number", function (el, indexes) { return zk().getContainer(arrayRemoveAtPath + "array")(el, [indexes]) });

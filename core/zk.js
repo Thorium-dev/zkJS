@@ -529,7 +529,7 @@
          *
          * @method removeFirst
          * @param {*} el Objet de référence.
-         * @param {string|RegExp|int} value
+         * @param {*} value
          *      - string : Conversion en RegExp.
          *      - RegExp : Expression régulières.
          *      - int : Les premiers éléments.
@@ -549,13 +549,12 @@
             var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
             return el.slice(0, (x == 2) ? n - 1 : n).concat(el.slice(n + x - (x - 1)));
         };
-
         /**
          * Permet de supprimer les derniers éléments dans un objet.
          *
          * @method removeFirst
          * @param {*} el Objet de référence.
-         * @param {string|RegExp|int} value
+         * @param {*} value
          *      - string : Conversion en RegExp.
          *      - RegExp : Expression régulières.
          *      - int : Les derniers éléments.
@@ -563,7 +562,6 @@
          * @since 1.0
          */
         this.removeLast = function (el, value) { return rmFirstLast(el, value, "Last") };
-        
         function rmBeforeAfter(el, param, what, argType) {
             return zk().getContainer("_ENTITY_._PARAMETERS_." +
                 self.is(el) + ".remove" + what + "." + argType)(el, param);
@@ -573,7 +571,7 @@
          *
          * @method removeBefore
          * @param {*} el Objet de référence.
-         * @param {string|RegExp|int} index
+         * @param {*} index
          *      - string : Conversion en RegExp.
          *      - RegExp : Expression régulières.
          *      - int : Index numérique.
@@ -584,9 +582,9 @@
         /**
          * Permet de supprimer les éléments qui se situent après index dans un objet.
          *
-         * @method removeBefore
+         * @method removeAfter
          * @param {*} el Objet de référence.
-         * @param {string|RegExp|int} index
+         * @param {*} index
          *      - string : Conversion en RegExp.
          *      - RegExp : Expression régulières.
          *      - int : Index numérique.
@@ -594,12 +592,22 @@
          * @since 1.0
          */
         this.removeAfter = function (el, index) { return rmBeforeAfter(el, index, 'After', 'other') };
-
-
-
-
-        
+        /**
+         * Permet de supprimer une plage dans un objet.
+         *
+         * @method removeBetween
+         * @param {*} el Objet de référence.
+         * @param {*} indexes
+         *      - string : Conversion en RegExp.
+         *      - RegExp : Expression régulières.
+         *      - int : Index numérique.
+         * @returns {*}
+         * @since 1.0
+         */
         this.removeBetween = function (el, indexes) { return rmBeforeAfter(el, indexes, 'Between', 'array') };
+
+
+
         this.removeAt = function (el, param) {
             var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
             var path = basePath + "removeAt.";
