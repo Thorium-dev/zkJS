@@ -580,15 +580,26 @@
          * @returns {*}
          * @since 1.0
          */
-        this.removeBefore = function (el, index) {
-            return rmBeforeAfter(el, index, 'Before', 'other')
-        };
-        this.removeAfter = function (el, param) {
-            return rmBeforeAfter(el, param, 'After', 'other')
-        };
-        this.removeBetween = function (el, indexes) {
-            return rmBeforeAfter(el, indexes, 'Between', 'array')
-        };
+        this.removeBefore = function (el, index) { return rmBeforeAfter(el, index, 'Before', 'other') };
+        /**
+         * Permet de supprimer les éléments qui se situent après index dans un objet.
+         *
+         * @method removeBefore
+         * @param {*} el Objet de référence.
+         * @param {string|RegExp|int} index
+         *      - string : Conversion en RegExp.
+         *      - RegExp : Expression régulières.
+         *      - int : Index numérique.
+         * @returns {*}
+         * @since 1.0
+         */
+        this.removeAfter = function (el, index) { return rmBeforeAfter(el, index, 'After', 'other') };
+
+
+
+
+        
+        this.removeBetween = function (el, indexes) { return rmBeforeAfter(el, indexes, 'Between', 'array') };
         this.removeAt = function (el, param) {
             var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
             var path = basePath + "removeAt.";

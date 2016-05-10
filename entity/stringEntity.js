@@ -199,25 +199,15 @@ zk().setContainer(stringRemoveBeforePath+"other", function(el, index){
 });
 String.prototype.removeBefore = function(index){ return zk().toolbox().removeBefore(this, index) };
 
-
-
-
-
-var arrayRemoveAfterPath = "_ENTITY_._PARAMETERS_.array.removeAfter.";
-zk().setContainer(arrayRemoveAfterPath+"other", function(el, param){
-    var box = zk().toolbox();
-    if(!box.is(param, "number")){ param = box.index(el, param) }
-    if(param > -1 ){ return el.slice(0, param + 1) }
-    return el;
+var stringRemoveAfterPath = "_ENTITY_._PARAMETERS_.string.removeAfter.";
+zk().setContainer(stringRemoveAfterPath+"other", function(el, index){
+    return el.slice(0, el.lastIndexOf(zk().toolbox().getAfter(el, index)));
 });
-/**
- * Permet de supprimer les éléments qui se situent après param dans le tableau.
- * @param param (number|other)
- *      - number : Index du tableau.
- *      - other : Objet quelconque qui se trouve dans le tableau.
- * @returns {Array}
- */
-Array.prototype.removeAfter = function(param){ return zk().toolbox().removeAfter(this, param) };
+String.prototype.removeAfter = function(index){ return zk().toolbox().removeAfter(this, index) };
+
+
+
+
 
 var arrayRemoveBetweenPath = "_ENTITY_._PARAMETERS_.array.removeBetween.";
 zk().setContainer(arrayRemoveBetweenPath+"array", function(el, indexes){
