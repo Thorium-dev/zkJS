@@ -605,15 +605,29 @@
          * @since 1.0
          */
         this.removeBetween = function (el, indexes) { return rmBeforeAfter(el, indexes, 'Between', 'array') };
-
-
-
-        this.removeAt = function (el, param) {
+        /**
+         * Permet de supprimer des éléments qui se trouvent à des index spécifiés.
+         *
+         * @method removeAt
+         * @param {*} el Objet de référence.
+         * @param {int|array} indexes
+         *      - int : Index numérique.
+         *      - array : Tableau contenant des valeurs entières.
+         * @returns {*}
+         * @since 1.0
+         */
+        this.removeAt = function (el, indexes) {
             var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
             var path = basePath + "removeAt.";
-            var f = zk().getContainer(path + self.is(param));
-            return f ? f(el, param) : el;
+            var f = zk().getContainer(path + self.is(indexes));
+            return f ? f(el, indexes) : el;
         };
+
+
+
+
+
+
         this.remove = function (el, param) {
             if (param === undefined) {
                 return el

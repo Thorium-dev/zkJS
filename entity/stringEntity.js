@@ -247,30 +247,21 @@ zk().setContainer(stringRemoveBetweenPath+"array", function(el, indexes){
 });
 String.prototype.removeBetween = function(indexes){ return zk().toolbox().removeBetween(this, indexes) };
 
-
-
-
-
-
-var arrayRemoveAtPath = "_ENTITY_._PARAMETERS_.array.removeAt.";
-zk().setContainer(arrayRemoveAtPath + "number", function (el, indexes) { return zk().getContainer(arrayRemoveAtPath + "array")(el, [indexes]) });
-zk().setContainer(arrayRemoveAtPath + "array", function (el, indexes) {
-    var box = zk().toolbox();
-    indexes = box.removeDuplicate(indexes, true);
-    box.each(indexes, function () {
-        var n = this.v;
-        if (box.is(n, 'number') && n > -1) { el = el.slice(0, n).concat(el.slice(n + 1)) }
-    });
-    return el
+var stringRemoveAtPath = "_ENTITY_._PARAMETERS_.string.removeAt.";
+zk().setContainer(stringRemoveAtPath + "number", function (el, indexes) {
+    return zk().getContainer(stringRemoveAtPath + "array")(el, [indexes])
 });
-/**
- * Permet de supprimer des éléments qui se trouvent à des index spécifiés.
- * @param indexes (int|array)
- *      - int : Index de l'élément qu'on veut supprimer. Pas de nombres négatifs.
- *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite supprimer.
- * @returns {Array}
- */
-Array.prototype.removeAt = function(indexes){ return zk().toolbox().removeAt(this, indexes) };
+zk().setContainer(stringRemoveAtPath + "array", function (el, indexes) {
+    return zk().getContainer(arrayRemoveAtPath + "array")(el, indexes)
+});
+String.prototype.removeAt = function(indexes){ return zk().toolbox().removeAt(this, indexes) };
+
+
+
+
+
+
+
 
 var arrayRemovePath = "_ENTITY_._PARAMETERS_.array.remove.";
 zk().setContainer(arrayRemovePath+"other", function(el, param){
