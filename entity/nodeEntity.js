@@ -1,4 +1,5 @@
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
+// @TODO : $({attr-id: "nom", attr-class: "rouge", text: /^a.b$/, content: /^a.b$/, name: "div", at: 3 })
 
 var methods = {
 
