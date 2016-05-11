@@ -752,7 +752,6 @@
             var path = basePath + "change" + firstLast + "." + ( (self.is(oldValue) === 'number') ? 'number' : 'other' );
             return zk().getContainer(path)(el, oldValue, newValue);
         }
-
         /**
          * Permet de changer les premiers éléments.
          *
@@ -769,9 +768,24 @@
         this.changeMiddle = function (el, value) {
             return self.addMiddle(self.removeMiddle(el), value);
         };
+
+
+        /**
+         * Permet de changer les derniers éléments.
+         *
+         * @method changeLast
+         * @param {*} el Objet de référence.
+         * @param {*} oldValue
+         * @param {*} newValue
+         * @returns {*}
+         * @since 1.0
+         */
         this.changeLast = function (el, oldValue, newValue) {
             return changeFirstLast(el, oldValue, newValue, "Last")
         };
+
+
+
         function changeBeforeAfter(el, index, value, beforeAfter) {
             if (index === undefined || value === undefined) {
                 return el

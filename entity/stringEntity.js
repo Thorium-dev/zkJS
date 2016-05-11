@@ -362,33 +362,33 @@ zk().setContainer(stringChangeFirstPath+"other", function(el, oldValue, newValue
 });
 String.prototype.changeFirst = function(oldValue, newValue){ return zk().toolbox().changeFirst(this, oldValue, newValue) };
 
+String.prototype.changeMiddle = function(value){ return zk().toolbox().changeMiddle(this, value) };
 
-
-
-
-Array.prototype.changeMiddle = function(value){ return zk().toolbox().changeMiddle(this, value) };
-
-var arrayChangeLastPath = "_ENTITY_._PARAMETERS_.array.changeLast.";
-zk().setContainer(arrayChangeLastPath+"number", function (el, oldValue, newValue) {
+var stringChangeLastPath = "_ENTITY_._PARAMETERS_.string.changeLast.";
+zk().setContainer(stringChangeLastPath+"number", function (el, oldValue, newValue) {
     if(oldValue > 0){
-        el = zk().getContainer(arrayAddLastPath+"other")(el.slice(0, -oldValue), newValue);
+        el = zk().getContainer(stringAddLastPath+"other")(el.slice(0, -oldValue), newValue);
     }
     return el;
 });
-zk().setContainer(arrayChangeLastPath+"other", function(el, oldValue, newValue){
-    var box = zk().toolbox(), indexes = box.indexes(el, oldValue), index = indexes[indexes.length-1];
-    if(index){ el[index] = newValue }
+zk().setContainer(stringChangeLastPath+"other", function(el, oldValue, newValue){
+    var box = zk().toolbox();
+    if(box.is(oldValue, "string|regexp")){
+        oldValue = new RegExp(oldValue, "g");
+        var r = el.match(oldValue);
+        if (r && box.is(newValue, "string|number")) {
+            oldValue = r[r.length - 1];
+            var i = el.lastIndexOf(oldValue);
+            el = doSlice(el, i, i + oldValue.length, newValue);
+        }
+    }
     return el;
 });
-/**
- * Permet de changer les derniers éléments.
- * @param oldValue (number|other)
- *      - number : Les derniers du tableau.
- *      - other : N'importe quel objet qui se trouve dans le tableau.
- * @param newValue
- * @returns {Array}
- */
-Array.prototype.changeLast = function(oldValue, newValue){ return zk().toolbox().changeLast(this, oldValue, newValue) };
+String.prototype.changeLast = function(oldValue, newValue){ return zk().toolbox().changeLast(this, oldValue, newValue) };
+
+
+
+
 
 var arrayChangeBeforePath = "_ENTITY_._PARAMETERS_.array.changeBefore.";
 zk().setContainer(arrayChangeBeforePath+"other", function(el, index, value){
