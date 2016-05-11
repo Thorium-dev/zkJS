@@ -316,34 +316,28 @@ zk().setContainer(stringAddAfterPath+"other", function(el, index, value){
 });
 String.prototype.addAfter = function(index, value){ return zk().toolbox().addAfter(this, index, value) };
 
-
-
-
 // addBetween n'existe pas
 
-var arrayAddAtPath = "_ENTITY_._PARAMETERS_.array.addAt.";
-zk().setContainer(arrayAddAtPath + "array", function (el, indexes, value) {
+var stringAddAtPath = "_ENTITY_._PARAMETERS_.string.addAt.";
+zk().setContainer(stringAddAtPath + "array", function (el, indexes, value) {
     var box = zk().toolbox();
-    if(!box.is(indexes, "array")){ indexes = [indexes] }
-    indexes = box.removeDuplicate(indexes, true);
-    if(box.is(value, "array")){ value = value[0] }
-    if(!box.is(value, "array")){ value = [value] }
-    box.each(indexes, function () {
-        el = zk().getContainer(arrayAddBeforePath+"other")(el, this.v, value);
-    });
+    if(box.is(value, "string")){ value = value[0] } else { value = undefined }
+    if(value !== undefined){
+        if(!box.is(indexes, "array")){ indexes = [indexes] }
+        indexes = box.removeDuplicate(indexes, true);
+        box.each(indexes, function () {
+            if(box.is(this.v, "number")){
+                el = zk().getContainer(arrayAddBeforePath+"other")(el, this.v, value);
+            }
+        });
+    }
     return el;
 });
-/**
- * Permet d'ajouter des valeurs à des positions spécifiques.
- * @param indexes (int|array)
- *      - int : Un index.
- *      - array : Tableau des index.
- * @param value (array|other)
- *      - array : Si un tableau est indiqué, seul la première valuer est prise en compte.
- *      - other : Une valeur quelconque.
- * @returns {*}
- */
-Array.prototype.addAt = function(indexes, value){ return zk().toolbox().addAt(this, indexes, value) };
+String.prototype.addAt = function(indexes, value){ return zk().toolbox().addAt(this, indexes, value) };
+
+
+
+
 
 Array.prototype.add = function(value){ return zk().toolbox().add(this, value) };
 

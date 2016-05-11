@@ -338,13 +338,16 @@ Array.prototype.addAfter = function(index, value){ return zk().toolbox().addAfte
 var arrayAddAtPath = "_ENTITY_._PARAMETERS_.array.addAt.";
 zk().setContainer(arrayAddAtPath + "array", function (el, indexes, value) {
     var box = zk().toolbox();
-    if(!box.is(indexes, "array")){ indexes = [indexes] }
-    indexes = box.removeDuplicate(indexes, true);
     if(box.is(value, "array")){ value = value[0] }
-    if(!box.is(value, "array")){ value = [value] }
-    box.each(indexes, function () {
-        el = zk().getContainer(arrayAddBeforePath+"other")(el, this.v, value);
-    });
+    if(value !== undefined){
+        if(!box.is(indexes, "array")){ indexes = [indexes] }
+        indexes = box.removeDuplicate(indexes, true);
+        box.each(indexes, function () {
+            if(box.is(this.v, "number")){
+                el = zk().getContainer(arrayAddBeforePath+"other")(el, this.v, value);
+            }
+        });
+    }
     return el;
 });
 Array.prototype.addAt = function(indexes, value){ return zk().toolbox().addAt(this, indexes, value) };

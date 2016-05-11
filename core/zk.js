@@ -713,16 +713,25 @@
         this.addAfter = function (el, index, value) {
             return addBeforeAfter(el, index, value, "After")
         };
-
-
-
+        /**
+         * Permet d'ajouter des valeurs à des positions spécifiques.
+         *
+         * @method addAt
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
         this.addAt = function (el, index, value) {
-            if (value === undefined) {
-                return el
-            }
+            if (value === undefined) { return el }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".addAt.array";
             return zk().getContainer(path)(el, index, value);
         };
+
+
+
+
         this.add = function (el, value) {
             if (value === undefined) {
                 return el
