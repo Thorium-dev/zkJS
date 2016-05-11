@@ -297,73 +297,27 @@ zk().setContainer(stringAddLastPath+"other", function(el, value){
 });
 String.prototype.addLast = function(value){ return zk().toolbox().addLast(this, value) };
 
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Cette fonction permet de slicé un élément
- * @param  {[string/array]} el [Elément a slicer]
- * @param  {[int]} i1 [Slice de 0 à i1 exclus]
- * @param  {[int]} i2 [Slice de i2 à la fin]
- * @param  {[string/array]} v  [Valeur à ajouter à la plage slicé. Facultatif]
- * @return {[string/array]}    [Elément slicé]
- */
-function doSlice(el, i1, i2, v) {
-    i1 = i1 || 0;
-    i2 = i2 || i1;
-    i1 = el.slice(0, i1);
-    i2 = el.slice(i2);
-    return (v !== undefined) ? i1.concat(v).concat(i2) : i1.concat(i2);
-}
-var arrayAddBeforePath = "_ENTITY_._PARAMETERS_.array.addBefore.";
-zk().setContainer(arrayAddBeforePath+"other", function(el, index, value){
+var stringAddBeforePath = "_ENTITY_._PARAMETERS_.string.addBefore.";
+zk().setContainer(stringAddBeforePath+"other", function(el, index, value){
     var box = zk().toolbox();
     if(!box.is(index, "number")){ index = box.index(el, index) }
     if(index > -1 ){
-        if(!box.is(value, "array")){ value = [value] }
+        if(box.is(value, "array")){ value = value.join("") }
         return doSlice(el, index, index, value)
     }
     return el;
 });
-/**
- * Permet d'ajouter des éléments (value) avant index
- * @param index (int|other)
- *      - int : Entier qui indique l'index. Pas de nombre négatifs.
- *      - other : N'importe quel objet qui se trouve dans le tableau.
- * @param value (other)
- *      - other : Une valeur quelconque.
- * @returns {*}
- */
-Array.prototype.addBefore = function(index, value){ return zk().toolbox().addBefore(this, index, value) };
+String.prototype.addBefore = function(index, value){ return zk().toolbox().addBefore(this, index, value) };
 
-var arrayAddAfterPath = "_ENTITY_._PARAMETERS_.array.addAfter.";
-zk().setContainer(arrayAddAfterPath+"other", function(el, index, value){
-    var box = zk().toolbox();
-    if(!box.is(index, "number")){ index = box.index(el, index) }
-    if(index > -1 ){
-        if(!box.is(value, "array")){ value = [value] }
-        return doSlice(el, index + 1, index + 1, value)
-    }
-    return el;
+var stringAddAfterPath = "_ENTITY_._PARAMETERS_.string.addAfter.";
+zk().setContainer(stringAddAfterPath+"other", function(el, index, value){
+    var box = zk().toolbox(); index = box.getAfter(el, index);
+    return index ? box.addBefore(el, index, value) : el;
 });
-/**
- * Permet d'ajouter des éléments (value) après index
- * @param index (int|other)
- *      - int : Entier qui indique l'index. Pas de nombre négatifs.
- *      - other : N'importe quel objet qui se trouve dans le tableau.
- * @param value (other)
- *      - other : Une valeur quelconque.
- * @returns {*}
- */
-Array.prototype.addAfter = function(index, value){ return zk().toolbox().addAfter(this, index, value) };
+String.prototype.addAfter = function(index, value){ return zk().toolbox().addAfter(this, index, value) };
+
+
+
 
 // addBetween n'existe pas
 

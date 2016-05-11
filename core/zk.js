@@ -680,9 +680,6 @@
          * @since 1.0
          */
         this.addLast = function (el, value) { return addFirstLast(el, value, "Last") };
-
-
-
         function addBeforeAfter(el, index, value, beforeAfter) {
             if (value === undefined) {
                 return el
@@ -690,12 +687,35 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + beforeAfter + ".other";
             return zk().getContainer(path)(el, index, value);
         }
+        /**
+         * Permet d'ajouter des éléments avant des index.
+         *
+         * @method addBefore
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
         this.addBefore = function (el, index, value) {
             return addBeforeAfter(el, index, value, "Before")
         };
+        /**
+         * Permet d'ajouter des éléments après des index.
+         *
+         * @method addAfter
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
         this.addAfter = function (el, index, value) {
             return addBeforeAfter(el, index, value, "After")
         };
+
+
+
         this.addAt = function (el, index, value) {
             if (value === undefined) {
                 return el
