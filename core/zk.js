@@ -728,14 +728,17 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".addAt.array";
             return zk().getContainer(path)(el, index, value);
         };
-
-
-
-
+        /**
+         * Permet d'ajouter des valeurs.
+         *
+         * @method add
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
         this.add = function (el, value) {
-            if (value === undefined) {
-                return el
-            }
+            if (value === undefined) { return el }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".addLast.other";
             return zk().getContainer(path)(el, value);
         };

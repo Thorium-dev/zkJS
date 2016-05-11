@@ -292,7 +292,7 @@ String.prototype.addMiddle = function(value){ return zk().toolbox().addMiddle(th
 
 var stringAddLastPath = "_ENTITY_._PARAMETERS_.string.addLast.";
 zk().setContainer(stringAddLastPath+"other", function(el, value){
-    if(zk().toolbox().is(value, "string")){ el += value }
+    if(zk().toolbox().is(value, "string|number")){ el += value + "" }
     return el;
 });
 String.prototype.addLast = function(value){ return zk().toolbox().addLast(this, value) };
@@ -335,11 +335,7 @@ zk().setContainer(stringAddAtPath + "array", function (el, indexes, value) {
 });
 String.prototype.addAt = function(indexes, value){ return zk().toolbox().addAt(this, indexes, value) };
 
-
-
-
-
-Array.prototype.add = function(value){ return zk().toolbox().add(this, value) };
+String.prototype.add = function(value){ return zk().toolbox().add(this, value) };
 
 
 // ========================================= LES METHODES AVEC CHANGE ===========================================
