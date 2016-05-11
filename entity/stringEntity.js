@@ -340,27 +340,31 @@ String.prototype.add = function(value){ return zk().toolbox().add(this, value) }
 
 // ========================================= LES METHODES AVEC CHANGE ===========================================
 
-var arrayChangeFirstPath = "_ENTITY_._PARAMETERS_.array.changeFirst.";
-zk().setContainer(arrayChangeFirstPath+"number", function (el, oldValue, newValue) {
+var stringChangeFirstPath = "_ENTITY_._PARAMETERS_.string.changeFirst.";
+zk().setContainer(stringChangeFirstPath+"number", function (el, oldValue, newValue) {
     if(oldValue > 0){
-        el = zk().getContainer(arrayAddFirstPath+"other")(el.slice(oldValue), newValue);
+        if(zk().toolbox().is(newValue, "string|number")){
+            el = newValue + el.slice(oldValue);
+        }
     }
     return el;
 });
-zk().setContainer(arrayChangeFirstPath+"other", function(el, oldValue, newValue){
-    var box = zk().toolbox(), index = box.index(el, oldValue);
-    if(index > -1){ el[index] = newValue }
+zk().setContainer(stringChangeFirstPath+"other", function(el, oldValue, newValue){
+    var box = zk().toolbox();
+    if(box.is(oldValue, "string|regexp")){
+        if(box.is(newValue, "string|number")){
+            oldValue = new RegExp(oldValue);
+            var i = -1;
+            el = el.replace(oldValue, function (str) { i++; return i ? str : newValue });
+        }
+    }
     return el;
 });
-/**
- * Permet de changer les premiers éléments.
- * @param oldValue (number|other)
- *      - number : Les premiers du tableau.
- *      - other : N'importe quel objet qui se trouve dans le tableau.
- * @param newValue
- * @returns {Array}
- */
-Array.prototype.changeFirst = function(oldValue, newValue){ return zk().toolbox().changeFirst(this, oldValue, newValue) };
+String.prototype.changeFirst = function(oldValue, newValue){ return zk().toolbox().changeFirst(this, oldValue, newValue) };
+
+
+
+
 
 Array.prototype.changeMiddle = function(value){ return zk().toolbox().changeMiddle(this, value) };
 

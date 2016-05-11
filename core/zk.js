@@ -746,18 +746,23 @@
         // CHANGE
 
         function changeFirstLast(el, oldValue, newValue, firstLast) {
-            if (oldValue === undefined) {
-                return el
-            }
-            if (newValue === undefined) {
-                newValue = oldValue;
-                oldValue = 1
-            }
+            if (oldValue === undefined) { return el }
+            if (newValue === undefined) { newValue = oldValue; oldValue = 1 }
             var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
             var path = basePath + "change" + firstLast + "." + ( (self.is(oldValue) === 'number') ? 'number' : 'other' );
             return zk().getContainer(path)(el, oldValue, newValue);
         }
 
+        /**
+         * Permet de changer les premiers éléments.
+         *
+         * @method changeFirst
+         * @param {*} el Objet de référence.
+         * @param {*} oldValue
+         * @param {*} newValue
+         * @returns {*}
+         * @since 1.0
+         */
         this.changeFirst = function (el, oldValue, newValue) {
             return changeFirstLast(el, oldValue, newValue, "First")
         };
