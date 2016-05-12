@@ -768,8 +768,6 @@
         this.changeMiddle = function (el, value) {
             return self.addMiddle(self.removeMiddle(el), value);
         };
-
-
         /**
          * Permet de changer les derniers éléments.
          *
@@ -783,9 +781,6 @@
         this.changeLast = function (el, oldValue, newValue) {
             return changeFirstLast(el, oldValue, newValue, "Last")
         };
-
-
-
         function changeBeforeAfter(el, index, value, beforeAfter) {
             if (index === undefined || value === undefined) {
                 return el
@@ -794,13 +789,36 @@
             var path = basePath + "change" + beforeAfter + ".other";
             return zk().getContainer(path)(el, index, value);
         }
-
+        /**
+         * Permet de changer les éléments qui se situent avant index.
+         *
+         * @method changeBefore
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
         this.changeBefore = function (el, index, value) {
             return changeBeforeAfter(el, index, value, "Before")
         };
+        /**
+         * Permet de changer les éléments qui se situent après index.
+         *
+         * @method changeAfter
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
         this.changeAfter = function (el, index, value) {
             return changeBeforeAfter(el, index, value, "After")
         };
+
+
+
+
         this.changeBetween = function (el, indexes, value) {
             if (indexes === undefined || value === undefined) {
                 return el

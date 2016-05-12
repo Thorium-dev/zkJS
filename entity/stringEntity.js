@@ -386,43 +386,27 @@ zk().setContainer(stringChangeLastPath+"other", function(el, oldValue, newValue)
 });
 String.prototype.changeLast = function(oldValue, newValue){ return zk().toolbox().changeLast(this, oldValue, newValue) };
 
-
-
-
-
-var arrayChangeBeforePath = "_ENTITY_._PARAMETERS_.array.changeBefore.";
-zk().setContainer(arrayChangeBeforePath+"other", function(el, index, value){
-    var box = zk().toolbox();
-    var el2 = box.removeBefore(el, index);
-    if(el2.length < el.length){ el = box.addFirst(el2, value) }
+var stringChangeBeforePath = "_ENTITY_._PARAMETERS_.string.changeBefore.";
+zk().setContainer(stringChangeBeforePath+"other", function(el, index, value){
+    var box = zk().toolbox(), el2 = box.removeBefore(el, index, value);
+    if(el2 != el){ el = box.addFirst(el2, value) }
     return el;
 });
-/**
- * Permet de changer les éléments qui se situent avant index dans le tableau.
- * @param index (number|other)
- *      - number : Index du tableau.
- *      - other : Objet quelconque qui se trouve dans le tableau.
- * @param value
- * @returns {Array}
- */
-Array.prototype.changeBefore = function(index, value){ return zk().toolbox().changeBefore(this, index, value) };
+String.prototype.changeBefore = function(index, value){ return zk().toolbox().changeBefore(this, index, value) };
 
-var arrayChangeAfterPath = "_ENTITY_._PARAMETERS_.array.changeAfter.";
-zk().setContainer(arrayChangeAfterPath+"other", function(el, index, value){
+var stringChangeAfterPath = "_ENTITY_._PARAMETERS_.string.changeAfter.";
+zk().setContainer(stringChangeAfterPath+"other", function(el, index, value){
     var box = zk().toolbox();
     var el2 = box.removeAfter(el, index);
-    if(el2.length < el.length){ el = box.addLast(el2, value) }
+    if(el2 != el){ el = box.addLast(el2, value) }
     return el;
 });
-/**
- * Permet de changer les éléments qui se situent après index dans le tableau.
- * @param index (number|other)
- *      - number : Index du tableau.
- *      - other : Objet quelconque qui se trouve dans le tableau.
- * @param value
- * @returns {Array}
- */
-Array.prototype.changeAfter = function(index, value){ return zk().toolbox().changeAfter(this, index, value) };
+String.prototype.changeAfter = function(index, value){ return zk().toolbox().changeAfter(this, index, value) };
+
+
+
+
+
 
 var arrayChangeBetweenPath = "_ENTITY_._PARAMETERS_.array.changeBetween.";
 zk().setContainer(arrayChangeBetweenPath+"array", function(el, indexes, value){
