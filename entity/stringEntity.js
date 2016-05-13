@@ -39,35 +39,6 @@ String.prototype.reverse = function(){ return zk().toolbox().reverse(this) };
 
 String.prototype.trim = function(strReg, direction){ return zk().toolbox().trim(this, strReg, direction) };
 
-
-
-function stringBetweenIndexes(el, indexes){
-    var box = zk().toolbox();
-    for (var j = 0; j < 2; j++){
-        var indexType = box.is(indexes[j]);
-        if (/string|number|regexp/.test(indexType)) {
-            if (indexType === "string") {
-                indexes[j] = new RegExp(indexes[j]); indexType = "regexp";
-            }
-            if (indexType === "regexp") {
-                var indexReg = indexes[j].exec(el);
-                if(indexReg){
-                    indexes[j] = indexReg.index;
-                    if (j === 0 && indexes[j] > -1) { indexes[j] += indexReg[j].length - 1 }
-                }else {
-                    indexes[j] = -1
-                }
-            }
-        } else {
-            indexes[j] = -1
-        }
-    }
-    if(indexes[0] >= indexes[1]){ indexes = [-1, -1] }
-    return indexes;
-
-}
-
-
 // ========================================= LES METHODES AVEC GET =============================================
 
 var stringGetFirstPath = "_ENTITY_._PARAMETERS_.string.getFirst.";
@@ -120,6 +91,31 @@ zk().setContainer(stringGetAfterPath+"other", function(el, index){
 });
 String.prototype.getAfter = function(index){ return zk().toolbox().getAfter(this, index) };
 
+function stringBetweenIndexes(el, indexes){
+    var box = zk().toolbox();
+    for (var j = 0; j < 2; j++){
+        var indexType = box.is(indexes[j]);
+        if (/string|number|regexp/.test(indexType)) {
+            if (indexType === "string") {
+                indexes[j] = new RegExp(indexes[j]); indexType = "regexp";
+            }
+            if (indexType === "regexp") {
+                var indexReg = indexes[j].exec(el);
+                if(indexReg){
+                    indexes[j] = indexReg.index;
+                    if (j === 0 && indexes[j] > -1) { indexes[j] += indexReg[j].length - 1 }
+                }else {
+                    indexes[j] = -1
+                }
+            }
+        } else {
+            indexes[j] = -1
+        }
+    }
+    if(indexes[0] >= indexes[1]){ indexes = [-1, -1] }
+    return indexes;
+
+}
 var stringGetBetweenPath = "_ENTITY_._PARAMETERS_.string.getBetween.";
 zk().setContainer(stringGetBetweenPath+"array", function(el, indexes){
     var box = zk().toolbox(), i, k, res = "";
@@ -164,7 +160,6 @@ zk().setContainer(stringGetPath + "array", function (el, param) {
     return res.join("")
 });
 String.prototype.get = function(value){ return zk().toolbox().get(this, value) };
-
 
 // ========================================= LES METHODES AVEC REMOVE =============================================
 
@@ -296,7 +291,7 @@ String.prototype.addAfter = function(index, value){ return zk().toolbox().addAft
 var stringAddAtPath = "_ENTITY_._PARAMETERS_.string.addAt.";
 zk().setContainer(stringAddAtPath + "array", function (el, indexes, value) {
     var box = zk().toolbox();
-    if(box.is(value, "string")){ value = value[0] } else { value = undefined }
+    if(box.is(value, "string|number")){ value = (value+"").slice(0, 1) } else { value = undefined }
     if(value !== undefined){
         if(!box.is(indexes, "array")){ indexes = [indexes] }
         indexes = box.removeDuplicate(indexes, true);
@@ -395,31 +390,27 @@ zk().setContainer(stringChangeBetweenPath+"array", function(el, indexes, value){
 });
 String.prototype.changeBetween = function(indexes, value){ return zk().toolbox().changeBetween(this, indexes, value) };
 
-
-
-
-
-
-var arrayChangeAtPath = "_ENTITY_._PARAMETERS_.array.changeAt.";
-zk().setContainer(arrayChangeAtPath + "array", function (el, indexes, value) {
+var stringChangeAtPath = "_ENTITY_._PARAMETERS_.string.changeAt.";
+zk().setContainer(stringChangeAtPath + "array", function (el, indexes, value) {
     var box = zk().toolbox();
-    if(box.is(indexes, 'number')){ indexes = [indexes] }
-    indexes = box.removeDuplicate(indexes, true);
-    box.each(indexes, function () {
-        var n = this.v;
-        if (box.is(n, 'number') && n > -1) { el[n] = value }
-    });
+    if(box.is(value, "string|number")){
+        value = (value+"").slice(0, 1);
+        if(box.is(indexes, 'number')){ indexes = [indexes] }
+        indexes = box.removeDuplicate(indexes, true);
+        box.each(indexes, function () {
+            var n = this.v;
+            if (box.is(n, 'number') && n > -1) {
+                el = el.slice(0, n) + value + el.slice(n+1);
+            }
+        });
+    }
     return el
 });
-/**
- * Permet de changer des éléments qui se trouvent à des index spécifiés.
- * @param indexes (int|array)
- *      - int : Index de l'élément qu'on veut changer. Pas de nombres négatifs.
- *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite changer.
- * @param value
- * @returns {Array}
- */
-Array.prototype.changeAt = function(indexes, value){ return zk().toolbox().changeAt(this, indexes, value) };
+String.prototype.changeAt = function(indexes, value){ return zk().toolbox().changeAt(this, indexes, value) };
+
+
+
+
 
 var arrayChangePath = "_ENTITY_._PARAMETERS_.array.change.";
 zk().setContainer(arrayChangePath+"other", function(el, param, value){
@@ -628,7 +619,9 @@ zk().setContainer(arrayUpperBetweenPath+"array", function(el, indexes, lowerUppe
 Array.prototype.upperBetween = function(indexes){ return zk().toolbox().upperBetween(this, indexes) };
 
 var arrayUpperAtPath = "_ENTITY_._PARAMETERS_.array.upperAt.";
-zk().setContainer(arrayUpperAtPath + "number", function (el, index, upperLower) { return zk().getContainer(arrayUpperAtPath + "array")(el, [index], upperLower) });
+zk().setContainer(arrayUpperAtPath + "number", function (el, index, upperLower) {
+    return zk().getContainer(arrayUpperAtPath + "array")(el, [index], upperLower)
+});
 zk().setContainer(arrayUpperAtPath + "array", function (el, indexes, upperLower) {
     var box = zk().toolbox();
     indexes = box.removeDuplicate(indexes, true);

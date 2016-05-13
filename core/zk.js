@@ -832,9 +832,16 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".changeBetween.array";
             return zk().getContainer(path)(el, indexes, value);
         };
-
-
-
+        /**
+         * Permet de changer des éléments qui se trouvent à des index spécifiés.
+         *
+         * @method changeAt
+         * @param {*} el Objet de référence.
+         * @param {*} indexes
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
         this.changeAt = function (el, indexes, value) {
             if (indexes === undefined || value === undefined) {
                 return el
@@ -842,6 +849,8 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".changeAt.array";
             return zk().getContainer(path)(el, indexes, value);
         };
+
+
         this.change = function (el, param, value) {
             if (param === undefined || value === undefined) {
                 return el
