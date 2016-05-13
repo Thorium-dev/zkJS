@@ -461,7 +461,7 @@
          *
          * @method getBetween
          * @param {*} el Objet de référence.
-         * @param {*} indexes
+         * @param {*} indexes On peut indiquer plusieurs plages.
          *      - Si param n'est pas indiqué, alors il vaut 1.
          *      - Si ce n'est pas un tableau, il est converti en tableau.
          *      - Si la taille est impaire, on ajoute la taille du tableau pour le rendre paire.
@@ -597,7 +597,7 @@
          *
          * @method removeBetween
          * @param {*} el Objet de référence.
-         * @param {*} indexes
+         * @param {*} indexes Il faut indiquer une seule plage.
          *      - string : Conversion en RegExp.
          *      - RegExp : Expression régulières.
          *      - int : Index numérique.
@@ -815,10 +815,16 @@
         this.changeAfter = function (el, index, value) {
             return changeBeforeAfter(el, index, value, "After")
         };
-
-
-
-
+        /**
+         * Permet de changer une plage.
+         *
+         * @method changeBetween
+         * @param {*} el Objet de référence.
+         * @param {*} indexes Il faut indiquer une seule plage.
+         * @param {*} value
+         * @returns {*}
+         * @since 1.0
+         */
         this.changeBetween = function (el, indexes, value) {
             if (indexes === undefined || value === undefined) {
                 return el
@@ -826,6 +832,9 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".changeBetween.array";
             return zk().getContainer(path)(el, indexes, value);
         };
+
+
+
         this.changeAt = function (el, indexes, value) {
             if (indexes === undefined || value === undefined) {
                 return el

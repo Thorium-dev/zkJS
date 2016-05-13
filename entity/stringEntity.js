@@ -41,6 +41,33 @@ String.prototype.trim = function(strReg, direction){ return zk().toolbox().trim(
 
 
 
+function stringBetweenIndexes(el, indexes){
+    var box = zk().toolbox();
+    for (var j = 0; j < 2; j++){
+        var indexType = box.is(indexes[j]);
+        if (/string|number|regexp/.test(indexType)) {
+            if (indexType === "string") {
+                indexes[j] = new RegExp(indexes[j]); indexType = "regexp";
+            }
+            if (indexType === "regexp") {
+                var indexReg = indexes[j].exec(el);
+                if(indexReg){
+                    indexes[j] = indexReg.index;
+                    if (j === 0 && indexes[j] > -1) { indexes[j] += indexReg[j].length - 1 }
+                }else {
+                    indexes[j] = -1
+                }
+            }
+        } else {
+            indexes[j] = -1
+        }
+    }
+    if(indexes[0] >= indexes[1]){ indexes = [-1, -1] }
+    return indexes;
+
+}
+
+
 // ========================================= LES METHODES AVEC GET =============================================
 
 var stringGetFirstPath = "_ENTITY_._PARAMETERS_.string.getFirst.";
@@ -100,36 +127,10 @@ zk().setContainer(stringGetBetweenPath+"array", function(el, indexes){
     if (indexes.length % 2) { indexes.push(el.length - 1) }
     k = indexes.length;
     for (i = 0; i < k; i += 2) {
-        var tab = box.nSort([indexes[i], indexes[i+1]]);
-        for (var j = 0; j < 2; j++){
-            var indexType = box.is(tab[j]);
-            if (/string|number|regexp/.test(indexType)) {
-                if (indexType === "string") {
-                    var indexLength = tab[j].length - 1;
-                    tab[j] = el.indexOf(tab[j]);
-                    if ((j === 0 || (j === 1 && box.is(tab[0], "number"))) && tab[j] > -1) {
-                        tab[j] += indexLength
-                    }
-                }
-                if (indexType === "regexp") {
-                    var indexReg = tab[j].exec(el);
-                    if(indexReg){
-                        tab[j] = indexReg.index;
-                        if ((j === 0 || (j===1 && box.is(tab[0], "number"))) && tab[j] > -1) {
-                            tab[j] += indexReg[0].length - 1
-                        }
-                    }else {
-                        tab[j] = -1
-                    }
-                }
-            } else {
-                tab[j] = -1
-            }
-            if(tab[j] < 0){ tab[j] = NaN }
-        }
-        if(box.is(tab[0], "number") && box.is(tab[1], "number")){
-            tab = box.nSort(tab);
-            res = res.concat(el.slice(tab[0]+1,tab[1]));
+        var tab = [indexes[i], indexes[i+1]];
+        tab = stringBetweenIndexes(el, tab);
+        if(tab[0] > -1 && tab[1] > -1){
+            res = res + el.slice(tab[0]+1,tab[1]);
         }
     }
     return res;
@@ -212,36 +213,10 @@ zk().setContainer(stringRemoveBetweenPath+"array", function(el, indexes){
     var box = zk().toolbox();
     if (!box.is(indexes, 'array')) { indexes = [indexes] }
     if (indexes.length % 2) { indexes.push(el.length - 1) }
-    indexes = box.nSort(indexes.slice(0, 2));
-    for (var i = 0; i < 2; i++){
-        var indexType = box.is(indexes[i]);
-        if (/string|number|regexp/.test(indexType)) {
-            if (indexType === "string") {
-                var indexLength = indexes[i].length - 1;
-                indexes[i] = el.indexOf(indexes[i]);
-                if ((i === 0 || (i === 1 && box.is(indexes[0], "number"))) && indexes[i] > -1) {
-                    indexes[i] += indexLength
-                }
-            }
-            if (indexType === "regexp") {
-                var indexReg = indexes[i].exec(el);
-                if(indexReg){
-                    indexes[i] = indexReg.index;
-                    if ((i === 0 || (i===1 && box.is(indexes[0], "number"))) && indexes[i] > -1) {
-                        indexes[i] += indexReg[0].length - 1
-                    }
-                }else {
-                    indexes[i] = -1
-                }
-            }
-        } else {
-            indexes[i] = -1
-        }
-        if(indexes[i] < 0){ indexes[i] = NaN }
-    }
-    if(box.is(indexes[0], "number") && box.is(indexes[1], "number")){
-        indexes = box.nSort(indexes);
-        el = el.slice(0, indexes[0]+1).concat(el.slice(indexes[1]));
+    indexes = indexes.slice(0, 2);
+    indexes = stringBetweenIndexes(el, indexes);
+    if(indexes[0] > -1 && indexes[1] > -1){
+        el = el.slice(0, indexes[0]+1) + el.slice(indexes[1]);
     }
     return el;
 });
@@ -403,36 +378,27 @@ zk().setContainer(stringChangeAfterPath+"other", function(el, index, value){
 });
 String.prototype.changeAfter = function(index, value){ return zk().toolbox().changeAfter(this, index, value) };
 
-
-
-
-
-
-var arrayChangeBetweenPath = "_ENTITY_._PARAMETERS_.array.changeBetween.";
-zk().setContainer(arrayChangeBetweenPath+"array", function(el, indexes, value){
+var stringChangeBetweenPath = "_ENTITY_._PARAMETERS_.string.changeBetween.";
+zk().setContainer(stringChangeBetweenPath+"array", function(el, indexes, value){
     var box = zk().toolbox();
     if (!box.is(indexes, 'array')) { indexes = [indexes] }
     if (indexes.length % 2) { indexes.push(el.length - 1) }
     indexes = indexes.slice(0, 2);
-    for (var i = 0; i < 2; i++){
-        if(!box.is(indexes[i], "number")){ indexes[i] = box.index(el, indexes[i]) }
-        if(indexes[i] < 0){ indexes[i] = NaN }
-    }
-    if(box.is(indexes[0], "number") && box.is(indexes[1], "number")){
-        indexes = box.nSort(indexes);
-        el = el.slice(0, indexes[0]+1).concat(value).concat(el.slice(indexes[1]));
+    indexes = stringBetweenIndexes(el, indexes);
+    if(indexes[0] > -1 && indexes[1] > -1){
+        if(box.is(value, "string|number")){
+            el = el.slice(0, indexes[0]+1) + value + el.slice(indexes[1]);
+        }
+
     }
     return el;
 });
-/**
- * Change une plage du tableau
- * @param indexes (array|int)
- *      - int : Valeur de début. La taille du tableau est utilisée comme valeur complémentaire.
- *      - array : Tableau contenant des valeurs quelconques.
- * @param value
- * @returns {*}
- */
-Array.prototype.changeBetween = function(indexes, value){ return zk().toolbox().changeBetween(this, indexes, value) };
+String.prototype.changeBetween = function(indexes, value){ return zk().toolbox().changeBetween(this, indexes, value) };
+
+
+
+
+
 
 var arrayChangeAtPath = "_ENTITY_._PARAMETERS_.array.changeAt.";
 zk().setContainer(arrayChangeAtPath + "array", function (el, indexes, value) {
