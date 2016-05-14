@@ -419,7 +419,7 @@ zk().setContainer(stringChangePath+"regexp", function(el, oldValue, newValue){
 zk().setContainer(stringChangePath + "number", function (el, oldValue, newValue) {
     return  zk().toolbox()['change'+(oldValue<0?'Last':'First')](el, Math.abs(oldValue), newValue) ;
 });
-String.prototype.change = function(param, value){ return zk().toolbox().change(this, param, value) };
+String.prototype.change = function(oldValue, newValue){ return zk().toolbox().change(this, oldValue, newValue) };
 
 // ========================================= LES METHODES AVEC UPPER ===========================================
 

@@ -444,23 +444,23 @@ zk().setContainer(arrayChangeAtPath + "array", function (el, indexes, value) {
 Array.prototype.changeAt = function(indexes, value){ return zk().toolbox().changeAt(this, indexes, value) };
 
 var arrayChangePath = "_ENTITY_._PARAMETERS_.array.change.";
-zk().setContainer(arrayChangePath+"other", function(el, param, value){
-    return zk().toolbox().each(el,function(){ if (param === this.v){ return value } });
+zk().setContainer(arrayChangePath+"other", function(el, oldValue, newValue){
+    return zk().toolbox().each(el,function(){ if (oldValue === this.v){ return newValue } });
 });
-zk().setContainer(arrayChangePath+"regexp", function(el, param, value){
-    return zk().toolbox().each(el,function(){ if (param.test(this.v)){ return value } });
+zk().setContainer(arrayChangePath+"regexp", function(el, oldValue, newValue){
+    return zk().toolbox().each(el,function(){ if (oldValue.test(this.v)){ return newValue } });
 });
-zk().setContainer(arrayChangePath + "number", function (el, param, value) {
-    return  zk().toolbox()['change'+(param<0?'Last':'First')](el, Math.abs(param), value) ;
+zk().setContainer(arrayChangePath + "number", function (el, oldValue, newValue) {
+    return  zk().toolbox()['change'+(oldValue<0?'Last':'First')](el, Math.abs(oldValue), newValue) ;
 });
-zk().setContainer(arrayChangePath + "array", function (el, param, value) {
+zk().setContainer(arrayChangePath + "array", function (el, oldValue, newValue) {
     var indexes = [], box = zk().toolbox();
-    box.each(param, function () {
+    box.each(oldValue, function () {
         indexes = indexes.concat(box.indexes(el, this.v));
     });
-    return zk().getContainer(arrayChangeAtPath + "array")(el, indexes, value);
+    return zk().getContainer(arrayChangeAtPath + "array")(el, indexes, newValue);
 });
-Array.prototype.change = function(param, value){ return zk().toolbox().change(this, param, value) };
+Array.prototype.change = function(oldValue, newValue){ return zk().toolbox().change(this, oldValue, newValue) };
 
 // ========================================= LES METHODES AVEC UPPER ===========================================
 
