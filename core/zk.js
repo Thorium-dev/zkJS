@@ -849,15 +849,23 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".changeAt.array";
             return zk().getContainer(path)(el, indexes, value);
         };
-
-
-        this.change = function (el, param, value) {
-            if (param === undefined || value === undefined) {
+        /**
+         * Permet de changer des valeurs.
+         *
+         * @method change
+         * @param {*} el Objet de référence.
+         * @param {*} oldValue
+         * @param {*} newValue
+         * @returns {*}
+         * @since 1.0
+         */
+        this.change = function (el, oldValue, newValue) {
+            if (oldValue === undefined || newValue === undefined) {
                 return el
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".change.";
-            var f = zk().getContainer(path + self.is(param));
-            return f ? f(el, param, value) : zk().getContainer(path + "other")(el, param, value);
+            var f = zk().getContainer(path + self.is(oldValue));
+            return f ? f(el, oldValue, newValue) : zk().getContainer(path + "other")(el, oldValue, newValue);
         };
 
         // UPPER
