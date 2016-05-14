@@ -90,7 +90,7 @@
          * @method is
          * @param {*} el Elément qu'on souhaite connaître ou tester son type.
          * @param {string} type Si ce paramètre est indiqué, on teste le type de l'élément, sinon on obtient son type.
-         * @returns {boolean|string}
+         * @return {boolean|string}
          * @example
          *      zk().toolbox().is("Hello world !"); // Renvoie "string"
          *      zk().toolbox().is([26, 11], "array"); // Renvoie true
@@ -127,7 +127,7 @@
          * @param {string} el Elément à traiter.
          * @param {string} strReg Expression régulière sous forme de chaîne de caractères
          * @param {string} direction La direction. Deux valeurs possibles "l" pour la gauche et "r" pour la droite.
-         * @returns {string}
+         * @return {string}
          * @example
          *      zk().toolbox().trim("000Hello world !!!!!"); // Renvoie "Hello world"
          *      zk().toolbox().trim("000Hello world !!!!!", "l"); // Renvoie "Hello world !!!!!"
@@ -223,7 +223,7 @@
          * @param {string|array|int} el Objet à parcourir.
          * @param {function} callback Fonction à executer à chaque tour.
          * @param {array} args Les arguments de la fonction callback.
-         * @returns {*} Elle retourne le même objet.
+         * @return {*} Elle retourne le même objet.
          * @example
          *      zk().toolbox().trim("000Hello world !!!!!"); // Renvoie "Hello world"
          *      zk().toolbox().trim("000Hello world !!!!!", "l"); // Renvoie "Hello world !!!!!"
@@ -249,7 +249,7 @@
          *
          * @method toArray
          * @param {*} el Objet à convertir.
-         * @returns {array}
+         * @return {array}
          * @since 1.0
          */
         this.toArray = function (el) { return [].slice.call(el) };
@@ -258,7 +258,7 @@
          *
          * @method nSort
          * @param {array} el Tableau à trier.
-         * @returns {array}
+         * @return {array}
          * @since 1.0
          */
         this.nSort = function (el) {
@@ -277,7 +277,7 @@
          *
          * @method nSortD
          * @param {array} el Tableau à trier.
-         * @returns {array}
+         * @return {array}
          * @since 1.0
          */
         this.nSortD = function (el) {
@@ -299,7 +299,7 @@
          * @method removeDuplicate
          * @param {array} el Tableau à traiter.
          * @param {boolean} isDesc Boolean qui indique l'ordre croissant ou décroissant. Par défaut : false
-         * @returns {array}
+         * @return {array}
          * @since 1.0
          */
         this.removeDuplicate = function (el, isDesc) {
@@ -326,7 +326,7 @@
          * @method index
          * @param {string|array} el Objet dans lequel se fera la recherche.
          * @param {*} value Elément recherché.
-         * @returns {int} Elle renvoie -1 si la valeur n'a pas été trouvé.
+         * @return {int} Elle renvoie -1 si la valeur n'a pas été trouvé.
          * @since 1.0
          */
         this.index = function (el, value) { return indexAndIndexes(el, value, "index") };
@@ -336,7 +336,7 @@
          * @method indexes
          * @param {string|array} el Objet dans lequel se fera la recherche.
          * @param {*} value Elément recherché.
-         * @returns {array} Si la valeur n'existe pas, elle renvoie un tableau vide.
+         * @return {array} Si la valeur n'existe pas, elle renvoie un tableau vide.
          * @since 1.0
          */
         this.indexes = function (el, value) { return indexAndIndexes(el, value, "indexes") };
@@ -346,7 +346,7 @@
          * @method count
          * @param {string|array} el Objet dans lequel se fera la recherche.
          * @param {*} value Elément recherché.
-         * @returns {int} Si la valeur n'existe pas, elle renvoie 0.
+         * @return {int} Si la valeur n'existe pas, elle renvoie 0.
          * @since 1.0
          */
         this.count = function (el, value) { return self.indexes(el, value).length };
@@ -356,7 +356,7 @@
          * @method has
          * @param {string|array} el Objet dans lequel se fera la recherche.
          * @param {*} value Elément recherché.
-         * @returns {boolean} Renvoie true en cas de succès et false dans le cas contraire.
+         * @return {boolean} Renvoie true en cas de succès et false dans le cas contraire.
          * @since 1.0
          */
         this.has = function (el, value) { return (self.index(el, value) + 1) ? true : false };
@@ -365,7 +365,7 @@
          *
          * @method reverse
          * @param {string|array} el Chaîne de caratères ou tableau à traiter.
-         * @returns {string|array}
+         * @return {string|array}
          * @since 1.0
          */
         this.reverse = function (el) {
@@ -398,7 +398,7 @@
          *      - int : Elle retourne les param premiers éléments de l'objet. Les nombres négatifs sont convertis en valeurs absolus.
          *      - string : L'argument param est converti en expression régulière.
          *      - RegExp : Elle retourne le premier élément de l'objet qui correspond à l'expression régulière.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.getFirst = function (el, value) { return getFirstLast(el, value, "First") };
@@ -407,7 +407,7 @@
          *
          * @method getMiddle
          * @param {*} el Objet de référence.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.getMiddle = function (el) {
@@ -424,7 +424,7 @@
          *      - int : Elle retourne les param derniers éléments de l'objet. Les nombres négatifs sont convertis en valeurs absolus.
          *      - string : L'argument param est converti en regexp.
          *      - RegExp : Elle retourne le dernier élément de l'objet qui correspond à l'expression régulière.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.getLast = function (el, value) { return getFirstLast(el, value, "Last") };
@@ -436,7 +436,7 @@
          * @param {*} index
          *      - int : Index du tableau.
          *      - other : Objet quelconque qui se trouve dans l'objet.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.getBefore = function (el, index) {
@@ -450,7 +450,7 @@
          * @param {*} index
          *      - int : Index du tableau.
          *      - other : Objet quelconque qui se trouve dans l'objet.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.getAfter = function (el, index) {
@@ -467,7 +467,7 @@
          *      - Si la taille est impaire, on ajoute la taille du tableau pour le rendre paire.
          *      - Les valeurs numériques dans param sont les index des plages.
          *      - Les nombres négatifs ne sont pas pris en compte.
-         * @returns {*}
+         * @return {*}
          * @example
          *      zk().toolbox().getBetween(["zero", "un", "deux", 3]); // Renvoie ["un", "deux"];
          *      zk().toolbox().getBetween(["zero", "un", "deux", 3], 1); // Renvoie ["un", "deux"];
@@ -487,7 +487,7 @@
          * @param {int|array} indexes
          *      - int : Index de l'élément qu'on veut obtenir. Pas de nombres négatifs.
          *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite obtenir.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.getAt = function (el, indexes) {
@@ -503,7 +503,7 @@
          *      - RegExp : Expression régulières des éléments qu'on souhaite obtenir dans l'objet.
          *      - int : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
          *      - array : Paramètres multiples (string|regexp|int). Le résulat est obtenu en fonction du type des éléments qui se trouve dans l'objet.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.get = function (el, value) {
@@ -533,7 +533,7 @@
          *      - string : Conversion en RegExp.
          *      - RegExp : Expression régulières.
          *      - int : Les premiers éléments.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.removeFirst = function (el, value) { return rmFirstLast(el, value, "First") };
@@ -542,7 +542,7 @@
          *
          * @method removeMiddle
          * @param {*} el Objet de référence.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.removeMiddle = function (el) {
@@ -558,7 +558,7 @@
          *      - string : Conversion en RegExp.
          *      - RegExp : Expression régulières.
          *      - int : Les derniers éléments.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.removeLast = function (el, value) { return rmFirstLast(el, value, "Last") };
@@ -575,7 +575,7 @@
          *      - string : Conversion en RegExp.
          *      - RegExp : Expression régulières.
          *      - int : Index numérique.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.removeBefore = function (el, index) { return rmBeforeAfter(el, index, 'Before', 'other') };
@@ -588,7 +588,7 @@
          *      - string : Conversion en RegExp.
          *      - RegExp : Expression régulières.
          *      - int : Index numérique.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.removeAfter = function (el, index) { return rmBeforeAfter(el, index, 'After', 'other') };
@@ -601,7 +601,7 @@
          *      - string : Conversion en RegExp.
          *      - RegExp : Expression régulières.
          *      - int : Index numérique.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.removeBetween = function (el, indexes) { return rmBeforeAfter(el, indexes, 'Between', 'array') };
@@ -613,7 +613,7 @@
          * @param {int|array} indexes
          *      - int : Index numérique.
          *      - array : Tableau contenant des valeurs entières.
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.removeAt = function (el, indexes) {
@@ -628,7 +628,7 @@
          * @method remove
          * @param {*} el Objet de référence.
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.remove = function (el, value) {
@@ -653,7 +653,7 @@
          * @method addFirst
          * @param {*} el Objet de référence.
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.addFirst = function (el, value) { return addFirstLast(el, value, "First") };
@@ -663,7 +663,7 @@
          * @method addMiddle
          * @param {*} el Objet de référence.
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.addMiddle = function (el, value) {
@@ -676,7 +676,7 @@
          * @method addLast
          * @param {*} el Objet de référence.
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.addLast = function (el, value) { return addFirstLast(el, value, "Last") };
@@ -694,7 +694,7 @@
          * @param {*} el Objet de référence.
          * @param {*} index
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.addBefore = function (el, index, value) {
@@ -707,7 +707,7 @@
          * @param {*} el Objet de référence.
          * @param {*} index
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.addAfter = function (el, index, value) {
@@ -720,7 +720,7 @@
          * @param {*} el Objet de référence.
          * @param {*} index
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.addAt = function (el, index, value) {
@@ -734,7 +734,7 @@
          * @method add
          * @param {*} el Objet de référence.
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.add = function (el, value) {
@@ -759,7 +759,7 @@
          * @param {*} el Objet de référence.
          * @param {*} oldValue
          * @param {*} newValue
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.changeFirst = function (el, oldValue, newValue) {
@@ -775,7 +775,7 @@
          * @param {*} el Objet de référence.
          * @param {*} oldValue
          * @param {*} newValue
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.changeLast = function (el, oldValue, newValue) {
@@ -796,7 +796,7 @@
          * @param {*} el Objet de référence.
          * @param {*} index
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.changeBefore = function (el, index, value) {
@@ -809,7 +809,7 @@
          * @param {*} el Objet de référence.
          * @param {*} index
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.changeAfter = function (el, index, value) {
@@ -822,7 +822,7 @@
          * @param {*} el Objet de référence.
          * @param {*} indexes Il faut indiquer une seule plage.
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.changeBetween = function (el, indexes, value) {
@@ -839,7 +839,7 @@
          * @param {*} el Objet de référence.
          * @param {*} indexes
          * @param {*} value
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.changeAt = function (el, indexes, value) {
@@ -856,7 +856,7 @@
          * @param {*} el Objet de référence.
          * @param {*} oldValue
          * @param {*} newValue
-         * @returns {*}
+         * @return {*}
          * @since 1.0
          */
         this.change = function (el, oldValue, newValue) {
@@ -992,7 +992,7 @@
          * @param parameters
          *      Un objet contenant les fonctions à exécuter selon le type de l'argument
          *      Par exemple : { "getFirst.string": function(){}, "getFirst.number": function(){} }
-         * @returns {APP/false}
+         * @return {APP/false}
          */
         this.register = function (entityFunc, methods, parameters) {
             if ((typeof(entityFunc)).toLowerCase() !== 'function') {
