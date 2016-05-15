@@ -903,23 +903,27 @@
         this.upperLast = function (el, value) {
             return upperLowerFirstLast(el, value, "Last", "Upper")
         };
-
-
-
-
-
-
-
+        /**
+         * Permet de mettre en majuscule les éléments au milieu.
+         *
+         * @method upperMiddle
+         * @param {*} el Objet de référence.
+         * @return {*}
+         * @since 1.0
+         */
         this.upperMiddle = function (el) {
             var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
             return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Upper"));
         };
+
+
+
+
         function upperLowerBeforeAfter(el, index, beforeAfter, upperLower) {
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
                 ".upper" + beforeAfter + ".other";
             return zk().getContainer(path)(el, index, upperLower);
         }
-
         this.upperBefore = function (el, index) {
             return upperLowerBeforeAfter(el, index, "Before", "Upper")
         };

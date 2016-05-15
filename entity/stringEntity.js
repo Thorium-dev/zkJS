@@ -463,12 +463,6 @@ zk().setContainer(stringUpperLastPath+"regexp", function(el, value, upperLower){
 });
 String.prototype.upperLast = function(value){ return zk().toolbox().upperLast(this, value) };
 
-
-
-
-
-
-
 function upperLowerTab(tab, upperLower) {
     var box = zk().toolbox();
     return box.each(tab, function(){
@@ -477,7 +471,15 @@ function upperLowerTab(tab, upperLower) {
         return v;
     }) ;
 }
-Array.prototype.upperMiddle = function(){ return zk().toolbox().upperMiddle(this) };
+String.prototype.upperMiddle = function(){ return zk().toolbox().upperMiddle(this) };
+
+
+
+
+
+
+
+
 
 var arrayUpperBeforePath = "_ENTITY_._PARAMETERS_.array.upperBefore.";
 zk().setContainer(arrayUpperBeforePath+"other", function(el, index, upperLower){
