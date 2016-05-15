@@ -979,8 +979,17 @@
         this.lowerFirst = function (el, value) {
             return upperLowerFirstLast(el, value, "First", "Lower")
         };
-        this.lowerLast = function (el, param) {
-            return upperLowerFirstLast(el, param, "Last", "Lower")
+        /**
+         * Permet de mettre en minuscule les derniers éléments.
+         *
+         * @method lowerFirst
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.lowerLast = function (el, value) {
+            return upperLowerFirstLast(el, value, "Last", "Lower")
         };
         this.lowerMiddle = function (el) {
             var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);

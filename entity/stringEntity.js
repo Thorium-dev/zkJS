@@ -620,7 +620,7 @@ Array.prototype.upper = function(param){ return zk().toolbox().upper(this, param
 
 String.prototype.lowerFirst = function(value){ return zk().toolbox().lowerFirst(this, value) };
 
-Array.prototype.lowerLast = function(param){ return zk().toolbox().lowerLast(this, param) };
+String.prototype.lowerLast = function(value){ return zk().toolbox().lowerLast(this, value) };
 
 Array.prototype.lowerMiddle = function(){ return zk().toolbox().lowerMiddle(this) };
 
