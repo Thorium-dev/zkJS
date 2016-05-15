@@ -925,6 +925,15 @@
                 ".upper" + beforeAfter + ".other";
             return zk().getContainer(path)(el, index, upperLower);
         }
+        /**
+         * Permet de mettre en majuscule les éléments qui se situent avant index.
+         *
+         * @method upperBefore
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @return {*}
+         * @since 1.0
+         */
         this.upperBefore = function (el, index) {
             return upperLowerBeforeAfter(el, index, "Before", "Upper")
         };

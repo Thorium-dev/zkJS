@@ -196,7 +196,8 @@ String.prototype.removeLast = function(value){ return zk().toolbox().removeLast(
 
 var stringRemoveBeforePath = "_ENTITY_._PARAMETERS_.string.removeBefore.";
 zk().setContainer(stringRemoveBeforePath+"other", function(el, index){
-    return zk().getContainer(arrayRemoveBeforePath+"other")(el, index)
+    var before = zk().toolbox().getBefore(el, index);
+    return el.slice(el.indexOf(before) + before.length);
 });
 String.prototype.removeBefore = function(index){ return zk().toolbox().removeBefore(this, index) };
 
@@ -473,36 +474,18 @@ function upperLowerTab(tab, upperLower) {
 }
 String.prototype.upperMiddle = function(){ return zk().toolbox().upperMiddle(this) };
 
-
-
-
-
-
-
-
-
-var arrayUpperBeforePath = "_ENTITY_._PARAMETERS_.array.upperBefore.";
-zk().setContainer(arrayUpperBeforePath+"other", function(el, index, upperLower){
-    var box = zk().toolbox(), k = el.length;
-    if(!box.is(index, "number")){ index = box.index(el, index) }
-    if (index > -1) {
-        if(index >= k){ index = k }
-        for (var i = 0; i < index; i++){
-            if(box.is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-            }
-        }
-    }
-    return el;
+var stringUpperBeforePath = "_ENTITY_._PARAMETERS_.string.upperBefore.";
+zk().setContainer(stringUpperBeforePath+"other", function(el, index, upperLower){
+    var box = zk().toolbox(), i = -1, before = box.getBefore(el, index);
+    return el.replace(before, function (str) { i++; return i ? str : str["to"+upperLower+"Case"]() })
 });
-/**
- * Permet de mettre en majuscule les éléments qui se situent avant index dans le tableau.
- * @param index (number|other)
- *      - number : Index du tableau.
- *      - other : Objet quelconque qui se trouve dans le tableau.
- * @returns {Array}
- */
-Array.prototype.upperBefore = function(index){ return zk().toolbox().upperBefore(this, index) };
+String.prototype.upperBefore = function(index){ return zk().toolbox().upperBefore(this, index) };
+
+
+
+
+
+
 
 var arrayUpperAfterPath = "_ENTITY_._PARAMETERS_.array.upperAfter.";
 zk().setContainer(arrayUpperAfterPath+"other", function(el, index, upperLower){
