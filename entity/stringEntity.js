@@ -484,7 +484,10 @@ String.prototype.upperBefore = function(index){ return zk().toolbox().upperBefor
 var stringUpperAfterPath = "_ENTITY_._PARAMETERS_.string.upperAfter.";
 zk().setContainer(stringUpperAfterPath+"other", function(el, index, upperLower){
     var box = zk().toolbox(), after = box.getAfter(el, index);
-    return el.slice(el, el.indexOf(after)) + after["to"+upperLower+"Case"]();
+    if(after){
+        el = el.slice(el, el.indexOf(after)) + after["to"+upperLower+"Case"]()
+    }
+    return el;
 });
 String.prototype.upperAfter = function(index){ return zk().toolbox().upperAfter(this, index) };
 
@@ -596,7 +599,7 @@ String.prototype.lowerMiddle = function(){ return zk().toolbox().lowerMiddle(thi
 
 String.prototype.lowerBefore = function(index){ return zk().toolbox().lowerBefore(this, index) };
 
-Array.prototype.lowerAfter = function(index){ return zk().toolbox().lowerAfter(this, index) };
+String.prototype.lowerAfter = function(index){ return zk().toolbox().lowerAfter(this, index) };
 
 Array.prototype.lowerBetween = function(indexes){ return zk().toolbox().lowerBetween(this, indexes) };
 

@@ -1035,6 +1035,15 @@
         this.lowerBefore = function (el, index) {
             return upperLowerBeforeAfter(el, index, "Before", "Lower")
         };
+        /**
+         * Permet de mettre en minuscule les éléments qui se situent après index.
+         *
+         * @method lowerAfter
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @return {*}
+         * @since 1.0
+         */
         this.lowerAfter = function (el, index) {
             return upperLowerBeforeAfter(el, index, "After", "Lower")
         };
