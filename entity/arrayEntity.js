@@ -48,6 +48,8 @@ Array.prototype.has = function(value){ return zk().toolbox().has(this, value) };
 
 Array.prototype.reverse = function(){ return zk().toolbox().reverse(this) };
 
+//@TODO : Utilisation des RegExp => Vérifier les flags (voir String.upperLast)
+
 // ========================================= LES METHODES AVEC GET =============================================
 
 var arrayGetFirstPath = "_ENTITY_._PARAMETERS_.array.getFirst.";
@@ -503,21 +505,21 @@ zk().setContainer(arrayUpperFirstPath+"regexp", function(el, value, upperLower){
 Array.prototype.upperFirst = function(value){ return zk().toolbox().upperFirst(this, value) };
 
 var arrayUpperLastPath = "_ENTITY_._PARAMETERS_.array.upperLast.";
-zk().setContainer(arrayUpperLastPath+"number", function (el, param, upperLower) {
-    if(param < 1 ){ return el }
+zk().setContainer(arrayUpperLastPath+"number", function (el, value, upperLower) {
+    if(value < 1 ){ return el }
     var l = el.length;
-    if( param > l ){ param = l }
-    for(var i = l-param; i < l; i++){
+    if( value > l ){ value = l }
+    for(var i = l-value; i < l; i++){
         if(zk().toolbox().is(el[i], "string")){
             el[i] = el[i]["to"+upperLower+"Case"]();
         }
     }
     return el
 });
-zk().setContainer(arrayUpperLastPath+"string", function(el, param, upperLower){
+zk().setContainer(arrayUpperLastPath+"string", function(el, value, upperLower){
     var i, k = el.length;
     for (i = k - 1; i > -1; i--) {
-        if (el[i] == param) {
+        if (el[i] == value) {
             if(zk().toolbox().is(el[i], "string")){
                 el[i] = el[i]["to"+upperLower+"Case"]();
                 return el
@@ -526,10 +528,10 @@ zk().setContainer(arrayUpperLastPath+"string", function(el, param, upperLower){
     }
     return el;
 });
-zk().setContainer(arrayUpperLastPath+"regexp", function(el, param, upperLower){
+zk().setContainer(arrayUpperLastPath+"regexp", function(el, value, upperLower){
     var i, k = el.length;
     for (i = k - 1; i > -1; i--) {
-        if (param.test(el[i])) {
+        if (value.test(el[i])) {
             if(zk().toolbox().is(el[i], "string")){
                 el[i] = el[i]["to"+upperLower+"Case"]();
                 return el
@@ -538,7 +540,7 @@ zk().setContainer(arrayUpperLastPath+"regexp", function(el, param, upperLower){
     }
     return el;
 });
-Array.prototype.upperLast = function(param){ return zk().toolbox().upperLast(this, param) };
+Array.prototype.upperLast = function(value){ return zk().toolbox().upperLast(this, value) };
 
 function upperLowerTab(tab, upperLower) {
     var box = zk().toolbox();
@@ -652,7 +654,7 @@ Array.prototype.upper = function(param){ return zk().toolbox().upper(this, param
 
 Array.prototype.lowerFirst = function(value){ return zk().toolbox().lowerFirst(this, value) };
 
-Array.prototype.lowerLast = function(param){ return zk().toolbox().lowerLast(this, param) };
+Array.prototype.lowerLast = function(value){ return zk().toolbox().lowerLast(this, value) };
 
 Array.prototype.lowerMiddle = function(){ return zk().toolbox().lowerMiddle(this) };
 

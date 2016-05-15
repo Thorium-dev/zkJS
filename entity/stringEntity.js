@@ -39,6 +39,9 @@ String.prototype.reverse = function(){ return zk().toolbox().reverse(this) };
 
 String.prototype.trim = function(strReg, direction){ return zk().toolbox().trim(this, strReg, direction) };
 
+
+//@TODO : Utilisation des RegExp => Vérifier les fonction ou je mets le flag "g" (faire comme upperLast)
+
 // ========================================= LES METHODES AVEC GET =============================================
 
 var stringGetFirstPath = "_ENTITY_._PARAMETERS_.string.getFirst.";
@@ -344,7 +347,8 @@ zk().setContainer(stringChangeLastPath+"number", function (el, oldValue, newValu
 zk().setContainer(stringChangeLastPath+"other", function(el, oldValue, newValue){
     var box = zk().toolbox();
     if(box.is(oldValue, "string|regexp")){
-        oldValue = new RegExp(oldValue, "g");
+        var ig = (oldValue.ignoreCase ? "i" : "") + "g";
+        oldValue = new RegExp(oldValue, ig);
         var r = el.match(oldValue);
         if (r && box.is(newValue, "string|number")) {
             oldValue = r[r.length - 1];
@@ -438,58 +442,32 @@ zk().setContainer(stringUpperFirstPath+"regexp", function(el, value, upperLower)
 });
 String.prototype.upperFirst = function(value){ return zk().toolbox().upperFirst(this, value) };
 
-
-
-
-
-
-
-
-var arrayUpperLastPath = "_ENTITY_._PARAMETERS_.array.upperLast.";
-zk().setContainer(arrayUpperLastPath+"number", function (el, param, upperLower) {
-    if(param < 1 ){ return el }
-    var l = el.length;
-    if( param > l ){ param = l }
-    for(var i = l-param; i < l; i++){
-        if(zk().toolbox().is(el[i], "string")){
-            el[i] = el[i]["to"+upperLower+"Case"]();
-        }
-    }
+var stringUpperLastPath = "_ENTITY_._PARAMETERS_.string.upperLast.";
+zk().setContainer(stringUpperLastPath+"number", function (el, value, upperLower) {
+    if(value > 1){ el = el.slice(0, -value) + (el.slice(-value)["to"+upperLower+"Case"]()); }
     return el
 });
-zk().setContainer(arrayUpperLastPath+"string", function(el, param, upperLower){
-    var i, k = el.length;
-    for (i = k - 1; i > -1; i--) {
-        if (el[i] == param) {
-            if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-                return el
-            }
-        }
+zk().setContainer(stringUpperLastPath+"string", function(el, value, upperLower){
+    return zk().getContainer(stringUpperLastPath+"regexp")(el, value, upperLower);
+});
+zk().setContainer(stringUpperLastPath+"regexp", function(el, value, upperLower){
+    var ig = (value.ignoreCase ? "i" : "") + "g";
+    value = new RegExp(value, ig);
+    var r = el.match(value);
+    if (r) {
+        value = r[r.length - 1];
+        var i = el.lastIndexOf(value);
+        el = doSlice(el, i, i + value.length, value["to"+upperLower+"Case"]());
     }
     return el;
 });
-zk().setContainer(arrayUpperLastPath+"regexp", function(el, param, upperLower){
-    var i, k = el.length;
-    for (i = k - 1; i > -1; i--) {
-        if (param.test(el[i])) {
-            if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-                return el
-            }
-        }
-    }
-    return el;
-});
-/**
- * Permet de mettre en majuscule des chaînes de caractères correspondant à param.
- * @param param (number|string|regexp)
- *      - number : Les derniers éléments du tableau.
- *      - string : La dernière chaîne de caractères du tableau qui est égale à cette valeur.
- *      - regexp : La dernière chaîne de caractères du tableau correspondant à l'expression régulière.
- * @returns {Array}
- */
-Array.prototype.upperLast = function(param){ return zk().toolbox().upperLast(this, param) };
+String.prototype.upperLast = function(value){ return zk().toolbox().upperLast(this, value) };
+
+
+
+
+
+
 
 function upperLowerTab(tab, upperLower) {
     var box = zk().toolbox();

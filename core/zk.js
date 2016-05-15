@@ -891,15 +891,25 @@
         this.upperFirst = function (el, value) {
             return upperLowerFirstLast(el, value, "First", "Upper")
         };
-
-
-
-
-
-
-        this.upperLast = function (el, param) {
-            return upperLowerFirstLast(el, param, "Last", "Upper")
+        /**
+         * Permet de mettre en majuscule les derniers éléments.
+         *
+         * @method upperLast
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.upperLast = function (el, value) {
+            return upperLowerFirstLast(el, value, "Last", "Upper")
         };
+
+
+
+
+
+
+
         this.upperMiddle = function (el) {
             var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
             return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Upper"));
