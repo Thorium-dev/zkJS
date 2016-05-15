@@ -1016,7 +1016,15 @@
         this.lowerMiddle = function (el) {
             return upperLowerMiddle(el, "Lower")
         };
-
+        /**
+         * Permet de mettre en minuscule les éléments qui se situent avant index.
+         *
+         * @method lowerBefore
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @return {*}
+         * @since 1.0
+         */
         this.lowerBefore = function (el, index) {
             return upperLowerBeforeAfter(el, index, "Before", "Lower")
         };
