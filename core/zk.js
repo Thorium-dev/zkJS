@@ -967,6 +967,10 @@
         this.upperBetween = function (el, indexes) {
             return upperLowerBetween(el, indexes, "Upper")
         };
+
+
+
+
         function upperLowerAt(el, indexes, upperLower) {
             if (indexes === undefined) {
                 return el
@@ -1055,6 +1059,15 @@
         this.lowerAfter = function (el, index) {
             return upperLowerBeforeAfter(el, index, "After", "Lower")
         };
+        /**
+         * Permet de mettre en minuscule une ou plusieurs plages.
+         *
+         * @method lowerBetween
+         * @param {*} el Objet de référence.
+         * @param {*} indexes
+         * @return {*}
+         * @since 1.0
+         */
         this.lowerBetween = function (el, indexes) {
             return upperLowerBetween(el, indexes, "Lower")
         };

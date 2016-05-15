@@ -491,7 +491,6 @@ zk().setContainer(stringUpperAfterPath+"other", function(el, index, upperLower){
 });
 String.prototype.upperAfter = function(index){ return zk().toolbox().upperAfter(this, index) };
 
-
 var stringUpperBetweenPath = "_ENTITY_._PARAMETERS_.string.upperBetween.";
 zk().setContainer(stringUpperBetweenPath+"array", function(el, indexes, upperLower){
     var box = zk().toolbox(), i, k;
@@ -507,14 +506,7 @@ zk().setContainer(stringUpperBetweenPath+"array", function(el, indexes, upperLow
     }
     return el;
 });
-
 String.prototype.upperBetween = function(indexes){ return zk().toolbox().upperBetween(this, indexes) };
-
-
-
-
-
-
 
 
 var arrayUpperAtPath = "_ENTITY_._PARAMETERS_.array.upperAt.";
@@ -593,7 +585,7 @@ String.prototype.lowerBefore = function(index){ return zk().toolbox().lowerBefor
 
 String.prototype.lowerAfter = function(index){ return zk().toolbox().lowerAfter(this, index) };
 
-Array.prototype.lowerBetween = function(indexes){ return zk().toolbox().lowerBetween(this, indexes) };
+String.prototype.lowerBetween = function(indexes){ return zk().toolbox().lowerBetween(this, indexes) };
 
 Array.prototype.lowerAt = function(indexes){ return zk().toolbox().lowerAt(this, indexes) };
 
