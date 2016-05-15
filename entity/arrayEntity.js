@@ -465,21 +465,21 @@ Array.prototype.change = function(oldValue, newValue){ return zk().toolbox().cha
 // ========================================= LES METHODES AVEC UPPER ===========================================
 
 var arrayUpperFirstPath = "_ENTITY_._PARAMETERS_.array.upperFirst.";
-zk().setContainer(arrayUpperFirstPath+"number", function (el, param, upperLower) {
-    if(param < 1 ){ return el }
+zk().setContainer(arrayUpperFirstPath+"number", function (el, value, upperLower) {
+    if(value < 1 ){ return el }
     var l = el.length;
-    if( param > l ){ param = l }
-    for(var i = 0; i < param; i++){
+    if( value > l ){ value = l }
+    for(var i = 0; i < value; i++){
         if(zk().toolbox().is(el[i], "string")){
             el[i] = el[i]["to"+upperLower+"Case"]();
         }
     }
     return el
 });
-zk().setContainer(arrayUpperFirstPath+"string", function(el, param, upperLower){
+zk().setContainer(arrayUpperFirstPath+"string", function(el, value, upperLower){
     var i, k = el.length;
     for (i = 0; i < k; i++) {
-        if (el[i] == param) {
+        if (el[i] == value) {
             if(zk().toolbox().is(el[i], "string")){
                 el[i] = el[i]["to"+upperLower+"Case"]();
                 return el
@@ -488,10 +488,10 @@ zk().setContainer(arrayUpperFirstPath+"string", function(el, param, upperLower){
     }
     return el;
 });
-zk().setContainer(arrayUpperFirstPath+"regexp", function(el, param, upperLower){
+zk().setContainer(arrayUpperFirstPath+"regexp", function(el, value, upperLower){
     var i, k = el.length;
     for (i = 0; i < k; i++) {
-        if (param.test(el[i])) {
+        if (value.test(el[i])) {
             if(zk().toolbox().is(el[i], "string")){
                 el[i] = el[i]["to"+upperLower+"Case"]();
                 return el
@@ -500,7 +500,7 @@ zk().setContainer(arrayUpperFirstPath+"regexp", function(el, param, upperLower){
     }
     return el;
 });
-Array.prototype.upperFirst = function(param){ return zk().toolbox().upperFirst(this, param) };
+Array.prototype.upperFirst = function(value){ return zk().toolbox().upperFirst(this, value) };
 
 var arrayUpperLastPath = "_ENTITY_._PARAMETERS_.array.upperLast.";
 zk().setContainer(arrayUpperLastPath+"number", function (el, param, upperLower) {

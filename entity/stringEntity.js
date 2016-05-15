@@ -423,51 +423,27 @@ String.prototype.change = function(oldValue, newValue){ return zk().toolbox().ch
 
 // ========================================= LES METHODES AVEC UPPER ===========================================
 
-var arrayUpperFirstPath = "_ENTITY_._PARAMETERS_.array.upperFirst.";
-zk().setContainer(arrayUpperFirstPath+"number", function (el, param, upperLower) {
-    if(param < 1 ){ return el }
-    var l = el.length;
-    if( param > l ){ param = l }
-    for(var i = 0; i < param; i++){
-        if(zk().toolbox().is(el[i], "string")){
-            el[i] = el[i]["to"+upperLower+"Case"]();
-        }
+var stringUpperFirstPath = "_ENTITY_._PARAMETERS_.string.upperFirst.";
+zk().setContainer(stringUpperFirstPath+"number", function (el, value, upperLower) {
+    if(value > 1){
+        el = (el.slice(0, value)["to"+upperLower+"Case"]()) + el.slice(value);
     }
     return el
 });
-zk().setContainer(arrayUpperFirstPath+"string", function(el, param, upperLower){
-    var i, k = el.length;
-    for (i = 0; i < k; i++) {
-        if (el[i] == param) {
-            if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-                return el
-            }
-        }
-    }
-    return el;
+zk().setContainer(stringUpperFirstPath+"string", function(el, value, upperLower){
+    return zk().getContainer(stringUpperFirstPath+"regexp")(el, value, upperLower);
 });
-zk().setContainer(arrayUpperFirstPath+"regexp", function(el, param, upperLower){
-    var i, k = el.length;
-    for (i = 0; i < k; i++) {
-        if (param.test(el[i])) {
-            if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-                return el
-            }
-        }
-    }
-    return el;
+zk().setContainer(stringUpperFirstPath+"regexp", function(el, value, upperLower){
+    var i = -1; return el.replace(value, function (str) { i++; return i ? str : str["to"+upperLower+"Case"]() })
 });
-/**
- * Permet de mettre en majuscule des chaînes de caractères correspondant à param.
- * @param param (number|string|regexp)
- *      - number : Les premiers éléments du tableau.
- *      - string : La première chaîne de caractères du tableau qui est égale à cette valeur.
- *      - regexp : La première chaîne de caractères du tableau correspondant à l'expression régulière.
- * @returns {Array}
- */
-Array.prototype.upperFirst = function(param){ return zk().toolbox().upperFirst(this, param) };
+String.prototype.upperFirst = function(value){ return zk().toolbox().upperFirst(this, value) };
+
+
+
+
+
+
+
 
 var arrayUpperLastPath = "_ENTITY_._PARAMETERS_.array.upperLast.";
 zk().setContainer(arrayUpperLastPath+"number", function (el, param, upperLower) {

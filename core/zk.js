@@ -870,19 +870,33 @@
 
         // UPPER
 
-        function upperLowerFirstLast(el, param, firstLast, upperLower) {
-            if (param === undefined) {
-                param = 1
+        function upperLowerFirstLast(el, value, firstLast, upperLower) {
+            if (value === undefined) {
+                value = 1
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
-                ".upper" + firstLast + "." + self.is(param);
+                ".upper" + firstLast + "." + self.is(value);
             var f = zk().getContainer(path);
-            return f ? f(el, param, upperLower) : el;
+            return f ? f(el, value, upperLower) : el;
         }
-
-        this.upperFirst = function (el, param) {
-            return upperLowerFirstLast(el, param, "First", "Upper")
+        /**
+         * Permet de mettre en majuscule les premiers éléments.
+         *
+         * @method upperFirst
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.upperFirst = function (el, value) {
+            return upperLowerFirstLast(el, value, "First", "Upper")
         };
+
+
+
+
+
+
         this.upperLast = function (el, param) {
             return upperLowerFirstLast(el, param, "Last", "Upper")
         };
