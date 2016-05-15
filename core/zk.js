@@ -955,7 +955,15 @@
                 ".upperBetween.array";
             return zk().getContainer(path)(el, indexes, upperLower);
         }
-
+        /**
+         * Permet de mettre en majuscule une ou plusieurs plages.
+         *
+         * @method upperBetween
+         * @param {*} el Objet de référence.
+         * @param {*} indexes
+         * @return {*}
+         * @since 1.0
+         */
         this.upperBetween = function (el, indexes) {
             return upperLowerBetween(el, indexes, "Upper")
         };

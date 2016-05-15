@@ -492,38 +492,30 @@ zk().setContainer(stringUpperAfterPath+"other", function(el, index, upperLower){
 String.prototype.upperAfter = function(index){ return zk().toolbox().upperAfter(this, index) };
 
 
-
-
-
-
-
-var arrayUpperBetweenPath = "_ENTITY_._PARAMETERS_.array.upperBetween.";
-zk().setContainer(arrayUpperBetweenPath+"array", function(el, indexes, lowerUpper){
-    var box = zk().toolbox(), z, i, k, param;
+var stringUpperBetweenPath = "_ENTITY_._PARAMETERS_.string.upperBetween.";
+zk().setContainer(stringUpperBetweenPath+"array", function(el, indexes, upperLower){
+    var box = zk().toolbox(), i, k;
     if (!box.is(indexes, 'array')) { indexes = [indexes] }
     if (indexes.length % 2) { indexes.push(el.length - 1) }
     k = indexes.length;
-    for (z = 0; z < k; z += 2) {
-        param = [indexes[z], indexes[z+1]];
-        for (i = 0; i < 2; i++){
-            if(!box.is(param[i], "number")){ param[i] = box.index(el, param[i]) }
-            if(param[i] < 0){ param[i] = NaN }
-        }
-        if(box.is(param[0], "number") && box.is(param[1], "number")){
-            param = box.nSort(param);
-            el = doSlice(el, param[0] + 1, param[1], upperLowerTab(el.slice(param[0] + 1, param[1]), lowerUpper));
+    for (i = 0; i < k; i += 2) {
+        var tab = [indexes[i], indexes[i+1]];
+        tab = stringBetweenIndexes(el, tab);
+        if(tab[0] > -1 && tab[1] > -1){
+            el = el.slice(0, tab[0]+1) + el.slice(tab[0]+1,tab[1])["to"+upperLower+"Case"]() + el.slice(tab[1]);
         }
     }
     return el;
 });
-/**
- * Met en majuscule une ou plusieurs plages du tableau
- * @param param (array|int)
- *      - int : Valeur de début. La taille du tableau est utilisée comme valeur complémentaire.
- *      - array : Tableau contenant des valeurs quelconques.
- * @returns {*}
- */
-Array.prototype.upperBetween = function(indexes){ return zk().toolbox().upperBetween(this, indexes) };
+
+String.prototype.upperBetween = function(indexes){ return zk().toolbox().upperBetween(this, indexes) };
+
+
+
+
+
+
+
 
 var arrayUpperAtPath = "_ENTITY_._PARAMETERS_.array.upperAt.";
 zk().setContainer(arrayUpperAtPath + "number", function (el, index, upperLower) {
