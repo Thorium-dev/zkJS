@@ -624,7 +624,7 @@ String.prototype.lowerFirst = function(value){ return zk().toolbox().lowerFirst(
 
 String.prototype.lowerLast = function(value){ return zk().toolbox().lowerLast(this, value) };
 
-Array.prototype.lowerMiddle = function(){ return zk().toolbox().lowerMiddle(this) };
+String.prototype.lowerMiddle = function(){ return zk().toolbox().lowerMiddle(this) };
 
 Array.prototype.lowerBefore = function(index){ return zk().toolbox().lowerBefore(this, index) };
 

@@ -903,6 +903,10 @@
         this.upperLast = function (el, value) {
             return upperLowerFirstLast(el, value, "Last", "Upper")
         };
+        function upperLowerMiddle(el, upperLower){
+            var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
+            return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), upperLower));
+        }
         /**
          * Permet de mettre en majuscule les éléments au milieu.
          *
@@ -912,11 +916,8 @@
          * @since 1.0
          */
         this.upperMiddle = function (el) {
-            var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
-            return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Upper"));
+            return upperLowerMiddle(el, "Upper")
         };
-
-
 
 
         function upperLowerBeforeAfter(el, index, beforeAfter, upperLower) {
@@ -986,7 +987,7 @@
         /**
          * Permet de mettre en minuscule les derniers éléments.
          *
-         * @method lowerFirst
+         * @method lowerLast
          * @param {*} el Objet de référence.
          * @param {*} value
          * @return {*}
@@ -995,10 +996,18 @@
         this.lowerLast = function (el, value) {
             return upperLowerFirstLast(el, value, "Last", "Lower")
         };
+        /**
+         * Permet de mettre en minuscule les éléments au milieu.
+         *
+         * @method lowerMiddle
+         * @param {*} el Objet de référence.
+         * @return {*}
+         * @since 1.0
+         */
         this.lowerMiddle = function (el) {
-            var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
-            return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Lower"));
+            return upperLowerMiddle(el, "Lower")
         };
+
         this.lowerBefore = function (el, index) {
             return upperLowerBeforeAfter(el, index, "Before", "Lower")
         };
