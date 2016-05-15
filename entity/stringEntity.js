@@ -481,33 +481,18 @@ zk().setContainer(stringUpperBeforePath+"other", function(el, index, upperLower)
 });
 String.prototype.upperBefore = function(index){ return zk().toolbox().upperBefore(this, index) };
 
-
-
-
-
-
-
-var arrayUpperAfterPath = "_ENTITY_._PARAMETERS_.array.upperAfter.";
-zk().setContainer(arrayUpperAfterPath+"other", function(el, index, upperLower){
-    var box = zk().toolbox(), k = el.length;
-    if(!box.is(index, "number")){ index = box.index(el, index) }
-    if (index > -1 && index < k) {
-        for (var i = index + 1; i < k; i++){
-            if(box.is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-            }
-        }
-    }
-    return el;
+var stringUpperAfterPath = "_ENTITY_._PARAMETERS_.string.upperAfter.";
+zk().setContainer(stringUpperAfterPath+"other", function(el, index, upperLower){
+    var box = zk().toolbox(), after = box.getAfter(el, index);
+    return el.slice(el, el.indexOf(after)) + after["to"+upperLower+"Case"]();
 });
-/**
- * Permet de mettre en majuscule les éléments qui se situent après index dans le tableau.
- * @param index (number|other)
- *      - number : Index du tableau.
- *      - other : Objet quelconque qui se trouve dans le tableau.
- * @returns {Array}
- */
-Array.prototype.upperAfter = function(index){ return zk().toolbox().upperAfter(this, index) };
+String.prototype.upperAfter = function(index){ return zk().toolbox().upperAfter(this, index) };
+
+
+
+
+
+
 
 var arrayUpperBetweenPath = "_ENTITY_._PARAMETERS_.array.upperBetween.";
 zk().setContainer(arrayUpperBetweenPath+"array", function(el, indexes, lowerUpper){

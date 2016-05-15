@@ -918,8 +918,6 @@
         this.upperMiddle = function (el) {
             return upperLowerMiddle(el, "Upper")
         };
-
-
         function upperLowerBeforeAfter(el, index, beforeAfter, upperLower) {
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
                 ".upper" + beforeAfter + ".other";
@@ -937,6 +935,15 @@
         this.upperBefore = function (el, index) {
             return upperLowerBeforeAfter(el, index, "Before", "Upper")
         };
+        /**
+         * Permet de mettre en majuscule les éléments qui se situent après index.
+         *
+         * @method upperAfter
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @return {*}
+         * @since 1.0
+         */
         this.upperAfter = function (el, index) {
             return upperLowerBeforeAfter(el, index, "After", "Upper")
         };
