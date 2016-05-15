@@ -957,8 +957,17 @@
 
         // LOWER
 
-        this.lowerFirst = function (el, param) {
-            return upperLowerFirstLast(el, param, "First", "Lower")
+        /**
+         * Permet de mettre en minuscule les premiers éléments.
+         *
+         * @method lowerFirst
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.lowerFirst = function (el, value) {
+            return upperLowerFirstLast(el, value, "First", "Lower")
         };
         this.lowerLast = function (el, param) {
             return upperLowerFirstLast(el, param, "Last", "Lower")

@@ -640,7 +640,7 @@ Array.prototype.upper = function(param){ return zk().toolbox().upper(this, param
 
 // ========================================= LES METHODES AVEC LOWER ============================================
 
-Array.prototype.lowerFirst = function(param){ return zk().toolbox().lowerFirst(this, param) };
+String.prototype.lowerFirst = function(value){ return zk().toolbox().lowerFirst(this, value) };
 
 Array.prototype.lowerLast = function(param){ return zk().toolbox().lowerLast(this, param) };
 
