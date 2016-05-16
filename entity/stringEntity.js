@@ -400,7 +400,7 @@ zk().setContainer(stringChangeAtPath + "array", function (el, indexes, value) {
     var box = zk().toolbox();
     if(box.is(value, "string|number")){
         value = (value+"").slice(0, 1);
-        if(box.is(indexes, 'number')){ indexes = [indexes] }
+        if(!box.is(indexes, 'array')){ indexes = [indexes] }
         indexes = box.removeDuplicate(indexes, true);
         box.each(indexes, function () {
             var n = this.v;
@@ -508,32 +508,34 @@ zk().setContainer(stringUpperBetweenPath+"array", function(el, indexes, upperLow
 });
 String.prototype.upperBetween = function(indexes){ return zk().toolbox().upperBetween(this, indexes) };
 
-
-var arrayUpperAtPath = "_ENTITY_._PARAMETERS_.array.upperAt.";
-zk().setContainer(arrayUpperAtPath + "number", function (el, index, upperLower) {
-    return zk().getContainer(arrayUpperAtPath + "array")(el, [index], upperLower)
+var stringUpperAtPath = "_ENTITY_._PARAMETERS_.string.upperAt.";
+zk().setContainer(stringUpperAtPath + "number", function (el, index, upperLower) {
+    return zk().getContainer(stringUpperAtPath + "array")(el, [index], upperLower)
 });
-zk().setContainer(arrayUpperAtPath + "array", function (el, indexes, upperLower) {
+zk().setContainer(stringUpperAtPath + "array", function (el, indexes, upperLower) {
     var box = zk().toolbox();
     indexes = box.removeDuplicate(indexes, true);
     box.each(indexes, function () {
         var n = this.v;
         if (box.is(n, 'number') && n > -1) {
             if (box.is(el[n], 'string')) {
-                el[n] = el[n]["to"+upperLower+"Case"]()
+                el = el.slice(0, n) + (el.slice(n, n+1)["to"+upperLower+"Case"]()) + el.slice(n+1);
             }
         }
     });
     return el;
 });
-/**
- * Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés.
- * @param indexes (int|array)
- *      - int : Index de l'élément qu'on veut obtenir. Pas de nombres négatifs.
- *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite obtenir.
- * @returns {Array}
- */
-Array.prototype.upperAt = function(indexes){ return zk().toolbox().upperAt(this, indexes) };
+String.prototype.upperAt = function(indexes){ return zk().toolbox().upperAt(this, indexes) };
+
+
+
+
+
+
+
+
+
+
 
 var arrayUpperPath = "_ENTITY_._PARAMETERS_.array.upper.";
 zk().setContainer(arrayUpperPath+"string", function(el, param, upperLower){
@@ -587,7 +589,7 @@ String.prototype.lowerAfter = function(index){ return zk().toolbox().lowerAfter(
 
 String.prototype.lowerBetween = function(indexes){ return zk().toolbox().lowerBetween(this, indexes) };
 
-Array.prototype.lowerAt = function(indexes){ return zk().toolbox().lowerAt(this, indexes) };
+String.prototype.lowerAt = function(indexes){ return zk().toolbox().lowerAt(this, indexes) };
 
 Array.prototype.lower = function(param){ return zk().toolbox().lower(this, param) };
 

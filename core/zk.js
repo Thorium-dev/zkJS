@@ -967,10 +967,6 @@
         this.upperBetween = function (el, indexes) {
             return upperLowerBetween(el, indexes, "Upper")
         };
-
-
-
-
         function upperLowerAt(el, indexes, upperLower) {
             if (indexes === undefined) {
                 return el
@@ -980,10 +976,20 @@
             var f = zk().getContainer(path);
             return f ? f(el, indexes, upperLower) : el;
         }
-
+        /**
+         * Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés.
+         *
+         * @method upperAt
+         * @param {*} el Objet de référence.
+         * @param {int|array} indexes
+         * @return {*}
+         * @since 1.0
+         */
         this.upperAt = function (el, indexes) {
             return upperLowerAt(el, indexes, "Upper")
         };
+
+
         function upperLower(el, indexes, upperLower) {
             if (indexes === undefined) {
                 indexes = el
@@ -1071,9 +1077,21 @@
         this.lowerBetween = function (el, indexes) {
             return upperLowerBetween(el, indexes, "Lower")
         };
+        /**
+         * Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés.
+         *
+         * @method lowerAt
+         * @param {*} el Objet de référence.
+         * @param {int|array} indexes
+         * @return {*}
+         * @since 1.0
+         */
         this.lowerAt = function (el, indexes) {
             return upperLowerAt(el, indexes, "Lower")
         };
+
+
+
         this.lower = function (el, param) {
             return upperLower(el, param, "Lower")
         };
