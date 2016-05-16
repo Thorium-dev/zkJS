@@ -422,7 +422,8 @@ zk().setContainer(stringChangePath+"string", function(el, oldValue, newValue){
     return el.replace(new RegExp(oldValue, "g"), newValue);
 });
 zk().setContainer(stringChangePath+"regexp", function(el, oldValue, newValue){
-    return el.replace(new RegExp(oldValue, "g"), newValue);
+    var ig = (oldValue.ignoreCase ? "i" : "") + "g";
+    return el.replace(new RegExp(oldValue, ig), newValue);
 });
 zk().setContainer(stringChangePath + "number", function (el, oldValue, newValue) {
     return  zk().toolbox()['change'+(oldValue<0?'Last':'First')](el, Math.abs(oldValue), newValue) ;
