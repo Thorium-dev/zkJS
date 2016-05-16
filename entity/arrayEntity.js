@@ -42,13 +42,13 @@ zk().setContainer(arrayIndexesPath+"regexp", function(el, value){
 });
 Array.prototype.indexes = function(value){ return zk().toolbox().indexes(this, value) };
 
+Array.prototype.lastIndex = function(value){ return zk().toolbox().lastIndex(this, value) };
+
 Array.prototype.count = function(value){ return zk().toolbox().count(this, value) };
 
 Array.prototype.has = function(value){ return zk().toolbox().has(this, value) };
 
 Array.prototype.reverse = function(){ return zk().toolbox().reverse(this) };
-
-//@TODO : Utilisation des RegExp => Vérifier les flags (voir String.upperLast)
 
 // ========================================= LES METHODES AVEC GET =============================================
 

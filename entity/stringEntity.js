@@ -28,7 +28,7 @@ zk().setContainer(stringIndexesPath+"regexp", function(el, value){
 });
 String.prototype.indexes = function(value){ return zk().toolbox().indexes(this, value) };
 
-//@TODO : Faire la fonction lastIndex => Utiliser la fonction indexes
+String.prototype.lastIndex = function(value){ return zk().toolbox().lastIndex(this, value) };
 
 String.prototype.count = function(value){ return zk().toolbox().count(this, value) };
 
@@ -37,9 +37,6 @@ String.prototype.has = function(value){ return zk().toolbox().has(this, value) }
 String.prototype.reverse = function(){ return zk().toolbox().reverse(this) };
 
 String.prototype.trim = function(strReg, direction){ return zk().toolbox().trim(this, strReg, direction) };
-
-
-//@TODO : Utilisation des RegExp => Vérifier les fonction ou je mets le flag "g" (faire comme upperLast)
 
 // ========================================= LES METHODES AVEC GET =============================================
 

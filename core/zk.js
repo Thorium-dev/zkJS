@@ -88,12 +88,9 @@
         /**
          * Permet de connaître ou de tester le type d'un élément.
          * @method is
-         * @param {*} el Elément qu'on souhaite connaître ou tester son type.
+         * @param {*} el Objet de référence.
          * @param {string} type Si ce paramètre est indiqué, on teste le type de l'élément, sinon on obtient son type.
          * @return {boolean|string}
-         * @example
-         *      zk().toolbox().is("Hello world !"); // Renvoie "string"
-         *      zk().toolbox().is([26, 11], "array"); // Renvoie true
          * @since 1.0
          */
         this.is = function (el, type) {
@@ -124,13 +121,10 @@
          * Permet de supprimer des caractères au début et à la fin d'une chaîne
          *
          * @method trim
-         * @param {string} el Elément à traiter.
+         * @param {string} el Objet de référence.
          * @param {string} strReg Expression régulière sous forme de chaîne de caractères
          * @param {string} direction La direction. Deux valeurs possibles "l" pour la gauche et "r" pour la droite.
          * @return {string}
-         * @example
-         *      zk().toolbox().trim("000Hello world !!!!!"); // Renvoie "Hello world"
-         *      zk().toolbox().trim("000Hello world !!!!!", "l"); // Renvoie "Hello world !!!!!"
          * @since 1.0
          */
         this.trim = function (el, strReg, direction) {
@@ -220,13 +214,10 @@
          *        - this.l : La taille totale de l'élément en cours. N'existe pour les objets litéraux
          *        - this.all : L'élément sur lequel la méthode s'applique
          * @method each
-         * @param {string|array|int} el Objet à parcourir.
+         * @param {*} el Objet à parcourir.
          * @param {function} callback Fonction à executer à chaque tour.
          * @param {array} args Les arguments de la fonction callback.
-         * @return {*} Elle retourne le même objet.
-         * @example
-         *      zk().toolbox().trim("000Hello world !!!!!"); // Renvoie "Hello world"
-         *      zk().toolbox().trim("000Hello world !!!!!", "l"); // Renvoie "Hello world !!!!!"
+         * @return {*}
          * @since 1.0
          */
         this.each = function (el, callback, args) {
@@ -324,22 +315,37 @@
          * Permet d'obtenir l'index d'une valeur dans un objet.
          *
          * @method index
-         * @param {string|array} el Objet dans lequel se fera la recherche.
+         * @param {*} el Objet de référence.
          * @param {*} value Elément recherché.
          * @return {int} Elle renvoie -1 si la valeur n'a pas été trouvé.
          * @since 1.0
          */
         this.index = function (el, value) { return indexAndIndexes(el, value, "index") };
         /**
-         * Permet d'obtenir les index d'une valeur dans un objet.
+         * Permet d'obtenir les index d'une valeur.
          *
          * @method indexes
-         * @param {string|array} el Objet dans lequel se fera la recherche.
+         * @param {*} el Objet de référence.
          * @param {*} value Elément recherché.
          * @return {array} Si la valeur n'existe pas, elle renvoie un tableau vide.
          * @since 1.0
          */
         this.indexes = function (el, value) { return indexAndIndexes(el, value, "indexes") };
+        /**
+         * Permet d'obtenir le dernier index d'une valeur.
+         *
+         * @method lastIndex
+         * @param {*} el Objet de référence.
+         * @param {*} value Elément recherché.
+         * @return {array} Si la valeur n'existe pas, elle renvoie un tableau vide.
+         * @since 1.0
+         */
+        this.lastIndex = function(el, value){
+            var indexes = self.indexes(el, value);
+            return indexes[indexes.length-1];
+        };
+
+
         /**
          * Permet de compter le nombre de fois q'une valeur existe dans un élément.
          *
