@@ -300,11 +300,11 @@ Array.prototype.addLast = function(value){ return zk().toolbox().addLast(this, v
 
 /**
  * Cette fonction permet de slicé un élément
- * @param  {[string/array]} el [Elément a slicer]
- * @param  {[int]} i1 [Slice de 0 à i1 exclus]
- * @param  {[int]} i2 [Slice de i2 à la fin]
- * @param  {[string/array]} v  [Valeur à ajouter à la plage slicé. Facultatif]
- * @return {[string/array]}    [Elément slicé]
+ * @param  {string/array} el Elément a slicer
+ * @param  {int} i1 Slice de 0 à i1 exclus
+ * @param  {int} i2 Slice de i2 à la fin
+ * @param  {string/array} v  Valeur à ajouter à la plage slicé. Facultatif
+ * @return {string/array} Elément slicé
  */
 function doSlice(el, i1, i2, v) {
     i1 = i1 || 0;
