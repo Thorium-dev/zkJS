@@ -622,33 +622,33 @@ zk().setContainer(arrayUpperAtPath + "array", function (el, indexes, upperLower)
 Array.prototype.upperAt = function(indexes){ return zk().toolbox().upperAt(this, indexes) };
 
 var arrayUpperPath = "_ENTITY_._PARAMETERS_.array.upper.";
-zk().setContainer(arrayUpperPath+"string", function(el, param, upperLower){
+zk().setContainer(arrayUpperPath+"string", function(el, value, upperLower){
     return zk().toolbox().each(el,function(){
-        if(this.v === param){
+        if(this.v === value){
             return this.v["to"+upperLower+"Case"]()
         }
     });
 });
-zk().setContainer(arrayUpperPath+"regexp", function(el, param, upperLower){
+zk().setContainer(arrayUpperPath+"regexp", function(el, value, upperLower){
     var box = zk().toolbox();
     return box.each(el,function(){
-        if(param.test(this.v) && box.is(this.v, 'string')){
+        if(value.test(this.v) && box.is(this.v, 'string')){
             return this.v["to"+upperLower+"Case"]()
         }
     });
 });
-zk().setContainer(arrayUpperPath + "number", function (el, param, upperLower) {
-    var path = (param < 0 ) ? arrayUpperLastPath : arrayUpperFirstPath;
-    return zk().getContainer(path+'number')(el, Math.abs(param), upperLower);
+zk().setContainer(arrayUpperPath + "number", function (el, value, upperLower) {
+    var path = (value < 0 ) ? arrayUpperLastPath : arrayUpperFirstPath;
+    return zk().getContainer(path+'number')(el, Math.abs(value), upperLower);
 });
-zk().setContainer(arrayUpperPath + "array", function (el, param, upperLower) {
+zk().setContainer(arrayUpperPath + "array", function (el, value, upperLower) {
     var indexes = [], box = zk().toolbox();
-    box.each(param, function () {
+    box.each(value, function () {
         indexes = indexes.concat(box.indexes(el, this.v));
     });
     return zk().getContainer(arrayUpperAtPath + "array")(el, indexes, upperLower);
 });
-Array.prototype.upper = function(param){ return zk().toolbox().upper(this, param) };
+Array.prototype.upper = function(value){ return zk().toolbox().upper(this, value) };
 
 // ========================================= LES METHODES AVEC LOWER ============================================
 
@@ -666,4 +666,4 @@ Array.prototype.lowerBetween = function(indexes){ return zk().toolbox().lowerBet
 
 Array.prototype.lowerAt = function(indexes){ return zk().toolbox().lowerAt(this, indexes) };
 
-Array.prototype.lower = function(param){ return zk().toolbox().lower(this, param) };
+Array.prototype.lower = function(value){ return zk().toolbox().lower(this, value) };

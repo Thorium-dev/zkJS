@@ -527,53 +527,29 @@ zk().setContainer(stringUpperAtPath + "array", function (el, indexes, upperLower
 });
 String.prototype.upperAt = function(indexes){ return zk().toolbox().upperAt(this, indexes) };
 
-
-
-
-
-
-
-
-
-
-
-var arrayUpperPath = "_ENTITY_._PARAMETERS_.array.upper.";
-zk().setContainer(arrayUpperPath+"string", function(el, param, upperLower){
-    return zk().toolbox().each(el,function(){
-        if(this.v === param){
-            return this.v["to"+upperLower+"Case"]()
-        }
-    });
+var stringUpperPath = "_ENTITY_._PARAMETERS_.string.upper.";
+zk().setContainer(stringUpperPath+"string", function(el, value, upperLower){
+    return zk().getContainer(stringUpperPath+"regexp")(el, value, upperLower);
 });
-zk().setContainer(arrayUpperPath+"regexp", function(el, param, upperLower){
+zk().setContainer(stringUpperPath+"regexp", function(el, value, upperLower){
+    var ig = (value.ignoreCase ? "i" : "") + "g"; value = new RegExp(value, ig);
+    return el.replace(value, function (str) { return str["to"+upperLower+"Case"]() })
+});
+zk().setContainer(stringUpperPath + "number", function (el, value, upperLower) {
+    var path = (value < 0 ) ? stringUpperLastPath : stringUpperFirstPath;
+    return zk().getContainer(path+'number')(el, Math.abs(value), upperLower);
+});
+zk().setContainer(stringUpperPath + "array", function (el, value, upperLower) {
     var box = zk().toolbox();
-    return box.each(el,function(){
-        if(param.test(this.v) && box.is(this.v, 'string')){
-            return this.v["to"+upperLower+"Case"]()
+    box.each(value, function () {
+        var f = zk().getContainer(stringUpperPath + box.is(this.v));
+        if(f){
+            el = f(el, this.v, upperLower);
         }
     });
+    return el;
 });
-zk().setContainer(arrayUpperPath + "number", function (el, param, upperLower) {
-    var path = (param < 0 ) ? arrayUpperLastPath : arrayUpperFirstPath;
-    return zk().getContainer(path+'number')(el, Math.abs(param), upperLower);
-});
-zk().setContainer(arrayUpperPath + "array", function (el, param, upperLower) {
-    var indexes = [], box = zk().toolbox();
-    box.each(param, function () {
-        indexes = indexes.concat(box.indexes(el, this.v));
-    });
-    return zk().getContainer(arrayUpperAtPath + "array")(el, indexes, upperLower);
-});
-/**
- * Permet de mettre en majuscule des valeurs dans le tableau.
- * @param param (string|regexp|number|array)
- *      - string : Elément(s) à mettre en majuscule dans le tableau. On fait une égalité stricte.
- *      - regexp : Expression régulières des éléments qu'on souhaite mettre en majuscule dans le tableau.
- *      - number : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
- *      - array : Paramètres multiples (string|regexp|number). Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau.
- * @returns {Array}
- */
-Array.prototype.upper = function(param){ return zk().toolbox().upper(this, param) };
+String.prototype.upper = function(value){ return zk().toolbox().upper(this, value) };
 
 // ========================================= LES METHODES AVEC LOWER ============================================
 
@@ -591,7 +567,7 @@ String.prototype.lowerBetween = function(indexes){ return zk().toolbox().lowerBe
 
 String.prototype.lowerAt = function(indexes){ return zk().toolbox().lowerAt(this, indexes) };
 
-Array.prototype.lower = function(param){ return zk().toolbox().lower(this, param) };
+String.prototype.lower = function(value){ return zk().toolbox().lower(this, value) };
 
 
 

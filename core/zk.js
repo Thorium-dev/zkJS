@@ -988,8 +988,6 @@
         this.upperAt = function (el, indexes) {
             return upperLowerAt(el, indexes, "Upper")
         };
-
-
         function upperLower(el, indexes, upperLower) {
             if (indexes === undefined) {
                 indexes = el
@@ -999,9 +997,17 @@
             var f = zk().getContainer(path);
             return f ? f(el, indexes, upperLower) : el;
         }
-
-        this.upper = function (el, param) {
-            return upperLower(el, param, "Upper")
+        /**
+         * Permet de mettre en majuscule des valeurs.
+         *
+         * @method upper
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.upper = function (el, value) {
+            return upperLower(el, value, "Upper")
         };
 
         // LOWER
@@ -1089,11 +1095,17 @@
         this.lowerAt = function (el, indexes) {
             return upperLowerAt(el, indexes, "Lower")
         };
-
-
-
-        this.lower = function (el, param) {
-            return upperLower(el, param, "Lower")
+        /**
+         * Permet de mettre en minuscule des valeurs.
+         *
+         * @method lower
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.lower = function (el, value) {
+            return upperLower(el, value, "Lower")
         };
 
     }
