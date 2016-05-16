@@ -21,9 +21,8 @@ zk().setContainer(stringIndexesPath + "number", function (el, value) {
     return zk().getContainer(stringIndexesPath + "string")(el, value + "");
 });
 zk().setContainer(stringIndexesPath+"regexp", function(el, value){
-    var result, indexes = [], flags = "g";
-    if (value.ignoreCase){ flags += "i" }
-    value = new RegExp(value, flags);
+    var result, indexes = [], ig = (value.ignoreCase ? "i" : "") + "g";
+    value = new RegExp(value, ig);
     while ( (result = value.exec(el)) ) { indexes.push(result.index) }
     return indexes;
 });
@@ -62,7 +61,7 @@ zk().setContainer(stringGetLastPath+"string", function(el, value){
     return zk().getContainer(stringGetLastPath+"regexp")(el, value)
 });
 zk().setContainer(stringGetLastPath+"regexp", function(el, value){
-    var r = el.match(new RegExp(value, "g")); return r ? r[r.length - 1] : '';
+    var ig = (value.ignoreCase ? "i" : "") + "g", r = el.match(new RegExp(value, ig)); return r ? r[r.length - 1] : '';
 });
 String.prototype.getLast = function(value){ return zk().toolbox().getLast(this, value) };
 
@@ -137,7 +136,7 @@ zk().setContainer(stringGetBetweenPath+"array", function(el, indexes){
 String.prototype.getBetween = function(indexes){ return zk().toolbox().getBetween(this, indexes) };
 
 var stringGetAtPath = "_ENTITY_._PARAMETERS_.string.getAt.";
-zk().setContainer(stringGetAtPath + "array", function (el, indexes) {
+zk().setContainer(stringGetAtPath + "array", function (el, indexes){
     return zk().getContainer(arrayGetAtPath+"array")(el, indexes);
 });
 String.prototype.getAt = function(indexes){ return zk().toolbox().getAt(this, indexes) };
@@ -148,19 +147,22 @@ zk().setContainer(stringGetPath + "string", function(el, value){
     return zk().getContainer(stringGetPath+"regexp")(el, value);
 });
 zk().setContainer(stringGetPath + "regexp", function(el, value){
-    var res = el.match(new RegExp(value, "g"));
+    var ig = (value.ignoreCase ? "i" : "") + "g", res = el.match(new RegExp(value, ig));
     return res ? res.join("") : "";
 });
-zk().setContainer(stringGetPath + "number", function (el, value) {
+zk().setContainer(stringGetPath + "number", function (el, value){
     return ( value < 0 ) ? el.slice(value) : el.slice(0, value)
 });
-zk().setContainer(stringGetPath + "array", function (el, param) {
-    var res = [];
-    zk().toolbox().each(param, function () {
-        var paramFunc = zk().getContainer(stringGetPath+zk().toolbox().is(this.v));
-        if (paramFunc) { res = res.concat(paramFunc(el, this.v)) }
+zk().setContainer(stringGetPath + "array", function (el, value){
+    var box = zk().toolbox(), res = "";
+    box.each(value, function () {
+        var f = zk().getContainer(stringGetPath + box.is(this.v));
+        if(f){
+            res += f(el, this.v);
+        }
     });
-    return res.join("")
+    return res;
+
 });
 String.prototype.get = function(value){ return zk().toolbox().get(this, value) };
 

@@ -393,17 +393,13 @@
          *
          * @method getFirst
          * @param {*} el Objet de référence.
-         * @param {int|string|RegExp} value
-         *      - Si param n'est pas indiqué, elle retourne le premier élément de l'objet.
-         *      - int : Elle retourne les param premiers éléments de l'objet. Les nombres négatifs sont convertis en valeurs absolus.
-         *      - string : L'argument param est converti en expression régulière.
-         *      - RegExp : Elle retourne le premier élément de l'objet qui correspond à l'expression régulière.
+         * @param {*} value
          * @return {*}
          * @since 1.0
          */
         this.getFirst = function (el, value) { return getFirstLast(el, value, "First") };
         /**
-         * Permet d'obtenir le ou les éléments qui se trouvent au milieu d'un objet.
+         * Permet d'obtenir le ou les éléments qui se trouvent au milieu.
          *
          * @method getMiddle
          * @param {*} el Objet de référence.
@@ -415,27 +411,21 @@
             return (l % 2) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1)
         };
         /**
-         * Permet d'obtenir les derniers éléments d'un objet.
+         * Permet d'obtenir les derniers éléments.
          *
          * @method getLast
          * @param {*} el Objet de référence.
-         * @param {int|string|RegExp} value
-         *      - Si param n'est pas indiqué, elle retourne le dernier élément de l'objet.
-         *      - int : Elle retourne les param derniers éléments de l'objet. Les nombres négatifs sont convertis en valeurs absolus.
-         *      - string : L'argument param est converti en regexp.
-         *      - RegExp : Elle retourne le dernier élément de l'objet qui correspond à l'expression régulière.
+         * @param {*} value
          * @return {*}
          * @since 1.0
          */
         this.getLast = function (el, value) { return getFirstLast(el, value, "Last") };
         /**
-         * Permet d'obtenir les éléments qui se situent avant l'argument index dans un objet.
+         * Permet d'obtenir les éléments qui se situent avant index.
          *
          * @method getBefore
          * @param {*} el Objet de référence.
          * @param {*} index
-         *      - int : Index du tableau.
-         *      - other : Objet quelconque qui se trouve dans l'objet.
          * @return {*}
          * @since 1.0
          */
@@ -443,13 +433,11 @@
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBefore.other")(el, index);
         };
         /**
-         * Permet d'obtenir les éléments qui se situent après l'argument index dans un objet.
+         * Permet d'obtenir les éléments qui se situent après index.
          *
          * @method getAfter
          * @param {*} el Objet de référence.
          * @param {*} index
-         *      - int : Index du tableau.
-         *      - other : Objet quelconque qui se trouve dans l'objet.
          * @return {*}
          * @since 1.0
          */
@@ -462,17 +450,7 @@
          * @method getBetween
          * @param {*} el Objet de référence.
          * @param {*} indexes On peut indiquer plusieurs plages.
-         *      - Si param n'est pas indiqué, alors il vaut 1.
-         *      - Si ce n'est pas un tableau, il est converti en tableau.
-         *      - Si la taille est impaire, on ajoute la taille du tableau pour le rendre paire.
-         *      - Les valeurs numériques dans param sont les index des plages.
-         *      - Les nombres négatifs ne sont pas pris en compte.
          * @return {*}
-         * @example
-         *      zk().toolbox().getBetween(["zero", "un", "deux", 3]); // Renvoie ["un", "deux"];
-         *      zk().toolbox().getBetween(["zero", "un", "deux", 3], 1); // Renvoie ["un", "deux"];
-         *      zk().toolbox().getBetween(["zero", "un", "deux", 3], ["dexu", "zero"]); // Renvoie ["un"];
-         *
          * @since 1.0
          */
         this.getBetween = function (el, indexes) {
@@ -484,9 +462,7 @@
          *
          * @method getAt
          * @param {*} el Objet de référence.
-         * @param {int|array} indexes
-         *      - int : Index de l'élément qu'on veut obtenir. Pas de nombres négatifs.
-         *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite obtenir.
+         * @param {int|array} indexes Le tableau doit contenir des entiers.
          * @return {*}
          * @since 1.0
          */
@@ -494,15 +470,11 @@
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAt.array")(el, indexes);
         };
         /**
-         * Permet d'obtenir des valeurs dans un objet.
+         * Permet d'obtenir des valeurs.
          *
          * @method get
          * @param {*} el Objet de référence.
-         * @param {string|RegExp|int|array} value
-         *      - string : Conversion en RegExp.
-         *      - RegExp : Expression régulières des éléments qu'on souhaite obtenir dans l'objet.
-         *      - int : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
-         *      - array : Paramètres multiples (string|regexp|int). Le résulat est obtenu en fonction du type des éléments qui se trouve dans l'objet.
+         * @param {*} value
          * @return {*}
          * @since 1.0
          */

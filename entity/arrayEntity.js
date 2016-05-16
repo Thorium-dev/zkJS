@@ -147,8 +147,10 @@ zk().setContainer(arrayGetPath + "regexp", function(el, value){
     });
     return res;
 });
-zk().setContainer(arrayGetPath + "number", function (el, value) { return ( value < 0 ) ? el.slice(value) : el.slice(0, value); });
-zk().setContainer(arrayGetPath + "array", function (el, value) {
+zk().setContainer(arrayGetPath + "number", function (el, value){
+    return ( value < 0 ) ? el.slice(value) : el.slice(0, value);
+});
+zk().setContainer(arrayGetPath + "array", function (el, value){
     var res = [];
     zk().toolbox().each(value, function () {
         var f = zk().getContainer(arrayGetPath+zk().toolbox().is(this.v));
