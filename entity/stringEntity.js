@@ -224,26 +224,27 @@ zk().setContainer(stringRemoveBetweenPath+"array", function(el, indexes){
 String.prototype.removeBetween = function(indexes){ return zk().toolbox().removeBetween(this, indexes) };
 
 var stringRemoveAtPath = "_ENTITY_._PARAMETERS_.string.removeAt.";
-zk().setContainer(stringRemoveAtPath + "number", function (el, indexes) {
+zk().setContainer(stringRemoveAtPath + "number", function (el, indexes){
     return zk().getContainer(stringRemoveAtPath + "array")(el, [indexes])
 });
-zk().setContainer(stringRemoveAtPath + "array", function (el, indexes) {
+zk().setContainer(stringRemoveAtPath + "array", function (el, indexes){
     return zk().getContainer(arrayRemoveAtPath + "array")(el, indexes)
 });
 String.prototype.removeAt = function(indexes){ return zk().toolbox().removeAt(this, indexes) };
 
 var stringRemovePath = "_ENTITY_._PARAMETERS_.string.remove.";
 zk().setContainer(stringRemovePath+"other", function(el){ return el });
-zk().setContainer(stringRemovePath + "string", function (el, value) {
+zk().setContainer(stringRemovePath+"string", function (el, value) {
     return zk().getContainer(stringRemovePath + "regexp")(el, value)
 });
 zk().setContainer(stringRemovePath+"regexp", function(el, value){
-    value = new RegExp(value, "g"); return el.replace(value, "");
+    var ig = (value.ignoreCase ? "i" : "") + "g";
+    value = new RegExp(value, ig); return el.replace(value, "");
 });
-zk().setContainer(stringRemovePath + "number", function (el, value) {
+zk().setContainer(stringRemovePath+"number", function (el, value){
     return ( value < 0 ) ? el.slice(0, value) : el.slice(value);
 });
-zk().setContainer(stringRemovePath + "array", function (el, value) {
+zk().setContainer(stringRemovePath+"array", function (el, value){
     var box = zk().toolbox();
     box.each(value, function () {
         var type = box.is(this.v);
