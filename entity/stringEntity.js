@@ -40,6 +40,8 @@ String.prototype.trim = function(strReg, direction){ return zk().toolbox().trim(
 
 String.prototype.camelCase = function(separators){ return zk().toolbox().camelCase(this, separators) };
 
+String.prototype.snakeCase = function(separators){ return zk().toolbox().snakeCase(this, separators) };
+
 // ========================================= LES METHODES AVEC GET =============================================
 
 var stringGetFirstPath = "_ENTITY_._PARAMETERS_.string.getFirst.";

@@ -419,6 +419,19 @@
                }
             }).join("");
         };
+        /**
+         * Permet de renverser une chaîne de caractères en snake case.
+         *
+         * @method snakeCase
+         * @param {string} el Chaîne de caratères à traiter.
+         * @param {string} separators Les séparateurs.
+         * @return {string}
+         * @since 1.0
+         */
+        this.snakeCase = function (el, separators) {
+            el = el.split(new RegExp("["+separators+"]", "g"));
+            return el.join("_");
+        };
 
         // @TODO : Faire la fonction run
         /*this.run = function (script) {
