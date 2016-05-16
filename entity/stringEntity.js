@@ -38,6 +38,8 @@ String.prototype.reverse = function(){ return zk().toolbox().reverse(this) };
 
 String.prototype.trim = function(strReg, direction){ return zk().toolbox().trim(this, strReg, direction) };
 
+String.prototype.camelCase = function(separators){ return zk().toolbox().camelCase(this, separators) };
+
 // ========================================= LES METHODES AVEC GET =============================================
 
 var stringGetFirstPath = "_ENTITY_._PARAMETERS_.string.getFirst.";
@@ -431,7 +433,7 @@ String.prototype.change = function(oldValue, newValue){ return zk().toolbox().ch
 
 var stringUpperFirstPath = "_ENTITY_._PARAMETERS_.string.upperFirst.";
 zk().setContainer(stringUpperFirstPath+"number", function (el, value, upperLower) {
-    if(value > 1){
+    if(value > 0){
         el = (el.slice(0, value)["to"+upperLower+"Case"]()) + el.slice(value);
     }
     return el
@@ -446,7 +448,7 @@ String.prototype.upperFirst = function(value){ return zk().toolbox().upperFirst(
 
 var stringUpperLastPath = "_ENTITY_._PARAMETERS_.string.upperLast.";
 zk().setContainer(stringUpperLastPath+"number", function (el, value, upperLower) {
-    if(value > 1){ el = el.slice(0, -value) + (el.slice(-value)["to"+upperLower+"Case"]()); }
+    if(value > 0){ el = el.slice(0, -value) + (el.slice(-value)["to"+upperLower+"Case"]()); }
     return el
 });
 zk().setContainer(stringUpperLastPath+"string", function(el, value, upperLower){
