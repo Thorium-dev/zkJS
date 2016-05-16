@@ -42,6 +42,8 @@ String.prototype.camelCase = function(separators){ return zk().toolbox().camelCa
 
 String.prototype.snakeCase = function(separators){ return zk().toolbox().snakeCase(this, separators) };
 
+String.prototype.linkCase = function(separators){ return zk().toolbox().linkCase(this, separators) };
+
 // ========================================= LES METHODES AVEC GET =============================================
 
 var stringGetFirstPath = "_ENTITY_._PARAMETERS_.string.getFirst.";

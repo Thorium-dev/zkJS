@@ -432,6 +432,19 @@
             el = el.split(new RegExp("["+separators+"]", "g"));
             return el.join("_");
         };
+        /**
+         * Permet de renverser une chaîne de caractères en link case.
+         *
+         * @method linkCase
+         * @param {string} el Chaîne de caratères à traiter.
+         * @param {string} separators Les séparateurs.
+         * @return {string}
+         * @since 1.0
+         */
+        this.linkCase = function (el, separators) {
+            el = el.split(new RegExp("["+separators+"]", "g"));
+            return el.join("-");
+        };
 
         // @TODO : Faire la fonction run
         /*this.run = function (script) {
