@@ -88,12 +88,9 @@
         /**
          * Permet de connaître ou de tester le type d'un élément.
          * @method is
-         * @param {*} el Elément qu'on souhaite connaître ou tester son type.
+         * @param {*} el Objet de référence.
          * @param {string} type Si ce paramètre est indiqué, on teste le type de l'élément, sinon on obtient son type.
          * @return {boolean|string}
-         * @example
-         *      zk().toolbox().is("Hello world !"); // Renvoie "string"
-         *      zk().toolbox().is([26, 11], "array"); // Renvoie true
          * @since 1.0
          */
         this.is = function (el, type) {
@@ -124,21 +121,28 @@
          * Permet de supprimer des caractères au début et à la fin d'une chaîne
          *
          * @method trim
-         * @param {string} el Elément à traiter.
+         * @param {string} el Objet de référence.
          * @param {string} strReg Expression régulière sous forme de chaîne de caractères
          * @param {string} direction La direction. Deux valeurs possibles "l" pour la gauche et "r" pour la droite.
          * @return {string}
-         * @example
-         *      zk().toolbox().trim("000Hello world !!!!!"); // Renvoie "Hello world"
-         *      zk().toolbox().trim("000Hello world !!!!!", "l"); // Renvoie "Hello world !!!!!"
          * @since 1.0
          */
         this.trim = function (el, strReg, direction) {
-            if (!self.is(el, "string")) { return el }
-            if (strReg === undefined) { strReg = ' ' }
-            if(direction === "l"){ strReg = "^(?:" + strReg + ")"  }
-            else if(direction === "r") { strReg = "(?:" + strReg + ")$" }
-            else { strReg = "^(?:" + strReg + ")|(?:" + strReg + ")$" }
+            if (!self.is(el, "string")) {
+                return el
+            }
+            if (strReg === undefined) {
+                strReg = ' '
+            }
+            if (direction === "l") {
+                strReg = "^(?:" + strReg + ")"
+            }
+            else if (direction === "r") {
+                strReg = "(?:" + strReg + ")$"
+            }
+            else {
+                strReg = "^(?:" + strReg + ")|(?:" + strReg + ")$"
+            }
             return str.replace(new RegExp(strReg, "g"), "")
         };
         var doEachByObj = {
@@ -146,7 +150,7 @@
                 var i, k, res = (self.is(el, 'string')) ? '' : [], r, ob;
                 k = el.length;
                 for (i = 0; i < k; i++) {
-                    ob = {i: i, z: k-1-i, k: i, v: el[i], l: k, all: el};
+                    ob = {i: i, z: k - 1 - i, k: i, v: el[i], l: k, all: el};
                     r = f.apply(ob, args);
                     if (r === undefined) {
                         r = el[i]
@@ -158,11 +162,13 @@
             number: function (el, f, args) {
                 el = Math.abs(el);
                 for (var i = 0; i < el; i++) {
-                    f.apply({i: i, z: el-1-i, all: el}, args);
+                    f.apply({i: i, z: el - 1 - i, all: el}, args);
                 }
                 return el
             },
-            array: function (el, f, args) { return doEachByObj.string(el, f, args) },
+            array: function (el, f, args) {
+                return doEachByObj.string(el, f, args)
+            },
 
             object: function (el, f, args, strIndex) {
                 var i, isOk, r, ob;
@@ -220,13 +226,10 @@
          *        - this.l : La taille totale de l'élément en cours. N'existe pour les objets litéraux
          *        - this.all : L'élément sur lequel la méthode s'applique
          * @method each
-         * @param {string|array|int} el Objet à parcourir.
+         * @param {*} el Objet à parcourir.
          * @param {function} callback Fonction à executer à chaque tour.
          * @param {array} args Les arguments de la fonction callback.
-         * @return {*} Elle retourne le même objet.
-         * @example
-         *      zk().toolbox().trim("000Hello world !!!!!"); // Renvoie "Hello world"
-         *      zk().toolbox().trim("000Hello world !!!!!", "l"); // Renvoie "Hello world !!!!!"
+         * @return {*}
          * @since 1.0
          */
         this.each = function (el, callback, args) {
@@ -252,7 +255,9 @@
          * @return {array}
          * @since 1.0
          */
-        this.toArray = function (el) { return [].slice.call(el) };
+        this.toArray = function (el) {
+            return [].slice.call(el)
+        };
         /**
          * Permet de trier les tableaux dans l'ordre croissant.
          *
@@ -314,32 +319,50 @@
             });
             return res
         };
-        function indexAndIndexes(el, value, what){
+        function indexAndIndexes(el, value, what) {
             var box = zk().toolbox(), pType = box.is(value);
             var basePath = "_ENTITY_._PARAMETERS_." + box.is(el) + "." + what + ".";
-            var f = zk().getContainer( basePath + pType);
-            return f ? f(el, value) : zk().getContainer( basePath + "other")(el, value);
+            var f = zk().getContainer(basePath + pType);
+            return f ? f(el, value) : zk().getContainer(basePath + "other")(el, value);
         }
+
         /**
          * Permet d'obtenir l'index d'une valeur dans un objet.
          *
          * @method index
-         * @param {string|array} el Objet dans lequel se fera la recherche.
+         * @param {*} el Objet de référence.
          * @param {*} value Elément recherché.
          * @return {int} Elle renvoie -1 si la valeur n'a pas été trouvé.
          * @since 1.0
          */
-        this.index = function (el, value) { return indexAndIndexes(el, value, "index") };
+        this.index = function (el, value) {
+            return indexAndIndexes(el, value, "index")
+        };
         /**
-         * Permet d'obtenir les index d'une valeur dans un objet.
+         * Permet d'obtenir les index d'une valeur.
          *
          * @method indexes
-         * @param {string|array} el Objet dans lequel se fera la recherche.
+         * @param {*} el Objet de référence.
          * @param {*} value Elément recherché.
          * @return {array} Si la valeur n'existe pas, elle renvoie un tableau vide.
          * @since 1.0
          */
-        this.indexes = function (el, value) { return indexAndIndexes(el, value, "indexes") };
+        this.indexes = function (el, value) {
+            return indexAndIndexes(el, value, "indexes")
+        };
+        /**
+         * Permet d'obtenir le dernier index d'une valeur.
+         *
+         * @method lastIndex
+         * @param {*} el Objet de référence.
+         * @param {*} value Elément recherché.
+         * @return {array} Si la valeur n'existe pas, elle renvoie un tableau vide.
+         * @since 1.0
+         */
+        this.lastIndex = function (el, value) {
+            var indexes = self.indexes(el, value);
+            return indexes[indexes.length - 1];
+        };
         /**
          * Permet de compter le nombre de fois q'une valeur existe dans un élément.
          *
@@ -349,7 +372,9 @@
          * @return {int} Si la valeur n'existe pas, elle renvoie 0.
          * @since 1.0
          */
-        this.count = function (el, value) { return self.indexes(el, value).length };
+        this.count = function (el, value) {
+            return self.indexes(el, value).length
+        };
         /**
          * Permet de vérifier si une valeur existe dans un objet.
          *
@@ -359,7 +384,9 @@
          * @return {boolean} Renvoie true en cas de succès et false dans le cas contraire.
          * @since 1.0
          */
-        this.has = function (el, value) { return (self.index(el, value) + 1) ? true : false };
+        this.has = function (el, value) {
+            return (self.index(el, value) + 1) ? true : false
+        };
         /**
          * Permet de renverser une chaîne de caractères ou un tableau.
          *
@@ -370,40 +397,86 @@
          */
         this.reverse = function (el) {
             var res = self.is(el, "string") ? "" : [];
-            self.each(el, function () { res = res.concat(el[this.z]) });
+            self.each(el, function () {
+                res = res.concat(el[this.z])
+            });
             return res;
+        };
+        /**
+         * Permet de renverser une chaîne de caractères en camel case.
+         *
+         * @method camelCase
+         * @param {string} el Chaîne de caratères à traiter.
+         * @param {string} separators Les séparateurs.
+         * @return {string}
+         * @since 1.0
+         */
+        this.camelCase = function (el, separators) {
+            el = el.split(new RegExp("["+separators+"]", "g"));
+            return self.each(el, function () {
+               if(this.i > 0){
+                   return self.upperFirst(this.v)
+               }
+            }).join("");
+        };
+        /**
+         * Permet de renverser une chaîne de caractères en snake case.
+         *
+         * @method snakeCase
+         * @param {string} el Chaîne de caratères à traiter.
+         * @param {string} separators Les séparateurs.
+         * @return {string}
+         * @since 1.0
+         */
+        this.snakeCase = function (el, separators) {
+            el = el.split(new RegExp("["+separators+"]", "g"));
+            return el.join("_");
+        };
+        /**
+         * Permet de renverser une chaîne de caractères en link case.
+         *
+         * @method linkCase
+         * @param {string} el Chaîne de caratères à traiter.
+         * @param {string} separators Les séparateurs.
+         * @return {string}
+         * @since 1.0
+         */
+        this.linkCase = function (el, separators) {
+            el = el.split(new RegExp("["+separators+"]", "g"));
+            return el.join("-");
         };
 
         // @TODO : Faire la fonction run
         /*this.run = function (script) {
-            // var ajoute = new Function('a', 'b', 'return a + b');
-//             ajoute(2, 6);
-        };*/
+         // var ajoute = new Function('a', 'b', 'return a + b');
+         //             ajoute(2, 6);
+         };*/
 
         // GET
 
-        function getFirstLast(el, value, firstLast){
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get"+firstLast+".";
-            if (value === undefined) { value = 1 }
+        function getFirstLast(el, value, firstLast) {
+            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get" + firstLast + ".";
+            if (value === undefined) {
+                value = 1
+            }
             var f = zk().getContainer(path + self.is(value));
             return f ? f(el, value) : zk().getContainer(path + "other")();
         }
+
         /**
          * Permet d'obtenir les premiers éléments d'un objet.
          *
          * @method getFirst
          * @param {*} el Objet de référence.
-         * @param {int|string|RegExp} value
-         *      - Si param n'est pas indiqué, elle retourne le premier élément de l'objet.
-         *      - int : Elle retourne les param premiers éléments de l'objet. Les nombres négatifs sont convertis en valeurs absolus.
-         *      - string : L'argument param est converti en expression régulière.
-         *      - RegExp : Elle retourne le premier élément de l'objet qui correspond à l'expression régulière.
+         * @param {*} value
          * @return {*}
          * @since 1.0
          */
-        this.getFirst = function (el, value) { return getFirstLast(el, value, "First") };
+        this.getFirst = function (el, value) {
+            return getFirstLast(el, value, "First")
+        };
         /**
-         * Permet d'obtenir le ou les éléments qui se trouvent au milieu d'un objet.
+         * Permet d'obtenir le ou les éléments qui se trouvent au milieu.
          *
          * @method getMiddle
          * @param {*} el Objet de référence.
@@ -415,27 +488,23 @@
             return (l % 2) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1)
         };
         /**
-         * Permet d'obtenir les derniers éléments d'un objet.
+         * Permet d'obtenir les derniers éléments.
          *
          * @method getLast
          * @param {*} el Objet de référence.
-         * @param {int|string|RegExp} value
-         *      - Si param n'est pas indiqué, elle retourne le dernier élément de l'objet.
-         *      - int : Elle retourne les param derniers éléments de l'objet. Les nombres négatifs sont convertis en valeurs absolus.
-         *      - string : L'argument param est converti en regexp.
-         *      - RegExp : Elle retourne le dernier élément de l'objet qui correspond à l'expression régulière.
+         * @param {*} value
          * @return {*}
          * @since 1.0
          */
-        this.getLast = function (el, value) { return getFirstLast(el, value, "Last") };
+        this.getLast = function (el, value) {
+            return getFirstLast(el, value, "Last")
+        };
         /**
-         * Permet d'obtenir les éléments qui se situent avant l'argument index dans un objet.
+         * Permet d'obtenir les éléments qui se situent avant index.
          *
          * @method getBefore
          * @param {*} el Objet de référence.
          * @param {*} index
-         *      - int : Index du tableau.
-         *      - other : Objet quelconque qui se trouve dans l'objet.
          * @return {*}
          * @since 1.0
          */
@@ -443,13 +512,11 @@
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBefore.other")(el, index);
         };
         /**
-         * Permet d'obtenir les éléments qui se situent après l'argument index dans un objet.
+         * Permet d'obtenir les éléments qui se situent après index.
          *
          * @method getAfter
          * @param {*} el Objet de référence.
          * @param {*} index
-         *      - int : Index du tableau.
-         *      - other : Objet quelconque qui se trouve dans l'objet.
          * @return {*}
          * @since 1.0
          */
@@ -462,21 +529,13 @@
          * @method getBetween
          * @param {*} el Objet de référence.
          * @param {*} indexes On peut indiquer plusieurs plages.
-         *      - Si param n'est pas indiqué, alors il vaut 1.
-         *      - Si ce n'est pas un tableau, il est converti en tableau.
-         *      - Si la taille est impaire, on ajoute la taille du tableau pour le rendre paire.
-         *      - Les valeurs numériques dans param sont les index des plages.
-         *      - Les nombres négatifs ne sont pas pris en compte.
          * @return {*}
-         * @example
-         *      zk().toolbox().getBetween(["zero", "un", "deux", 3]); // Renvoie ["un", "deux"];
-         *      zk().toolbox().getBetween(["zero", "un", "deux", 3], 1); // Renvoie ["un", "deux"];
-         *      zk().toolbox().getBetween(["zero", "un", "deux", 3], ["dexu", "zero"]); // Renvoie ["un"];
-         *
          * @since 1.0
          */
         this.getBetween = function (el, indexes) {
-            if (indexes === undefined) { indexes = 0 }
+            if (indexes === undefined) {
+                indexes = 0
+            }
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBetween.array")(el, indexes);
         };
         /**
@@ -484,9 +543,7 @@
          *
          * @method getAt
          * @param {*} el Objet de référence.
-         * @param {int|array} indexes
-         *      - int : Index de l'élément qu'on veut obtenir. Pas de nombres négatifs.
-         *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite obtenir.
+         * @param {int|array} indexes Le tableau doit contenir des entiers.
          * @return {*}
          * @since 1.0
          */
@@ -494,21 +551,19 @@
             return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAt.array")(el, indexes);
         };
         /**
-         * Permet d'obtenir des valeurs dans un objet.
+         * Permet d'obtenir des valeurs.
          *
          * @method get
          * @param {*} el Objet de référence.
-         * @param {string|RegExp|int|array} value
-         *      - string : Conversion en RegExp.
-         *      - RegExp : Expression régulières des éléments qu'on souhaite obtenir dans l'objet.
-         *      - int : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
-         *      - array : Paramètres multiples (string|regexp|int). Le résulat est obtenu en fonction du type des éléments qui se trouve dans l'objet.
+         * @param {*} value
          * @return {*}
          * @since 1.0
          */
         this.get = function (el, value) {
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get.";
-            if (value === undefined) { el }
+            if (value === undefined) {
+                el
+            }
             var f = zk().getContainer(path + self.is(value));
             return f ? f(el, value) : zk().getContainer(path + "other")();
         };
@@ -524,21 +579,21 @@
             var f = zk().getContainer(path + self.is(param));
             return f ? f(el, param) : zk().getContainer(path + "other")(el, param);
         }
+
         /**
-         * Permet de supprimer les premiers éléments dans un objet.
+         * Permet de supprimer les premiers éléments.
          *
          * @method removeFirst
          * @param {*} el Objet de référence.
          * @param {*} value
-         *      - string : Conversion en RegExp.
-         *      - RegExp : Expression régulières.
-         *      - int : Les premiers éléments.
          * @return {*}
          * @since 1.0
          */
-        this.removeFirst = function (el, value) { return rmFirstLast(el, value, "First") };
+        this.removeFirst = function (el, value) {
+            return rmFirstLast(el, value, "First")
+        };
         /**
-         * Permet de supprimer le ou les éléments qui se trouvent au milieu d'un objet.
+         * Permet de supprimer le ou les éléments qui se trouvent au milieu.
          *
          * @method removeMiddle
          * @param {*} el Objet de référence.
@@ -550,69 +605,64 @@
             return el.slice(0, (x == 2) ? n - 1 : n).concat(el.slice(n + x - (x - 1)));
         };
         /**
-         * Permet de supprimer les derniers éléments dans un objet.
+         * Permet de supprimer les derniers éléments.
          *
          * @method removeFirst
          * @param {*} el Objet de référence.
          * @param {*} value
-         *      - string : Conversion en RegExp.
-         *      - RegExp : Expression régulières.
-         *      - int : Les derniers éléments.
          * @return {*}
          * @since 1.0
          */
-        this.removeLast = function (el, value) { return rmFirstLast(el, value, "Last") };
+        this.removeLast = function (el, value) {
+            return rmFirstLast(el, value, "Last")
+        };
         function rmBeforeAfter(el, param, what, argType) {
             return zk().getContainer("_ENTITY_._PARAMETERS_." +
                 self.is(el) + ".remove" + what + "." + argType)(el, param);
         }
+
         /**
-         * Permet de supprimer les éléments qui se situent avant index dans un objet.
+         * Permet de supprimer les éléments qui se situent avant index.
          *
          * @method removeBefore
          * @param {*} el Objet de référence.
          * @param {*} index
-         *      - string : Conversion en RegExp.
-         *      - RegExp : Expression régulières.
-         *      - int : Index numérique.
          * @return {*}
          * @since 1.0
          */
-        this.removeBefore = function (el, index) { return rmBeforeAfter(el, index, 'Before', 'other') };
+        this.removeBefore = function (el, index) {
+            return rmBeforeAfter(el, index, 'Before', 'other')
+        };
         /**
-         * Permet de supprimer les éléments qui se situent après index dans un objet.
+         * Permet de supprimer les éléments qui se situent après index.
          *
          * @method removeAfter
          * @param {*} el Objet de référence.
          * @param {*} index
-         *      - string : Conversion en RegExp.
-         *      - RegExp : Expression régulières.
-         *      - int : Index numérique.
          * @return {*}
          * @since 1.0
          */
-        this.removeAfter = function (el, index) { return rmBeforeAfter(el, index, 'After', 'other') };
+        this.removeAfter = function (el, index) {
+            return rmBeforeAfter(el, index, 'After', 'other')
+        };
         /**
-         * Permet de supprimer une plage dans un objet.
+         * Permet de supprimer une plage.
          *
          * @method removeBetween
          * @param {*} el Objet de référence.
          * @param {*} indexes Il faut indiquer une seule plage.
-         *      - string : Conversion en RegExp.
-         *      - RegExp : Expression régulières.
-         *      - int : Index numérique.
          * @return {*}
          * @since 1.0
          */
-        this.removeBetween = function (el, indexes) { return rmBeforeAfter(el, indexes, 'Between', 'array') };
+        this.removeBetween = function (el, indexes) {
+            return rmBeforeAfter(el, indexes, 'Between', 'array')
+        };
         /**
          * Permet de supprimer des éléments qui se trouvent à des index spécifiés.
          *
          * @method removeAt
          * @param {*} el Objet de référence.
-         * @param {int|array} indexes
-         *      - int : Index numérique.
-         *      - array : Tableau contenant des valeurs entières.
+         * @param {int|array} indexes Le tableau doit contenir des entiers.
          * @return {*}
          * @since 1.0
          */
@@ -632,7 +682,9 @@
          * @since 1.0
          */
         this.remove = function (el, value) {
-            if (value === undefined) { return el }
+            if (value === undefined) {
+                return el
+            }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".remove.";
             var f = zk().getContainer(path + self.is(value));
             return f ? f(el, value) : zk().getContainer(path + "other")(el, value);
@@ -647,6 +699,7 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + firstLast + ".other";
             return zk().getContainer(path)(el, value);
         }
+
         /**
          * Permet d'ajouter des valeurs au début.
          *
@@ -656,7 +709,9 @@
          * @return {*}
          * @since 1.0
          */
-        this.addFirst = function (el, value) { return addFirstLast(el, value, "First") };
+        this.addFirst = function (el, value) {
+            return addFirstLast(el, value, "First")
+        };
         /**
          * Permet d'ajouter des valeurs au milieu.
          *
@@ -679,7 +734,9 @@
          * @return {*}
          * @since 1.0
          */
-        this.addLast = function (el, value) { return addFirstLast(el, value, "Last") };
+        this.addLast = function (el, value) {
+            return addFirstLast(el, value, "Last")
+        };
         function addBeforeAfter(el, index, value, beforeAfter) {
             if (value === undefined) {
                 return el
@@ -687,6 +744,7 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + beforeAfter + ".other";
             return zk().getContainer(path)(el, index, value);
         }
+
         /**
          * Permet d'ajouter des éléments avant des index.
          *
@@ -724,7 +782,9 @@
          * @since 1.0
          */
         this.addAt = function (el, index, value) {
-            if (value === undefined) { return el }
+            if (value === undefined) {
+                return el
+            }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".addAt.array";
             return zk().getContainer(path)(el, index, value);
         };
@@ -738,7 +798,9 @@
          * @since 1.0
          */
         this.add = function (el, value) {
-            if (value === undefined) { return el }
+            if (value === undefined) {
+                return el
+            }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".addLast.other";
             return zk().getContainer(path)(el, value);
         };
@@ -746,12 +808,18 @@
         // CHANGE
 
         function changeFirstLast(el, oldValue, newValue, firstLast) {
-            if (oldValue === undefined) { return el }
-            if (newValue === undefined) { newValue = oldValue; oldValue = 1 }
+            if (oldValue === undefined) {
+                return el
+            }
+            if (newValue === undefined) {
+                newValue = oldValue;
+                oldValue = 1
+            }
             var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
             var path = basePath + "change" + firstLast + "." + ( (self.is(oldValue) === 'number') ? 'number' : 'other' );
             return zk().getContainer(path)(el, oldValue, newValue);
         }
+
         /**
          * Permet de changer les premiers éléments.
          *
@@ -789,6 +857,7 @@
             var path = basePath + "change" + beforeAfter + ".other";
             return zk().getContainer(path)(el, index, value);
         }
+
         /**
          * Permet de changer les éléments qui se situent avant index.
          *
@@ -870,25 +939,55 @@
 
         // UPPER
 
-        function upperLowerFirstLast(el, param, firstLast, upperLower) {
-            if (param === undefined) {
-                param = 1
+        function upperLowerFirstLast(el, value, firstLast, upperLower) {
+            if (value === undefined) {
+                value = 1
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
-                ".upper" + firstLast + "." + self.is(param);
+                ".upper" + firstLast + "." + self.is(value);
             var f = zk().getContainer(path);
-            return f ? f(el, param, upperLower) : el;
+            return f ? f(el, value, upperLower) : el;
         }
 
-        this.upperFirst = function (el, param) {
-            return upperLowerFirstLast(el, param, "First", "Upper")
+        /**
+         * Permet de mettre en majuscule les premiers éléments.
+         *
+         * @method upperFirst
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.upperFirst = function (el, value) {
+            return upperLowerFirstLast(el, value, "First", "Upper")
         };
-        this.upperLast = function (el, param) {
-            return upperLowerFirstLast(el, param, "Last", "Upper")
+        /**
+         * Permet de mettre en majuscule les derniers éléments.
+         *
+         * @method upperLast
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.upperLast = function (el, value) {
+            return upperLowerFirstLast(el, value, "Last", "Upper")
         };
-        this.upperMiddle = function (el) {
+        function upperLowerMiddle(el, upperLower) {
             var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
-            return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Upper"));
+            return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), upperLower));
+        }
+
+        /**
+         * Permet de mettre en majuscule les éléments au milieu.
+         *
+         * @method upperMiddle
+         * @param {*} el Objet de référence.
+         * @return {*}
+         * @since 1.0
+         */
+        this.upperMiddle = function (el) {
+            return upperLowerMiddle(el, "Upper")
         };
         function upperLowerBeforeAfter(el, index, beforeAfter, upperLower) {
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
@@ -896,9 +995,27 @@
             return zk().getContainer(path)(el, index, upperLower);
         }
 
+        /**
+         * Permet de mettre en majuscule les éléments qui se situent avant index.
+         *
+         * @method upperBefore
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @return {*}
+         * @since 1.0
+         */
         this.upperBefore = function (el, index) {
             return upperLowerBeforeAfter(el, index, "Before", "Upper")
         };
+        /**
+         * Permet de mettre en majuscule les éléments qui se situent après index.
+         *
+         * @method upperAfter
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @return {*}
+         * @since 1.0
+         */
         this.upperAfter = function (el, index) {
             return upperLowerBeforeAfter(el, index, "After", "Upper")
         };
@@ -911,6 +1028,15 @@
             return zk().getContainer(path)(el, indexes, upperLower);
         }
 
+        /**
+         * Permet de mettre en majuscule une ou plusieurs plages.
+         *
+         * @method upperBetween
+         * @param {*} el Objet de référence.
+         * @param {*} indexes
+         * @return {*}
+         * @since 1.0
+         */
         this.upperBetween = function (el, indexes) {
             return upperLowerBetween(el, indexes, "Upper")
         };
@@ -924,6 +1050,15 @@
             return f ? f(el, indexes, upperLower) : el;
         }
 
+        /**
+         * Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés.
+         *
+         * @method upperAt
+         * @param {*} el Objet de référence.
+         * @param {int|array} indexes
+         * @return {*}
+         * @since 1.0
+         */
         this.upperAt = function (el, indexes) {
             return upperLowerAt(el, indexes, "Upper")
         };
@@ -937,36 +1072,115 @@
             return f ? f(el, indexes, upperLower) : el;
         }
 
-        this.upper = function (el, param) {
-            return upperLower(el, param, "Upper")
+        /**
+         * Permet de mettre en majuscule des valeurs.
+         *
+         * @method upper
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.upper = function (el, value) {
+            return upperLower(el, value, "Upper")
         };
 
         // LOWER
 
-        this.lowerFirst = function (el, param) {
-            return upperLowerFirstLast(el, param, "First", "Lower")
+        /**
+         * Permet de mettre en minuscule les premiers éléments.
+         *
+         * @method lowerFirst
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.lowerFirst = function (el, value) {
+            return upperLowerFirstLast(el, value, "First", "Lower")
         };
-        this.lowerLast = function (el, param) {
-            return upperLowerFirstLast(el, param, "Last", "Lower")
+        /**
+         * Permet de mettre en minuscule les derniers éléments.
+         *
+         * @method lowerLast
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.lowerLast = function (el, value) {
+            return upperLowerFirstLast(el, value, "Last", "Lower")
         };
+        /**
+         * Permet de mettre en minuscule les éléments au milieu.
+         *
+         * @method lowerMiddle
+         * @param {*} el Objet de référence.
+         * @return {*}
+         * @since 1.0
+         */
         this.lowerMiddle = function (el) {
-            var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
-            return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), "Lower"));
+            return upperLowerMiddle(el, "Lower")
         };
+        /**
+         * Permet de mettre en minuscule les éléments qui se situent avant index.
+         *
+         * @method lowerBefore
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @return {*}
+         * @since 1.0
+         */
         this.lowerBefore = function (el, index) {
             return upperLowerBeforeAfter(el, index, "Before", "Lower")
         };
+        /**
+         * Permet de mettre en minuscule les éléments qui se situent après index.
+         *
+         * @method lowerAfter
+         * @param {*} el Objet de référence.
+         * @param {*} index
+         * @return {*}
+         * @since 1.0
+         */
         this.lowerAfter = function (el, index) {
             return upperLowerBeforeAfter(el, index, "After", "Lower")
         };
+        /**
+         * Permet de mettre en minuscule une ou plusieurs plages.
+         *
+         * @method lowerBetween
+         * @param {*} el Objet de référence.
+         * @param {*} indexes
+         * @return {*}
+         * @since 1.0
+         */
         this.lowerBetween = function (el, indexes) {
             return upperLowerBetween(el, indexes, "Lower")
         };
+        /**
+         * Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés.
+         *
+         * @method lowerAt
+         * @param {*} el Objet de référence.
+         * @param {int|array} indexes
+         * @return {*}
+         * @since 1.0
+         */
         this.lowerAt = function (el, indexes) {
             return upperLowerAt(el, indexes, "Lower")
         };
-        this.lower = function (el, param) {
-            return upperLower(el, param, "Lower")
+        /**
+         * Permet de mettre en minuscule des valeurs.
+         *
+         * @method lower
+         * @param {*} el Objet de référence.
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.lower = function (el, value) {
+            return upperLower(el, value, "Lower")
         };
 
     }

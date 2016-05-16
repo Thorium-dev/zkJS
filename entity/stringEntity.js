@@ -21,15 +21,14 @@ zk().setContainer(stringIndexesPath + "number", function (el, value) {
     return zk().getContainer(stringIndexesPath + "string")(el, value + "");
 });
 zk().setContainer(stringIndexesPath+"regexp", function(el, value){
-    var result, indexes = [], flags = "g";
-    if (value.ignoreCase){ flags += "i" }
-    value = new RegExp(value, flags);
+    var result, indexes = [], ig = (value.ignoreCase ? "i" : "") + "g";
+    value = new RegExp(value, ig);
     while ( (result = value.exec(el)) ) { indexes.push(result.index) }
     return indexes;
 });
 String.prototype.indexes = function(value){ return zk().toolbox().indexes(this, value) };
 
-//@TODO : Faire la fonction lastIndex => Utiliser la fonction indexes
+String.prototype.lastIndex = function(value){ return zk().toolbox().lastIndex(this, value) };
 
 String.prototype.count = function(value){ return zk().toolbox().count(this, value) };
 
@@ -38,6 +37,12 @@ String.prototype.has = function(value){ return zk().toolbox().has(this, value) }
 String.prototype.reverse = function(){ return zk().toolbox().reverse(this) };
 
 String.prototype.trim = function(strReg, direction){ return zk().toolbox().trim(this, strReg, direction) };
+
+String.prototype.camelCase = function(separators){ return zk().toolbox().camelCase(this, separators) };
+
+String.prototype.snakeCase = function(separators){ return zk().toolbox().snakeCase(this, separators) };
+
+String.prototype.linkCase = function(separators){ return zk().toolbox().linkCase(this, separators) };
 
 // ========================================= LES METHODES AVEC GET =============================================
 
@@ -59,7 +64,7 @@ zk().setContainer(stringGetLastPath+"string", function(el, value){
     return zk().getContainer(stringGetLastPath+"regexp")(el, value)
 });
 zk().setContainer(stringGetLastPath+"regexp", function(el, value){
-    var r = el.match(new RegExp(value, "g")); return r ? r[r.length - 1] : '';
+    var ig = (value.ignoreCase ? "i" : "") + "g", r = el.match(new RegExp(value, ig)); return r ? r[r.length - 1] : '';
 });
 String.prototype.getLast = function(value){ return zk().toolbox().getLast(this, value) };
 
@@ -134,7 +139,7 @@ zk().setContainer(stringGetBetweenPath+"array", function(el, indexes){
 String.prototype.getBetween = function(indexes){ return zk().toolbox().getBetween(this, indexes) };
 
 var stringGetAtPath = "_ENTITY_._PARAMETERS_.string.getAt.";
-zk().setContainer(stringGetAtPath + "array", function (el, indexes) {
+zk().setContainer(stringGetAtPath + "array", function (el, indexes){
     return zk().getContainer(arrayGetAtPath+"array")(el, indexes);
 });
 String.prototype.getAt = function(indexes){ return zk().toolbox().getAt(this, indexes) };
@@ -145,19 +150,22 @@ zk().setContainer(stringGetPath + "string", function(el, value){
     return zk().getContainer(stringGetPath+"regexp")(el, value);
 });
 zk().setContainer(stringGetPath + "regexp", function(el, value){
-    var res = el.match(new RegExp(value, "g"));
+    var ig = (value.ignoreCase ? "i" : "") + "g", res = el.match(new RegExp(value, ig));
     return res ? res.join("") : "";
 });
-zk().setContainer(stringGetPath + "number", function (el, value) {
+zk().setContainer(stringGetPath + "number", function (el, value){
     return ( value < 0 ) ? el.slice(value) : el.slice(0, value)
 });
-zk().setContainer(stringGetPath + "array", function (el, param) {
-    var res = [];
-    zk().toolbox().each(param, function () {
-        var paramFunc = zk().getContainer(stringGetPath+zk().toolbox().is(this.v));
-        if (paramFunc) { res = res.concat(paramFunc(el, this.v)) }
+zk().setContainer(stringGetPath + "array", function (el, value){
+    var box = zk().toolbox(), res = "";
+    box.each(value, function () {
+        var f = zk().getContainer(stringGetPath + box.is(this.v));
+        if(f){
+            res += f(el, this.v);
+        }
     });
-    return res.join("")
+    return res;
+
 });
 String.prototype.get = function(value){ return zk().toolbox().get(this, value) };
 
@@ -193,7 +201,8 @@ String.prototype.removeLast = function(value){ return zk().toolbox().removeLast(
 
 var stringRemoveBeforePath = "_ENTITY_._PARAMETERS_.string.removeBefore.";
 zk().setContainer(stringRemoveBeforePath+"other", function(el, index){
-    return zk().getContainer(arrayRemoveBeforePath+"other")(el, index)
+    var before = zk().toolbox().getBefore(el, index);
+    return el.slice(el.indexOf(before) + before.length);
 });
 String.prototype.removeBefore = function(index){ return zk().toolbox().removeBefore(this, index) };
 
@@ -218,26 +227,27 @@ zk().setContainer(stringRemoveBetweenPath+"array", function(el, indexes){
 String.prototype.removeBetween = function(indexes){ return zk().toolbox().removeBetween(this, indexes) };
 
 var stringRemoveAtPath = "_ENTITY_._PARAMETERS_.string.removeAt.";
-zk().setContainer(stringRemoveAtPath + "number", function (el, indexes) {
+zk().setContainer(stringRemoveAtPath + "number", function (el, indexes){
     return zk().getContainer(stringRemoveAtPath + "array")(el, [indexes])
 });
-zk().setContainer(stringRemoveAtPath + "array", function (el, indexes) {
+zk().setContainer(stringRemoveAtPath + "array", function (el, indexes){
     return zk().getContainer(arrayRemoveAtPath + "array")(el, indexes)
 });
 String.prototype.removeAt = function(indexes){ return zk().toolbox().removeAt(this, indexes) };
 
 var stringRemovePath = "_ENTITY_._PARAMETERS_.string.remove.";
 zk().setContainer(stringRemovePath+"other", function(el){ return el });
-zk().setContainer(stringRemovePath + "string", function (el, value) {
+zk().setContainer(stringRemovePath+"string", function (el, value) {
     return zk().getContainer(stringRemovePath + "regexp")(el, value)
 });
 zk().setContainer(stringRemovePath+"regexp", function(el, value){
-    value = new RegExp(value, "g"); return el.replace(value, "");
+    var ig = (value.ignoreCase ? "i" : "") + "g";
+    value = new RegExp(value, ig); return el.replace(value, "");
 });
-zk().setContainer(stringRemovePath + "number", function (el, value) {
+zk().setContainer(stringRemovePath+"number", function (el, value){
     return ( value < 0 ) ? el.slice(0, value) : el.slice(value);
 });
-zk().setContainer(stringRemovePath + "array", function (el, value) {
+zk().setContainer(stringRemovePath+"array", function (el, value){
     var box = zk().toolbox();
     box.each(value, function () {
         var type = box.is(this.v);
@@ -344,7 +354,8 @@ zk().setContainer(stringChangeLastPath+"number", function (el, oldValue, newValu
 zk().setContainer(stringChangeLastPath+"other", function(el, oldValue, newValue){
     var box = zk().toolbox();
     if(box.is(oldValue, "string|regexp")){
-        oldValue = new RegExp(oldValue, "g");
+        var ig = (oldValue.ignoreCase ? "i" : "") + "g";
+        oldValue = new RegExp(oldValue, ig);
         var r = el.match(oldValue);
         if (r && box.is(newValue, "string|number")) {
             oldValue = r[r.length - 1];
@@ -395,7 +406,7 @@ zk().setContainer(stringChangeAtPath + "array", function (el, indexes, value) {
     var box = zk().toolbox();
     if(box.is(value, "string|number")){
         value = (value+"").slice(0, 1);
-        if(box.is(indexes, 'number')){ indexes = [indexes] }
+        if(!box.is(indexes, 'array')){ indexes = [indexes] }
         indexes = box.removeDuplicate(indexes, true);
         box.each(indexes, function () {
             var n = this.v;
@@ -414,7 +425,8 @@ zk().setContainer(stringChangePath+"string", function(el, oldValue, newValue){
     return el.replace(new RegExp(oldValue, "g"), newValue);
 });
 zk().setContainer(stringChangePath+"regexp", function(el, oldValue, newValue){
-    return el.replace(new RegExp(oldValue, "g"), newValue);
+    var ig = (oldValue.ignoreCase ? "i" : "") + "g";
+    return el.replace(new RegExp(oldValue, ig), newValue);
 });
 zk().setContainer(stringChangePath + "number", function (el, oldValue, newValue) {
     return  zk().toolbox()['change'+(oldValue<0?'Last':'First')](el, Math.abs(oldValue), newValue) ;
@@ -423,97 +435,41 @@ String.prototype.change = function(oldValue, newValue){ return zk().toolbox().ch
 
 // ========================================= LES METHODES AVEC UPPER ===========================================
 
-var arrayUpperFirstPath = "_ENTITY_._PARAMETERS_.array.upperFirst.";
-zk().setContainer(arrayUpperFirstPath+"number", function (el, param, upperLower) {
-    if(param < 1 ){ return el }
-    var l = el.length;
-    if( param > l ){ param = l }
-    for(var i = 0; i < param; i++){
-        if(zk().toolbox().is(el[i], "string")){
-            el[i] = el[i]["to"+upperLower+"Case"]();
-        }
+var stringUpperFirstPath = "_ENTITY_._PARAMETERS_.string.upperFirst.";
+zk().setContainer(stringUpperFirstPath+"number", function (el, value, upperLower) {
+    if(value > 0){
+        el = (el.slice(0, value)["to"+upperLower+"Case"]()) + el.slice(value);
     }
     return el
 });
-zk().setContainer(arrayUpperFirstPath+"string", function(el, param, upperLower){
-    var i, k = el.length;
-    for (i = 0; i < k; i++) {
-        if (el[i] == param) {
-            if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-                return el
-            }
-        }
-    }
-    return el;
+zk().setContainer(stringUpperFirstPath+"string", function(el, value, upperLower){
+    return zk().getContainer(stringUpperFirstPath+"regexp")(el, value, upperLower);
 });
-zk().setContainer(arrayUpperFirstPath+"regexp", function(el, param, upperLower){
-    var i, k = el.length;
-    for (i = 0; i < k; i++) {
-        if (param.test(el[i])) {
-            if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-                return el
-            }
-        }
-    }
-    return el;
+zk().setContainer(stringUpperFirstPath+"regexp", function(el, value, upperLower){
+    var i = -1; return el.replace(value, function (str) { i++; return i ? str : str["to"+upperLower+"Case"]() })
 });
-/**
- * Permet de mettre en majuscule des chaînes de caractères correspondant à param.
- * @param param (number|string|regexp)
- *      - number : Les premiers éléments du tableau.
- *      - string : La première chaîne de caractères du tableau qui est égale à cette valeur.
- *      - regexp : La première chaîne de caractères du tableau correspondant à l'expression régulière.
- * @returns {Array}
- */
-Array.prototype.upperFirst = function(param){ return zk().toolbox().upperFirst(this, param) };
+String.prototype.upperFirst = function(value){ return zk().toolbox().upperFirst(this, value) };
 
-var arrayUpperLastPath = "_ENTITY_._PARAMETERS_.array.upperLast.";
-zk().setContainer(arrayUpperLastPath+"number", function (el, param, upperLower) {
-    if(param < 1 ){ return el }
-    var l = el.length;
-    if( param > l ){ param = l }
-    for(var i = l-param; i < l; i++){
-        if(zk().toolbox().is(el[i], "string")){
-            el[i] = el[i]["to"+upperLower+"Case"]();
-        }
-    }
+var stringUpperLastPath = "_ENTITY_._PARAMETERS_.string.upperLast.";
+zk().setContainer(stringUpperLastPath+"number", function (el, value, upperLower) {
+    if(value > 0){ el = el.slice(0, -value) + (el.slice(-value)["to"+upperLower+"Case"]()); }
     return el
 });
-zk().setContainer(arrayUpperLastPath+"string", function(el, param, upperLower){
-    var i, k = el.length;
-    for (i = k - 1; i > -1; i--) {
-        if (el[i] == param) {
-            if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-                return el
-            }
-        }
+zk().setContainer(stringUpperLastPath+"string", function(el, value, upperLower){
+    return zk().getContainer(stringUpperLastPath+"regexp")(el, value, upperLower);
+});
+zk().setContainer(stringUpperLastPath+"regexp", function(el, value, upperLower){
+    var ig = (value.ignoreCase ? "i" : "") + "g";
+    value = new RegExp(value, ig);
+    var r = el.match(value);
+    if (r) {
+        value = r[r.length - 1];
+        var i = el.lastIndexOf(value);
+        el = doSlice(el, i, i + value.length, value["to"+upperLower+"Case"]());
     }
     return el;
 });
-zk().setContainer(arrayUpperLastPath+"regexp", function(el, param, upperLower){
-    var i, k = el.length;
-    for (i = k - 1; i > -1; i--) {
-        if (param.test(el[i])) {
-            if(zk().toolbox().is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-                return el
-            }
-        }
-    }
-    return el;
-});
-/**
- * Permet de mettre en majuscule des chaînes de caractères correspondant à param.
- * @param param (number|string|regexp)
- *      - number : Les derniers éléments du tableau.
- *      - string : La dernière chaîne de caractères du tableau qui est égale à cette valeur.
- *      - regexp : La dernière chaîne de caractères du tableau correspondant à l'expression régulière.
- * @returns {Array}
- */
-Array.prototype.upperLast = function(param){ return zk().toolbox().upperLast(this, param) };
+String.prototype.upperLast = function(value){ return zk().toolbox().upperLast(this, value) };
 
 function upperLowerTab(tab, upperLower) {
     var box = zk().toolbox();
@@ -523,162 +479,102 @@ function upperLowerTab(tab, upperLower) {
         return v;
     }) ;
 }
-Array.prototype.upperMiddle = function(){ return zk().toolbox().upperMiddle(this) };
+String.prototype.upperMiddle = function(){ return zk().toolbox().upperMiddle(this) };
 
-var arrayUpperBeforePath = "_ENTITY_._PARAMETERS_.array.upperBefore.";
-zk().setContainer(arrayUpperBeforePath+"other", function(el, index, upperLower){
-    var box = zk().toolbox(), k = el.length;
-    if(!box.is(index, "number")){ index = box.index(el, index) }
-    if (index > -1) {
-        if(index >= k){ index = k }
-        for (var i = 0; i < index; i++){
-            if(box.is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-            }
-        }
+var stringUpperBeforePath = "_ENTITY_._PARAMETERS_.string.upperBefore.";
+zk().setContainer(stringUpperBeforePath+"other", function(el, index, upperLower){
+    var box = zk().toolbox(), i = -1, before = box.getBefore(el, index);
+    return el.replace(before, function (str) { i++; return i ? str : str["to"+upperLower+"Case"]() })
+});
+String.prototype.upperBefore = function(index){ return zk().toolbox().upperBefore(this, index) };
+
+var stringUpperAfterPath = "_ENTITY_._PARAMETERS_.string.upperAfter.";
+zk().setContainer(stringUpperAfterPath+"other", function(el, index, upperLower){
+    var box = zk().toolbox(), after = box.getAfter(el, index);
+    if(after){
+        el = el.slice(el, el.indexOf(after)) + after["to"+upperLower+"Case"]()
     }
     return el;
 });
-/**
- * Permet de mettre en majuscule les éléments qui se situent avant index dans le tableau.
- * @param index (number|other)
- *      - number : Index du tableau.
- *      - other : Objet quelconque qui se trouve dans le tableau.
- * @returns {Array}
- */
-Array.prototype.upperBefore = function(index){ return zk().toolbox().upperBefore(this, index) };
+String.prototype.upperAfter = function(index){ return zk().toolbox().upperAfter(this, index) };
 
-var arrayUpperAfterPath = "_ENTITY_._PARAMETERS_.array.upperAfter.";
-zk().setContainer(arrayUpperAfterPath+"other", function(el, index, upperLower){
-    var box = zk().toolbox(), k = el.length;
-    if(!box.is(index, "number")){ index = box.index(el, index) }
-    if (index > -1 && index < k) {
-        for (var i = index + 1; i < k; i++){
-            if(box.is(el[i], "string")){
-                el[i] = el[i]["to"+upperLower+"Case"]();
-            }
-        }
-    }
-    return el;
-});
-/**
- * Permet de mettre en majuscule les éléments qui se situent après index dans le tableau.
- * @param index (number|other)
- *      - number : Index du tableau.
- *      - other : Objet quelconque qui se trouve dans le tableau.
- * @returns {Array}
- */
-Array.prototype.upperAfter = function(index){ return zk().toolbox().upperAfter(this, index) };
-
-var arrayUpperBetweenPath = "_ENTITY_._PARAMETERS_.array.upperBetween.";
-zk().setContainer(arrayUpperBetweenPath+"array", function(el, indexes, lowerUpper){
-    var box = zk().toolbox(), z, i, k, param;
+var stringUpperBetweenPath = "_ENTITY_._PARAMETERS_.string.upperBetween.";
+zk().setContainer(stringUpperBetweenPath+"array", function(el, indexes, upperLower){
+    var box = zk().toolbox(), i, k;
     if (!box.is(indexes, 'array')) { indexes = [indexes] }
     if (indexes.length % 2) { indexes.push(el.length - 1) }
     k = indexes.length;
-    for (z = 0; z < k; z += 2) {
-        param = [indexes[z], indexes[z+1]];
-        for (i = 0; i < 2; i++){
-            if(!box.is(param[i], "number")){ param[i] = box.index(el, param[i]) }
-            if(param[i] < 0){ param[i] = NaN }
-        }
-        if(box.is(param[0], "number") && box.is(param[1], "number")){
-            param = box.nSort(param);
-            el = doSlice(el, param[0] + 1, param[1], upperLowerTab(el.slice(param[0] + 1, param[1]), lowerUpper));
+    for (i = 0; i < k; i += 2) {
+        var tab = [indexes[i], indexes[i+1]];
+        tab = stringBetweenIndexes(el, tab);
+        if(tab[0] > -1 && tab[1] > -1){
+            el = el.slice(0, tab[0]+1) + el.slice(tab[0]+1,tab[1])["to"+upperLower+"Case"]() + el.slice(tab[1]);
         }
     }
     return el;
 });
-/**
- * Met en majuscule une ou plusieurs plages du tableau
- * @param param (array|int)
- *      - int : Valeur de début. La taille du tableau est utilisée comme valeur complémentaire.
- *      - array : Tableau contenant des valeurs quelconques.
- * @returns {*}
- */
-Array.prototype.upperBetween = function(indexes){ return zk().toolbox().upperBetween(this, indexes) };
+String.prototype.upperBetween = function(indexes){ return zk().toolbox().upperBetween(this, indexes) };
 
-var arrayUpperAtPath = "_ENTITY_._PARAMETERS_.array.upperAt.";
-zk().setContainer(arrayUpperAtPath + "number", function (el, index, upperLower) {
-    return zk().getContainer(arrayUpperAtPath + "array")(el, [index], upperLower)
+var stringUpperAtPath = "_ENTITY_._PARAMETERS_.string.upperAt.";
+zk().setContainer(stringUpperAtPath + "number", function (el, index, upperLower) {
+    return zk().getContainer(stringUpperAtPath + "array")(el, [index], upperLower)
 });
-zk().setContainer(arrayUpperAtPath + "array", function (el, indexes, upperLower) {
+zk().setContainer(stringUpperAtPath + "array", function (el, indexes, upperLower) {
     var box = zk().toolbox();
     indexes = box.removeDuplicate(indexes, true);
     box.each(indexes, function () {
         var n = this.v;
         if (box.is(n, 'number') && n > -1) {
             if (box.is(el[n], 'string')) {
-                el[n] = el[n]["to"+upperLower+"Case"]()
+                el = el.slice(0, n) + (el.slice(n, n+1)["to"+upperLower+"Case"]()) + el.slice(n+1);
             }
         }
     });
     return el;
 });
-/**
- * Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés.
- * @param indexes (int|array)
- *      - int : Index de l'élément qu'on veut obtenir. Pas de nombres négatifs.
- *      - array : Tableau d'entiers correpondants aux index des élélments qu'on souhaite obtenir.
- * @returns {Array}
- */
-Array.prototype.upperAt = function(indexes){ return zk().toolbox().upperAt(this, indexes) };
+String.prototype.upperAt = function(indexes){ return zk().toolbox().upperAt(this, indexes) };
 
-var arrayUpperPath = "_ENTITY_._PARAMETERS_.array.upper.";
-zk().setContainer(arrayUpperPath+"string", function(el, param, upperLower){
-    return zk().toolbox().each(el,function(){
-        if(this.v === param){
-            return this.v["to"+upperLower+"Case"]()
-        }
-    });
+var stringUpperPath = "_ENTITY_._PARAMETERS_.string.upper.";
+zk().setContainer(stringUpperPath+"string", function(el, value, upperLower){
+    return zk().getContainer(stringUpperPath+"regexp")(el, value, upperLower);
 });
-zk().setContainer(arrayUpperPath+"regexp", function(el, param, upperLower){
+zk().setContainer(stringUpperPath+"regexp", function(el, value, upperLower){
+    var ig = (value.ignoreCase ? "i" : "") + "g"; value = new RegExp(value, ig);
+    return el.replace(value, function (str) { return str["to"+upperLower+"Case"]() })
+});
+zk().setContainer(stringUpperPath + "number", function (el, value, upperLower) {
+    var path = (value < 0 ) ? stringUpperLastPath : stringUpperFirstPath;
+    return zk().getContainer(path+'number')(el, Math.abs(value), upperLower);
+});
+zk().setContainer(stringUpperPath + "array", function (el, value, upperLower) {
     var box = zk().toolbox();
-    return box.each(el,function(){
-        if(param.test(this.v) && box.is(this.v, 'string')){
-            return this.v["to"+upperLower+"Case"]()
+    box.each(value, function () {
+        var f = zk().getContainer(stringUpperPath + box.is(this.v));
+        if(f){
+            el = f(el, this.v, upperLower);
         }
     });
+    return el;
 });
-zk().setContainer(arrayUpperPath + "number", function (el, param, upperLower) {
-    var path = (param < 0 ) ? arrayUpperLastPath : arrayUpperFirstPath;
-    return zk().getContainer(path+'number')(el, Math.abs(param), upperLower);
-});
-zk().setContainer(arrayUpperPath + "array", function (el, param, upperLower) {
-    var indexes = [], box = zk().toolbox();
-    box.each(param, function () {
-        indexes = indexes.concat(box.indexes(el, this.v));
-    });
-    return zk().getContainer(arrayUpperAtPath + "array")(el, indexes, upperLower);
-});
-/**
- * Permet de mettre en majuscule des valeurs dans le tableau.
- * @param param (string|regexp|number|array)
- *      - string : Elément(s) à mettre en majuscule dans le tableau. On fait une égalité stricte.
- *      - regexp : Expression régulières des éléments qu'on souhaite mettre en majuscule dans le tableau.
- *      - number : Les premiers ou derniers éléments. Positif = premier   Négatif = dernier.
- *      - array : Paramètres multiples (string|regexp|number). Le résulat est obtenu en fonction du type des éléments qui se trouve dans le tableau.
- * @returns {Array}
- */
-Array.prototype.upper = function(param){ return zk().toolbox().upper(this, param) };
+String.prototype.upper = function(value){ return zk().toolbox().upper(this, value) };
 
 // ========================================= LES METHODES AVEC LOWER ============================================
 
-Array.prototype.lowerFirst = function(param){ return zk().toolbox().lowerFirst(this, param) };
+String.prototype.lowerFirst = function(value){ return zk().toolbox().lowerFirst(this, value) };
 
-Array.prototype.lowerLast = function(param){ return zk().toolbox().lowerLast(this, param) };
+String.prototype.lowerLast = function(value){ return zk().toolbox().lowerLast(this, value) };
 
-Array.prototype.lowerMiddle = function(){ return zk().toolbox().lowerMiddle(this) };
+String.prototype.lowerMiddle = function(){ return zk().toolbox().lowerMiddle(this) };
 
-Array.prototype.lowerBefore = function(index){ return zk().toolbox().lowerBefore(this, index) };
+String.prototype.lowerBefore = function(index){ return zk().toolbox().lowerBefore(this, index) };
 
-Array.prototype.lowerAfter = function(index){ return zk().toolbox().lowerAfter(this, index) };
+String.prototype.lowerAfter = function(index){ return zk().toolbox().lowerAfter(this, index) };
 
-Array.prototype.lowerBetween = function(indexes){ return zk().toolbox().lowerBetween(this, indexes) };
+String.prototype.lowerBetween = function(indexes){ return zk().toolbox().lowerBetween(this, indexes) };
 
-Array.prototype.lowerAt = function(indexes){ return zk().toolbox().lowerAt(this, indexes) };
+String.prototype.lowerAt = function(indexes){ return zk().toolbox().lowerAt(this, indexes) };
 
-Array.prototype.lower = function(param){ return zk().toolbox().lower(this, param) };
+String.prototype.lower = function(value){ return zk().toolbox().lower(this, value) };
 
 
 
