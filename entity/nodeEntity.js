@@ -1,6 +1,27 @@
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
 // @TODO : $({attr-id: "nom", attr-class: "rouge", text: /^a.b$/, content: /^a.b$/, name: "div", at: 3 })
 
+
+
+
+
+
+
+
+
+
+
+function isThisNode(node, selector){
+    zk().toolbox().each(selector, function () {
+        
+    });
+}
+
+
+
+
+
+
 var methods = {
 
     "getFirst": function(value){
@@ -33,6 +54,15 @@ var parameters = {
                     }
                 }
             }
+        });
+        $this.set(res);
+        return $this;
+    },
+    "getFirst.object": function($this, selector){
+        var nodes = $this.get(), res = [];
+        $this.toolbox.each(nodes, function () {
+
+
         });
         $this.set(res);
         return $this;

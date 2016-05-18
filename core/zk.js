@@ -175,33 +175,21 @@
                 return doEachByObj.string(el, f, args)
             },
 
-            object: function (el, f, args, strIndex) {
-                var i, isOk, r, ob;
+            object: function (el, f, args) {
+                var i, r, ob;
                 for (i in el) {
                     if (el.hasOwnProperty(i)) {
                         ob = {i: i, k: i, v: el[i], all: el};
-                        if (strIndex) {
-                            isOk = RegExp(' 0*' + i + ' ').test(' ' + strIndex + ' ');
-                            if (isOk) {
-                                r = el[i];
-                            } else {
-                                r = f.apply(ob, args);
-                                if (r === undefined) {
-                                    r = el[i]
-                                }
-                            }
-                            el[i] = r;
-                        } else {
-                            r = f.apply(ob, args);
-                            if (r === undefined) {
-                                r = el[i]
-                            }
-                            el[i] = r;
-                        }
+                        r = f.apply(ob, args);
+                        if (APP.toolbox().is(r, "error")) { return el }
+                        if (r === undefined) { r = el[i] }
+                        el[i] = r;
                     }
                 }
                 return el
             },
+
+
             // this.node = le noeud     this.name = Nom du noeud (p,body...)
             node: function (el, f, args, strIndex) {
                 el = doEachByObj.array(el.get(), f, args, strIndex, ZKID);
@@ -566,7 +554,7 @@
          */
         this.get = function (el, value) {
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get.";
-            if (value === undefined) { el }
+            if (value === undefined) { return el }
             var f = zk().getContainer(path + self.is(value));
             return f ? f(el, value) : zk().getContainer(path + "other")(el);
         };
@@ -822,7 +810,6 @@
             var path = basePath + "change" + firstLast + "." + ( (self.is(oldValue) === 'number') ? 'number' : 'other' );
             return zk().getContainer(path)(el, oldValue, newValue);
         }
-
         /**
          * Permet de changer les premiers éléments.
          *
@@ -951,7 +938,6 @@
             var f = zk().getContainer(path);
             return f ? f(el, value, upperLower) : el;
         }
-
         /**
          * Permet de mettre en majuscule les premiers éléments.
          *
@@ -1030,7 +1016,6 @@
                 ".upperBetween.array";
             return zk().getContainer(path)(el, indexes, upperLower);
         }
-
         /**
          * Permet de mettre en majuscule une ou plusieurs plages.
          *
@@ -1052,7 +1037,6 @@
             var f = zk().getContainer(path);
             return f ? f(el, indexes, upperLower) : el;
         }
-
         /**
          * Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés.
          *
@@ -1074,7 +1058,6 @@
             var f = zk().getContainer(path);
             return f ? f(el, indexes, upperLower) : el;
         }
-
         /**
          * Permet de mettre en majuscule des valeurs.
          *

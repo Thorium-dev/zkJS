@@ -7,11 +7,11 @@
 <body>
 
 <ul>
-    <li>test1</li>
-    <li>test2</li>
-    <li>test3</li>
-    <li>test4</li>
-    <li>test5</li>
+    <li class="item" id="item-1">test1</li>
+    <li class="item" id="item-2">test2</li>
+    <li class="item" id="item-3">test3</li>
+    <li class="item" id="item-4">test4</li>
+    <li class="item" id="item-5">test5</li>
 </ul>
 
 <a href="out/index.html">Doc</a>
@@ -31,7 +31,8 @@
 
     var zkObject = $("li");
 
-    console.log(zkObject.getFirst().get());
+    console.log(zkObject.getFirst("#item-2").get());
+
 
 
 </script>
