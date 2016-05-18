@@ -24,7 +24,7 @@ var parameters = {
 
 zk().register(function Node($this){
 
-    var nodes = $this.nodes;
+    var nodes = $this.nodes || [];
     this.parameters = $this.parameters;
     this.toolbox = $this.toolbox;
 

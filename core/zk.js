@@ -9,8 +9,8 @@
         "register": function (entityFunc, methods, parameters) {
             return this._ENTITY_.register(entityFunc, methods, parameters);
         },
-        "get": function (selector) {
-            return this._ENTITY_.get(selector);
+        "get": function (entity) {
+            return this._ENTITY_.get(entity);
         },
 
         // Raccourcis vers _CONTAINER_
@@ -1231,8 +1231,17 @@
             });
             return APP;
         };
-        this.get = function (selector) {
-
+        this.get = function (entityName) {
+            entityName = (""+entityName).toLowerCase();
+            var entity = APP.getContainer("_ENTITY_." + entityName);
+            if(entity){
+                var $this = {
+                    "parameters": APP.getContainer("_ENTITY_._PARAMETERS_." + entityName),
+                    "toolbox": APP.toolbox()
+                };
+                entity = new entity($this);
+            }
+            return Object.freeze(entity);
         };
     }
 
@@ -1270,10 +1279,9 @@
     $W.$ = function (selector) {
         return nodeLauncher(selector)
     };
-    $W.zk = function (selector) {
-        if (selector === undefined) {
-            return APP
-        }
+    $W.zk = function (entity) {
+        if (entity === undefined) { return APP }
+        return APP.get(entity);
     };
 
 
