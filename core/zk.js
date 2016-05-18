@@ -566,11 +566,9 @@
          */
         this.get = function (el, value) {
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get.";
-            if (value === undefined) {
-                el
-            }
+            if (value === undefined) { el }
             var f = zk().getContainer(path + self.is(value));
-            return f ? f(el, value) : zk().getContainer(path + "other")();
+            return f ? f(el, value) : zk().getContainer(path + "other")(el);
         };
 
         // REMOVE
@@ -1242,7 +1240,9 @@
             if(entity){
                 var $this = {
                     "parameters": APP.getContainer("_ENTITY_._PARAMETERS_." + entityName),
-                    "toolbox": APP.toolbox()
+                    "toolbox": APP._TOOLBOX_,
+                    "entity": APP._ENTITY_,
+                    "container": APP._CONTAINER_,
                 };
                 entity = new entity($this);
             }
@@ -1275,7 +1275,9 @@
         var $this = {
             "nodes": selector,
             "parameters": APP.getContainer("_ENTITY_._PARAMETERS_.node"),
-            "toolbox": APP.toolbox()
+            "toolbox": APP._TOOLBOX_,
+            "entity": APP._ENTITY_,
+            "container": APP._CONTAINER_,
         };
         var nodeEnity = APP.getContainer("_ENTITY_.node");
         return Object.freeze(new nodeEnity($this));
