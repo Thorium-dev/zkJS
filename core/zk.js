@@ -403,7 +403,7 @@
             return res;
         };
         /**
-         * Permet de renverser une chaîne de caractères en camel case.
+         * Permet de transformer une chaîne de caractères en camel case.
          *
          * @method camelCase
          * @param {string} el Chaîne de caratères à traiter.
@@ -420,7 +420,7 @@
             }).join("");
         };
         /**
-         * Permet de renverser une chaîne de caractères en snake case.
+         * Permet de transformer une chaîne de caractères en snake case.
          *
          * @method snakeCase
          * @param {string} el Chaîne de caratères à traiter.
@@ -433,7 +433,7 @@
             return el.join("_");
         };
         /**
-         * Permet de renverser une chaîne de caractères en link case.
+         * Permet de transformer une chaîne de caractères en link case.
          *
          * @method linkCase
          * @param {string} el Chaîne de caratères à traiter.
@@ -1232,21 +1232,7 @@
             return APP;
         };
         this.get = function (selector) {
-            var name = APP._TOOLBOX_.is(selector), func = APP.getContainer("_ENTITY_._CONVERTOR_." + name), res;
-            if (func) {
-                res = func(selector);
-                name = res[0];
-                selector = res[1];
-            }
-            var entity = APP.getContainer("_ENTITY_." + name);
-            if ((typeof(entityFunc)).toLowerCase() !== 'function') {
-                entity = new entity(selector, function (pathParam) {
-                    return APP.getContainer("_ENTITY_._PARAMETERS_." + name + "." + pathParam);
-                });
-            } else {
-                entity = null
-            }
-            return Object.freeze(entity);
+
         };
     }
 
@@ -1258,30 +1244,31 @@
      *
      */
     APP.setContainer("_ENTITY_._CONVERTOR_.nodeelement", function (el) {
-        return ["node", [el]]
+        return [el]
     });
     APP.setContainer("_ENTITY_._CONVERTOR_.htmlcollection", function (el) {
-        return ["node", APP._TOOLBOX_.toArray(el)]
+        return APP._TOOLBOX_.toArray(el)
     });
     APP.setContainer("_ENTITY_._CONVERTOR_.nodelist", function (el) {
-        return ["node", APP._TOOLBOX_.toArray(el)]
+        return APP._TOOLBOX_.toArray(el)
     });
 
-    function launcher(selector) {
-        var type = APP.toolbox().is(selector);
-        if (type == "array") {
-            selector = selector.join(",");
-            type = "string";
-        }
-        if (type == "string") {
-            selector = document.querySelectorAll(selector);
-        }
-
-        return APP.get(selector);
+    function nodeLauncher(selector) {
+        var box = APP.toolbox(), selectorType = box.is(selector);
+        if (selectorType == "string") { selector = document.querySelectorAll(selector) }
+        var func = APP.getContainer("_ENTITY_._CONVERTOR_." + box.is(selector));
+        if (func) { selector = func(selector) } else { selector = [] }
+        var $this = {
+            "nodes": selector,
+            "parameters": APP.getContainer("_ENTITY_._PARAMETERS_.node"),
+            "toolbox": APP.toolbox()
+        };
+        var nodeEnity = APP.getContainer("_ENTITY_.node");
+        return Object.freeze(new nodeEnity($this));
     }
 
     $W.$ = function (selector) {
-        return launcher(selector)
+        return nodeLauncher(selector)
     };
     $W.zk = function (selector) {
         if (selector === undefined) {

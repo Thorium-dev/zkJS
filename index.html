@@ -6,7 +6,6 @@
 </head>
 <body>
 
-<div class="test">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto explicabo mollitia ratione rem. Dicta eaque error id inventore labore neque sit voluptatem. At commodi cum dignissimos minus quas quo recusandae!</div>
 <ul>
     <li>test1</li>
     <li>test2</li>
@@ -20,7 +19,7 @@
 <script src="core/zk.js"></script>
 <script src="entity/stringEntity.js"></script>
 <script src="entity/arrayEntity.js"></script>
-<!--<script src="entity/nodeEntity.js"></script>-->
+<script src="entity/nodeEntity.js"></script>
 <script>
 
     var str = "abcdefghde";
@@ -28,9 +27,10 @@
     var str3 = "camel case is-good";
 
     var tab = ["zero", "un", "deux", 3];
-    
-    console.log(str3.linkCase(" -"));
-//    console.log(str3.upperFirst());
+
+    var zkObject = $("li");
+
+    console.log(node.getFirst(2).get());
 
 </script>
 
