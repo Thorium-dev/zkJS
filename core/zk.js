@@ -147,22 +147,27 @@
         };
         var doEachByObj = {
             string: function (el, f, args) {
-                var i, k, res = (self.is(el, 'string')) ? '' : [], r, ob;
+                var i, k, elType = self.is(el), r, ob;
+                if(elType === "string"){ el = el.split("") }
                 k = el.length;
                 for (i = 0; i < k; i++) {
                     ob = {i: i, z: k - 1 - i, k: i, v: el[i], l: k, all: el};
                     r = f.apply(ob, args);
-                    if (r === undefined) {
-                        r = el[i]
+                    if (APP.toolbox().is(r, "error")) {
+                        if(elType === "string"){ el = el.join("") }
+                        return el
                     }
-                    res = res.concat(r)
+                    if (r === undefined) { r = el[i] }
+                    el[i] = r;
                 }
-                return res;
+                if(elType === "string"){ el = el.join("") }
+                return el;
             },
             number: function (el, f, args) {
                 el = Math.abs(el);
                 for (var i = 0; i < el; i++) {
-                    f.apply({i: i, z: el - 1 - i, all: el}, args);
+                    var r = f.apply({i: i, z: el - 1 - i, all: el}, args);
+                    if (APP.toolbox().is(r, "error")) { return el }
                 }
                 return el
             },

@@ -19,6 +19,7 @@
 <script src="core/zk.js"></script>
 <script src="entity/stringEntity.js"></script>
 <script src="entity/arrayEntity.js"></script>
+<script src="entity/errorEntity.js"></script>
 <script src="entity/nodeEntity.js"></script>
 <script>
 
@@ -33,6 +34,15 @@
 //    console.log(zkObject.getFirst(2).get());
 
     console.log(zk("Node").get());
+
+    str.each(function () {
+        if(this.i == 4){
+            return zk("error");
+        }else{
+            return this.i;
+        }
+
+    });
 
 </script>
 
