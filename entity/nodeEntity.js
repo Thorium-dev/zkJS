@@ -28,28 +28,38 @@ var doIsThisNodeByObject = {
  */
 function isThisNode(node, selector){
     var isOk = false, box = zk().toolbox();
-    for(var k in selector){
-        var v = selector[k];
-        if (selector.hasOwnProperty(k)) {
-            if(/^attr\-/.test(k)){
-                var attr = node.getAttribute(k.slice(5));
-                if(attr){
-                    attr = attr.split(" ");
-                    if(box.has(attr, v)){ isOk = true } else { return false }
+    if(box.is(selector, "string")){
+        var parent = node.parentNode;
+        if(!parent){ return false }
+        var children = parent.querySelectorAll(selector);
+        if(!children){ return false }
+        children = box.toArray(children);
+        return box.has(children, node)
+    }else{
+        for(var k in selector){
+            var v = selector[k];
+            if (selector.hasOwnProperty(k)) {
+                if(/^attr\-/.test(k)){
+                    var attr = node.getAttribute(k.slice(5));
+                    if(attr){
+                        attr = attr.split(" ");
+                        if(box.has(attr, v)){ isOk = true } else { return false }
+                    }else{
+                        return false
+                    }
                 }else{
-                    return false
+                    if(doIsThisNodeByObject.hasOwnProperty(k)){
+                        if(doIsThisNodeByObject[k](node, v)){ isOk = true } else { return false }
+                    }else{
+                        return false
+                    }
                 }
             }else{
-                if(doIsThisNodeByObject.hasOwnProperty(k)){
-                    if(doIsThisNodeByObject[k](node, v)){ isOk = true } else { return false }
-                }else{
-                    return false
-                }
+                return false
             }
-        }else{
-            return false
         }
     }
+
     return isOk;
 }
 
@@ -57,9 +67,21 @@ function isThisNode(node, selector){
 function getFirstLast(el, value, firstLast) {
     if(value === undefined){ value = 1 }
     var f = el.parameters["get"+firstLast][el.toolbox.is(value)];
-    return f ? f(el, value) : el;
+    el.set( f ? f(el, value) : []);
+    return el;
+}
+function getBeforeAfter(el, value, beforeAfter) {
+    if(value === undefined){ value = 1 }
+    var f = el.parameters["get"+firstLast][el.toolbox.is(value)];
+    el.set( f ? f(el, value) : []);
+    return el;
 }
 var methods = {
+
+    "index": function(value){
+        var f = this.parameters.index[this.toolbox.is(value)];
+        return f ? f(this, value) : -1;
+    },
 
     "getFirst": function(value){
         return getFirstLast(this, value, "First")
@@ -77,11 +99,35 @@ var methods = {
 };
 
 var parameters = {
+
+    // index
+    "index.string": function($this, selector){
+        var index = -1;
+        $this.toolbox.each($this.get(), function () {
+            if(isThisNode(this.v, selector)){
+                index = this.i;
+                return $this.entity.get("Error")
+            }
+        });
+        return index
+    },
+    "index.object": function($this, selector){
+        return $this.parameters.index.string($this, selector);
+    },
+    "index.nodeelement": function($this, nodeelement){
+        var index = -1;
+        $this.toolbox.each($this.get(), function () {
+            if(this.v === nodeelement){
+                index = this.i;
+                return $this.entity.get("Error")
+            }
+        });
+        return index
+    },
+
     // getFirst
     "getFirst.number": function($this, size){
-        var nodes = $this.toolbox.getFirst($this.get(), size);
-        $this.set(nodes);
-        return $this
+        return $this.toolbox.getFirst($this.get(), size);
     },
     "getFirst.string": function($this, selector){
         var nodes = $this.get(), res = [];
@@ -98,8 +144,7 @@ var parameters = {
                 }
             }
         });
-        $this.set(res);
-        return $this;
+        return res;
     },
     "getFirst.object": function($this, selector){
         var nodes = $this.get(), res = [];
@@ -109,14 +154,12 @@ var parameters = {
                 return $this.entity.get("Error");
             }
         });
-        $this.set(res);
-        return $this;
+        return res;
     },
+
     // getLast
     "getLast.number": function($this, size){
-        var nodes = $this.toolbox.getLast($this.get(), size);
-        $this.set(nodes);
-        return $this
+        return $this.toolbox.getLast($this.get(), size);
     },
     "getLast.string": function($this, selector){
         var nodes = $this.get(), res = [];
@@ -133,8 +176,7 @@ var parameters = {
                 }
             }
         });
-        $this.set(res);
-        return $this;
+        return res;
     },
     "getLast.object": function($this, selector){
         var nodes = $this.get(), res = [];
@@ -144,8 +186,7 @@ var parameters = {
                 return $this.entity.get("Error");
             }
         });
-        $this.set(res);
-        return $this;
+        return res;
     },
     
 
