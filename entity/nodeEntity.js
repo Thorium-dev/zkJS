@@ -105,6 +105,9 @@ var methods = {
         var f = this.parameters.indexes[this.toolbox.is(value)];
         return f ? f(this, value) : [];
     },
+    "lastIndex": function (value) {
+        return zk().toolbox().lastIndex(this, value) 
+    },
 
     "getFirst": function (value) {
         return getFirstLast(this, value, "First")

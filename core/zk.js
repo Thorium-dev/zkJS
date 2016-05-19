@@ -363,8 +363,8 @@
          * @since 1.0
          */
         this.lastIndex = function (el, value) {
-            var indexes = self.indexes(el, value);
-            return indexes[indexes.length - 1];
+            var indexes = self.indexes(el, value), l = indexes.length;
+            return l ? indexes[l - 1] : -1;
         };
         /**
          * Permet de compter le nombre de fois q'une valeur existe dans un élément.
