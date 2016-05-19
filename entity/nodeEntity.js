@@ -111,6 +111,9 @@ var methods = {
     "count": function (value) {
         return zk().toolbox().count(this, value)
     },
+    "has": function (value) {
+        return zk().toolbox().has(this, value)
+    },
 
     "getFirst": function (value) {
         return getFirstLast(this, value, "First")
