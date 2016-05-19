@@ -187,13 +187,25 @@
                 }
                 return el
             },
-
-
-            // this.node = le noeud     this.name = Nom du noeud (p,body...)
-            node: function (el, f, args, strIndex) {
-                el = doEachByObj.array(el.get(), f, args, strIndex, ZKID);
-                return $GET("NODE").$(el)
+            node: function (el, f, args) {
+                var i, k, nodes = el.get(), r, ob;
+                k = nodes.length;
+                for (i = 0; i < k; i++) {
+                    ob = {i: i, z: k - 1 - i, k: i, v: nodes[i], l: k, all: nodes};
+                    r = f.apply(ob, args);
+                    if (APP.toolbox().is(r, "error")) {
+                        el.set(nodes);
+                        return el;
+                    }
+                    if (r === undefined) { r = nodes[i] }
+                    nodes[i] = r;
+                }
+                el.set(nodes);
+                return el;
             },
+
+
+
             // this.node = le noeud     this.name = Nom du noeud (p,body...)
             nodeelement: function (el, f, args, strIndex) {
                 el = doEachByObj.array(toArray(el.childNodes), f, args, strIndex, ZKID);
@@ -317,7 +329,6 @@
             var f = zk().getContainer(basePath + pType);
             return f ? f(el, value) : zk().getContainer(basePath + "other")(el, value);
         }
-
         /**
          * Permet d'obtenir l'index d'une valeur dans un objet.
          *

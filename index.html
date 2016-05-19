@@ -32,7 +32,9 @@
 
     var zkObject = $("li");
 
-     console.log(zkObject.index(document.querySelector("li#item-3")));
+     zkObject.each(function () {
+         console.log(this.v);
+     });
 
 
 
