@@ -108,6 +108,9 @@ var methods = {
     "lastIndex": function (value) {
         return zk().toolbox().lastIndex(this, value) 
     },
+    "count": function (value) {
+        return zk().toolbox().count(this, value)
+    },
 
     "getFirst": function (value) {
         return getFirstLast(this, value, "First")
