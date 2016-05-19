@@ -32,7 +32,10 @@
 
     var zkObject = $("li");
 
-     console.log(zkObject.getMiddle().get());
+     console.log(zkObject.getLast({
+         "attr-class": "item",
+         "text": /.+5$/
+     }).get());
 
 
 

@@ -54,24 +54,30 @@ function isThisNode(node, selector){
 }
 
 
+function getFirstLast(el, value, firstLast) {
+    if(value === undefined){ value = 1 }
+    var f = el.parameters["get"+firstLast][el.toolbox.is(value)];
+    return f ? f(el, value) : el;
+}
 var methods = {
 
     "getFirst": function(value){
-        if(value === undefined){ value = 1 }
-        var f = this.parameters.getFirst[this.toolbox.is(value)];
-        return f ? f(this, value) : this;
+        return getFirstLast(this, value, "First")
     },
     "getMiddle": function(){
         var nodes = this.toolbox.getMiddle(this.get());
         this.set(nodes);
         return this
     },
+    "getLast": function(value){
+        return getFirstLast(this, value, "Last")
+    },
 
 
 };
 
 var parameters = {
-
+    // getFirst
     "getFirst.number": function($this, size){
         var nodes = $this.toolbox.getFirst($this.get(), size);
         $this.set(nodes);
@@ -100,6 +106,41 @@ var parameters = {
         $this.toolbox.each(nodes, function () {
             if(isThisNode(this.v, selector)){
                 res = [this.v];
+                return $this.entity.get("Error");
+            }
+        });
+        $this.set(res);
+        return $this;
+    },
+    // getLast
+    "getLast.number": function($this, size){
+        var nodes = $this.toolbox.getLast($this.get(), size);
+        $this.set(nodes);
+        return $this
+    },
+    "getLast.string": function($this, selector){
+        var nodes = $this.get(), res = [];
+        $this.toolbox.each(nodes, function () {
+            var node = nodes[this.z], parent = node.parentNode;
+            if(parent && selector){
+                var children = parent.querySelectorAll(selector);
+                if(children){
+                    children = $this.toolbox.toArray(children);
+                    if($this.toolbox.has(children, node)){
+                        res = [node];
+                        return $this.entity.get("Error");
+                    }
+                }
+            }
+        });
+        $this.set(res);
+        return $this;
+    },
+    "getLast.object": function($this, selector){
+        var nodes = $this.get(), res = [];
+        $this.toolbox.each(nodes, function () {
+            if(isThisNode(nodes[this.z], selector)){
+                res = [nodes[this.z]];
                 return $this.entity.get("Error");
             }
         });

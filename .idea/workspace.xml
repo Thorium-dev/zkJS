@@ -48,8 +48,8 @@
           <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+                <state relative-caret-position="540">
+                  <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
                   <folding />
                 </state>
               </provider>
@@ -58,16 +58,20 @@
           <file leaf-file-name="nodeEntity.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/entity/nodeEntity.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="285">
-                  <caret line="67" column="6" selection-start-line="67" selection-start-column="6" selection-end-line="67" selection-end-column="6" />
+                <state relative-caret-position="510">
+                  <caret line="138" column="47" selection-start-line="138" selection-start-column="47" selection-end-line="138" selection-end-column="47" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                     <element signature="e#191#742#0" expanded="false" />
                     <element signature="n#!!doc;n#isThisNode#0" expanded="false" />
                     <element signature="n#!!block;n#isThisNode#0" expanded="false" />
-                    <element signature="e#2176#2293#0" expanded="false" />
-                    <element signature="e#2343#2952#0" expanded="false" />
-                    <element signature="e#3002#3300#0" expanded="false" />
+                    <element signature="n#!!block;n#getFirstLast#0" expanded="false" />
+                    <element signature="e#2365#2482#0" expanded="false" />
+                    <element signature="e#2532#3141#0" expanded="false" />
+                    <element signature="e#3549#3665#0" expanded="false" />
+                    <element signature="e#3714#4339#0" expanded="false" />
+                    <element signature="e#4388#4700#0" expanded="false" />
+                    <marker date="1463638113000" expanded="false" signature="3191:3489" placeholder="{...}" />
                   </folding>
                 </state>
               </provider>
@@ -921,12 +925,12 @@
       <workItem from="1463415940244" duration="12378000" />
       <workItem from="1463463486484" duration="6671000" />
       <workItem from="1463482705786" duration="12867000" />
-      <workItem from="1463577701127" duration="22823000" />
+      <workItem from="1463577701127" duration="24097000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="238690000" />
+    <option name="totallyTimeSpent" value="239964000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -3866,24 +3870,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
+        <state relative-caret-position="540">
+          <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/entity/nodeEntity.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="67" column="6" selection-start-line="67" selection-start-column="6" selection-end-line="67" selection-end-column="6" />
+        <state relative-caret-position="510">
+          <caret line="138" column="47" selection-start-line="138" selection-start-column="47" selection-end-line="138" selection-end-column="47" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#191#742#0" expanded="false" />
             <element signature="n#!!doc;n#isThisNode#0" expanded="false" />
             <element signature="n#!!block;n#isThisNode#0" expanded="false" />
-            <element signature="e#2176#2293#0" expanded="false" />
-            <element signature="e#2343#2952#0" expanded="false" />
-            <element signature="e#3002#3300#0" expanded="false" />
+            <element signature="n#!!block;n#getFirstLast#0" expanded="false" />
+            <element signature="e#2365#2482#0" expanded="false" />
+            <element signature="e#2532#3141#0" expanded="false" />
+            <element signature="e#3549#3665#0" expanded="false" />
+            <element signature="e#3714#4339#0" expanded="false" />
+            <element signature="e#4388#4700#0" expanded="false" />
+            <marker date="1463638113000" expanded="false" signature="3191:3489" placeholder="{...}" />
           </folding>
         </state>
       </provider>
