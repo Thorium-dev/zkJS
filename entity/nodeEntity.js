@@ -61,6 +61,11 @@ var methods = {
         var f = this.parameters.getFirst[this.toolbox.is(value)];
         return f ? f(this, value) : this;
     },
+    "getMiddle": function(){
+        var nodes = this.toolbox.getMiddle(this.get());
+        this.set(nodes);
+        return this
+    },
 
 
 };

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bad75f10-0a2f-4689-aaf9-cc0177410271" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/zk.js" afterPath="$PROJECT_DIR$/core/zk.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/entity/nodeEntity.js" afterPath="$PROJECT_DIR$/entity/nodeEntity.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
@@ -49,8 +48,8 @@
           <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="450">
-                  <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+                <state relative-caret-position="255">
+                  <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
                   <folding />
                 </state>
               </provider>
@@ -59,16 +58,16 @@
           <file leaf-file-name="nodeEntity.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/entity/nodeEntity.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="345">
-                  <caret line="92" column="48" selection-start-line="92" selection-start-column="48" selection-end-line="92" selection-end-column="48" />
+                <state relative-caret-position="285">
+                  <caret line="67" column="6" selection-start-line="67" selection-start-column="6" selection-end-line="67" selection-end-column="6" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                     <element signature="e#191#742#0" expanded="false" />
                     <element signature="n#!!doc;n#isThisNode#0" expanded="false" />
                     <element signature="n#!!block;n#isThisNode#0" expanded="false" />
-                    <element signature="e#2039#2156#0" expanded="false" />
-                    <element signature="e#2206#2815#0" expanded="false" />
-                    <element signature="e#2865#3163#0" expanded="false" />
+                    <element signature="e#2176#2293#0" expanded="false" />
+                    <element signature="e#2343#2952#0" expanded="false" />
+                    <element signature="e#3002#3300#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -266,8 +265,8 @@
         <option value="$PROJECT_DIR$/entity/errorEntity.js" />
         <option value="$PROJECT_DIR$/entity/arrayEntity.js" />
         <option value="$PROJECT_DIR$/core/zk.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/entity/nodeEntity.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -922,12 +921,12 @@
       <workItem from="1463415940244" duration="12378000" />
       <workItem from="1463463486484" duration="6671000" />
       <workItem from="1463482705786" duration="12867000" />
-      <workItem from="1463577701127" duration="22168000" />
+      <workItem from="1463577701127" duration="22823000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="238035000" />
+    <option name="totallyTimeSpent" value="238690000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -3867,24 +3866,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        <state relative-caret-position="255">
+          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/entity/nodeEntity.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="92" column="48" selection-start-line="92" selection-start-column="48" selection-end-line="92" selection-end-column="48" />
+        <state relative-caret-position="285">
+          <caret line="67" column="6" selection-start-line="67" selection-start-column="6" selection-end-line="67" selection-end-column="6" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#191#742#0" expanded="false" />
             <element signature="n#!!doc;n#isThisNode#0" expanded="false" />
             <element signature="n#!!block;n#isThisNode#0" expanded="false" />
-            <element signature="e#2039#2156#0" expanded="false" />
-            <element signature="e#2206#2815#0" expanded="false" />
-            <element signature="e#2865#3163#0" expanded="false" />
+            <element signature="e#2176#2293#0" expanded="false" />
+            <element signature="e#2343#2952#0" expanded="false" />
+            <element signature="e#3002#3300#0" expanded="false" />
           </folding>
         </state>
       </provider>

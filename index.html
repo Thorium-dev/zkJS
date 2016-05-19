@@ -12,6 +12,7 @@
     <li class="item" id="item-3">test3</li>
     <li class="item" id="item-4">test4</li>
     <li class="item" id="item-5">test5</li>
+    <li class="item" id="item-6">test6</li>
 </ul>
 
 <a href="out/index.html">Doc</a>
@@ -31,11 +32,7 @@
 
     var zkObject = $("li");
 
-     console.log(zkObject.getFirst({
-        "name": /ul|li/,
-         "id": /item\-[2-4]/,
-         "text": "4"
-    }).get());
+     console.log(zkObject.getMiddle().get());
 
 
 
