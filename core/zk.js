@@ -174,7 +174,6 @@
             array: function (el, f, args) {
                 return doEachByObj.string(el, f, args)
             },
-
             object: function (el, f, args) {
                 var i, r, ob;
                 for (i in el) {

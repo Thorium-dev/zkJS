@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<ul>
+<ul class="rouge panier" id="panier-10">
     <li class="item" id="item-1">test1</li>
     <li class="item" id="item-2">test2</li>
     <li class="item" id="item-3">test3</li>
@@ -31,7 +31,12 @@
 
     var zkObject = $("li");
 
-    console.log(zkObject.getFirst("#item-2").get());
+     console.log(zkObject.getFirst({
+        "name": /ul|li/,
+         "id": /item\-[2-4]/,
+         "text": "4"
+    }).get());
+
 
 
 
