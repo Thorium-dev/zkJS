@@ -6,13 +6,13 @@
 </head>
 <body>
 
-<div class="test">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto explicabo mollitia ratione rem. Dicta eaque error id inventore labore neque sit voluptatem. At commodi cum dignissimos minus quas quo recusandae!</div>
-<ul>
-    <li>test1</li>
-    <li>test2</li>
-    <li>test3</li>
-    <li>test4</li>
-    <li>test5</li>
+<ul class="rouge panier" id="panier-10">
+    <li class="item" id="item-1">test1</li>
+    <li class="item" id="item-2">test2</li>
+    <li class="item" id="item-3">test3</li>
+    <li class="item" id="item-4">test4</li>
+    <li class="item" id="item-5">test5</li>
+    <li class="item" id="item-6">test6</li>
 </ul>
 
 <a href="out/index.html">Doc</a>
@@ -20,7 +20,8 @@
 <script src="core/zk.js"></script>
 <script src="entity/stringEntity.js"></script>
 <script src="entity/arrayEntity.js"></script>
-<!--<script src="entity/nodeEntity.js"></script>-->
+<script src="entity/errorEntity.js"></script>
+<script src="entity/nodeEntity.js"></script>
 <script>
 
     var str = "abcdefghde";
@@ -28,9 +29,15 @@
     var str3 = "camel case is-good";
 
     var tab = ["zero", "un", "deux", 3];
-    
-    console.log(str3.linkCase(" -"));
-//    console.log(str3.upperFirst());
+
+    var zkObject = $("li");
+
+    console.log(zkObject.getAfter({
+        "id": /4$/
+    }).get());
+
+
+
 
 </script>
 

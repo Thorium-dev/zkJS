@@ -9,8 +9,8 @@
         "register": function (entityFunc, methods, parameters) {
             return this._ENTITY_.register(entityFunc, methods, parameters);
         },
-        "get": function (selector) {
-            return this._ENTITY_.get(selector);
+        "get": function (entity) {
+            return this._ENTITY_.get(entity);
         },
 
         // Raccourcis vers _CONTAINER_
@@ -147,61 +147,65 @@
         };
         var doEachByObj = {
             string: function (el, f, args) {
-                var i, k, res = (self.is(el, 'string')) ? '' : [], r, ob;
+                var i, k, elType = self.is(el), r, ob;
+                if(elType === "string"){ el = el.split("") }
                 k = el.length;
                 for (i = 0; i < k; i++) {
                     ob = {i: i, z: k - 1 - i, k: i, v: el[i], l: k, all: el};
                     r = f.apply(ob, args);
-                    if (r === undefined) {
-                        r = el[i]
+                    if (APP.toolbox().is(r, "error")) {
+                        if(elType === "string"){ el = el.join("") }
+                        return el
                     }
-                    res = res.concat(r)
+                    if (r === undefined) { r = el[i] }
+                    el[i] = r;
                 }
-                return res;
+                if(elType === "string"){ el = el.join("") }
+                return el;
             },
             number: function (el, f, args) {
                 el = Math.abs(el);
                 for (var i = 0; i < el; i++) {
-                    f.apply({i: i, z: el - 1 - i, all: el}, args);
+                    var r = f.apply({i: i, z: el - 1 - i, all: el}, args);
+                    if (APP.toolbox().is(r, "error")) { return el }
                 }
                 return el
             },
             array: function (el, f, args) {
                 return doEachByObj.string(el, f, args)
             },
-
-            object: function (el, f, args, strIndex) {
-                var i, isOk, r, ob;
+            object: function (el, f, args) {
+                var i, r, ob;
                 for (i in el) {
                     if (el.hasOwnProperty(i)) {
                         ob = {i: i, k: i, v: el[i], all: el};
-                        if (strIndex) {
-                            isOk = RegExp(' 0*' + i + ' ').test(' ' + strIndex + ' ');
-                            if (isOk) {
-                                r = el[i];
-                            } else {
-                                r = f.apply(ob, args);
-                                if (r === undefined) {
-                                    r = el[i]
-                                }
-                            }
-                            el[i] = r;
-                        } else {
-                            r = f.apply(ob, args);
-                            if (r === undefined) {
-                                r = el[i]
-                            }
-                            el[i] = r;
-                        }
+                        r = f.apply(ob, args);
+                        if (APP.toolbox().is(r, "error")) { return el }
+                        if (r === undefined) { r = el[i] }
+                        el[i] = r;
                     }
                 }
                 return el
             },
-            // this.node = le noeud     this.name = Nom du noeud (p,body...)
-            node: function (el, f, args, strIndex) {
-                el = doEachByObj.array(el.get(), f, args, strIndex, ZKID);
-                return $GET("NODE").$(el)
+            node: function (el, f, args) {
+                var i, k, nodes = el.get(), r, ob;
+                k = nodes.length;
+                for (i = 0; i < k; i++) {
+                    ob = {i: i, z: k - 1 - i, k: i, v: nodes[i], l: k, all: nodes};
+                    r = f.apply(ob, args);
+                    if (APP.toolbox().is(r, "error")) {
+                        el.set(nodes);
+                        return el;
+                    }
+                    if (r === undefined) { r = nodes[i] }
+                    nodes[i] = r;
+                }
+                el.set(nodes);
+                return el;
             },
+
+
+
             // this.node = le noeud     this.name = Nom du noeud (p,body...)
             nodeelement: function (el, f, args, strIndex) {
                 el = doEachByObj.array(toArray(el.childNodes), f, args, strIndex, ZKID);
@@ -325,7 +329,6 @@
             var f = zk().getContainer(basePath + pType);
             return f ? f(el, value) : zk().getContainer(basePath + "other")(el, value);
         }
-
         /**
          * Permet d'obtenir l'index d'une valeur dans un objet.
          *
@@ -360,8 +363,8 @@
          * @since 1.0
          */
         this.lastIndex = function (el, value) {
-            var indexes = self.indexes(el, value);
-            return indexes[indexes.length - 1];
+            var indexes = self.indexes(el, value), l = indexes.length;
+            return l ? indexes[l - 1] : -1;
         };
         /**
          * Permet de compter le nombre de fois q'une valeur existe dans un élément.
@@ -403,7 +406,7 @@
             return res;
         };
         /**
-         * Permet de renverser une chaîne de caractères en camel case.
+         * Permet de transformer une chaîne de caractères en camel case.
          *
          * @method camelCase
          * @param {string} el Chaîne de caratères à traiter.
@@ -420,7 +423,7 @@
             }).join("");
         };
         /**
-         * Permet de renverser une chaîne de caractères en snake case.
+         * Permet de transformer une chaîne de caractères en snake case.
          *
          * @method snakeCase
          * @param {string} el Chaîne de caratères à traiter.
@@ -433,7 +436,7 @@
             return el.join("_");
         };
         /**
-         * Permet de renverser une chaîne de caractères en link case.
+         * Permet de transformer une chaîne de caractères en link case.
          *
          * @method linkCase
          * @param {string} el Chaîne de caratères à traiter.
@@ -561,11 +564,9 @@
          */
         this.get = function (el, value) {
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get.";
-            if (value === undefined) {
-                el
-            }
+            if (value === undefined) { return el }
             var f = zk().getContainer(path + self.is(value));
-            return f ? f(el, value) : zk().getContainer(path + "other")();
+            return f ? f(el, value) : zk().getContainer(path + "other")(el);
         };
 
         // REMOVE
@@ -819,7 +820,6 @@
             var path = basePath + "change" + firstLast + "." + ( (self.is(oldValue) === 'number') ? 'number' : 'other' );
             return zk().getContainer(path)(el, oldValue, newValue);
         }
-
         /**
          * Permet de changer les premiers éléments.
          *
@@ -948,7 +948,6 @@
             var f = zk().getContainer(path);
             return f ? f(el, value, upperLower) : el;
         }
-
         /**
          * Permet de mettre en majuscule les premiers éléments.
          *
@@ -1027,7 +1026,6 @@
                 ".upperBetween.array";
             return zk().getContainer(path)(el, indexes, upperLower);
         }
-
         /**
          * Permet de mettre en majuscule une ou plusieurs plages.
          *
@@ -1049,7 +1047,6 @@
             var f = zk().getContainer(path);
             return f ? f(el, indexes, upperLower) : el;
         }
-
         /**
          * Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés.
          *
@@ -1071,7 +1068,6 @@
             var f = zk().getContainer(path);
             return f ? f(el, indexes, upperLower) : el;
         }
-
         /**
          * Permet de mettre en majuscule des valeurs.
          *
@@ -1231,20 +1227,17 @@
             });
             return APP;
         };
-        this.get = function (selector) {
-            var name = APP._TOOLBOX_.is(selector), func = APP.getContainer("_ENTITY_._CONVERTOR_." + name), res;
-            if (func) {
-                res = func(selector);
-                name = res[0];
-                selector = res[1];
-            }
-            var entity = APP.getContainer("_ENTITY_." + name);
-            if ((typeof(entityFunc)).toLowerCase() !== 'function') {
-                entity = new entity(selector, function (pathParam) {
-                    return APP.getContainer("_ENTITY_._PARAMETERS_." + name + "." + pathParam);
-                });
-            } else {
-                entity = null
+        this.get = function (entityName) {
+            entityName = (""+entityName).toLowerCase();
+            var entity = APP.getContainer("_ENTITY_." + entityName);
+            if(entity){
+                var $this = {
+                    "parameters": APP.getContainer("_ENTITY_._PARAMETERS_." + entityName),
+                    "toolbox": APP._TOOLBOX_,
+                    "entity": APP._ENTITY_,
+                    "container": APP._CONTAINER_,
+                };
+                entity = new entity($this);
             }
             return Object.freeze(entity);
         };
@@ -1258,41 +1251,39 @@
      *
      */
     APP.setContainer("_ENTITY_._CONVERTOR_.nodeelement", function (el) {
-        return ["node", [el]]
+        return [el]
     });
     APP.setContainer("_ENTITY_._CONVERTOR_.htmlcollection", function (el) {
-        return ["node", APP._TOOLBOX_.toArray(el)]
+        return APP._TOOLBOX_.toArray(el)
     });
     APP.setContainer("_ENTITY_._CONVERTOR_.nodelist", function (el) {
-        return ["node", APP._TOOLBOX_.toArray(el)]
+        return APP._TOOLBOX_.toArray(el)
     });
 
-    function launcher(selector) {
-        var type = APP.toolbox().is(selector);
-        if (type == "array") {
-            selector = selector.join(",");
-            type = "string";
-        }
-        if (type == "string") {
-            selector = document.querySelectorAll(selector);
-        }
-
-        return APP.get(selector);
+    function nodeLauncher(selector) {
+        var box = APP.toolbox(), selectorType = box.is(selector);
+        if (selectorType == "string") { selector = document.querySelectorAll(selector) }
+        var func = APP.getContainer("_ENTITY_._CONVERTOR_." + box.is(selector));
+        if (func) { selector = func(selector) } else { selector = [] }
+        var $this = {
+            "nodes": selector,
+            "parameters": APP.getContainer("_ENTITY_._PARAMETERS_.node"),
+            "toolbox": APP._TOOLBOX_,
+            "entity": APP._ENTITY_,
+            "container": APP._CONTAINER_,
+        };
+        var nodeEnity = APP.getContainer("_ENTITY_.node");
+        return Object.freeze(new nodeEnity($this));
     }
 
     $W.$ = function (selector) {
-        return launcher(selector)
+        return nodeLauncher(selector)
     };
-    $W.zk = function (selector) {
-        if (selector === undefined) {
-            return APP
-        }
+    $W.zk = function (entity) {
+        if (entity === undefined) { return APP }
+        return APP.get(entity);
     };
 
-
-    /**
-     * *********
-     */
 
 
 })(window);
