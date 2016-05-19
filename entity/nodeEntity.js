@@ -76,7 +76,7 @@ function isThisNode(node, selector) {
 }
 
 
-function getFirstLast(el, value, firstLast) {
+function nodeGetFirstLast(el, value, firstLast) {
     if (value === undefined) {
         value = 1
     }
@@ -84,19 +84,16 @@ function getFirstLast(el, value, firstLast) {
     el.set(f ? f(el, value) : []);
     return el;
 }
-function getBeforeAfter(el, value, beforeAfter) {
-    if (value === undefined) {
-        value = 1
+function nodeGetBeforeAfter(el, value, beforeAfter) {
+    if (value !== undefined) {
+        var f = el.parameters["get" + beforeAfter][el.toolbox.is(value)];
+        el.set(f ? f(el, value) : []);
     }
-    var f = el.parameters["get" + firstLast][el.toolbox.is(value)];
-    el.set(f ? f(el, value) : []);
     return el;
 }
 var methods = {
 
-    "each": function (callback, args) {
-        return zk().toolbox().each(this, callback, args)
-    },
+    "each": function (callback, args) { return zk().toolbox().each(this, callback, args) },
     "index": function (value) {
         var f = this.parameters.index[this.toolbox.is(value)];
         return f ? f(this, value) : -1;
@@ -105,18 +102,12 @@ var methods = {
         var f = this.parameters.indexes[this.toolbox.is(value)];
         return f ? f(this, value) : [];
     },
-    "lastIndex": function (value) {
-        return zk().toolbox().lastIndex(this, value) 
-    },
-    "count": function (value) {
-        return zk().toolbox().count(this, value)
-    },
-    "has": function (value) {
-        return zk().toolbox().has(this, value)
-    },
+    "lastIndex": function (value) { return zk().toolbox().lastIndex(this, value) },
+    "count": function (value) { return zk().toolbox().count(this, value) },
+    "has": function (value) { return zk().toolbox().has(this, value) },
 
     "getFirst": function (value) {
-        return getFirstLast(this, value, "First")
+        return nodeGetFirstLast(this, value, "First")
     },
     "getMiddle": function () {
         var nodes = this.toolbox.getMiddle(this.get());
@@ -124,7 +115,13 @@ var methods = {
         return this
     },
     "getLast": function (value) {
-        return getFirstLast(this, value, "Last")
+        return nodeGetFirstLast(this, value, "Last")
+    },
+    "getBefore": function (value) {
+        return nodeGetBeforeAfter(this, value, "Before")
+    },
+    "getAfter": function (value) {
+        return nodeGetBeforeAfter(this, value, "After")
     },
 
 
@@ -180,6 +177,7 @@ var parameters = {
         return indexes
     },
 
+    // ========================================= LES METHODES AVEC GET =============================================
 
     // getFirst
     "getFirst.number": function ($this, size) {
@@ -243,6 +241,29 @@ var parameters = {
             }
         });
         return res;
+    },
+
+    // getBefore
+    "getBefore.number": function ($this, index) {
+        return $this.toolbox.getBefore($this.get(), index);
+    },
+    "getBefore.string": function ($this, selector) {
+        var index = $this.toolbox.index($this, selector);
+        return $this.toolbox.getBefore($this.get(), index);
+    },
+    "getBefore.object": function ($this, selector) {
+        return $this.parameters.getBefore.string($this, selector)
+    },
+    // getAfter
+    "getAfter.number": function ($this, index) {
+        return $this.toolbox.getAfter($this.get(), index);
+    },
+    "getAfter.string": function ($this, selector) {
+        var index = $this.toolbox.index($this, selector);
+        return $this.toolbox.getAfter($this.get(), index);
+    },
+    "getAfter.object": function ($this, selector) {
+        return $this.parameters.getAfter.string($this, selector)
     },
 
 
