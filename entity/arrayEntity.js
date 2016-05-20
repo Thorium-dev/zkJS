@@ -156,7 +156,7 @@ zk().setContainer(arrayGetBetweenPath + "array", function (el, indexes) {
                 tab[j] = box.index(el, tab[j])
             }
             if (tab[j] < 0) {
-                tab[j] = NaN
+                tab[j] = false
             }
         }
         if (box.is(tab[0], "number") && box.is(tab[1], "number")) {
@@ -331,7 +331,7 @@ zk().setContainer(arrayRemoveBetweenPath + "array", function (el, indexes) {
             indexes[i] = box.index(el, indexes[i])
         }
         if (indexes[i] < 0) {
-            indexes[i] = NaN
+            indexes[i] = false
         }
     }
     if (box.is(indexes[0], "number") && box.is(indexes[1], "number")) {
@@ -587,7 +587,7 @@ zk().setContainer(arrayChangeBetweenPath + "array", function (el, indexes, value
             indexes[i] = box.index(el, indexes[i])
         }
         if (indexes[i] < 0) {
-            indexes[i] = NaN
+            indexes[i] = false
         }
     }
     if (box.is(indexes[0], "number") && box.is(indexes[1], "number")) {
@@ -818,7 +818,7 @@ zk().setContainer(arrayUpperBetweenPath + "array", function (el, indexes, lowerU
                 param[i] = box.index(el, param[i])
             }
             if (param[i] < 0) {
-                param[i] = NaN
+                param[i] = false
             }
         }
         if (box.is(param[0], "number") && box.is(param[1], "number")) {

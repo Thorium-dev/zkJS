@@ -1276,9 +1276,25 @@
         return Object.freeze(new nodeEnity($this));
     }
 
+    /**
+     * Permet de sélectionner les éléments du DOM
+     *
+     * @method $
+     * @param {string} selector Sélecteur css
+     * @return {*} Elle retourne l'objet Node
+     * @since 1.0
+     */
     $W.$ = function (selector) {
         return nodeLauncher(selector)
     };
+    /**
+     * Permet de sélectionner les entités
+     *
+     * @method zk
+     * @param {string} entity Le nom de l'entité sans tenir compte de la casse
+     * @return {*}
+     * @since 1.0
+     */
     $W.zk = function (entity) {
         if (entity === undefined) { return APP }
         return APP.get(entity);
