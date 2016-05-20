@@ -123,6 +123,19 @@ var methods = {
     "getAfter": function (value) {
         return nodeGetBeforeAfter(this, value, "After")
     },
+    "getBetween": function (indexes) {
+        var box = zk().toolbox(), $this = this, res = [];
+        if (!box.is(indexes, 'array')) { indexes = [indexes] }
+        if (indexes.length % 2) { indexes.push(el.length - 1) }
+
+        box.each(indexes, function () {
+            if(!box.is(this.v, "number")){
+                res.push($this.toolbox.index($this, this.v));
+            }
+        });
+        $this.set($this.toolbox.getBetween($this.get(), res));
+        return $this;
+    },
 
 
 };

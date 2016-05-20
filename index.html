@@ -32,11 +32,8 @@
 
     var zkObject = $("li");
 
-    console.log(zkObject.getAfter({
-        "id": /4$/
-    }).get());
+    console.log(zkObject.getBetween(["#item-2", "#item-5"]).get());
     
-    console.log(tab.getBetween([-1, 3]));
 
 
 
