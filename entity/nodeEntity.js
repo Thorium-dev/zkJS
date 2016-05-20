@@ -106,6 +106,8 @@ var methods = {
     "count": function (value) { return zk().toolbox().count(this, value) },
     "has": function (value) { return zk().toolbox().has(this, value) },
 
+    // ========================================= LES METHODES AVEC GET =============================================
+
     "getFirst": function (value) {
         return nodeGetFirstLast(this, value, "First")
     },
@@ -227,7 +229,6 @@ var parameters = {
         });
         return res;
     },
-
     // getLast
     "getLast.number": function ($this, size) {
         return $this.toolbox.getLast($this.get(), size);
@@ -259,7 +260,6 @@ var parameters = {
         });
         return res;
     },
-
     // getBefore
     "getBefore.number": function ($this, index) {
         return $this.toolbox.getBefore($this.get(), index);
@@ -286,17 +286,30 @@ var parameters = {
 
 };
 
+var nodeDoGetByParameters = {
+    "string": function ($this, selector) {
+        var indexes = $this.toolbox.indexes($this, selector);
+        return $this.toolbox.getAt($this.get(), indexes)
+    },
+    "object": function ($this, selector) {
+        var indexes = $this.toolbox.indexes($this, selector);
+        return $this.toolbox.getAt($this.get(), indexes)
+    },
 
+};
 zk().register(function Node($this) {
-    var nodes = $this.nodes || [];
+    var nodes = $this.nodes || [], self = this;
     this.parameters = $this.parameters;
     this.toolbox = $this.toolbox;
     this.entity = $this.entity;
 
-    this.get = function (opt) {
-        if (opt === undefined) {
-            return nodes
+    this.get = function (selector) {
+        if (selector === undefined) { return nodes }
+        var selType = self.toolbox.is(selector);
+        if(nodeDoGetByParameters.hasOwnProperty(selType)){
+            nodes = nodeDoGetByParameters[selType](self, selector);
         }
+        return self
     };
 
     this.set = function (value) {
