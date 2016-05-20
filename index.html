@@ -32,7 +32,9 @@
 
     var zkObject = $("li");
 
-    console.log(zkObject.set(document.querySelectorAll(".item")).get());
+    console.log(zkObject.removeFirst({
+        "text": "test3"
+    }).get());
     
 
 

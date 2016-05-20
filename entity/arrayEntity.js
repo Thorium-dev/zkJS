@@ -71,7 +71,7 @@ zk().setContainer(arrayGetFirstPath + "other", function () {
     return []
 });
 zk().setContainer(arrayGetFirstPath + "number", function (el, value) {
-    return el.slice(0, Math.abs(value))
+    return (value < 1) ? [] : el.slice(0, value);
 });
 zk().setContainer(arrayGetFirstPath + "string", function (el, value) {
     return zk().getContainer(arrayGetFirstPath + "regexp")(el, new RegExp(value));
@@ -98,7 +98,7 @@ zk().setContainer(arrayGetLastPath + "other", function () {
     return []
 });
 zk().setContainer(arrayGetLastPath + "number", function (el, value) {
-    return el.slice(-Math.abs(value))
+    return (value < 1) ? [] : el.slice(0, -value)
 });
 zk().setContainer(arrayGetLastPath + "string", function (el, value) {
     return zk().getContainer(arrayGetLastPath + "regexp")(el, new RegExp(value));
