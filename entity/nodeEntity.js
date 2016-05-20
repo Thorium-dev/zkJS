@@ -136,6 +136,10 @@ var methods = {
         $this.set($this.toolbox.getBetween($this.get(), res));
         return $this;
     },
+    "getAt": function (indexes) {
+        this.set(this.toolbox.getAt(this.get(), indexes));
+        return this;
+    },
 
 
 };
