@@ -98,7 +98,7 @@ zk().setContainer(arrayGetLastPath + "other", function () {
     return []
 });
 zk().setContainer(arrayGetLastPath + "number", function (el, value) {
-    return (value < 1) ? [] : el.slice(0, -value)
+    return (value < 1) ? [] : el.slice(-value)
 });
 zk().setContainer(arrayGetLastPath + "string", function (el, value) {
     return zk().getContainer(arrayGetLastPath + "regexp")(el, new RegExp(value));
