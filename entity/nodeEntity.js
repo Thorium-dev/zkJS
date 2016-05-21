@@ -432,19 +432,21 @@ var parameters = {
         return $this.parameters.removeBefore.string($this, node.get()[0])
     },
 
-
-
-
     // removeAfter
     "removeAfter.number": function ($this, index) {
-        return $this.toolbox.getAfter($this.get(), index);
+        return (index < 0 ) ? $this.get() :  $this.parameters.removeLast.number($this, ($this.get().length) - index - 1)
     },
     "removeAfter.string": function ($this, selector) {
-        var index = $this.toolbox.index($this, selector);
-        return $this.toolbox.getAfter($this.get(), index);
+        return $this.parameters.removeAfter.number($this, $this.toolbox.index($this, selector))
     },
     "removeAfter.object": function ($this, selector) {
-        return $this.parameters.getAfter.string($this, selector)
+        return $this.parameters.removeAfter.string($this, selector)
+    },
+    "removeAfter.nodeelement": function ($this, nodeelement) {
+        return $this.parameters.removeAfter.string($this, nodeelement)
+    },
+    "removeAfter.node": function ($this, node) {
+        return $this.parameters.removeAfter.string($this, node.get()[0])
     },
 
 
