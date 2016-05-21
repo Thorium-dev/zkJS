@@ -86,19 +86,25 @@ function nodeGetFirstLast(el, value, firstLast) {
     el.set(f ? f(el, value) : []);
     return el;
 }
-function nodeGetBeforeAfter(el, value, beforeAfter) {
-    if (value !== undefined) {
-        var f = el.parameters["remove" + beforeAfter][el.toolbox.is(value)];
-        el.set(f ? f(el, value) : []);
+function nodeGetBeforeAfter(el, index, beforeAfter) {
+    if (index !== undefined) {
+        var f = el.parameters["remove" + beforeAfter][el.toolbox.is(index)];
+        el.set(f ? f(el, index) : []);
     }
     return el;
 }
 function nodeRemoveFirstLast(el, value, firstLast) {
     if (value === undefined) { value = 1 }
     var f = el.parameters["remove" + firstLast][el.toolbox.is(value)];
-    el.set(f ? f(el, value) : []);
+    el.set(f ? f(el, value) : el.get());
     return el;
 }
+function nodeRemoveBeforeAfter(el, index, beforeAfter) {
+    var f = el.parameters["remove" + beforeAfter][el.toolbox.is(index)];
+    el.set(f ? f(el, index) : el.get());
+    return el;
+}
+
 var methods = {
 
         "each": function (callback, args) {
@@ -135,11 +141,11 @@ var methods = {
         "getLast": function (value) {
             return nodeGetFirstLast(this, value, "Last")
         },
-        "getBefore": function (value) {
-            return nodeGetBeforeAfter(this, value, "Before")
+        "getBefore": function (index) {
+            return nodeGetBeforeAfter(this, index, "Before")
         },
-        "getAfter": function (value) {
-            return nodeGetBeforeAfter(this, value, "After")
+        "getAfter": function (index) {
+            return nodeGetBeforeAfter(this, index, "After")
         },
         "getBetween": function (indexes) {
             var box = zk().toolbox(), $this = this, res = [];
@@ -178,12 +184,15 @@ var methods = {
         "removeLast": function (value) {
             return nodeRemoveFirstLast(this, value, "Last")
         },
-        "removeBefore": function (value) {
-            return nodeRemoveFirstLast(this, value, "Before")
+        "removeBefore": function (index) {
+            return nodeRemoveBeforeAfter(this, index, "Before")
         },
-        "removeAfter": function (value) {
-            return nodeRemoveFirstLast(this, value, "After")
+        "removeAfter": function (index) {
+            return nodeRemoveBeforeAfter(this, index, "After")
         },
+    
+    
+    
         "removeBetween": function (indexes) {
             var box = zk().toolbox(), $this = this, res = [];
             if (!box.is(indexes, 'array')) {
@@ -211,6 +220,9 @@ var methods = {
 var parameters = {
 
     // index
+    "index.other": function ($this, value) {
+        return $this.toolbox.index($this.get(), value)
+    },
     "index.string": function ($this, selector) {
         var index = -1;
         $this.toolbox.each($this.get(), function () {
@@ -234,8 +246,10 @@ var parameters = {
         });
         return index
     },
-
     // indexes
+    "indexes.other": function ($this, value) {
+        return $this.toolbox.index($this.get(), value)
+    },
     "indexes.string": function ($this, selector) {
         var indexes = [];
         $this.toolbox.each($this.get(), function () {
@@ -403,15 +417,24 @@ var parameters = {
 
     // removeBefore
     "removeBefore.number": function ($this, index) {
-        return $this.toolbox.getBefore($this.get(), index);
+        return $this.parameters.removeFirst.number($this, index)
     },
     "removeBefore.string": function ($this, selector) {
-        var index = $this.toolbox.index($this, selector);
-        return $this.toolbox.getBefore($this.get(), index);
+        return $this.parameters.removeFirst.number($this, $this.toolbox.index($this, selector))
     },
     "removeBefore.object": function ($this, selector) {
-        return $this.parameters.getBefore.string($this, selector)
+        return $this.parameters.removeBefore.string($this, selector)
     },
+    "removeBefore.nodeelement": function ($this, nodeelement) {
+        return $this.parameters.removeBefore.string($this, nodeelement)
+    },
+    "removeBefore.node": function ($this, node) {
+        return $this.parameters.removeBefore.string($this, node.get()[0])
+    },
+
+
+
+
     // removeAfter
     "removeAfter.number": function ($this, index) {
         return $this.toolbox.getAfter($this.get(), index);
