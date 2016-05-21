@@ -186,9 +186,9 @@ var methods = {
         "removeAfter": function (index) {
             return nodeRemoveBeforeAfter(this, index, "After")
         },
-    
+
         "removeBetween": function (indexes) {
-            var box = zk().toolbox(), $this = this, nodes = $this.get(), res = [];
+            var $this = this, box = this.toolbox, nodes = $this.get();
             if (!box.is(indexes, 'array')) { indexes = [indexes] }
             if (indexes.length % 2) { indexes.push(el.length - 1) }
             indexes = box.each(indexes, function () {
@@ -203,7 +203,11 @@ var methods = {
         },
 
         "removeAt": function (indexes) {
-            this.set(this.toolbox.getAt(this.get(), indexes));
+            var nodes = this.toolbox.getAt(this.get(), indexes);
+            this.toolbox.each(nodes, function () {
+                this.v.parentNode.removeChild(this.v)
+            });
+            this.set(this.toolbox.removeAt(this.get(), indexes));
             return this;
         },
 
