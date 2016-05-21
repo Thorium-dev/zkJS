@@ -348,17 +348,17 @@ var parameters = {
     // ===================================== LES METHODES AVEC REMOVE =========================================
 
     // removeFirst
-    "removeFirst.number": function ($this, size) {
-        var nodes = $this.toolbox.getFirst($this.get(), size);
+    "removeFirst.number": function ($this, size, isLast) {
+        var nodes = $this.toolbox["get" + (isLast||"First")]($this.get(), size);
         $this.toolbox.each(nodes, function () {
             this.v.parentNode.removeChild(this.v)
         });
-        return $this.toolbox.removeFirst($this.get(), size)
+        return $this.toolbox["remove" + (isLast||"First")]($this.get(), size)
     },
-    "removeFirst.string": function ($this, selector, stringObject) {
-        var nodes = $this.parameters.getFirst[stringObject || "string"]($this, selector),
+    "removeFirst.string": function ($this, selector, isObject, isLast) {
+        var nodes = $this.parameters["get" + (isLast||"First")][isObject || "string"]($this, selector),
             box = $this.toolbox,
-            index = box.index($this, selector);
+            index = box[isLast ? "lastIndex" : "index"]($this, selector);
         box.each(nodes, function () {
             this.v.parentNode.removeChild(this.v)
         });
@@ -367,54 +367,40 @@ var parameters = {
     "removeFirst.object": function ($this, selector) {
         return $this.parameters.removeFirst.string($this, selector, "object");
     },
-    "removeFirst.nodeelement": function ($this, nodeelement) {
-        var nodes= $this.get(), index = $this.toolbox.index($this, nodeelement);
+    "removeFirst.nodeelement": function ($this, nodeelement, isLast) {
+        var nodes = $this.get(), index = $this.toolbox[isLast ? "lastIndex" : "index"]($this, nodeelement);
         if(index+1){
             nodeelement.parentNode.removeChild(nodeelement);
             nodes = $this.toolbox.removeAt(nodes, index);
         }
         return nodes;
     },
-    "removeFirst.node": function ($this, node) {
-        var nodes = $this.get(), node = node.get()[0];
+    "removeFirst.node": function ($this, node, isLast) {
+        var nodes = $this.get(), node = node.get();
+        node = isLast ? node[node.length -1] : node[0];
         if(node){
-            nodes = $this.parameters.removeFirst.nodeelement($this, node)
+            nodes = $this.parameters.removeFirst.nodeelement($this, node, isLast)
         }
         return nodes
     },
 
-
     // removeLast
     "removeLast.number": function ($this, size) {
-        return $this.toolbox.getLast($this.get(), size);
+        return $this.parameters.removeFirst.number($this, size, "Last")
     },
     "removeLast.string": function ($this, selector) {
-        var nodes = $this.get(), res = [];
-        $this.toolbox.each(nodes, function () {
-            var node = nodes[this.z], parent = node.parentNode;
-            if (parent && selector) {
-                var children = parent.querySelectorAll(selector);
-                if (children) {
-                    children = $this.toolbox.toArray(children);
-                    if ($this.toolbox.has(children, node)) {
-                        res = [node];
-                        return $this.entity.get("Error");
-                    }
-                }
-            }
-        });
-        return res;
+        return $this.parameters.removeFirst.string($this, selector, "string", "Last")
     },
     "removeLast.object": function ($this, selector) {
-        var nodes = $this.get(), res = [];
-        $this.toolbox.each(nodes, function () {
-            if (isThisNode(nodes[this.z], selector)) {
-                res = [nodes[this.z]];
-                return $this.entity.get("Error");
-            }
-        });
-        return res;
+        return $this.parameters.removeFirst.string($this, selector, "object", "Last")
     },
+    "removeLast.nodeelement": function ($this, nodeelement) {
+        return $this.parameters.removeFirst.nodeelement($this, nodeelement, "Last")
+    },
+    "removeLast.node": function ($this, node) {
+        return $this.parameters.removeFirst.node($this, node, "Last")
+    },
+
     // removeBefore
     "removeBefore.number": function ($this, index) {
         return $this.toolbox.getBefore($this.get(), index);
