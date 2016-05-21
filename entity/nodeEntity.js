@@ -149,12 +149,8 @@ var methods = {
         },
         "getBetween": function (indexes) {
             var box = zk().toolbox(), $this = this, res = [];
-            if (!box.is(indexes, 'array')) {
-                indexes = [indexes]
-            }
-            if (indexes.length % 2) {
-                indexes.push(el.length - 1)
-            }
+            if (!box.is(indexes, 'array')) { indexes = [indexes] }
+            if (indexes.length % 2) { indexes.push(el.length - 1) }
 
             box.each(indexes, function () {
                 if (!box.is(this.v, "number")) {
@@ -191,25 +187,21 @@ var methods = {
             return nodeRemoveBeforeAfter(this, index, "After")
         },
     
-    
-    
         "removeBetween": function (indexes) {
-            var box = zk().toolbox(), $this = this, res = [];
-            if (!box.is(indexes, 'array')) {
-                indexes = [indexes]
-            }
-            if (indexes.length % 2) {
-                indexes.push(el.length - 1)
-            }
-
-            box.each(indexes, function () {
+            var box = zk().toolbox(), $this = this, nodes = $this.get(), res = [];
+            if (!box.is(indexes, 'array')) { indexes = [indexes] }
+            if (indexes.length % 2) { indexes.push(el.length - 1) }
+            indexes = box.each(indexes, function () {
                 if (!box.is(this.v, "number")) {
-                    res.push($this.toolbox.index($this, this.v));
+                    return $this.toolbox.index($this, this.v)
                 }
             });
-            $this.set($this.toolbox.getBetween($this.get(), res));
+            nodes = $this.toolbox.getBetween(nodes, indexes);
+            box.each(nodes, function () { this.v.parentNode.removeChild(this.v) });
+            $this.set($this.toolbox.removeBetween($this.get(), indexes));
             return $this;
         },
+
         "removeAt": function (indexes) {
             this.set(this.toolbox.getAt(this.get(), indexes));
             return this;
@@ -220,9 +212,7 @@ var methods = {
 var parameters = {
 
     // index
-    "index.other": function ($this, value) {
-        return $this.toolbox.index($this.get(), value)
-    },
+    "index.other": function () { return -1 },
     "index.string": function ($this, selector) {
         var index = -1;
         $this.toolbox.each($this.get(), function () {
