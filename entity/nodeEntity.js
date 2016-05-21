@@ -1,7 +1,7 @@
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
 // @TODO : $({attr-id: "nom", attr-class: "rouge", text: /^a.b$/, content: /^a.b$/, name: "div", at: 3 })
 // @TODO : Faire la fonction repeat
-// @TODO : var zkObject = $("body").getFirst({"id": /10$/ }).get()  => Error
+// @TODO : Stocker l'objet methods dans le conrainer
 
 var doIsThisNodeByObject = {
     "name": function (node, value) {
@@ -169,11 +169,11 @@ var methods = {
             return nodeRemoveFirstLast(this, value, "First")
         },
         "removeMiddle": function () {
-            var nodes = $this.toolbox.getMiddle(this.get());
+            var nodes = this.toolbox.getMiddle(this.get());
             this.toolbox.each(nodes, function () {
                 this.v.parentNode.removeChild(this.v)
             });
-            return this.toolbox.removeMiddle($this.get())
+            return this.toolbox.removeMiddle(this.get())
         },
         "removeLast": function (value) {
             return nodeRemoveFirstLast(this, value, "Last")
@@ -366,6 +366,21 @@ var parameters = {
     },
     "removeFirst.object": function ($this, selector) {
         return $this.parameters.removeFirst.string($this, selector, "object");
+    },
+    "removeFirst.nodeelement": function ($this, nodeelement) {
+        var nodes= $this.get(), index = $this.toolbox.index($this, nodeelement);
+        if(index+1){
+            nodeelement.parentNode.removeChild(nodeelement);
+            nodes = $this.toolbox.removeAt(nodes, index);
+        }
+        return nodes;
+    },
+    "removeFirst.node": function ($this, node) {
+        var nodes = $this.get(), node = node.get()[0];
+        if(node){
+            nodes = $this.parameters.removeFirst.nodeelement($this, node)
+        }
+        return nodes
     },
 
 
