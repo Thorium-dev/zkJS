@@ -203,23 +203,15 @@
                 el.set(nodes);
                 return el;
             },
-
-
-
-            // this.node = le noeud     this.name = Nom du noeud (p,body...)
-            nodeelement: function (el, f, args, strIndex) {
-                el = doEachByObj.array(toArray(el.childNodes), f, args, strIndex, ZKID);
-                return $GET("NODE").$(el)
+            nodeelement: function (el, f, args) {
+                return doEachByObj.string(self.toArray(el.childNodes), f, args);
             },
-            // this.node = le noeud     this.name = Nom du noeud (p,body...)
-            nodelist: function (el, f, args, strIndex) {
-                el = doEachByObj.array(toArray(el), f, args, strIndex);
-                return $GET("NODE").$(el)
+            nodelist: function (el, f, args) {
+                return doEachByObj.string(self.toArray(el), f, args);
             },
-            // this.node = le noeud     this.name = Nom du noeud (p,body...)
-            htmlcollection: function (el, f, args, strIndex) {
-                return doEachByObj.nodelist(el, f, args, strIndex)
-            }
+            htmlcollection: function (el, f, args) {
+                return doEachByObj.nodelist(el, f, args);
+            },
         };
         /**
          * Permet de parcourir des objets.

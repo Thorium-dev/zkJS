@@ -16,6 +16,8 @@
 </ul>
 
 <a href="out/index.html">Doc</a>
+<span>Coucou</span>
+<p></p>
 
 <script src="core/zk.js"></script>
 <script src="entity/stringEntity.js"></script>
@@ -30,10 +32,10 @@
 
     var tab = ["zero", "un", "deux", 3];
 
-    var zkObject = $("li");
+    var zkObject = $("p");
 
 
-    console.log(zkObject.remove($("#item-3, #item-5")).get());
+    console.log(zkObject.addFirst({"nam": "img"}).get());
 
 
 

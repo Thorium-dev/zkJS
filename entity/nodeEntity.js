@@ -73,8 +73,66 @@ function isThisNode(node, selector) {
             }
         }
     }
-
     return isOk;
+}
+
+var doCreateElementByObject = {
+    "name": function (node, value) {
+        var name = (node.nodeName.toLowerCase()).split(" ");
+        return zk().toolbox().has(name, value);
+    },
+    "class": function (node, value, attr) {
+        attr = node.getAttribute(attr || "class");
+        return attr ? zk().toolbox().has(attr.split(" "), value) : false;
+    },
+    "id": function (node, value) {
+        return this.class(node, value, "id")
+    },
+    "text": function (node, value) {
+        var text = node.textContent;
+        return zk().toolbox().has(text, value) || false;
+    },
+};
+function createElementByObject($this, object) {
+    var node = null, box = $this.toolbox;
+    if(box.is(object.name, "string")){
+        node = document.createElement(object.name);
+        delete object.name;
+        box.each(object, function () {
+            var k = this.k;
+            if (/^attr\-/.test(k)) {
+                node.setAttribute(k, this.v);
+            } else {
+                if (doCreateElementByObject.hasOwnProperty(k)) {
+                    
+                }
+            }
+        })
+    }
+
+    console.log(node);
+    return node
+}
+
+/**
+ * Cette fonction permet d'insérer un élément après un autre
+ * @param  {[node]} nouvEl  [Elément à ajouter]
+ * @param  {[node]} afterEl [Elément après lequel l'insertion doit se faire]
+ * @return {[node]}         [Elément mis à jour]
+ */
+function insertNodeAfter(nouvEl, afterEl) {
+    var parent = afterEl.parentNode, next = afterEl.nextElementSibling;
+    if (next) {
+        parent.insertBefore(nouvEl, next)
+    } else {
+        parent.appendChild(nouvEl)
+    }
+    return parent;
+}
+function insertNodeBefore(nouvEl, beforeEl) {
+    var parent = beforeEl.parentNode;
+    parent.insertBefore(nouvEl, beforeEl);
+    return parent
 }
 
 
@@ -103,6 +161,12 @@ function nodeRemoveBeforeAfter(el, index, beforeAfter) {
     var f = el.parameters["remove" + beforeAfter][el.toolbox.is(index)];
     el.set(f ? f(el, index) : el.get());
     return el;
+}
+
+function launchNodeFunction($this, value, func){
+    var f = $this.parameters[func][$this.toolbox.is(value)];
+    $this.set(f ? f($this, value) : $this.get());
+    return $this;
 }
 
 var methods = {
@@ -212,6 +276,33 @@ var methods = {
             var f = this.parameters.remove[this.toolbox.is(value)];
             this.set(f ? f(this, value) : this.get());
             return this;
+        },
+
+        // ===================================== LES METHODES AVEC ADD =========================================
+
+        "addFirst": function (value) {
+            return launchNodeFunction(this, value, "addFirst");
+        },
+        "addMiddle": function () {
+
+        },
+        "addLast": function (value) {
+
+        },
+        "addBefore": function (index) {
+
+        },
+        "addAfter": function (index) {
+
+        },
+        "addBetween": function (indexes) {
+
+        },
+        "addAt": function (indexes) {
+
+        },
+        "add": function (value) {
+
         },
 
  };
@@ -471,6 +562,45 @@ var parameters = {
             nodes[this.v].parentNode.removeChild(nodes[this.v])
         });
         return $this.toolbox.removeAt(nodes, indexes)
+    },
+
+    // ===================================== LES METHODES AVEC ADD =========================================
+
+    // addFirst
+    "addFirst.string": function ($this, selector) {
+        var box = $this.toolbox, values = document.querySelectorAll(selector);
+        if(values){
+            values = box.reverse(box.toArray(values));
+            box.each(values, function () {
+                $this.parameters.addFirst.nodeelement($this, this.v);
+            })
+        }
+        return $this.get();
+    },
+    "addFirst.object": function ($this, selector) {
+        createElementByObject($this, selector);
+    },
+    "addFirst.nodeelement": function ($this, nodeelement) {
+        var nodes = $this.get();
+        $this.toolbox.each(nodes, function () {
+            var cloneNode = nodeelement.cloneNode(true);
+            if(this.v.hasChildNodes()){
+                insertNodeBefore(cloneNode, this.v.childNodes[0])
+            }else{
+                this.v.appendChild(cloneNode)
+            }
+        });
+        return nodes;
+    },
+    "addFirst.node": function ($this, node) {
+        var box = $this.toolbox, nodes = node.get();
+        if(nodes){
+            nodes = box.reverse(nodes);
+            box.each(nodes, function () {
+                $this.parameters.addFirst.nodeelement($this, this.v);
+            })
+        }
+        return $this.get();
     },
 
 };
