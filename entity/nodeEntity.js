@@ -77,40 +77,38 @@ function isThisNode(node, selector) {
 }
 
 var doCreateElementByObject = {
-    "name": function (node, value) {
-        var name = (node.nodeName.toLowerCase()).split(" ");
-        return zk().toolbox().has(name, value);
+    "class": function ($this, node, selector) {
+        return node.setAttribute("class", selector["class"]);
     },
-    "class": function (node, value, attr) {
-        attr = node.getAttribute(attr || "class");
-        return attr ? zk().toolbox().has(attr.split(" "), value) : false;
+    "id": function ($this, node, selector) {
+        return node.setAttribute("id", selector.id);
     },
-    "id": function (node, value) {
-        return this.class(node, value, "id")
+    "text": function ($this, node, selector) {
+        node.textContent = selector.text;
+        return node;
     },
-    "text": function (node, value) {
-        var text = node.textContent;
-        return zk().toolbox().has(text, value) || false;
+    "html": function ($this, node, selector) {
+        node.innerHTML = selector.html;
+        return node;
     },
 };
-function createElementByObject($this, object) {
-    var node = null, box = $this.toolbox;
-    if(box.is(object.name, "string")){
-        node = document.createElement(object.name);
-        delete object.name;
-        box.each(object, function () {
+function createElementByObject($this, selector) {
+    var node = null, box = $this.toolbox, name = selector.name;
+    if(box.is(name, "string")){ name = document.createElement(name) }
+    if(box.is(name, "nodeelement")){
+        node = name;
+        delete selector.name;
+        box.each(selector, function () {
             var k = this.k;
             if (/^attr\-/.test(k)) {
-                node.setAttribute(k, this.v);
+                node.setAttribute(k.slice(5), this.v);
             } else {
                 if (doCreateElementByObject.hasOwnProperty(k)) {
-                    
+                    node = doCreateElementByObject[k]($this, node, selector);
                 }
             }
         })
     }
-
-    console.log(node);
     return node
 }
 
@@ -137,9 +135,7 @@ function insertNodeBefore(nouvEl, beforeEl) {
 
 
 function nodeGetFirstLast(el, value, firstLast) {
-    if (value === undefined) {
-        value = 1
-    }
+    if (value === undefined) { value = 1 }
     var f = el.parameters["get" + firstLast][el.toolbox.is(value)];
     el.set(f ? f(el, value) : []);
     return el;
@@ -578,7 +574,8 @@ var parameters = {
         return $this.get();
     },
     "addFirst.object": function ($this, selector) {
-        createElementByObject($this, selector);
+        selector = createElementByObject($this, selector);
+        return selector ? $this.parameters.addFirst.nodeelement($this, selector) : $this.get();
     },
     "addFirst.nodeelement": function ($this, nodeelement) {
         var nodes = $this.get();
