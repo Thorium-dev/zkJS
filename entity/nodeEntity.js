@@ -268,9 +268,7 @@ var methods = {
             return this;
         },
         "remove": function (value) {
-            var f = this.parameters.remove[this.toolbox.is(value)];
-            this.set(f ? f(this, value) : this.get());
-            return this;
+            return launchNodeFunction(this, value, "remove");
         },
 
         // ===================================== LES METHODES AVEC ADD =========================================
