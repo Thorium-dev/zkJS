@@ -167,7 +167,7 @@ function launchNodeFunction($this, value, func){
 var methods = {
 
         "each": function (callback, args) {
-            return zk().toolbox().each(this, callback, args)
+            return this.toolbox.each(this, callback, args)
         },
         "index": function (value) {
             var f = this.parameters.index[this.toolbox.is(value)];
@@ -178,13 +178,13 @@ var methods = {
             return f ? f(this, value) : [];
         },
         "lastIndex": function (value) {
-            return zk().toolbox().lastIndex(this, value)
+            return this.toolbox.lastIndex(this, value)
         },
         "count": function (value) {
-            return zk().toolbox().count(this, value)
+            return this.toolbox.count(this, value)
         },
         "has": function (value) {
-            return zk().toolbox().has(this, value)
+            return this.toolbox.has(this, value)
         },
 
         // ===================================== LES METHODES AVEC GET =========================================
@@ -207,7 +207,7 @@ var methods = {
             return nodeGetBeforeAfter(this, index, "After")
         },
         "getBetween": function (indexes) {
-            var box = zk().toolbox(), $this = this, res = [];
+            var box = this.toolbox, $this = this, res = [];
             if (!box.is(indexes, 'array')) { indexes = [indexes] }
             if (indexes.length % 2) { indexes.push(el.length - 1) }
 
