@@ -3,42 +3,41 @@
 // @TODO : Faire la fonction repeat
 // @TODO : Stocker l'objet methods dans le conrainer
 
-var doIsThisNodeByObject = {
-    "name": function (node, value) {
+var doIsThisNodeByKey = {
+    "name": function ($this, node, value) {
         var name = (node.nodeName.toLowerCase()).split(" ");
-        return zk().toolbox().has(name, value);
+        return $this.toolbox.has(name, value);
     },
-    "class": function (node, value, attr) {
+    "class": function ($this, node, value, attr) {
         attr = node.getAttribute(attr || "class");
-        return attr ? zk().toolbox().has(attr.split(" "), value) : false;
+        return attr ? $this.toolbox.has(attr.split(" "), value) : false;
     },
-    "id": function (node, value) {
+    "id": function ($this, node, value) {
         return this.class(node, value, "id")
     },
-    "text": function (node, value) {
+    "text": function ($this, node, value) {
         var text = node.textContent;
-        return zk().toolbox().has(text, value) || false;
+        return $this.toolbox.has(text, value) || false;
     },
 };
 /**
  * Permet de savoir si l'élément node correspond aux caractéristiques selector
  *
+ * @param {node} $this
  * @param {nodeelement} node
  * @param {string|object} selector
  * @return {boolean}
  * @since 1.0
  */
-function isThisNode(node, selector) {
-    var isOk = false, box = zk().toolbox();
+function isThisNode($this, node, selector) {
+    var isOk = false, box = $this.toolbox();
     if (box.is(selector, "string")) {
         var parent = node.parentNode;
         if (!parent) {
             return false
         }
         var children = parent.querySelectorAll(selector);
-        if (!children) {
-            return false
-        }
+        if (!children) { return false }
         children = box.toArray(children);
         return box.has(children, node)
     } else {
@@ -58,8 +57,8 @@ function isThisNode(node, selector) {
                         return false
                     }
                 } else {
-                    if (doIsThisNodeByObject.hasOwnProperty(k)) {
-                        if (doIsThisNodeByObject[k](node, v)) {
+                    if (doIsThisNodeByKey.hasOwnProperty(k)) {
+                        if (doIsThisNodeByKey[k]($this, node, v)) {
                             isOk = true
                         } else {
                             return false
@@ -310,7 +309,7 @@ var parameters = {
     "index.string": function ($this, selector) {
         var index = -1;
         $this.toolbox.each($this.get(), function () {
-            if (isThisNode(this.v, selector)) {
+            if (isThisNode($this, this.v, selector)) {
                 index = this.i;
                 return $this.entity.get("Error")
             }
@@ -335,7 +334,7 @@ var parameters = {
     "indexes.string": function ($this, selector) {
         var indexes = [];
         $this.toolbox.each($this.get(), function () {
-            if (isThisNode(this.v, selector)) {
+            if (isThisNode($this, this.v, selector)) {
                 indexes.push(this.i)
             }
         });
@@ -380,7 +379,7 @@ var parameters = {
     "getFirst.object": function ($this, selector) {
         var nodes = $this.get(), res = [];
         $this.toolbox.each(nodes, function () {
-            if (isThisNode(this.v, selector)) {
+            if (isThisNode($this, this.v, selector)) {
                 res = [this.v];
                 return $this.entity.get("Error");
             }
@@ -411,7 +410,7 @@ var parameters = {
     "getLast.object": function ($this, selector) {
         var nodes = $this.get(), res = [];
         $this.toolbox.each(nodes, function () {
-            if (isThisNode(nodes[this.z], selector)) {
+            if (isThisNode($this, nodes[this.z], selector)) {
                 res = [nodes[this.z]];
                 return $this.entity.get("Error");
             }
@@ -623,7 +622,7 @@ var nodeDoSetByParameters = {
         if (nodes) {
             nodes = $this.toolbox.toArray(nodes);
             $this.toolbox.each(nodes, function () {
-                if (isThisNode(this.v, value)) {
+                if (isThisNode($this, this.v, value)) {
                     res.push(this.v)
                 }
             });
@@ -656,9 +655,7 @@ zk().register(function Node($this) {
     this.toolbox = $this.toolbox;
     this.entity = $this.entity;
     this.get = function (selector) {
-        if (selector === undefined) {
-            return nodes
-        }
+        if (selector === undefined) { return nodes }
         var selType = self.toolbox.is(selector);
         if (nodeDoGetByParameters.hasOwnProperty(selType)) {
             nodes = nodeDoGetByParameters[selType](self, selector);
