@@ -2,6 +2,7 @@
 // @TODO : $({attr-id: "nom", attr-class: "rouge", text: /^a.b$/, content: /^a.b$/, name: "div", at: 3 })
 // @TODO : Faire la fonction repeat
 // @TODO : Stocker l'objet methods dans le conrainer
+// @TODO : Faire la fonction sortBy
 
 var doIsThisNodeByKey = {
     "name": function ($this, node, value) {
@@ -280,7 +281,7 @@ var methods = {
             return launchNodeFunction(this, value, "addMiddle");
         },
         "addLast": function (value) {
-
+            return launchNodeFunction(this, value, "addLast");
         },
         "addBefore": function (index) {
 
@@ -560,8 +561,8 @@ var parameters = {
     // ===================================== LES METHODES AVEC ADD =========================================
 
     // addFirst
-    "addFirst.string": function ($this, selector) {
-        var box = $this.toolbox, values = document.querySelectorAll(selector);
+    "addFirst.string": function ($this, value) {
+        var box = $this.toolbox, values = document.querySelectorAll(value);
         if(values){
             values = box.reverse(box.toArray(values));
             box.each(values, function () {
@@ -570,9 +571,9 @@ var parameters = {
         }
         return $this.get();
     },
-    "addFirst.object": function ($this, selector) {
-        selector = createElementByObject($this, selector);
-        return selector ? $this.parameters.addFirst.nodeelement($this, selector) : $this.get();
+    "addFirst.object": function ($this, value) {
+        value = createElementByObject($this, value);
+        return value ? $this.parameters.addFirst.nodeelement($this, value) : $this.get();
     },
     "addFirst.nodeelement": function ($this, nodeelement) {
         var nodes = $this.get();
@@ -598,8 +599,8 @@ var parameters = {
     },
 
     // addFirst
-    "addMiddle.string": function ($this, selector) {
-        var box = $this.toolbox, values = document.querySelectorAll(selector);
+    "addMiddle.string": function ($this, value) {
+        var box = $this.toolbox, values = document.querySelectorAll(value);
         if(values){
             values = box.reverse(box.toArray(values));
             box.each(values, function () {
@@ -608,9 +609,9 @@ var parameters = {
         }
         return $this.get();
     },
-    "addMiddle.object": function ($this, selector) {
-        selector = createElementByObject($this, selector);
-        return selector ? $this.parameters.addMiddle.nodeelement($this, selector) : $this.get();
+    "addMiddle.object": function ($this, value) {
+        value = createElementByObject($this, value);
+        return value ? $this.parameters.addMiddle.nodeelement($this, value) : $this.get();
     },
     "addMiddle.nodeelement": function ($this, nodeelement) {
         var nodes = $this.get(), box = $this.toolbox;
@@ -630,6 +631,38 @@ var parameters = {
         box.each(values, function () {
             $this.parameters.addMiddle.nodeelement($this, this.v);
         });
+        return $this.get();
+    },
+
+    // addLast
+    "addLast.string": function ($this, value) {
+        var box = $this.toolbox, values = document.querySelectorAll(value);
+        if(values){
+            values = box.toArray(values);
+            box.each(values, function () {
+                $this.parameters.addLast.nodeelement($this, this.v);
+            })
+        }
+        return $this.get();
+    },
+    "addLast.object": function ($this, value) {
+        value = createElementByObject($this, value);
+        return value ? $this.parameters.addLast.nodeelement($this, value) : $this.get();
+    },
+    "addLast.nodeelement": function ($this, nodeelement) {
+        var nodes = $this.get();
+        $this.toolbox.each(nodes, function () {
+            this.v.appendChild(nodeelement.cloneNode(true));
+        });
+        return nodes;
+    },
+    "addLast.node": function ($this, node) {
+        var nodes = node.get();
+        if(nodes){
+            $this.toolbox.each(nodes, function () {
+                $this.parameters.addLast.nodeelement($this, this.v);
+            })
+        }
         return $this.get();
     },
 
