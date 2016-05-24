@@ -13,7 +13,7 @@ var doIsThisNodeByKey = {
         return attr ? $this.toolbox.has(attr.split(" "), value) : false;
     },
     "id": function ($this, node, value) {
-        return this.class(node, value, "id")
+        return this.class($this, node, value, "id")
     },
     "text": function ($this, node, value) {
         var text = node.textContent;
@@ -30,7 +30,7 @@ var doIsThisNodeByKey = {
  * @since 1.0
  */
 function isThisNode($this, node, selector) {
-    var isOk = false, box = $this.toolbox();
+    var isOk = false, box = $this.toolbox;
     if (box.is(selector, "string")) {
         var parent = node.parentNode;
         if (!parent) {
@@ -276,8 +276,8 @@ var methods = {
         "addFirst": function (value) {
             return launchNodeFunction(this, value, "addFirst");
         },
-        "addMiddle": function () {
-
+        "addMiddle": function (value) {
+            return launchNodeFunction(this, value, "addMiddle");
         },
         "addLast": function (value) {
 
@@ -594,6 +594,42 @@ var parameters = {
                 $this.parameters.addFirst.nodeelement($this, this.v);
             })
         }
+        return $this.get();
+    },
+
+    // addFirst
+    "addMiddle.string": function ($this, selector) {
+        var box = $this.toolbox, values = document.querySelectorAll(selector);
+        if(values){
+            values = box.reverse(box.toArray(values));
+            box.each(values, function () {
+                $this.parameters.addMiddle.nodeelement($this, this.v);
+            })
+        }
+        return $this.get();
+    },
+    "addMiddle.object": function ($this, selector) {
+        selector = createElementByObject($this, selector);
+        return selector ? $this.parameters.addMiddle.nodeelement($this, selector) : $this.get();
+    },
+    "addMiddle.nodeelement": function ($this, nodeelement) {
+        var nodes = $this.get(), box = $this.toolbox;
+        $this.toolbox.each(nodes, function () {
+            var cloneNode = nodeelement.cloneNode(true);
+            if(this.v.hasChildNodes()){
+                var middleNode = box.getMiddle(box.toArray(this.v.childNodes));
+                middleNode = middleNode[middleNode.length - 1];
+                insertNodeBefore(cloneNode, middleNode)
+            }
+        });
+        return nodes;
+    },
+    "addMiddle.node": function ($this, node) {
+        var box = $this.toolbox, values = node.get();
+        values = box.reverse(box.toArray(values));
+        box.each(values, function () {
+            $this.parameters.addMiddle.nodeelement($this, this.v);
+        });
         return $this.get();
     },
 

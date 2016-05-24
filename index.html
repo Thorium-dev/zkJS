@@ -17,7 +17,7 @@
 
 <a href="out/index.html">Doc</a>
 <span>Coucou</span>
-<p></p>
+<p>Paragraphe</p>
 
 <script src="core/zk.js"></script>
 <script src="entity/stringEntity.js"></script>
@@ -32,12 +32,12 @@
 
     var tab = ["zero", "un", "deux", 3];
 
-    var zkObject = $("body");
+    var zkObject = $("ul");
 
 
-    console.log(zkObject.addFirst({"name": "div", "attr-id": "123", "text": "coucou zkJS"}).get());
+//    console.log(zkObject.addMiddle($("")).get());
 
-
+console.log($("li").count({"id": /[2-4]$/}));
 
 
 
