@@ -535,6 +535,12 @@ var parameters = {
     },
 
     // remove
+    "remove.undefined": function ($this) {
+        $this.toolbox.each($this.get(), function () {
+           this.v.parentNode.removeChild(this.v)
+        });
+        return [];
+    },
     "remove.number": function ($this, index) {
         return $this.parameters["remove" + ((index < 0) ? "Last" : "First")].number($this, Math.abs(index));
     },

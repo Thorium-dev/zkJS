@@ -457,7 +457,6 @@
             var f = zk().getContainer(path + self.is(value));
             return f ? f(el, value) : zk().getContainer(path + "other")();
         }
-
         /**
          * Permet d'obtenir les premiers éléments d'un objet.
          *
@@ -572,7 +571,6 @@
             var f = zk().getContainer(path + self.is(param));
             return f ? f(el, param) : zk().getContainer(path + "other")(el, param);
         }
-
         /**
          * Permet de supprimer les premiers éléments.
          *
@@ -675,10 +673,7 @@
          * @since 1.0
          */
         this.remove = function (el, value) {
-            //@TODO : A revoir
-            if (value === undefined) {
-                return el
-            }
+            if (value === undefined) { return el }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".remove.";
             var f = zk().getContainer(path + self.is(value));
             return f ? f(el, value) : zk().getContainer(path + "other")(el, value);
