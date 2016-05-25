@@ -845,7 +845,6 @@
             var path = basePath + "change" + beforeAfter + ".other";
             return zk().getContainer(path)(el, index, value);
         }
-
         /**
          * Permet de changer les éléments qui se situent avant index.
          *

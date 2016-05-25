@@ -289,8 +289,10 @@ var methods = {
             this.set(f ? f(this, index, value) : this.get());
             return this;
         },
-        "addAfter": function (index) {
-
+        "addAfter": function (index, value) {
+            var f = this.parameters.addAfter[this.toolbox.is(value)];
+            this.set(f ? f(this, index, value) : this.get());
+            return this;
         },
         "addAt": function (indexes, value) {
             var f = this.parameters.addAt[this.toolbox.is(value)];
@@ -346,6 +348,9 @@ var parameters = {
     },
     "indexes.object": function ($this, selector) {
         return $this.parameters.indexes.string($this, selector);
+    },
+    "indexes.node": function ($this, node) {
+        return $this.parameters.indexes.nodeelement($this, node.get()[0]);
     },
     "indexes.nodeelement": function ($this, nodeelement) {
         var indexes = [];
@@ -756,6 +761,45 @@ var parameters = {
         if(value.length){
             $this.toolbox.each(value, function () {
                 $this.parameters.addBefore.nodeelement($this, index, this.v);
+            });
+        }
+        return $this.get();
+    },
+
+    // addAfter
+    "addAfter.string": function ($this, index, value) {
+        var box = $this.toolbox;
+        value = document.querySelectorAll(value);
+        if(value.length){
+            value = box.reverse(box.toArray(value));
+            box.each(value, function () {
+                $this.parameters.addAfter.nodeelement($this, index, this.v);
+            });
+        }
+        return $this.get();
+    },
+    "addAfter.object": function ($this, index, value) {
+        value = createElementByObject($this, value);
+        return value ? $this.parameters.addAfter.nodeelement($this, index, value) : $this.get();
+    },
+    "addAfter.nodeelement": function ($this, index, value) {
+        var nodes = $this.get(), box = $this.toolbox;
+        box.each(nodes, function () {
+            var node = $this.entity.get("node").set(this.v.children);
+            var i = box.lastIndex(node, index);
+            if(i > -1){
+                insertNodeAfter(value, node.get()[i])
+            }
+        });
+        return nodes;
+    },
+    "addAfter.node": function ($this, index, value) {
+        var box = $this.toolbox;
+        value = value.get();
+        if(value.length){
+            value = box.reverse(value);
+            box.each(value, function () {
+                $this.parameters.addAfter.nodeelement($this, index, this.v);
             });
         }
         return $this.get();
