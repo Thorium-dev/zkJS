@@ -3,6 +3,7 @@
 // @TODO : Faire la fonction repeat
 // @TODO : Stocker l'objet methods dans le conrainer
 // @TODO : Faire la fonction sortBy
+// @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
 
 var doIsThisNodeByKey = {
     "name": function ($this, node, value) {
@@ -289,11 +290,10 @@ var methods = {
         "addAfter": function (index) {
 
         },
-        "addBetween": function (indexes) {
-
-        },
-        "addAt": function (indexes) {
-
+        "addAt": function (indexes, value) {
+            var f = this.parameters.addAt[this.toolbox.is(value)];
+            this.set(f ? f(this, indexes, value) : this.get());
+            return this;
         },
         "add": function (value) {
 
@@ -665,6 +665,56 @@ var parameters = {
         }
         return $this.get();
     },
+
+    // addAt
+    "addAt.string": function ($this, indexes, value) {
+        var box = $this.toolbox, values = document.querySelectorAll(value);
+        if(!box.is(indexes, "array")){ indexes = [indexes] }
+        indexes = box.nSortD(indexes);
+        if(values){
+            values = box.reverse(box.toArray(values));
+            box.each(indexes, function () {
+                var v = this.v;
+                box.each(values, function () {
+                    $this.parameters.addAt.nodeelement($this, v, this.v);
+                });
+            });
+        }
+        return $this.get();
+    },
+    "addAt.object": function ($this, indexes, value) {
+        value = createElementByObject($this, value);
+        return value ? $this.parameters.addAt.nodeelement($this, indexes, value) : $this.get();
+    },
+    "addAt.nodeelement": function ($this, indexes, value) {
+        var nodes = $this.get(), box = $this.toolbox;
+        if(!box.is(indexes, "array")){ indexes = [indexes] }
+        box.each(nodes, function () {
+            var v = this.v, children = box.toArray(v.children);
+            if(children.length){
+                var nodesAt = box.getAt(children, indexes);
+                box.each(nodesAt, function () {
+                    insertNodeBefore(value.cloneNode(true), this.v)
+                })
+            }else{
+                v.appendChild(value.cloneNode(true));
+            }
+        });
+        return nodes;
+    },
+    "addAt.node": function ($this, indexes, value) {
+        var box = $this.toolbox, values = box.reverse(value.get());
+        if(!box.is(indexes, "array")){ indexes = [indexes] }
+        indexes = box.nSortD(indexes);
+        box.each(indexes, function () {
+            var v = this.v;
+            box.each(values, function () {
+                $this.parameters.addAt.nodeelement($this, v, this.v);
+            });
+        });
+        return $this.get();
+    },
+
 
 };
 

@@ -15,6 +15,7 @@
     <li class="item" id="item-6">test6</li>
 </ul>
 
+
 <a href="out/index.html">Doc</a>
 <span>Coucou</span>
 <p>Paragraphe</p>
@@ -37,7 +38,7 @@
 
 //    console.log(zkObject.addMiddle($("")).get());
 
-console.log($("ul").addLast("a, span").get());
+console.log($("ul").addAt([1, 4], $("span, a")).get());
 
 
 
