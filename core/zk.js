@@ -1253,19 +1253,14 @@
     });
 
     function nodeLauncher(selector) {
-        var box = APP.toolbox(), selectorType = box.is(selector);
-        if (selectorType == "string") { selector = document.querySelectorAll(selector) }
-        var func = APP.getContainer("_ENTITY_._CONVERTOR_." + box.is(selector));
-        if (func) { selector = func(selector) } else { selector = [] }
         var $this = {
-            "nodes": selector,
             "parameters": APP.getContainer("_ENTITY_._PARAMETERS_.node"),
             "toolbox": APP._TOOLBOX_,
             "entity": APP._ENTITY_,
             "container": APP._CONTAINER_,
         };
         var nodeEnity = APP.getContainer("_ENTITY_.node");
-        return Object.freeze(new nodeEnity($this));
+        return Object.freeze(new nodeEnity($this)).set(selector);
     }
 
     /**
