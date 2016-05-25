@@ -284,8 +284,10 @@ var methods = {
         "addLast": function (value) {
             return launchNodeFunction(this, value, "addLast");
         },
-        "addBefore": function (index) {
-
+        "addBefore": function (index, value) {
+            var f = this.parameters.addBefore[this.toolbox.is(value)];
+            this.set(f ? f(this, index, value) : this.get());
+            return this;
         },
         "addAfter": function (index) {
 
@@ -317,6 +319,9 @@ var parameters = {
     },
     "index.object": function ($this, selector) {
         return $this.parameters.index.string($this, selector);
+    },
+    "index.node": function ($this, node) {
+        return $this.parameters.index.nodeelement($this, node.get()[0]);
     },
     "index.nodeelement": function ($this, nodeelement) {
         var index = -1;
@@ -712,6 +717,41 @@ var parameters = {
                 $this.parameters.addAt.nodeelement($this, v, this.v);
             });
         });
+        return $this.get();
+    },
+
+    // addBefore
+    "addBefore.string": function ($this, index, value) {
+        value = document.querySelectorAll(value);
+        if(value.length){
+            $this.toolbox.each(value, function () {
+                $this.parameters.addBefore.nodeelement($this, index, this.v);
+            });
+        }
+        return $this.get();
+    },
+    "addBefore.object": function ($this, index, value) {
+        value = createElementByObject($this, value);
+        return value ? $this.parameters.addBefore.nodeelement($this, index, value) : $this.get();
+    },
+    "addBefore.nodeelement": function ($this, index, value) {
+        var nodes = $this.get(), box = $this.toolbox;
+        box.each(nodes, function () {
+            var node = $this.entity.get("node").set(this.v.children);
+            var i = box.index(node, index);
+            if(i > -1){
+                insertNodeBefore(value, node.get()[i])
+            }
+        });
+        return nodes;
+    },
+    "addBefore.node": function ($this, index, value) {
+        value = value.get();
+        if(value.length){
+            $this.toolbox.each(value, function () {
+                $this.parameters.addBefore.nodeelement($this, index, this.v);
+            });
+        }
         return $this.get();
     },
 

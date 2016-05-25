@@ -675,6 +675,7 @@
          * @since 1.0
          */
         this.remove = function (el, value) {
+            //@TODO : A revoir
             if (value === undefined) {
                 return el
             }

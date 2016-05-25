@@ -33,12 +33,10 @@
 
     var tab = ["zero", "un", "deux", 3];
 
-    var zkObject = $("li");
+    var zkObject = $("ul");
 
 
-//    console.log(zkObject.addMiddle($("")).get());
-
-console.log($({"text": /^doc$/i}).get());
+    console.log(zkObject.addBefore($("#item-2"), $("p, span")).get());
 
 
 
