@@ -299,11 +299,9 @@ var methods = {
             this.set(f ? f(this, indexes, value) : this.get());
             return this;
         },
-        "add": function (value) {
+        "add": function (value) { return this.addLast(value) },
 
-        },
-
- };
+};
 
 var parameters = {
 
@@ -614,7 +612,7 @@ var parameters = {
         return $this.get();
     },
 
-    // addFirst
+    // addMiddle
     "addMiddle.string": function ($this, value) {
         var box = $this.toolbox, values = document.querySelectorAll(value);
         if(values){
