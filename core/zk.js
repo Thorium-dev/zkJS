@@ -441,12 +441,6 @@
             return el.join("-");
         };
 
-        // @TODO : Faire la fonction run
-        /*this.run = function (script) {
-         // var ajoute = new Function('a', 'b', 'return a + b');
-         //             ajoute(2, 6);
-         };*/
-
         // GET
 
         function getFirstLast(el, value, firstLast) {
@@ -688,7 +682,6 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + firstLast + ".other";
             return zk().getContainer(path)(el, value);
         }
-
         /**
          * Permet d'ajouter des valeurs au début.
          *
@@ -963,7 +956,6 @@
             var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
             return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), upperLower));
         }
-
         /**
          * Permet de mettre en majuscule les éléments au milieu.
          *
@@ -980,7 +972,6 @@
                 ".upper" + beforeAfter + ".other";
             return zk().getContainer(path)(el, index, upperLower);
         }
-
         /**
          * Permet de mettre en majuscule les éléments qui se situent avant index.
          *

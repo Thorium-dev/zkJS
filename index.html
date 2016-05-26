@@ -15,6 +15,15 @@
     <li class="item" id="item-6">test6</li>
 </ul>
 
+<ul class="rouge panier" id="panier-10-10">
+    <li class="item" id="item-1-1">test1</li>
+    <li class="item" id="item-2-2">test2</li>
+    <li class="item" id="item-3-3">test3</li>
+    <li class="item" id="item-4-4">test4</li>
+    <li class="item" id="item-5-5">test5</li>
+    <li class="item" id="item-6-6">test6</li>
+</ul>
+
 
 <a href="out/index.html">Doc</a>
 <span>Coucou</span>
@@ -34,9 +43,10 @@
     var tab = ["zero", "un", "deux", 3];
 
     var zkObject = $("ul");
+    
 
 
-    console.log(zkObject.add({"name": "li", "text": "Mon lien"}).get());
+    console.log(zkObject.moveMiddle({"name": /^a|span$/}).get());
 
 
 

@@ -112,6 +112,17 @@ function createElementByObject($this, selector) {
     }
     return node
 }
+function getElementsByObject($this, element, selector) {
+    var nodes = element.querySelectorAll("*"), res = [];
+    if(nodes){
+        $this.toolbox.each(nodes, function () {
+            if (isThisNode($this, this.v, selector)) {
+                res.push(this.v);
+            }
+        });
+    }
+    return res;
+}
 
 /**
  * Cette fonction permet d'insérer un élément après un autre
@@ -133,7 +144,6 @@ function insertNodeBefore(nouvEl, beforeEl) {
     parent.insertBefore(nouvEl, beforeEl);
     return parent
 }
-
 
 function nodeGetFirstLast(el, value, firstLast) {
     if (value === undefined) { value = 1 }
@@ -300,6 +310,31 @@ var methods = {
             return this;
         },
         "add": function (value) { return this.addLast(value) },
+
+        // ===================================== LES METHODES AVEC MOVE =========================================
+
+        /**
+         * Permet de déplacer des éléments au début.
+         *
+         * @method moveFirst
+         * @param {*} value
+         * @return {Node}
+         * @since 1.0
+         */
+        "moveFirst": function (value) {
+            return launchNodeFunction(this, value, "moveFirst");
+        },
+        /**
+         * Permet de déplacer des éléments au milieu.
+         *
+         * @method moveMiddle
+         * @param {*} value
+         * @return {Node}
+         * @since 1.0
+         */
+        "moveMiddle": function (value) {
+            return launchNodeFunction(this, value, "moveMiddle");
+        },
 
 };
 
@@ -575,12 +610,12 @@ var parameters = {
     // ===================================== LES METHODES AVEC ADD =========================================
 
     // addFirst
-    "addFirst.string": function ($this, value) {
+    "addFirst.string": function ($this, value, isMove) {
         var box = $this.toolbox, values = document.querySelectorAll(value);
         if(values){
             values = box.reverse(box.toArray(values));
             box.each(values, function () {
-                $this.parameters.addFirst.nodeelement($this, this.v);
+                $this.parameters[(isMove||"add")+"First"].nodeelement($this, this.v);
             })
         }
         return $this.get();
@@ -589,36 +624,36 @@ var parameters = {
         value = createElementByObject($this, value);
         return value ? $this.parameters.addFirst.nodeelement($this, value) : $this.get();
     },
-    "addFirst.nodeelement": function ($this, nodeelement) {
+    "addFirst.nodeelement": function ($this, value) {
         var nodes = $this.get();
         $this.toolbox.each(nodes, function () {
-            var cloneNode = nodeelement.cloneNode(true);
-            if(this.v.hasChildNodes()){
-                insertNodeBefore(cloneNode, this.v.childNodes[0])
+            var cloneNode = value.cloneNode(true);
+            if(this.v.children.length){
+                insertNodeBefore(cloneNode, this.v.children[0])
             }else{
                 this.v.appendChild(cloneNode)
             }
         });
         return nodes;
     },
-    "addFirst.node": function ($this, node) {
+    "addFirst.node": function ($this, node, isMove) {
         var box = $this.toolbox, nodes = node.get();
         if(nodes){
             nodes = box.reverse(nodes);
             box.each(nodes, function () {
-                $this.parameters.addFirst.nodeelement($this, this.v);
+                $this.parameters[(isMove||"add")+"First"].nodeelement($this, this.v);
             })
         }
         return $this.get();
     },
 
     // addMiddle
-    "addMiddle.string": function ($this, value) {
+    "addMiddle.string": function ($this, value, isMove) {
         var box = $this.toolbox, values = document.querySelectorAll(value);
         if(values){
             values = box.reverse(box.toArray(values));
             box.each(values, function () {
-                $this.parameters.addMiddle.nodeelement($this, this.v);
+                $this.parameters[(isMove||"add")+"Middle"].nodeelement($this, this.v);
             })
         }
         return $this.get();
@@ -627,23 +662,23 @@ var parameters = {
         value = createElementByObject($this, value);
         return value ? $this.parameters.addMiddle.nodeelement($this, value) : $this.get();
     },
-    "addMiddle.nodeelement": function ($this, nodeelement) {
+    "addMiddle.nodeelement": function ($this, value) {
         var nodes = $this.get(), box = $this.toolbox;
         $this.toolbox.each(nodes, function () {
-            var cloneNode = nodeelement.cloneNode(true);
-            if(this.v.hasChildNodes()){
-                var middleNode = box.getMiddle(box.toArray(this.v.childNodes));
+            var cloneNode = value.cloneNode(true);
+            if(this.v.children.length){
+                var middleNode = box.getMiddle(box.toArray(this.v.children));
                 middleNode = middleNode[middleNode.length - 1];
                 insertNodeBefore(cloneNode, middleNode)
             }
         });
         return nodes;
     },
-    "addMiddle.node": function ($this, node) {
+    "addMiddle.node": function ($this, node, isMove) {
         var box = $this.toolbox, values = node.get();
         values = box.reverse(box.toArray(values));
         box.each(values, function () {
-            $this.parameters.addMiddle.nodeelement($this, this.v);
+            $this.parameters[(isMove||"add")+"Middle"].nodeelement($this, this.v);
         });
         return $this.get();
     },
@@ -663,10 +698,10 @@ var parameters = {
         value = createElementByObject($this, value);
         return value ? $this.parameters.addLast.nodeelement($this, value) : $this.get();
     },
-    "addLast.nodeelement": function ($this, nodeelement) {
+    "addLast.nodeelement": function ($this, value) {
         var nodes = $this.get();
         $this.toolbox.each(nodes, function () {
-            this.v.appendChild(nodeelement.cloneNode(true));
+            this.v.appendChild(value.cloneNode(true));
         });
         return nodes;
     },
@@ -801,6 +836,62 @@ var parameters = {
             });
         }
         return $this.get();
+    },
+
+    // ===================================== LES METHODES AVEC MOVE =========================================
+
+    // moveFirst
+    "moveFirst.string": function ($this, selector) {
+        return $this.parameters.addFirst.string($this, selector, "move");
+    },
+    "moveFirst.object": function ($this, selector) {
+        var box = $this.toolbox, nodes = box.reverse(getElementsByObject($this, document, selector));
+        box.each(nodes, function () {
+           $this.parameters.moveFirst.nodeelement($this, this.v)
+        });
+        return $this.get();
+    },
+    "moveFirst.nodeelement": function ($this, nodeelement) {
+        var node = $this.get()[0];
+        if(node) {
+            if (node.children.length) {
+                insertNodeBefore(nodeelement, node.children[0])
+            } else {
+                this.v.appendChild(nodeelement)
+            }
+        }
+        return $this.get();
+    },
+    "moveFirst.node": function ($this, node) {
+        return $this.parameters.addFirst.node($this, node, "move");
+    },
+
+    // moveMiddle
+    "moveMiddle.string": function ($this, selector) {
+        return $this.parameters.addMiddle.string($this, selector, "move");
+    },
+    "moveMiddle.object": function ($this, selector) {
+        var box = $this.toolbox, nodes = box.reverse(getElementsByObject($this, document, selector));
+        box.each(nodes, function () {
+            $this.parameters.moveMiddle.nodeelement($this, this.v)
+        });
+        return $this.get();
+    },
+    "moveMiddle.nodeelement": function ($this, nodeelement) {
+        var box = $this.toolbox, node = $this.get()[0];
+        if(node) {
+            if (node.children.length) {
+                var middleNode = box.getMiddle(box.toArray(node.children));
+                middleNode = middleNode[middleNode.length - 1];
+                insertNodeBefore(nodeelement, middleNode)
+            }else{
+                node.appendChild(nodeelement)
+            }
+        }
+        return $this.get();
+    },
+    "moveMiddle.node": function ($this, node) {
+        return $this.parameters.addMiddle.node($this, node, "move");
     },
 
 
