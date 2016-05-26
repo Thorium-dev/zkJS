@@ -317,23 +317,34 @@ var methods = {
          * Permet de déplacer des éléments au début.
          *
          * @method moveFirst
-         * @param {*} value
+         * @param {*} selector
          * @return {Node}
          * @since 1.0
          */
-        "moveFirst": function (value) {
-            return launchNodeFunction(this, value, "moveFirst");
+        "moveFirst": function (selector) {
+            return launchNodeFunction(this, selector, "moveFirst");
         },
         /**
          * Permet de déplacer des éléments au milieu.
          *
          * @method moveMiddle
-         * @param {*} value
+         * @param {*} selector
          * @return {Node}
          * @since 1.0
          */
-        "moveMiddle": function (value) {
-            return launchNodeFunction(this, value, "moveMiddle");
+        "moveMiddle": function (selector) {
+            return launchNodeFunction(this, selector, "moveMiddle");
+        },
+        /**
+         * Permet de déplacer des éléments à la fin.
+         *
+         * @method moveLast
+         * @param {*} selector
+         * @return {Node}
+         * @since 1.0
+         */
+        "moveLast": function (selector) {
+            return launchNodeFunction(this, selector, "moveLast");
         },
 
 };
@@ -684,12 +695,12 @@ var parameters = {
     },
 
     // addLast
-    "addLast.string": function ($this, value) {
+    "addLast.string": function ($this, value, isMove) {
         var box = $this.toolbox, values = document.querySelectorAll(value);
         if(values){
             values = box.toArray(values);
             box.each(values, function () {
-                $this.parameters.addLast.nodeelement($this, this.v);
+                $this.parameters[(isMove||"add")+"Last"].nodeelement($this, this.v);
             })
         }
         return $this.get();
@@ -705,11 +716,11 @@ var parameters = {
         });
         return nodes;
     },
-    "addLast.node": function ($this, node) {
+    "addLast.node": function ($this, node, isMove) {
         var nodes = node.get();
         if(nodes){
             $this.toolbox.each(nodes, function () {
-                $this.parameters.addLast.nodeelement($this, this.v);
+                $this.parameters[(isMove||"add")+"Last"].nodeelement($this, this.v);
             })
         }
         return $this.get();
@@ -892,6 +903,26 @@ var parameters = {
     },
     "moveMiddle.node": function ($this, node) {
         return $this.parameters.addMiddle.node($this, node, "move");
+    },
+
+    // moveLast
+    "moveLast.string": function ($this, selector) {
+        return $this.parameters.addLast.string($this, selector, "move");
+    },
+    "moveLast.object": function ($this, selector) {
+        var box = $this.toolbox, nodes = box.reverse(getElementsByObject($this, document, selector));
+        box.each(nodes, function () {
+            $this.parameters.moveLast.nodeelement($this, this.v)
+        });
+        return $this.get();
+    },
+    "moveLast.nodeelement": function ($this, nodeelement) {
+        var node = $this.get()[0];
+        if(node) { node.appendChild(nodeelement) }
+        return $this.get();
+    },
+    "moveLast.node": function ($this, node) {
+        return $this.parameters.addLast.node($this, node, "move");
     },
 
 
