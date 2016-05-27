@@ -346,6 +346,17 @@ var methods = {
         "moveLast": function (selector) {
             return launchNodeFunction(this, selector, "moveLast");
         },
+        /**
+         * Permet de déplacer des éléments à une position.
+         *
+         * @method moveAt
+         * @param {int} index
+         * @return {Node}
+         * @since 1.0
+         */
+        "moveAt": function (index) {
+            return launchNodeFunction(this, index, "moveAt");
+        },
 
 };
 
@@ -729,9 +740,9 @@ var parameters = {
     // addAt
     "addAt.string": function ($this, indexes, value) {
         var box = $this.toolbox, values = document.querySelectorAll(value);
-        if(!box.is(indexes, "array")){ indexes = [indexes] }
-        indexes = box.nSortD(indexes);
         if(values){
+            if(!box.is(indexes, "array")){ indexes = [indexes] }
+            indexes = box.nSortD(indexes);
             values = box.reverse(box.toArray(values));
             box.each(indexes, function () {
                 var v = this.v;
@@ -923,6 +934,27 @@ var parameters = {
     },
     "moveLast.node": function ($this, node) {
         return $this.parameters.addLast.node($this, node, "move");
+    },
+
+    // moveAt
+    "moveAt.number": function ($this, index) {
+        var nodes = $this.get(), box = $this.toolbox;
+        box.each(nodes, function () {
+            var parent = this.v.parentNode;
+            if(parent){
+                var at = box.getAt(box.toArray(parent.children), index)[0];
+                console.log(at);
+                if(at){
+                    if(at !== this.v){
+                        console.log("ok");
+                        insertNodeAfter(this.v, at)
+                    }
+                }else{
+                    parent.appendChild(this.v)
+                }
+            }
+        });
+        return $this.get();
     },
 
 
