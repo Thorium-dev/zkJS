@@ -339,12 +339,16 @@ var methods = {
          * Permet de déplacer des éléments à la fin.
          *
          * @method moveLast
-         * @param {*} selector
          * @return {Node}
          * @since 1.0
          */
-        "moveLast": function (selector) {
-            return launchNodeFunction(this, selector, "moveLast");
+        "moveLast": function () {
+            var nodes = this.get(), box = this.toolbox;
+            box.each(nodes, function () {
+                var parent = this.v.parentNode;
+                if(parent){ parent.appendChild(this.v) }
+            });
+            return this.get();
         },
         /**
          * Permet de déplacer des éléments à une position.
@@ -863,30 +867,6 @@ var parameters = {
     // ===================================== LES METHODES AVEC MOVE =========================================
 
     // moveFirst
-    "moveFirst.string": function ($this, selector) {
-        return $this.parameters.addFirst.string($this, selector, "move");
-    },
-    "moveFirst.object": function ($this, selector) {
-        var box = $this.toolbox, nodes = box.reverse(getElementsByObject($this, document, selector));
-        box.each(nodes, function () {
-           $this.parameters.moveFirst.nodeelement($this, this.v)
-        });
-        return $this.get();
-    },
-    "moveFirst.nodeelement": function ($this, nodeelement) {
-        var node = $this.get()[0];
-        if(node) {
-            if (node.children.length) {
-                insertNodeBefore(nodeelement, node.children[0])
-            } else {
-                this.v.appendChild(nodeelement)
-            }
-        }
-        return $this.get();
-    },
-    "moveFirst.node": function ($this, node) {
-        return $this.parameters.addFirst.node($this, node, "move");
-    },
 
     // moveMiddle
     "moveMiddle.string": function ($this, selector) {
@@ -917,24 +897,6 @@ var parameters = {
     },
 
     // moveLast
-    "moveLast.string": function ($this, selector) {
-        return $this.parameters.addLast.string($this, selector, "move");
-    },
-    "moveLast.object": function ($this, selector) {
-        var box = $this.toolbox, nodes = box.reverse(getElementsByObject($this, document, selector));
-        box.each(nodes, function () {
-            $this.parameters.moveLast.nodeelement($this, this.v)
-        });
-        return $this.get();
-    },
-    "moveLast.nodeelement": function ($this, nodeelement) {
-        var node = $this.get()[0];
-        if(node) { node.appendChild(nodeelement) }
-        return $this.get();
-    },
-    "moveLast.node": function ($this, node) {
-        return $this.parameters.addLast.node($this, node, "move");
-    },
 
     // moveAt
     "moveAt.number": function ($this, index) {
