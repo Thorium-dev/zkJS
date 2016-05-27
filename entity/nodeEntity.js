@@ -4,6 +4,7 @@
 // @TODO : Stocker l'objet methods dans le conrainer
 // @TODO : Faire la fonction sortBy
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
+// @TODO : Faire la fonction caret (en relation avec la position du curseur dans les input et les textarea)
 
 var doIsThisNodeByKey = {
     "name": function ($this, node, value) {
@@ -317,23 +318,50 @@ var methods = {
          * Permet de déplacer des éléments au début.
          *
          * @method moveFirst
-         * @param {*} selector
          * @return {Node}
          * @since 1.0
          */
-        "moveFirst": function (selector) {
-            return launchNodeFunction(this, selector, "moveFirst");
+        "moveFirst": function () {
+            var box = this.toolbox, nodes = box.reverse(this.get());
+            box.each(nodes, function () {
+                var parent = this.v.parentNode;
+                if (parent) {
+                    var first = parent.children[0];
+                    if(first){
+                        if(first !== this.v){
+                            insertNodeBefore(this.v, first)
+                        }
+                    }else{
+                        parent.appendChild(this.v)
+                    }
+                }
+            });
+            return this.get();
         },
         /**
          * Permet de déplacer des éléments au milieu.
          *
          * @method moveMiddle
-         * @param {*} selector
          * @return {Node}
          * @since 1.0
          */
-        "moveMiddle": function (selector) {
-            return launchNodeFunction(this, selector, "moveMiddle");
+        "moveMiddle": function () {
+            var box = this.toolbox, nodes = (this.get());
+            box.each(nodes, function () {
+                var parent = this.v.parentNode;
+                if (parent) {
+                    var middle = box.getMiddle(box.toArray(parent.children));
+                    middle = middle[middle.length -1];
+                    if(middle){
+                        if(middle !== this.v){
+                            insertNodeBefore(this.v, middle)
+                        }
+                    }else{
+                        parent.appendChild(this.v)
+                    }
+                }
+            });
+            return this.get();
         },
         /**
          * Permet de déplacer des éléments à la fin.
@@ -869,32 +897,6 @@ var parameters = {
     // moveFirst
 
     // moveMiddle
-    "moveMiddle.string": function ($this, selector) {
-        return $this.parameters.addMiddle.string($this, selector, "move");
-    },
-    "moveMiddle.object": function ($this, selector) {
-        var box = $this.toolbox, nodes = box.reverse(getElementsByObject($this, document, selector));
-        box.each(nodes, function () {
-            $this.parameters.moveMiddle.nodeelement($this, this.v)
-        });
-        return $this.get();
-    },
-    "moveMiddle.nodeelement": function ($this, nodeelement) {
-        var box = $this.toolbox, node = $this.get()[0];
-        if(node) {
-            if (node.children.length) {
-                var middleNode = box.getMiddle(box.toArray(node.children));
-                middleNode = middleNode[middleNode.length - 1];
-                insertNodeBefore(nodeelement, middleNode)
-            }else{
-                node.appendChild(nodeelement)
-            }
-        }
-        return $this.get();
-    },
-    "moveMiddle.node": function ($this, node) {
-        return $this.parameters.addMiddle.node($this, node, "move");
-    },
 
     // moveLast
 
@@ -905,10 +907,8 @@ var parameters = {
             var parent = this.v.parentNode;
             if(parent){
                 var at = box.getAt(box.toArray(parent.children), index)[0];
-                console.log(at);
                 if(at){
                     if(at !== this.v){
-                        console.log("ok");
                         insertNodeAfter(this.v, at)
                     }
                 }else{
