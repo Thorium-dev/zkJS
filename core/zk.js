@@ -350,6 +350,7 @@
          * @since 1.0
          */
         this.lastIndex = function (el, value) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             var indexes = self.indexes(el, value), l = indexes.length;
             return l ? indexes[l - 1] : -1;
         };

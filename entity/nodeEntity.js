@@ -191,7 +191,8 @@ var methods = {
             return f ? f(this, value) : [];
         },
         "lastIndex": function (value) {
-            return this.toolbox.lastIndex(this, value)
+            var indexes = this.indexes(value), l = indexes.length;
+            return l ? indexes[l - 1] : -1;
         },
         "count": function (value) {
             return this.toolbox.count(this, value)
