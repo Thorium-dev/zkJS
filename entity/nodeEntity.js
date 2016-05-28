@@ -474,10 +474,9 @@ var parameters = {
         return index
     },
     // indexes
-    "indexes.other": function () { return [] },
     "indexes.string": function ($this, selector) {
         var indexes = [];
-        $this.toolbox.each($this.get(), function () {
+        $this.each(function () {
             if (isThisNode($this, this.v, selector)) {
                 indexes.push(this.i)
             }
@@ -492,7 +491,7 @@ var parameters = {
     },
     "indexes.nodeelement": function ($this, nodeelement) {
         var indexes = [];
-        $this.toolbox.each($this.get(), function () {
+        $this.each(function () {
             if (this.v === nodeelement) {
                 indexes.push(this.i);
             }
