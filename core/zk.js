@@ -155,7 +155,7 @@
                 for (i = 0; i < k; i++) {
                     ob = {i: i, z: k - 1 - i, k: i, v: el[i], l: k, all: el};
                     r = f.apply(ob, args);
-                    if (APP.toolbox().is(r, "error")) {
+                    if (APP.toolbox.is(r, "error")) {
                         if(elType === "string"){ el = el.join("") }
                         return el
                     }
@@ -169,7 +169,7 @@
                 el = Math.abs(el);
                 for (var i = 0; i < el; i++) {
                     var r = f.apply({i: i, z: el - 1 - i, all: el}, args);
-                    if (APP.toolbox().is(r, "error")) { return el }
+                    if (APP.toolbox.is(r, "error")) { return el }
                 }
                 return el
             },
@@ -182,7 +182,7 @@
                     if (el.hasOwnProperty(i)) {
                         ob = {i: i, k: i, v: el[i], all: el};
                         r = f.apply(ob, args);
-                        if (APP.toolbox().is(r, "error")) { return el }
+                        if (APP.toolbox.is(r, "error")) { return el }
                         if (r === undefined) { r = el[i] }
                         el[i] = r;
                     }
@@ -195,7 +195,7 @@
                 for (i = 0; i < k; i++) {
                     ob = {i: i, z: k - 1 - i, k: i, v: nodes[i], l: k, all: nodes};
                     r = f.apply(ob, args);
-                    if (APP.toolbox().is(r, "error")) {
+                    if (APP.toolbox.is(r, "error")) {
                         el.set(nodes);
                         return el;
                     }
@@ -1224,8 +1224,8 @@
             return Object.freeze(entity);
         };
     }
-
     APP._ENTITY_ = new _ENTITY_();
+    APP.entity = APP._ENTITY_;
 
     /**
      * ENREGISTREMENT DES ENTITES QUI ONT BESOIN D'UNE CONVERSION
