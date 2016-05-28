@@ -26,10 +26,6 @@
             return this._CONTAINER_.remove(path);
         },
 
-        // Raccourcis vers _TOOLBOX_
-        "toolbox": function () {
-            return this._TOOLBOX_;
-        },
 
     };
 
@@ -83,6 +79,7 @@
     }
 
     APP._CONTAINER_ = new _CONTAINER_();
+    APP.container = APP._CONTAINER_;
 
     function _TOOLBOX_() {
         var self = this;
