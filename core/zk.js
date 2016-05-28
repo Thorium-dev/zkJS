@@ -14,7 +14,6 @@
         "get": function (entity) {
             return this._ENTITY_.get(entity);
         },
-
         // Raccourcis vers _CONTAINER_
         "getContainer": function (path) {
             return this._CONTAINER_.get(path);
@@ -25,10 +24,7 @@
         "removeContainer": function (path) {
             return this._CONTAINER_.remove(path);
         },
-
-
     };
-
 
     function _CONTAINER_() {
         var _CONTAINER_ = {};
@@ -77,7 +73,6 @@
             return _CONTAINER_;
         };
     }
-
     APP._CONTAINER_ = new _CONTAINER_();
     APP.container = APP._CONTAINER_;
 
@@ -1158,7 +1153,6 @@
         };
 
     }
-
     APP._TOOLBOX_ = new _TOOLBOX_();
     APP.toolbox = APP._TOOLBOX_;
 

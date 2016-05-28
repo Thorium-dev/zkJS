@@ -447,10 +447,9 @@ var methods = {
 var parameters = {
 
     // index
-    "index.other": function () { return -1 },
     "index.string": function ($this, selector) {
         var index = -1;
-        $this.toolbox.each($this.get(), function () {
+        $this.each(function () {
             if (isThisNode($this, this.v, selector)) {
                 index = this.i;
                 return $this.entity.get("Error")
@@ -466,7 +465,7 @@ var parameters = {
     },
     "index.nodeelement": function ($this, nodeelement) {
         var index = -1;
-        $this.toolbox.each($this.get(), function () {
+        $this.each(function () {
             if (this.v === nodeelement) {
                 index = this.i;
                 return $this.entity.get("Error")
@@ -1026,7 +1025,6 @@ var nodeDoSetByParameters = {
     "htmlcollection": function ($this, nodes) {
         return $this.toolbox.toArray(nodes)
     },
-
 };
 zk().register(function Node($this) {
     var nodes = $this.nodes || [], self = this;
