@@ -24,6 +24,9 @@
         "removeContainer": function (path) {
             return this._CONTAINER_.remove(path);
         },
+        "is": function (el, type) {
+            return this._TOOLBOX_.is(el, type)
+        },
     };
 
     function _CONTAINER_() {
@@ -446,10 +449,9 @@
         // GET
 
         function getFirstLast(el, value, firstLast) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get" + firstLast + ".";
-            if (value === undefined) {
-                value = 1
-            }
+            if (value === undefined) { value = 1 }
             var f = APP.getContainer(path + self.is(value));
             return f ? f(el, value) : APP.getContainer(path + "other")();
         }
@@ -474,6 +476,7 @@
          * @since 1.0
          */
         this.getMiddle = function (el) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             var l = el.length, n = parseInt(l / 2);
             return (l % 2) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1)
         };
@@ -499,6 +502,7 @@
          * @since 1.0
          */
         this.getBefore = function (el, index) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             return APP.getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBefore.other")(el, index);
         };
         /**
@@ -511,6 +515,7 @@
          * @since 1.0
          */
         this.getAfter = function (el, index) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             return APP.getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAfter.other")(el, index);
         };
         /**
@@ -523,9 +528,8 @@
          * @since 1.0
          */
         this.getBetween = function (el, indexes) {
-            if (indexes === undefined) {
-                indexes = 0
-            }
+            if(!APP.toolbox.is(el, "string|array")){ return el }
+            if (indexes === undefined) { indexes = 0 }
             return APP.getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBetween.array")(el, indexes);
         };
         /**
@@ -538,6 +542,7 @@
          * @since 1.0
          */
         this.getAt = function (el, indexes) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             return APP.getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAt.array")(el, indexes);
         };
         /**
@@ -550,6 +555,7 @@
          * @since 1.0
          */
         this.get = function (el, value) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get.";
             if (value === undefined) { return el }
             var f = APP.getContainer(path + self.is(value));
@@ -607,7 +613,6 @@
             return APP.getContainer("_ENTITY_._PARAMETERS_." +
                 self.is(el) + ".remove" + what + "." + argType)(el, param);
         }
-
         /**
          * Permet de supprimer les éléments qui se situent avant index.
          *
@@ -728,7 +733,6 @@
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + beforeAfter + ".other";
             return APP.getContainer(path)(el, index, value);
         }
-
         /**
          * Permet d'ajouter des éléments avant des index.
          *

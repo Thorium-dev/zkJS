@@ -154,11 +154,12 @@ function nodeGetFirstLast(el, value, firstLast) {
 }
 function nodeGetBeforeAfter(el, index, beforeAfter) {
     if (index !== undefined) {
-        var f = el.parameters["remove" + beforeAfter][el.toolbox.is(index)];
+        var f = el.parameters["get" + beforeAfter][el.toolbox.is(index)];
         el.set(f ? f(el, index) : []);
     }
     return el;
 }
+
 function nodeRemoveFirstLast(el, value, firstLast) {
     if (value === undefined) { value = 1 }
     var f = el.parameters["remove" + firstLast][el.toolbox.is(value)];
@@ -224,10 +225,9 @@ var methods = {
             var box = this.toolbox, $this = this, res = [];
             if (!box.is(indexes, 'array')) { indexes = [indexes] }
             if (indexes.length % 2) { indexes.push(el.length - 1) }
-
             box.each(indexes, function () {
                 if (!box.is(this.v, "number")) {
-                    res.push($this.toolbox.index($this, this.v));
+                    res.push($this.index(this.v));
                 }
             });
             $this.set($this.toolbox.getBetween($this.get(), res));
@@ -507,8 +507,8 @@ var parameters = {
         return $this.toolbox.getFirst($this.get(), size);
     },
     "getFirst.string": function ($this, selector) {
-        var nodes = $this.get(), res = [];
-        $this.toolbox.each(nodes, function () {
+        var res = [];
+        $this.each(function () {
             var parent = this.v.parentNode;
             if (parent && selector) {
                 var children = parent.querySelectorAll(selector);
@@ -524,8 +524,8 @@ var parameters = {
         return res;
     },
     "getFirst.object": function ($this, selector) {
-        var nodes = $this.get(), res = [];
-        $this.toolbox.each(nodes, function () {
+        var res = [];
+        $this.each(function () {
             if (isThisNode($this, this.v, selector)) {
                 res = [this.v];
                 return $this.entity.get("Error");
@@ -538,9 +538,9 @@ var parameters = {
         return $this.toolbox.getLast($this.get(), size);
     },
     "getLast.string": function ($this, selector) {
-        var nodes = $this.get(), res = [];
-        $this.toolbox.each(nodes, function () {
-            var node = nodes[this.z], parent = node.parentNode;
+        var res = [];
+        $this.each(function () {
+            var nodes = this.all, node = nodes[this.z], parent = node.parentNode;
             if (parent && selector) {
                 var children = parent.querySelectorAll(selector);
                 if (children) {
@@ -555,8 +555,9 @@ var parameters = {
         return res;
     },
     "getLast.object": function ($this, selector) {
-        var nodes = $this.get(), res = [];
-        $this.toolbox.each(nodes, function () {
+        var res = [];
+        $this.each(function () {
+            var nodes = this.all;
             if (isThisNode($this, nodes[this.z], selector)) {
                 res = [nodes[this.z]];
                 return $this.entity.get("Error");
@@ -569,7 +570,7 @@ var parameters = {
         return $this.toolbox.getBefore($this.get(), index);
     },
     "getBefore.string": function ($this, selector) {
-        var index = $this.toolbox.index($this, selector);
+        var index = $this.index(selector);
         return $this.toolbox.getBefore($this.get(), index);
     },
     "getBefore.object": function ($this, selector) {
@@ -580,7 +581,7 @@ var parameters = {
         return $this.toolbox.getAfter($this.get(), index);
     },
     "getAfter.string": function ($this, selector) {
-        var index = $this.toolbox.index($this, selector);
+        var index = $this.index(selector);
         return $this.toolbox.getAfter($this.get(), index);
     },
     "getAfter.object": function ($this, selector) {
