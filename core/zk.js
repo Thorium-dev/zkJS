@@ -1,6 +1,8 @@
 (function ($W) {
     'use strict';
 
+    //@TODO : Faire l'objet Edge (Gère les cotés margin, padding, border ...)
+
 
     var THIS = this, ZKID = parseInt(Math.random() * 100000000000);
 

@@ -389,6 +389,29 @@ var methods = {
         "moveAt": function (index) {
             return launchNodeFunction(this, index, "moveAt");
         },
+        /**
+         * Permet de déplacer des éléments avant un autre élément.
+         *
+         * @method moveAt
+         * @param {int} index
+         * @return {Node}
+         * @since 1.0
+         */
+        "moveBefore": function (index) {
+            var $this = this, nodes = this.get(), box = this.toolbox, isNumber = false;
+            if(box.is(index, "number")){
+                isNumber = true;
+                nodes = box.reverse(nodes);
+            }
+            box.each(nodes, function () {
+                var parent = this.v.parentNode;
+                if(parent){
+                    var i = isNumber ? index : ($this.set(parent.children).index(index));
+                    $this.set(this.v).moveAt(i);
+                }
+            });
+            return nodes;
+        },
 
 };
 
@@ -902,14 +925,14 @@ var parameters = {
 
     // moveAt
     "moveAt.number": function ($this, index) {
-        var nodes = $this.get(), box = $this.toolbox;
+        var box = $this.toolbox, nodes = box.reverse($this.get());
         box.each(nodes, function () {
             var parent = this.v.parentNode;
             if(parent){
                 var at = box.getAt(box.toArray(parent.children), index)[0];
                 if(at){
                     if(at !== this.v){
-                        insertNodeAfter(this.v, at)
+                        insertNodeBefore(this.v, at)
                     }
                 }else{
                     parent.appendChild(this.v)
@@ -918,6 +941,8 @@ var parameters = {
         });
         return $this.get();
     },
+
+    // moveBefore
 
 
 };
