@@ -318,10 +318,11 @@
             return res
         };
         function indexAndIndexes(el, value, what) {
-            var box = zk().toolbox(), pType = box.is(value);
+            var box = APP.toolbox, pType = box.is(value);
+            if(!box.is(el, "string|array")){ return el }
             var basePath = "_ENTITY_._PARAMETERS_." + box.is(el) + "." + what + ".";
-            var f = zk().getContainer(basePath + pType);
-            return f ? f(el, value) : zk().getContainer(basePath + "other")(el, value);
+            var f = APP.getContainer(basePath + pType);
+            return f ? f(el, value) : APP.getContainer(basePath + "other")(el, value);
         }
         /**
          * Permet d'obtenir l'index d'une valeur dans un objet.
@@ -450,8 +451,8 @@
             if (value === undefined) {
                 value = 1
             }
-            var f = zk().getContainer(path + self.is(value));
-            return f ? f(el, value) : zk().getContainer(path + "other")();
+            var f = APP.getContainer(path + self.is(value));
+            return f ? f(el, value) : APP.getContainer(path + "other")();
         }
         /**
          * Permet d'obtenir les premiers éléments d'un objet.
@@ -499,7 +500,7 @@
          * @since 1.0
          */
         this.getBefore = function (el, index) {
-            return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBefore.other")(el, index);
+            return APP.getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBefore.other")(el, index);
         };
         /**
          * Permet d'obtenir les éléments qui se situent après index.
@@ -511,7 +512,7 @@
          * @since 1.0
          */
         this.getAfter = function (el, index) {
-            return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAfter.other")(el, index);
+            return APP.getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAfter.other")(el, index);
         };
         /**
          * Permet d'obtenir une ou plusieurs plages d'un objet.
@@ -526,7 +527,7 @@
             if (indexes === undefined) {
                 indexes = 0
             }
-            return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBetween.array")(el, indexes);
+            return APP.getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getBetween.array")(el, indexes);
         };
         /**
          * Permet d'obtenir des éléments qui se trouvent à des index spécifiés.
@@ -538,7 +539,7 @@
          * @since 1.0
          */
         this.getAt = function (el, indexes) {
-            return zk().getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAt.array")(el, indexes);
+            return APP.getContainer("_ENTITY_._PARAMETERS_." + self.is(el) + ".getAt.array")(el, indexes);
         };
         /**
          * Permet d'obtenir des valeurs.
@@ -552,8 +553,8 @@
         this.get = function (el, value) {
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".get.";
             if (value === undefined) { return el }
-            var f = zk().getContainer(path + self.is(value));
-            return f ? f(el, value) : zk().getContainer(path + "other")(el);
+            var f = APP.getContainer(path + self.is(value));
+            return f ? f(el, value) : APP.getContainer(path + "other")(el);
         };
 
         // REMOVE
@@ -564,8 +565,8 @@
             if (param === undefined) {
                 param = 1
             }
-            var f = zk().getContainer(path + self.is(param));
-            return f ? f(el, param) : zk().getContainer(path + "other")(el, param);
+            var f = APP.getContainer(path + self.is(param));
+            return f ? f(el, param) : APP.getContainer(path + "other")(el, param);
         }
         /**
          * Permet de supprimer les premiers éléments.
@@ -604,7 +605,7 @@
             return rmFirstLast(el, value, "Last")
         };
         function rmBeforeAfter(el, param, what, argType) {
-            return zk().getContainer("_ENTITY_._PARAMETERS_." +
+            return APP.getContainer("_ENTITY_._PARAMETERS_." +
                 self.is(el) + ".remove" + what + "." + argType)(el, param);
         }
 
@@ -656,7 +657,7 @@
         this.removeAt = function (el, indexes) {
             var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
             var path = basePath + "removeAt.";
-            var f = zk().getContainer(path + self.is(indexes));
+            var f = APP.getContainer(path + self.is(indexes));
             return f ? f(el, indexes) : el;
         };
         /**
@@ -671,8 +672,8 @@
         this.remove = function (el, value) {
             if (value === undefined) { return el }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".remove.";
-            var f = zk().getContainer(path + self.is(value));
-            return f ? f(el, value) : zk().getContainer(path + "other")(el, value);
+            var f = APP.getContainer(path + self.is(value));
+            return f ? f(el, value) : APP.getContainer(path + "other")(el, value);
         };
 
         // ADD
@@ -682,7 +683,7 @@
                 return el
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + firstLast + ".other";
-            return zk().getContainer(path)(el, value);
+            return APP.getContainer(path)(el, value);
         }
         /**
          * Permet d'ajouter des valeurs au début.
@@ -726,7 +727,7 @@
                 return el
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + beforeAfter + ".other";
-            return zk().getContainer(path)(el, index, value);
+            return APP.getContainer(path)(el, index, value);
         }
 
         /**
@@ -770,7 +771,7 @@
                 return el
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".addAt.array";
-            return zk().getContainer(path)(el, index, value);
+            return APP.getContainer(path)(el, index, value);
         };
         /**
          * Permet d'ajouter des valeurs.
@@ -786,7 +787,7 @@
                 return el
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".addLast.other";
-            return zk().getContainer(path)(el, value);
+            return APP.getContainer(path)(el, value);
         };
 
         // CHANGE
@@ -801,7 +802,7 @@
             }
             var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
             var path = basePath + "change" + firstLast + "." + ( (self.is(oldValue) === 'number') ? 'number' : 'other' );
-            return zk().getContainer(path)(el, oldValue, newValue);
+            return APP.getContainer(path)(el, oldValue, newValue);
         }
         /**
          * Permet de changer les premiers éléments.
@@ -838,7 +839,7 @@
             }
             var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
             var path = basePath + "change" + beforeAfter + ".other";
-            return zk().getContainer(path)(el, index, value);
+            return APP.getContainer(path)(el, index, value);
         }
         /**
          * Permet de changer les éléments qui se situent avant index.
@@ -881,7 +882,7 @@
                 return el
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".changeBetween.array";
-            return zk().getContainer(path)(el, indexes, value);
+            return APP.getContainer(path)(el, indexes, value);
         };
         /**
          * Permet de changer des éléments qui se trouvent à des index spécifiés.
@@ -898,7 +899,7 @@
                 return el
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".changeAt.array";
-            return zk().getContainer(path)(el, indexes, value);
+            return APP.getContainer(path)(el, indexes, value);
         };
         /**
          * Permet de changer des valeurs.
@@ -915,8 +916,8 @@
                 return el
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".change.";
-            var f = zk().getContainer(path + self.is(oldValue));
-            return f ? f(el, oldValue, newValue) : zk().getContainer(path + "other")(el, oldValue, newValue);
+            var f = APP.getContainer(path + self.is(oldValue));
+            return f ? f(el, oldValue, newValue) : APP.getContainer(path + "other")(el, oldValue, newValue);
         };
 
         // UPPER
@@ -927,7 +928,7 @@
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
                 ".upper" + firstLast + "." + self.is(value);
-            var f = zk().getContainer(path);
+            var f = APP.getContainer(path);
             return f ? f(el, value, upperLower) : el;
         }
         /**
@@ -972,7 +973,7 @@
         function upperLowerBeforeAfter(el, index, beforeAfter, upperLower) {
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
                 ".upper" + beforeAfter + ".other";
-            return zk().getContainer(path)(el, index, upperLower);
+            return APP.getContainer(path)(el, index, upperLower);
         }
         /**
          * Permet de mettre en majuscule les éléments qui se situent avant index.
@@ -1004,7 +1005,7 @@
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
                 ".upperBetween.array";
-            return zk().getContainer(path)(el, indexes, upperLower);
+            return APP.getContainer(path)(el, indexes, upperLower);
         }
         /**
          * Permet de mettre en majuscule une ou plusieurs plages.
@@ -1024,7 +1025,7 @@
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
                 ".upperAt." + self.is(indexes);
-            var f = zk().getContainer(path);
+            var f = APP.getContainer(path);
             return f ? f(el, indexes, upperLower) : el;
         }
         /**
@@ -1045,7 +1046,7 @@
             }
             var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
                 ".upper." + self.is(indexes);
-            var f = zk().getContainer(path);
+            var f = APP.getContainer(path);
             return f ? f(el, indexes, upperLower) : el;
         }
         /**
@@ -1162,6 +1163,7 @@
     }
 
     APP._TOOLBOX_ = new _TOOLBOX_();
+    APP.toolbox = APP._TOOLBOX_;
 
     function _ENTITY_() {
         /**
