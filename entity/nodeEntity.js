@@ -198,7 +198,7 @@ var methods = {
             return this.indexes(value).length
         },
         "has": function (value) {
-            return this.toolbox.has(this, value)
+            return (this.index(value) + 1) ? true : false
         },
 
         // ===================================== LES METHODES AVEC GET =========================================

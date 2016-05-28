@@ -377,6 +377,7 @@
          * @since 1.0
          */
         this.has = function (el, value) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             return (self.index(el, value) + 1) ? true : false
         };
         /**
