@@ -364,6 +364,7 @@
          * @since 1.0
          */
         this.count = function (el, value) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             return self.indexes(el, value).length
         };
         /**

@@ -195,7 +195,7 @@ var methods = {
             return l ? indexes[l - 1] : -1;
         },
         "count": function (value) {
-            return this.toolbox.count(this, value)
+            return this.indexes(value).length
         },
         "has": function (value) {
             return this.toolbox.has(this, value)
