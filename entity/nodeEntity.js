@@ -392,8 +392,8 @@ var methods = {
         /**
          * Permet de déplacer des éléments avant un autre élément.
          *
-         * @method moveAt
-         * @param {int} index
+         * @method moveBefore
+         * @param {*} index
          * @return {Node}
          * @since 1.0
          */
@@ -412,6 +412,35 @@ var methods = {
             });
             return nodes;
         },
+        /**
+         * Permet de déplacer des éléments après un autre élément.
+         *
+         * @method moveAfter
+         * @param {*} index
+         * @return {Node}
+         * @since 1.0
+         */
+        "moveAfter": function (index) {
+            var $this = this, box = this.toolbox, nodes = box.reverse(this.get()), isNumber = false;
+            if(box.is(index, "number")){ isNumber = true; }
+            box.each(nodes, function () {
+                var parent = this.v.parentNode;
+                if(parent){
+                    var i = isNumber ? index : ($this.set(parent.children).index(index));
+                    $this.set(this.v).moveAt(i+1);
+                }
+            });
+            return nodes;
+        },
+        /**
+         * Permet de déplacer des éléments à une position.
+         *
+         * @method move
+         * @param {int} index
+         * @return {Node}
+         * @since 1.0
+         */
+        "move": function (index) { return this.moveAt(index) },
 
 };
 
@@ -943,6 +972,10 @@ var parameters = {
     },
 
     // moveBefore
+
+    // moveAfter
+
+    // move
 
 
 };
