@@ -389,6 +389,7 @@
          * @since 1.0
          */
         this.reverse = function (el) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             var res = self.is(el, "string") ? "" : [];
             self.each(el, function () {
                 res = res.concat(el[this.z])
@@ -405,6 +406,7 @@
          * @since 1.0
          */
         this.camelCase = function (el, separators) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             el = el.split(new RegExp("["+separators+"]", "g"));
             return self.each(el, function () {
                if(this.i > 0){
@@ -422,6 +424,7 @@
          * @since 1.0
          */
         this.snakeCase = function (el, separators) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             el = el.split(new RegExp("["+separators+"]", "g"));
             return el.join("_");
         };
@@ -435,6 +438,7 @@
          * @since 1.0
          */
         this.linkCase = function (el, separators) {
+            if(!APP.toolbox.is(el, "string|array")){ return el }
             el = el.split(new RegExp("["+separators+"]", "g"));
             return el.join("-");
         };
