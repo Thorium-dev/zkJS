@@ -1224,21 +1224,6 @@
     APP._ENTITY_ = new _ENTITY_();
     APP.entity = APP._ENTITY_;
 
-    /**
-     * ENREGISTREMENT DES ENTITES QUI ONT BESOIN D'UNE CONVERSION
-     * Renvoie un tableau contenant le nom de l'entité et l'objet converti
-     *
-     */
-    APP.setContainer("_ENTITY_._CONVERTOR_.nodeelement", function (el) {
-        return [el]
-    });
-    APP.setContainer("_ENTITY_._CONVERTOR_.htmlcollection", function (el) {
-        return APP._TOOLBOX_.toArray(el)
-    });
-    APP.setContainer("_ENTITY_._CONVERTOR_.nodelist", function (el) {
-        return APP._TOOLBOX_.toArray(el)
-    });
-
     function nodeLauncher(selector) {
         var $this = {
             "parameters": APP.getContainer("_ENTITY_._PARAMETERS_.node"),

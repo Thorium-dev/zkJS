@@ -4,9 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/entity/nodeEntity.js" mnemonic="0" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bad75f10-0a2f-4689-aaf9-cc0177410271" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/zk.js" afterPath="$PROJECT_DIR$/core/zk.js" />
-    </list>
+    <list default="true" id="bad75f10-0a2f-4689-aaf9-cc0177410271" name="Default" comment="" />
     <ignored path="zkJS.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -72,11 +70,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="nodeEntity.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="nodeEntity.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/entity/nodeEntity.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="135">
-                  <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
+                <state relative-caret-position="353">
+                  <caret line="455" column="35" selection-start-line="455" selection-start-column="35" selection-end-line="455" selection-end-column="35" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                     <element signature="n#!!doc;n#isThisNode#0" expanded="false" />
@@ -132,7 +130,6 @@
                     <element signature="e#14561#14759#0" expanded="false" />
                     <element signature="e#14798#15289#0" expanded="false" />
                     <element signature="e#15299#15486#0" expanded="false" />
-                    <element signature="e#15682#15950#0" expanded="false" />
                     <element signature="e#15999#16069#0" expanded="false" />
                     <element signature="e#16112#16192#0" expanded="false" />
                     <element signature="e#16249#16504#0" expanded="false" />
@@ -219,18 +216,18 @@
           <file leaf-file-name="stringEntity.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/entity/stringEntity.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="8640">
-                  <caret line="576" column="65" selection-start-line="576" selection-start-column="65" selection-end-line="576" selection-end-column="65" />
+                <state relative-caret-position="30">
+                  <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="arrayEntity.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="arrayEntity.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/entity/arrayEntity.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="13755">
-                  <caret line="917" column="27" selection-start-line="917" selection-start-column="27" selection-end-line="917" selection-end-column="27" />
+                <state relative-caret-position="375">
+                  <caret line="25" column="2" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="2" />
                   <folding />
                 </state>
               </provider>
@@ -253,8 +250,8 @@
           <file leaf-file-name="zk.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/zk.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="480">
-                  <caret line="32" column="27" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
+                <state relative-caret-position="566">
+                  <caret line="1208" column="41" selection-start-line="1208" selection-start-column="41" selection-end-line="1208" selection-end-column="41" />
                   <folding>
                     <element signature="e#879#2574#0" expanded="false" />
                     <element signature="e#946#1283#0" expanded="false" />
@@ -402,7 +399,6 @@
                     <element signature="e#39596#39661#0" expanded="false" />
                     <element signature="e#39671#39894#0" expanded="false" />
                     <element signature="e#39937#39998#0" expanded="false" />
-                    <element signature="e#40103#42455#0" expanded="false" />
                     <element signature="e#40113#40897#0" expanded="false" />
                     <element signature="e#40965#41865#0" expanded="false" />
                     <element signature="e#41908#42448#0" expanded="false" />
@@ -1379,12 +1375,12 @@
       <workItem from="1464115099330" duration="7939000" />
       <workItem from="1464197681752" duration="19127000" />
       <workItem from="1464274145824" duration="7087000" />
-      <workItem from="1464361343728" duration="21166000" />
+      <workItem from="1464361343728" duration="21339000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="372303000" />
+    <option name="totallyTimeSpent" value="372476000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1605,7 +1601,6 @@
             <element signature="e#39596#39661#0" expanded="false" />
             <element signature="e#39671#39894#0" expanded="false" />
             <element signature="e#39937#39998#0" expanded="false" />
-            <element signature="e#40103#42455#0" expanded="false" />
             <element signature="e#40113#40897#0" expanded="false" />
             <element signature="e#40965#41865#0" expanded="false" />
             <element signature="e#41908#42448#0" expanded="false" />
@@ -1851,7 +1846,6 @@
             <element signature="e#39596#39661#0" expanded="false" />
             <element signature="e#39671#39894#0" expanded="false" />
             <element signature="e#39937#39998#0" expanded="false" />
-            <element signature="e#40103#42455#0" expanded="false" />
             <element signature="e#40113#40897#0" expanded="false" />
             <element signature="e#40965#41865#0" expanded="false" />
             <element signature="e#41908#42448#0" expanded="false" />
@@ -2066,7 +2060,6 @@
             <element signature="e#39596#39661#0" expanded="false" />
             <element signature="e#39671#39894#0" expanded="false" />
             <element signature="e#39937#39998#0" expanded="false" />
-            <element signature="e#40103#42455#0" expanded="false" />
             <element signature="e#40113#40897#0" expanded="false" />
             <element signature="e#40965#41865#0" expanded="false" />
             <element signature="e#41908#42448#0" expanded="false" />
@@ -2281,7 +2274,6 @@
             <element signature="e#39596#39661#0" expanded="false" />
             <element signature="e#39671#39894#0" expanded="false" />
             <element signature="e#39937#39998#0" expanded="false" />
-            <element signature="e#40103#42455#0" expanded="false" />
             <element signature="e#40113#40897#0" expanded="false" />
             <element signature="e#40965#41865#0" expanded="false" />
             <element signature="e#41908#42448#0" expanded="false" />
@@ -2496,7 +2488,6 @@
             <element signature="e#39596#39661#0" expanded="false" />
             <element signature="e#39671#39894#0" expanded="false" />
             <element signature="e#39937#39998#0" expanded="false" />
-            <element signature="e#40103#42455#0" expanded="false" />
             <element signature="e#40113#40897#0" expanded="false" />
             <element signature="e#40965#41865#0" expanded="false" />
             <element signature="e#41908#42448#0" expanded="false" />
@@ -2695,7 +2686,6 @@
             <element signature="e#39596#39661#0" expanded="false" />
             <element signature="e#39671#39894#0" expanded="false" />
             <element signature="e#39937#39998#0" expanded="false" />
-            <element signature="e#40103#42455#0" expanded="false" />
             <element signature="e#40113#40897#0" expanded="false" />
             <element signature="e#40965#41865#0" expanded="false" />
             <element signature="e#41908#42448#0" expanded="false" />
@@ -2910,7 +2900,6 @@
             <element signature="e#39596#39661#0" expanded="false" />
             <element signature="e#39671#39894#0" expanded="false" />
             <element signature="e#39937#39998#0" expanded="false" />
-            <element signature="e#40103#42455#0" expanded="false" />
             <element signature="e#40113#40897#0" expanded="false" />
             <element signature="e#40965#41865#0" expanded="false" />
             <element signature="e#41908#42448#0" expanded="false" />
@@ -3125,7 +3114,6 @@
             <element signature="e#39596#39661#0" expanded="false" />
             <element signature="e#39671#39894#0" expanded="false" />
             <element signature="e#39937#39998#0" expanded="false" />
-            <element signature="e#40103#42455#0" expanded="false" />
             <element signature="e#40113#40897#0" expanded="false" />
             <element signature="e#40965#41865#0" expanded="false" />
             <element signature="e#41908#42448#0" expanded="false" />
@@ -3340,7 +3328,6 @@
             <element signature="e#39596#39661#0" expanded="false" />
             <element signature="e#39671#39894#0" expanded="false" />
             <element signature="e#39937#39998#0" expanded="false" />
-            <element signature="e#40103#42455#0" expanded="false" />
             <element signature="e#40113#40897#0" expanded="false" />
             <element signature="e#40965#41865#0" expanded="false" />
             <element signature="e#41908#42448#0" expanded="false" />
@@ -3555,7 +3542,6 @@
             <element signature="e#39596#39661#0" expanded="false" />
             <element signature="e#39671#39894#0" expanded="false" />
             <element signature="e#39937#39998#0" expanded="false" />
-            <element signature="e#40103#42455#0" expanded="false" />
             <element signature="e#40113#40897#0" expanded="false" />
             <element signature="e#40965#41865#0" expanded="false" />
             <element signature="e#41908#42448#0" expanded="false" />
@@ -3658,10 +3644,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/entity/stringEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/arrayEntity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="2" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/entity/nodeEntity.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="43" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
+        <state relative-caret-position="353">
+          <caret line="455" column="35" selection-start-line="455" selection-start-column="35" selection-end-line="455" selection-end-column="35" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="n#!!doc;n#isThisNode#0" expanded="false" />
@@ -3717,7 +3719,6 @@
             <element signature="e#14561#14759#0" expanded="false" />
             <element signature="e#14798#15289#0" expanded="false" />
             <element signature="e#15299#15486#0" expanded="false" />
-            <element signature="e#15682#15950#0" expanded="false" />
             <element signature="e#15999#16069#0" expanded="false" />
             <element signature="e#16112#16192#0" expanded="false" />
             <element signature="e#16249#16504#0" expanded="false" />
@@ -3800,26 +3801,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/entity/stringEntity.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8640">
-          <caret line="576" column="65" selection-start-line="576" selection-start-column="65" selection-end-line="576" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/entity/arrayEntity.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13755">
-          <caret line="917" column="27" selection-start-line="917" selection-start-column="27" selection-end-line="917" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/zk.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="27" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
+        <state relative-caret-position="566">
+          <caret line="1208" column="41" selection-start-line="1208" selection-start-column="41" selection-end-line="1208" selection-end-column="41" />
           <folding>
             <element signature="e#879#2574#0" expanded="false" />
             <element signature="e#946#1283#0" expanded="false" />
@@ -3967,7 +3952,6 @@
             <element signature="e#39596#39661#0" expanded="false" />
             <element signature="e#39671#39894#0" expanded="false" />
             <element signature="e#39937#39998#0" expanded="false" />
-            <element signature="e#40103#42455#0" expanded="false" />
             <element signature="e#40113#40897#0" expanded="false" />
             <element signature="e#40965#41865#0" expanded="false" />
             <element signature="e#41908#42448#0" expanded="false" />
