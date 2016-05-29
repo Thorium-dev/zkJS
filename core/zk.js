@@ -696,10 +696,10 @@
         // ADD
 
         function addFirstLast(el, value, firstLast) {
-            if (value === undefined) {
-                return el
-            }
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + firstLast + ".other";
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (value === undefined) { return el }
+            var path = "_ENTITY_._PARAMETERS_." + elType + ".add" + firstLast + ".other";
             return APP.getContainer(path)(el, value);
         }
         /**
@@ -724,6 +724,7 @@
          * @since 1.0
          */
         this.addMiddle = function (el, value) {
+            if(!self.is(el, "string|array")){ return el }
             var l = el.length, n = parseInt(l / 2);
             return doSlice(el, n, n, value);
         };
@@ -740,10 +741,10 @@
             return addFirstLast(el, value, "Last")
         };
         function addBeforeAfter(el, index, value, beforeAfter) {
-            if (value === undefined) {
-                return el
-            }
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".add" + beforeAfter + ".other";
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (value === undefined) { return el }
+            var path = "_ENTITY_._PARAMETERS_." + elType + ".add" + beforeAfter + ".other";
             return APP.getContainer(path)(el, index, value);
         }
         /**
@@ -783,10 +784,10 @@
          * @since 1.0
          */
         this.addAt = function (el, index, value) {
-            if (value === undefined) {
-                return el
-            }
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".addAt.array";
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (value === undefined) { return el }
+            var path = "_ENTITY_._PARAMETERS_." + elType + ".addAt.array";
             return APP.getContainer(path)(el, index, value);
         };
         /**
@@ -799,10 +800,10 @@
          * @since 1.0
          */
         this.add = function (el, value) {
-            if (value === undefined) {
-                return el
-            }
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".addLast.other";
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (value === undefined) { return el }
+            var path = "_ENTITY_._PARAMETERS_." + elType + ".addLast.other";
             return APP.getContainer(path)(el, value);
         };
 

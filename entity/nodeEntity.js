@@ -5,6 +5,7 @@
 // @TODO : Faire la fonction sortBy
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
 // @TODO : Faire la fonction caret (en relation avec la position du curseur dans les input et les textarea)
+// @TODO : Ajout des events lors de la création d'un objet
 
 var doIsThisNodeByKey = {
     "name": function ($this, node, value) {
@@ -78,7 +79,7 @@ function isThisNode($this, node, selector) {
     return isOk;
 }
 
-var doCreateElementByObject = {
+var doCreateElementByKey= {
     "class": function ($this, node, selector) {
         return node.setAttribute("class", selector["class"]);
     },
@@ -105,8 +106,8 @@ function createElementByObject($this, selector) {
             if (/^attr\-/.test(k)) {
                 node.setAttribute(k.slice(5), this.v);
             } else {
-                if (doCreateElementByObject.hasOwnProperty(k)) {
-                    node = doCreateElementByObject[k]($this, node, selector);
+                if (doCreateElementByKey.hasOwnProperty(k)) {
+                    node = doCreateElementByKey[k]($this, node, selector);
                 }
             }
         })
@@ -737,14 +738,10 @@ var parameters = {
         });
         return nodes;
     },
-    "addFirst.node": function ($this, node, isMove) {
-        var box = $this.toolbox, nodes = node.get();
-        if(nodes){
-            nodes = box.reverse(nodes);
-            box.each(nodes, function () {
-                $this.parameters[(isMove||"add")+"First"].nodeelement($this, this.v);
-            })
-        }
+    "addFirst.node": function ($this, value, isMove) {
+        value.each(function () {
+            $this.parameters[(isMove||"add")+"First"].nodeelement($this, this.all[this.z]);
+        });
         return $this.get();
     },
 
@@ -775,11 +772,9 @@ var parameters = {
         });
         return nodes;
     },
-    "addMiddle.node": function ($this, node, isMove) {
-        var box = $this.toolbox, values = node.get();
-        values = box.reverse(box.toArray(values));
-        box.each(values, function () {
-            $this.parameters[(isMove||"add")+"Middle"].nodeelement($this, this.v);
+    "addMiddle.node": function ($this, value, isMove) {
+        value.each(function () {
+            $this.parameters[(isMove||"add")+"Middle"].nodeelement($this, this.all[this.z]);
         });
         return $this.get();
     },
@@ -806,13 +801,10 @@ var parameters = {
         });
         return nodes;
     },
-    "addLast.node": function ($this, node, isMove) {
-        var nodes = node.get();
-        if(nodes){
-            $this.toolbox.each(nodes, function () {
-                $this.parameters[(isMove||"add")+"Last"].nodeelement($this, this.v);
-            })
-        }
+    "addLast.node": function ($this, value, isMove) {
+        value.each(function () {
+            $this.parameters[(isMove||"add")+"Last"].nodeelement($this, this.v);
+        });
         return $this.get();
     },
 
@@ -853,13 +845,13 @@ var parameters = {
         return nodes;
     },
     "addAt.node": function ($this, indexes, value) {
-        var box = $this.toolbox, values = box.reverse(value.get());
+        var box = $this.toolbox;
         if(!box.is(indexes, "array")){ indexes = [indexes] }
         indexes = box.nSortD(indexes);
         box.each(indexes, function () {
             var v = this.v;
-            box.each(values, function () {
-                $this.parameters.addAt.nodeelement($this, v, this.v);
+            value.each(function () {
+                $this.parameters.addAt.nodeelement($this, v, this.all[this.z]);
             });
         });
         return $this.get();
@@ -880,10 +872,10 @@ var parameters = {
         return value ? $this.parameters.addBefore.nodeelement($this, index, value) : $this.get();
     },
     "addBefore.nodeelement": function ($this, index, value) {
-        var nodes = $this.get(), box = $this.toolbox;
+        var nodes = $this.get(), box = $this.toolbox, indexType = box.is(index);
         box.each(nodes, function () {
-            var node = $this.entity.get("node").set(this.v.children);
-            var i = box.index(node, index);
+            var node = $this.set(this.v.children);
+            var i = (indexType === "number") ? index : box.index(node, index);
             if(i > -1){
                 insertNodeBefore(value, node.get()[i])
             }
@@ -891,12 +883,9 @@ var parameters = {
         return nodes;
     },
     "addBefore.node": function ($this, index, value) {
-        value = value.get();
-        if(value.length){
-            $this.toolbox.each(value, function () {
-                $this.parameters.addBefore.nodeelement($this, index, this.v);
-            });
-        }
+        value.each(function () {
+            $this.parameters.addBefore.nodeelement($this, index, this.v);
+        });
         return $this.get();
     },
 
@@ -917,10 +906,10 @@ var parameters = {
         return value ? $this.parameters.addAfter.nodeelement($this, index, value) : $this.get();
     },
     "addAfter.nodeelement": function ($this, index, value) {
-        var nodes = $this.get(), box = $this.toolbox;
+        var nodes = $this.get(), box = $this.toolbox, indexType = box.is(index);
         box.each(nodes, function () {
             var node = $this.entity.get("node").set(this.v.children);
-            var i = box.lastIndex(node, index);
+            var i = (indexType === "number") ? index : box.lastIndex(node, index);
             if(i > -1){
                 insertNodeAfter(value, node.get()[i])
             }
@@ -928,14 +917,9 @@ var parameters = {
         return nodes;
     },
     "addAfter.node": function ($this, index, value) {
-        var box = $this.toolbox;
-        value = value.get();
-        if(value.length){
-            value = box.reverse(value);
-            box.each(value, function () {
-                $this.parameters.addAfter.nodeelement($this, index, this.v);
-            });
-        }
+        value.each(function () {
+            $this.parameters.addAfter.nodeelement($this, index, this.all[this.z]);
+        });
         return $this.get();
     },
 
