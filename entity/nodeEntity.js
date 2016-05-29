@@ -765,7 +765,7 @@ var parameters = {
     },
     "addMiddle.nodeelement": function ($this, value) {
         var nodes = $this.get(), box = $this.toolbox;
-        $this.toolbox.each(nodes, function () {
+        box.each(nodes, function () {
             var cloneNode = value.cloneNode(true);
             if(this.v.children.length){
                 var middleNode = box.getMiddle(box.toArray(this.v.children));

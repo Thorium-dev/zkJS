@@ -25,7 +25,7 @@
             return this._CONTAINER_.remove(path);
         },
         "is": function (el, type) {
-            return this._TOOLBOX_.is(el)
+            return this._TOOLBOX_.is(el, type)
         },
     };
 
@@ -53,8 +53,8 @@
                     temp = temp[arrayPath[i]];
                 }
                 var v = temp[arrayPath[n - 1]];
-                if (!APP._TOOLBOX_.is(v) && v !== undefined) {
-                    if (!APP._TOOLBOX_.is(v)) {
+                if (!APP._TOOLBOX_.is(v, "object") && v !== undefined) {
+                    if (!APP._TOOLBOX_.is(v, "array")) {
                         v = [v]
                     }
                     value = v.concat(value);
@@ -125,7 +125,7 @@
          * @since 1.0
          */
         this.trim = function (el, strReg, direction) {
-            if (!self.is(el)) {
+            if (!self.is(el, "string")) {
                 return el
             }
             if (strReg === undefined) {
@@ -150,7 +150,7 @@
                 for (i = 0; i < k; i++) {
                     ob = {i: i, z: k - 1 - i, k: i, v: el[i], l: k, all: el};
                     r = f.apply(ob, args);
-                    if (self.is(r)) {
+                    if (self.is(r, "error")) {
                         if(elType === "string"){ el = el.join("") }
                         return el
                     }
@@ -164,7 +164,7 @@
                 el = Math.abs(el);
                 for (var i = 0; i < el; i++) {
                     var r = f.apply({i: i, z: el - 1 - i, all: el}, args);
-                    if (self.is(r)) { return el }
+                    if (self.is(r, "error")) { return el }
                 }
                 return el
             },
@@ -177,7 +177,7 @@
                     if (el.hasOwnProperty(i)) {
                         ob = {i: i, k: i, v: el[i], all: el};
                         r = f.apply(ob, args);
-                        if (self.is(r)) { return el }
+                        if (self.is(r, "error")) { return el }
                         if (r === undefined) { r = el[i] }
                         el[i] = r;
                     }
@@ -190,7 +190,7 @@
                 for (i = 0; i < k; i++) {
                     ob = {i: i, z: k - 1 - i, k: i, v: nodes[i], l: k, all: nodes};
                     r = f.apply(ob, args);
-                    if (self.is(r)) {
+                    if (self.is(r, "error")) {
                         el.set(nodes);
                         return el;
                     }
@@ -226,13 +226,13 @@
          * @since 1.0
          */
         this.each = function (el, callback, args) {
-            if (self.is(callback)) {
+            if (self.is(callback, 'function')) {
                 var t = self.is(el);
                 if (doEachByObj.hasOwnProperty(t)) {
                     if (args === undefined) {
                         args = []
                     }
-                    if (!self.is(args)) {
+                    if (!self.is(args, 'array')) {
                         args = [args]
                     }
                     el = doEachByObj[t](el, callback, args);
@@ -314,7 +314,7 @@
         };
         function indexAndIndexes(el, value, what) {
             var box = APP.toolbox, pType = box.is(value);
-            if(!box.is(el)){ return el }
+            if(!box.is(el, "string|array")){ return el }
             var basePath = "_ENTITY_._PARAMETERS_." + box.is(el) + "." + what + ".";
             var f = APP.getContainer(basePath + pType);
             return f ? f(el, value) : APP.getContainer(basePath + "other")(el, value);
@@ -353,7 +353,7 @@
          * @since 1.0
          */
         this.lastIndex = function (el, value) {
-            if(!self.is(el)){ return el }
+            if(!self.is(el, "string|array")){ return el }
             var indexes = self.indexes(el, value), l = indexes.length;
             return l ? indexes[l - 1] : -1;
         };
@@ -367,7 +367,7 @@
          * @since 1.0
          */
         this.count = function (el, value) {
-            if(!self.is(el)){ return el }
+            if(!self.is(el, "string|array")){ return el }
             return self.indexes(el, value).length
         };
         /**
@@ -380,7 +380,7 @@
          * @since 1.0
          */
         this.has = function (el, value) {
-            if(!self.is(el)){ return el }
+            if(!self.is(el, "string|array")){ return el }
             return (self.index(el, value) + 1) ? true : false
         };
         /**
@@ -392,8 +392,8 @@
          * @since 1.0
          */
         this.reverse = function (el) {
-            if(!self.is(el)){ return el }
-            var res = self.is(el) ? "" : [];
+            if(!self.is(el, "string|array")){ return el }
+            var res = self.is(el, "string") ? "" : [];
             self.each(el, function () {
                 res = res.concat(el[this.z])
             });
@@ -409,7 +409,7 @@
          * @since 1.0
          */
         this.camelCase = function (el, separators) {
-            if(!self.is(el)){ return el }
+            if(!self.is(el, "string|array")){ return el }
             el = el.split(new RegExp("["+separators+"]", "g"));
             return self.each(el, function () {
                if(this.i > 0){
@@ -427,7 +427,7 @@
          * @since 1.0
          */
         this.snakeCase = function (el, separators) {
-            if(!self.is(el)){ return el }
+            if(!self.is(el, "string|array")){ return el }
             el = el.split(new RegExp("["+separators+"]", "g"));
             return el.join("_");
         };
@@ -441,7 +441,7 @@
          * @since 1.0
          */
         this.linkCase = function (el, separators) {
-            if(!self.is(el)){ return el }
+            if(!self.is(el, "string|array")){ return el }
             el = el.split(new RegExp("["+separators+"]", "g"));
             return el.join("-");
         };
@@ -477,7 +477,7 @@
          * @since 1.0
          */
         this.getMiddle = function (el) {
-            if(!self.is(el)){ return el }
+            if(!self.is(el, "string|array")){ return el }
             var l = el.length, n = parseInt(l / 2);
             return (l % 2) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1)
         };
@@ -600,7 +600,7 @@
          * @since 1.0
          */
         this.removeMiddle = function (el) {
-            if(!self.is(el)){ return el }
+            if(!self.is(el, "string|array")){ return el }
             var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
             return el.slice(0, (x == 2) ? n - 1 : n).concat(el.slice(n + x - (x - 1)));
         };
@@ -1209,14 +1209,14 @@
             if (!name || APP._CONTAINER_.get("_ENTITY_." + (name.toLowerCase()))) {
                 return false
             }
-            if (!APP._TOOLBOX_.is(methods)) {
+            if (!APP.is(methods, "object")) {
                 methods = {}
             }
             APP._TOOLBOX_.each(methods, function () {
                 entityFunc.prototype[this.k] = this.v;
             });
             APP.setContainer("_ENTITY_." + (name.toLowerCase()), entityFunc);
-            if (!APP._TOOLBOX_.is(parameters)) {
+            if (!APP.is(parameters, "object")) {
                 parameters = {}
             }
             APP._TOOLBOX_.each(parameters, function () {
