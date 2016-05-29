@@ -810,14 +810,11 @@
         // CHANGE
 
         function changeFirstLast(el, oldValue, newValue, firstLast) {
-            if (oldValue === undefined) {
-                return el
-            }
-            if (newValue === undefined) {
-                newValue = oldValue;
-                oldValue = 1
-            }
-            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (oldValue === undefined) { return el }
+            if (newValue === undefined) { newValue = oldValue; oldValue = 1 }
+            var basePath = "_ENTITY_._PARAMETERS_." + elType + ".";
             var path = basePath + "change" + firstLast + "." + ( (self.is(oldValue) === 'number') ? 'number' : 'other' );
             return APP.getContainer(path)(el, oldValue, newValue);
         }
@@ -835,6 +832,7 @@
             return changeFirstLast(el, oldValue, newValue, "First")
         };
         this.changeMiddle = function (el, value) {
+            if(!self.is(el, "string|array")){ return el }
             return self.addMiddle(self.removeMiddle(el), value);
         };
         /**
@@ -851,10 +849,10 @@
             return changeFirstLast(el, oldValue, newValue, "Last")
         };
         function changeBeforeAfter(el, index, value, beforeAfter) {
-            if (index === undefined || value === undefined) {
-                return el
-            }
-            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + ".";
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (index === undefined || value === undefined) { return el }
+            var basePath = "_ENTITY_._PARAMETERS_." + elType + ".";
             var path = basePath + "change" + beforeAfter + ".other";
             return APP.getContainer(path)(el, index, value);
         }
@@ -895,10 +893,10 @@
          * @since 1.0
          */
         this.changeBetween = function (el, indexes, value) {
-            if (indexes === undefined || value === undefined) {
-                return el
-            }
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".changeBetween.array";
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (indexes === undefined || value === undefined) { return el }
+            var path = "_ENTITY_._PARAMETERS_." + elType + ".changeBetween.array";
             return APP.getContainer(path)(el, indexes, value);
         };
         /**
@@ -912,10 +910,10 @@
          * @since 1.0
          */
         this.changeAt = function (el, indexes, value) {
-            if (indexes === undefined || value === undefined) {
-                return el
-            }
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".changeAt.array";
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (indexes === undefined || value === undefined) { return el }
+            var path = "_ENTITY_._PARAMETERS_." + elType + ".changeAt.array";
             return APP.getContainer(path)(el, indexes, value);
         };
         /**
@@ -929,10 +927,10 @@
          * @since 1.0
          */
         this.change = function (el, oldValue, newValue) {
-            if (oldValue === undefined || newValue === undefined) {
-                return el
-            }
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) + ".change.";
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (oldValue === undefined || newValue === undefined) { return el }
+            var path = "_ENTITY_._PARAMETERS_." + elType + ".change.";
             var f = APP.getContainer(path + self.is(oldValue));
             return f ? f(el, oldValue, newValue) : APP.getContainer(path + "other")(el, oldValue, newValue);
         };
