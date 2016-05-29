@@ -938,10 +938,10 @@
         // UPPER
 
         function upperLowerFirstLast(el, value, firstLast, upperLower) {
-            if (value === undefined) {
-                value = 1
-            }
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (value === undefined) { value = 1 }
+            var path = "_ENTITY_._PARAMETERS_." + elType +
                 ".upper" + firstLast + "." + self.is(value);
             var f = APP.getContainer(path);
             return f ? f(el, value, upperLower) : el;
@@ -971,6 +971,7 @@
             return upperLowerFirstLast(el, value, "Last", "Upper")
         };
         function upperLowerMiddle(el, upperLower) {
+            if(!self.is(el, "string|array")){ return el }
             var l = el.length, x = (l % 2) ? 1 : 2, n = parseInt(l / 2);
             return doSlice(el, (x == 2) ? n - 1 : n, n + x - (x - 1), upperLowerTab((x == 1) ? el.slice(n, n + 1) : el.slice(n - 1, n + 1), upperLower));
         }
@@ -986,7 +987,9 @@
             return upperLowerMiddle(el, "Upper")
         };
         function upperLowerBeforeAfter(el, index, beforeAfter, upperLower) {
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            var path = "_ENTITY_._PARAMETERS_." + elType +
                 ".upper" + beforeAfter + ".other";
             return APP.getContainer(path)(el, index, upperLower);
         }
@@ -1015,10 +1018,10 @@
             return upperLowerBeforeAfter(el, index, "After", "Upper")
         };
         function upperLowerBetween(el, indexes, upperLower) {
-            if (indexes === undefined) {
-                return el
-            }
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (indexes === undefined) { return el }
+            var path = "_ENTITY_._PARAMETERS_." + elType +
                 ".upperBetween.array";
             return APP.getContainer(path)(el, indexes, upperLower);
         }
@@ -1035,10 +1038,10 @@
             return upperLowerBetween(el, indexes, "Upper")
         };
         function upperLowerAt(el, indexes, upperLower) {
-            if (indexes === undefined) {
-                return el
-            }
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (indexes === undefined) { return el }
+            var path = "_ENTITY_._PARAMETERS_." + elType +
                 ".upperAt." + self.is(indexes);
             var f = APP.getContainer(path);
             return f ? f(el, indexes, upperLower) : el;
@@ -1056,10 +1059,10 @@
             return upperLowerAt(el, indexes, "Upper")
         };
         function upperLower(el, indexes, upperLower) {
-            if (indexes === undefined) {
-                indexes = el
-            }
-            var path = "_ENTITY_._PARAMETERS_." + self.is(el) +
+            var elType = self.is(el);
+            if(!/string|array/.test(elType)){ return el }
+            if (indexes === undefined) { indexes = el }
+            var path = "_ENTITY_._PARAMETERS_." + elType +
                 ".upper." + self.is(indexes);
             var f = APP.getContainer(path);
             return f ? f(el, indexes, upperLower) : el;
