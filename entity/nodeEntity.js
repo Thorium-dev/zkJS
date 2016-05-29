@@ -324,17 +324,17 @@ var methods = {
          * @since 1.0
          */
         "moveFirst": function () {
-            var box = this.toolbox, nodes = box.reverse(this.get());
-            box.each(nodes, function () {
-                var parent = this.v.parentNode;
+            this.each(function () {
+                var v = this.all[this.z];
+                var parent = v.parentNode;
                 if (parent) {
                     var first = parent.children[0];
                     if(first){
-                        if(first !== this.v){
-                            insertNodeBefore(this.v, first)
+                        if(first !== v){
+                            insertNodeBefore(v, first)
                         }
                     }else{
-                        parent.appendChild(this.v)
+                        parent.appendChild(v)
                     }
                 }
             });
@@ -348,18 +348,18 @@ var methods = {
          * @since 1.0
          */
         "moveMiddle": function () {
-            var box = this.toolbox, nodes = (this.get());
-            box.each(nodes, function () {
-                var parent = this.v.parentNode;
+            var box = this.toolbox;
+            this.each(function () {
+                var v = this.v, parent = v.parentNode;
                 if (parent) {
                     var middle = box.getMiddle(box.toArray(parent.children));
                     middle = middle[middle.length -1];
                     if(middle){
-                        if(middle !== this.v){
-                            insertNodeBefore(this.v, middle)
+                        if(middle !== v){
+                            insertNodeBefore(v, middle)
                         }
                     }else{
-                        parent.appendChild(this.v)
+                        parent.appendChild(v)
                     }
                 }
             });
@@ -373,10 +373,9 @@ var methods = {
          * @since 1.0
          */
         "moveLast": function () {
-            var nodes = this.get(), box = this.toolbox;
-            box.each(nodes, function () {
-                var parent = this.v.parentNode;
-                if(parent){ parent.appendChild(this.v) }
+            this.each(function () {
+                var v = this.v, parent = v.parentNode;
+                if(parent){ parent.appendChild(v) }
             });
             return this.get();
         },
@@ -389,7 +388,24 @@ var methods = {
          * @since 1.0
          */
         "moveAt": function (index) {
-            return launchNodeFunction(this, index, "moveAt");
+            var box = this.toolbox;
+            if(box.is(index, "number")){
+                this.each(function () {
+                    var v = this.all[this.z];
+                    var parent = v.parentNode;
+                    if(parent){
+                        var at = box.getAt(box.toArray(parent.children), index)[0];
+                        if(at){
+                            if(at !== v){
+                                insertNodeBefore(v, at)
+                            }
+                        }else{
+                            parent.appendChild(v)
+                        }
+                    }
+                });
+            }
+            return this.get();
         },
         /**
          * Permet de déplacer des éléments avant un autre élément.
@@ -925,36 +941,6 @@ var parameters = {
 
     // ===================================== LES METHODES AVEC MOVE =========================================
 
-    // moveFirst
-
-    // moveMiddle
-
-    // moveLast
-
-    // moveAt
-    "moveAt.number": function ($this, index) {
-        var box = $this.toolbox, nodes = box.reverse($this.get());
-        box.each(nodes, function () {
-            var parent = this.v.parentNode;
-            if(parent){
-                var at = box.getAt(box.toArray(parent.children), index)[0];
-                if(at){
-                    if(at !== this.v){
-                        insertNodeBefore(this.v, at)
-                    }
-                }else{
-                    parent.appendChild(this.v)
-                }
-            }
-        });
-        return $this.get();
-    },
-
-    // moveBefore
-
-    // moveAfter
-
-    // move
 
 
 };
