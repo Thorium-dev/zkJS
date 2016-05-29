@@ -313,9 +313,9 @@
             return res
         };
         function indexAndIndexes(el, value, what) {
-            var box = APP.toolbox, pType = box.is(value);
-            if(!box.is(el, "string|array")){ return el }
-            var basePath = "_ENTITY_._PARAMETERS_." + box.is(el) + "." + what + ".";
+            var pType = self.is(value);
+            if(!self.is(el, "string|array")){ return el }
+            var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + "." + what + ".";
             var f = APP.getContainer(basePath + pType);
             return f ? f(el, value) : APP.getContainer(basePath + "other")(el, value);
         }
