@@ -53,8 +53,8 @@
                     temp = temp[arrayPath[i]];
                 }
                 var v = temp[arrayPath[n - 1]];
-                if (!APP._TOOLBOX_.is(v, "object") && v !== undefined) {
-                    if (!APP._TOOLBOX_.is(v, "array")) {
+                if (!APP.is(v, "object") && v !== undefined) {
+                    if (!APP.is(v, "array")) {
                         v = [v]
                     }
                     value = v.concat(value);
