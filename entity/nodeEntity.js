@@ -500,7 +500,7 @@ var methods = {
          *
          * @method getAttr
          * @param {string} name Nom de l'attribut qu'on souhaite obtenir.
-         * @param {string} filter Filtre sur le résultat.
+         * @param {*} filter Filtre sur le résultat.
          * @return {string|null}
          * @since 1.0
          */
@@ -522,7 +522,7 @@ var methods = {
          *
          * @method removeAttr
          * @param {string|array} names Noms des attributs qu'on souhaite supprimer. Pour les chaînes de caractères, les valeurs doivent être séparées par des espaces ou des virgules.
-         * @param {string} filter Permet de cibler des valeurs paritculières.
+         * @param {*} filter Permet de cibler des valeurs paritculières.
          * @return {Node}
          * @since 1.0
          */
@@ -595,7 +595,67 @@ var methods = {
         "attr": function (names, value) {
             if(value === undefined){ return this.getAttr(names) }
             return this.addAttr(names, value)
+        },
+    
+        // ===================================== LES METHODES AVEC CLASS =========================================
+
+        /**
+         * Permet de tester si un élément possède une classe.
+         *
+         * @method hasClass
+         * @param {*} value
+         * @return {boolean}
+         * @since 1.0
+         */
+        "hasClass": function (value) {
+            var has = this.getAttr("class");
+            return has ? this.toolbox.has(has.split(" "), value) : false;
+        },
+        /**
+         * Permet d'obtenir des class.
+         *
+         * @method getClass
+         * @param {*} filter Filtre sur le résultat.
+         * @return {string|null}
+         * @since 1.0
+         */
+        "getClass": function (filter) {
+            return this.getAttr("class", filter);
+        },
+        /**
+         * Permet de supprimer des class.
+         *
+         * @method removeClass
+         * @param {*} filter Permet de cibler des valeurs paritculières.
+         * @return {Node}
+         * @since 1.0
+         */
+        "removeClass": function (filter) {
+            return this.removeAttr("class", filter);
+        },
+        /**
+         * Permet d'ajouter des attributs.
+         *
+         * @method addClass
+         * @param {string|number|boolean} value Valeur qu'on souhaite ajouter.
+         * @return {Node}
+         * @since 1.0
+         */
+        "addClass": function (value) {
+            return this.addAttr("class", value);
+        },
+        /**
+         * Permet d'obtenir ou d'ajouter des class.
+         *
+         * @method class
+         * @param {string|number|boolean} value
+         * @return {string|null|Node}
+         * @since 1.0
+         */
+        "class": function (value) {
+            return this.attr("class", value);
         }
+    
 };
 
 var parameters = {
