@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<ul class="rouge panier" id="" style="color: #000; font-size: 20px">
+<ul class="rouge panier" id="vert" style="color: #000; font-size: 20px">
     <li class="item" id="item-1">test1</li>
     <li class="item" id="item-2">test2</li>
     <li class="item" id="item-3">test3</li>
@@ -43,7 +43,7 @@
     var tab = ["zero", "un", "deux", 3];
     
 
-    console.log($("ul").removeAttr("style id", /color/));
+    console.log($("ul").attr("style", "color: red"));
 
 
 </script>

@@ -182,13 +182,21 @@ function launchNodeFunction($this, value, func){
 var doNodeGetAttrByName = {
     "style": function ($this, attr, filter) {
         return $this.toolbox.get(attr.split(";"), filter).join(";");
-    }
+    },
 };
 var doNodeRemoveAttrByName = {
     "style": function ($this, attr, filter) {
         var box = $this.toolbox;
         return box.trim(box.remove(attr.split(";"), filter).join(";"), " ");
-    }
+    },
+};
+var doNodeAddAttrByName = {
+    "style": function ($this, attr, value) {
+        return value
+    },
+    "id": function ($this, attr, value) {
+        return value
+    },
 };
 
 var methods = {
@@ -543,6 +551,51 @@ var methods = {
             });
             return this;
         },
+        /**
+         * Permet d'ajouter des attributs.
+         *
+         * @method addAttr
+         * @param {string|array} names Noms des attributs qu'on souhaite ajouter. Pour les chaînes de caractères, les valeurs doivent être séparées par des espaces ou des virgules.
+         * @param {string|number|boolean} value Valeur de l'attribut qu'on souhaite ajouter.
+         * @return {Node}
+         * @since 1.0
+         */
+        "addAttr": function (names, value) {
+            var $this = this, box = $this.toolbox;
+            if(box.is(value, "string|number|boolean")){
+                if(box.is(names, "string")){ names = names.split(/[ ,]/) }
+                if(!box.is(names, "array")){ names = [names] }
+                box.each(names, function () {
+                    var name = this.v;
+                    $this.each(function () {
+                        var v = this.v, attr = value;
+                        if(v.hasAttribute(name)){
+                            attr = v.getAttribute(name);
+                            if(doNodeAddAttrByName.hasOwnProperty(name)){
+                                attr = doNodeAddAttrByName[name]($this, attr, value);
+                            }else{
+                                attr = box.add(box.remove(attr.split(" "), value), value).join(" ");
+                            }
+                        }
+                        v.setAttribute(name, attr);
+                    });
+                });
+            }
+            return this;
+        },
+        /**
+         * Permet d'obtenir ou d'ajouter des attributs.
+         *
+         * @method attr
+         * @param {string|array} names
+         * @param {string|number|boolean} value
+         * @return {string|null|Node}
+         * @since 1.0
+         */
+        "attr": function (names, value) {
+            if(value === undefined){ return this.getAttr(names) }
+            return this.addAttr(names, value)
+        }
 };
 
 var parameters = {
