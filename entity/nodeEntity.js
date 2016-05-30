@@ -179,6 +179,18 @@ function launchNodeFunction($this, value, func){
     return $this;
 }
 
+var doNodeGetAttrByName = {
+    "style": function ($this, attr, filter) {
+        return $this.toolbox.get(attr.split(";"), filter).join(";");
+    }
+};
+var doNodeRemoveAttrByName = {
+    "style": function ($this, attr, filter) {
+        var box = $this.toolbox;
+        return box.trim(box.remove(attr.split(";"), filter).join(";"), " ");
+    }
+};
+
 var methods = {
 
         "each": function (callback, args) {
@@ -460,6 +472,77 @@ var methods = {
          */
         "move": function (index) { return this.moveAt(index) },
 
+        // ===================================== LES METHODES AVEC ATTR =========================================
+
+        /**
+         * Permet de tester si un élément possède un attribut.
+         *
+         * @method hasAttr
+         * @param {string} name Nom de l'attribut qu'on souhaite tester.
+         * @return {boolean}
+         * @since 1.0
+         */
+        "hasAttr": function (name) {
+            var has = false, node = this.get()[0];
+            if(node){ has = node.hasAttribute(name) }
+            return has;
+        },
+        /**
+         * Permet d'obtenir des attributs.
+         *
+         * @method getAttr
+         * @param {string} name Nom de l'attribut qu'on souhaite obtenir.
+         * @param {string} filter Filtre sur le résultat.
+         * @return {string|null}
+         * @since 1.0
+         */
+        "getAttr": function (name, filter) {
+            var node = this.get()[0], attr = node.getAttribute(name);;
+            if(attr){
+                if(filter !== undefined){
+                    if(doNodeGetAttrByName.hasOwnProperty(name)){
+                        attr = doNodeGetAttrByName[name](this, attr, filter);
+                    }else{
+                        attr = this.toolbox.get(attr.split(" "), filter).join(" ");
+                    }
+                }
+            }
+            return attr;
+        },
+        /**
+         * Permet de supprimer des attributs.
+         *
+         * @method removeAttr
+         * @param {string|array} names Noms des attributs qu'on souhaite supprimer. Pour les chaînes de caractères, les valeurs doivent être séparées par des espaces ou des virgules.
+         * @param {string} filter Permet de cibler des valeurs paritculières.
+         * @return {Node}
+         * @since 1.0
+         */
+        "removeAttr": function (names, filter) {
+            var $this = this, box = $this.toolbox;
+            if(box.is(names, "string")){ names = names.split(/[ ,]/) }
+            if(!box.is(names, "array")){ names = [names] }
+            box.each(names, function () {
+                var name = this.v;
+                $this.each(function () {
+                    var v = this.v;
+                    if(v.hasAttribute(name)){
+                        if(filter !== undefined){
+                            var attr = v.getAttribute(name);
+                            if(doNodeRemoveAttrByName.hasOwnProperty(name)){
+                                attr = doNodeRemoveAttrByName[name]($this, attr, filter);
+                            }else{
+                                attr = box.remove(attr.split(" "), filter).join(" ");
+                            }
+                            if(attr){ v.setAttribute(name, attr) } else { v.removeAttribute(name) }
+                        }else{
+                            v.removeAttribute(name)
+                        }
+                    }
+                });
+            });
+            return this;
+        },
 };
 
 var parameters = {

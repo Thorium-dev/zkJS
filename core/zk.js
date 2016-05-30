@@ -140,7 +140,7 @@
             else {
                 strReg = "^(?:" + strReg + ")|(?:" + strReg + ")$"
             }
-            return str.replace(new RegExp(strReg, "g"), "")
+            return el.replace(new RegExp(strReg, "g"), "")
         };
         var doEachByObj = {
             string: function (el, f, args) {
@@ -1232,9 +1232,9 @@
             if(entity){
                 var $this = {
                     "parameters": APP.getContainer("_ENTITY_._PARAMETERS_." + entityName),
-                    "toolbox": APP._TOOLBOX_,
-                    "entity": APP._ENTITY_,
-                    "container": APP._CONTAINER_,
+                    "toolbox": APP.toolbox,
+                    "entity": APP.entity,
+                    "container": APP.container,
                 };
                 entity = new entity($this);
             }
@@ -1247,9 +1247,9 @@
     function nodeLauncher(selector) {
         var $this = {
             "parameters": APP.getContainer("_ENTITY_._PARAMETERS_.node"),
-            "toolbox": APP._TOOLBOX_,
-            "entity": APP._ENTITY_,
-            "container": APP._CONTAINER_,
+            "toolbox": APP.toolbox,
+            "entity": APP.entity,
+            "container": APP.container,
         };
         var nodeEnity = APP.getContainer("_ENTITY_.node");
         return Object.freeze(new nodeEnity($this)).set(selector);
