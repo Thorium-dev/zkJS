@@ -4,6 +4,9 @@ zk().register(function Edge($this) {
     this.toolbox = $this.toolbox;
     this.entity = $this.entity;
     var box = this.toolbox;
+    this.get = function () {
+        return edgesValues
+    };
     this.set = function (value) {
         if(!box.is(value, "array")){ value = [value] }
         value = value.slice(0, 4);
