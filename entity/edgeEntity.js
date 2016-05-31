@@ -3,7 +3,7 @@ zk().register(function Edge($this) {
     this.parameters = $this.parameters;
     this.toolbox = $this.toolbox;
     this.entity = $this.entity;
-    var box = this.toolbox;
+    this.container = $this.container;
     this.get = function () {
         return edgesValues
     };
