@@ -125,21 +125,13 @@
          * @since 1.0
          */
         this.trim = function (el, strReg, direction) {
-            if (!self.is(el, "string")) {
-                return el
-            }
-            if (strReg === undefined) {
-                strReg = ' '
-            }
-            if (direction === "l") {
-                strReg = "^(?:" + strReg + ")"
-            }
-            else if (direction === "r") {
-                strReg = "(?:" + strReg + ")$"
-            }
-            else {
-                strReg = "^(?:" + strReg + ")|(?:" + strReg + ")$"
-            }
+            // @TODO : A revoir
+            if (!self.is(el, "string")) { return el }
+            strReg = (""+strReg).replace();
+            if (strReg === undefined) { strReg = ' ' }
+            if (direction === "l") { strReg = "^(?:" + strReg + ")" }
+            else if (direction === "r") { strReg = "(?:" + strReg + ")$" }
+            else { strReg = "^(?:" + strReg + ")|(?:" + strReg + ")$" }
             return el.replace(new RegExp(strReg, "g"), "")
         };
         var doEachByObj = {
