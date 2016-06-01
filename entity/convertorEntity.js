@@ -5,7 +5,7 @@ zk().register(function Convertor($this) {
     this.container = $this.container;
     this.number = function (value) {
         try{
-            return eval(((value+"").replace(/[^\d\+\-\*\/%]+/g, "")).replace(/^(?:[^\d]+)|(?:[^\d]+)$/g, ""));
+            return eval(((value+"").replace(/[^\d\+\-\*\/%\.]+/g, "")).replace(/^(?:[^\d]+)|(?:[^\d]+)$/g, ""));
         } catch (e){
             return null;
         }
