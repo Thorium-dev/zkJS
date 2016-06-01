@@ -284,7 +284,7 @@ var methods = {
             }
         },
         /**
-         * Permet d'obtenir la  position à gauche de l'élément par rapport à son parent.
+         * Permet d'obtenir ou de définir la position d'un élément par rapport au bord gauche de son parent.
          *
          * @method innerX
          * @param {string} [value] Valeur à définir.
@@ -298,6 +298,42 @@ var methods = {
                 return x
             }else{
                 this.style("left", value);
+                return this
+            }
+        },
+        /**
+         * Permet d'obtenir ou de définir la position d'un élément par rapport au bord supérieur du document.
+         *
+         * @method y
+         * @param {string} [value] Valeur à définir.
+         * @return {number|Node|null}
+         * @since 1.0
+         */
+        "y": function (value) {
+            if(value === undefined){
+                var node = this.get()[0], x = null;
+                if(node){ x = nodeXYintoDocument(node, "Top") }
+                return x
+            }else {
+                this.style("top", value);
+                return this
+            }
+        },
+        /**
+         * Permet d'obtenir ou de définir la position d'un élément par rapport au bord supérieur de son parent.
+         *
+         * @method innerY
+         * @param {string} [value] Valeur à définir.
+         * @return {number|Node|null}
+         * @since 1.0
+         */
+        "innerY": function (value) {
+            if(value === undefined){
+                var node = this.get()[0], x = null;
+                if(node){ x = node.offsetTop }
+                return x
+            }else{
+                this.style("top", value);
                 return this
             }
         },
