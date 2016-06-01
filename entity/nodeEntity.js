@@ -228,6 +228,20 @@ var doNodeGetCssByProperty = {
     },
 };
 
+/**
+ * Cette permet d'obtenir les coordonnées d'un élément dans tout le document
+ * @param node
+ * @param what = Left ou Top
+ * @returns {number}
+ */
+function nodeXYintoDocument(node, what) {
+    var val = 0;
+    do {
+        val += node["offset"+what];
+    } while (node = node.offsetParent);
+    return val
+}
+
 var methods = {
 
         "each": function (callback, args) {
@@ -250,6 +264,18 @@ var methods = {
         },
         "has": function (value) {
             return (this.index(value) + 1) ? true : false
+        },
+        /**
+         * Permet d'obtenir la position d'un élément par rapport au bord gauche du document.
+         *
+         * @method x
+         * @return {number|null}
+         * @since 1.0
+         */
+        "x": function () {
+            var node = this.get()[0], x = null;
+            if(node){ x = nodeXYintoDocument(node, "Left") }
+            return x
         },
 
         // ===================================== LES METHODES AVEC GET =========================================
