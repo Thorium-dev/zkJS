@@ -534,7 +534,7 @@ var methods = {
          * @since 1.0
          */
         "getAttr": function (name, filter) {
-            var node = this.get()[0], attr = node.getAttribute(name);;
+            var node = this.get()[0], attr = node.getAttribute(name);
             if(attr){
                 if(filter !== undefined){
                     if(doNodeGetAttrByName.hasOwnProperty(name)){
@@ -751,14 +751,75 @@ var methods = {
          * @method css
          * @param {string} [property]
          * @param {string} [value]
-         * @return {string}
+         * @return {string|Edge|Node|null}
          * @since 1.0
          */
         "css": function (property, value) {
             if(property === undefined){ return this.getAttr("style") }
             if(value === undefined){ return this.getCss(property) }
             return this.addCss(property, value)
-        }
+        },
+
+        // ===================================== LES METHODES AVEC STYLE =========================================
+
+
+        /**
+         * Permet d'obtenir des styles définies dans l'attribut style.
+         *
+         * @method getStyle
+         * @param {string} property Propriété du style.
+         * @return {string|null}
+         * @since 1.0
+         */
+        "getStyle": function (property) {
+            var $this = this, attr = this.getAttr("style") || null, box = this.toolbox;
+            if(attr){
+                var attrs = attr.split(";");
+                box.each(attrs, function () {
+                    var tab = this.v.split(":");
+                    if(box.trim(tab[0]) === box.trim(property)){ attr = box.trim(tab[1]); return $this.entity.get("Error") }
+                });
+            }
+            return attr
+        },
+        /**
+         * Permet de supprimer des propriétés définies dans l'attribut style.
+         *
+         * @method removeStyle
+         * @param {string|array} properties Propriétés qu'on souhaite supprimer.
+         * @return {Node}
+         * @since 1.0
+         */
+        "removeStyle": function (properties) {
+            return this.removeCss(properties)
+        },
+        /**
+         * Permet d'ajouter des styles en passant par l'attribut style.
+         *
+         * @method addStyle
+         * @param {string} property Propriété du style.
+         * @param {string} value Valeur qu'on souhaite ajouter.
+         * @return {Node}
+         * @since 1.0
+         */
+        "addStyle": function (property, value) {
+            return this.addCss(property, value)
+        },
+        /**
+         * Permet d'obtenir ou d'ajouter des styles en passant par l'attribut style.
+         *
+         * @method style
+         * @param {string} [property]
+         * @param {string} [value]
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "style": function (property, value) {
+            if(property === undefined){ return this.getAttr("style") }
+            if(value === undefined){ return this.getStyle(property) }
+            return this.addCss(property, value)
+        },
+
     
 };
 
