@@ -119,20 +119,33 @@
          *
          * @method trim
          * @param {string} el Objet de référence.
-         * @param {string} strReg Expression régulière sous forme de chaîne de caractères
-         * @param {string} direction La direction. Deux valeurs possibles "l" pour la gauche et "r" pour la droite.
+         * @param {string|RegExp} [reg] Masque de recherche. Par défaut, le masque est un espace.
+         * @param {string} [direction] La direction. Deux valeurs possibles "l" pour la gauche et "r" pour la droite.
          * @return {string}
          * @since 1.0
          */
-        this.trim = function (el, strReg, direction) {
-            // @TODO : A revoir
+        this.trim = function (el, reg, direction) {
             if (!self.is(el, "string")) { return el }
-            strReg = (""+strReg).replace();
-            if (strReg === undefined) { strReg = ' ' }
-            if (direction === "l") { strReg = "^(?:" + strReg + ")" }
-            else if (direction === "r") { strReg = "(?:" + strReg + ")$" }
-            else { strReg = "^(?:" + strReg + ")|(?:" + strReg + ")$" }
-            return el.replace(new RegExp(strReg, "g"), "")
+            var debut = null, fin = null;
+            if (reg === undefined) { reg = ' ' }
+            if(self.is(reg, "string")){ reg = new RegExp(reg) }
+            self.each(el, function () {
+                if(!reg.test(this.v)){ debut = this.i - 1; return APP.get("Error") }
+            });
+            self.each(el, function () {
+                if(!reg.test(this.all[this.z])){ fin = this.z + 1; return APP.get("Error") }
+            });
+            if(/l|r/.test(direction)){
+                if(direction === "l"){
+                    if(debut > -1){ el = el.slice(debut+1) }
+                }else {
+                    if(fin > -1){ el = el.slice(0, fin) }
+                }
+            }else{
+                if(fin > -1){ el = el.slice(0, fin) }
+                if(debut > -1){ el = el.slice(debut+1) }
+            }
+            return el;
         };
         var doEachByObj = {
             string: function (el, f, args) {
