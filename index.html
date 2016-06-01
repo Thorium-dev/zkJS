@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        #vert {
+            border-top: 1px solid green;
+        }
+    </style>
 </head>
 <body>
 
-<ul class="rouge panier" id="vert" style="color: #000; font-size: 20px">
+<ul class="rouge panier" id="vert" style="color: red; font-size: 20px;">
     <li class="item" id="item-1">test1</li>
     <li class="item" id="item-2">test2</li>
     <li class="item" id="item-3">test3</li>
@@ -34,6 +40,8 @@
 <script src="entity/arrayEntity.js"></script>
 <script src="entity/errorEntity.js"></script>
 <script src="entity/nodeEntity.js"></script>
+<script src="entity/edgeEntity.js"></script>
+<script src="entity/convertorEntity.js"></script>
 <script>
 
     var str = "abcdefghde";
@@ -43,7 +51,7 @@
     var tab = ["zero", "un", "deux", 3];
     
 
-    console.log($("ul").addClass("bleu"));
+    console.log($("ul").css("color", "orange"));
 
 
 </script>

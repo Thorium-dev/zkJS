@@ -126,6 +126,7 @@ function getElementsByObject($this, element, selector) {
     return res;
 }
 
+
 /**
  * Cette fonction permet d'insérer un élément après un autre
  * @param  {[node]} nouvEl  [Elément à ajouter]
@@ -196,6 +197,34 @@ var doNodeAddAttrByName = {
     },
     "id": function ($this, attr, value) {
         return value
+    },
+};
+var doNodeGetCssByProperty = {
+    "border": function ($this, node, property) {
+        var box = $this.toolbox, edge = $this.entity.get("Edge");
+        box.each(["top", "right", "bottom", "left"], function () {
+            edge[this.v](window.getComputedStyle(node, null).getPropertyValue(property + "-" + this.v));
+        });
+        return edge
+    },
+    "border-style": function ($this, node, property) {
+        var box = $this.toolbox, edge = $this.entity.get("Edge");
+        box.each(["top", "right", "bottom", "left"], function () {
+            edge[this.v](window.getComputedStyle(node, null).getPropertyValue("border-" + this.v + "-" + property.split("-")[1]));
+        });
+        return edge
+    },
+    "border-width": function ($this, node, property) {
+        return doNodeGetCssByProperty["border-style"]($this, node, property)
+    },
+    "border-color": function ($this, node, property) {
+        return doNodeGetCssByProperty["border-style"]($this, node, property)
+    },
+    "margin": function ($this, node, property) {
+        return doNodeGetCssByProperty.border($this, node, property)
+    },
+    "padding": function ($this, node, property) {
+        return doNodeGetCssByProperty.border($this, node, property)
     },
 };
 
@@ -654,6 +683,81 @@ var methods = {
          */
         "class": function (value) {
             return this.attr("class", value);
+        },
+
+        // ===================================== LES METHODES AVEC CSS =========================================
+
+
+        /**
+         * Permet d'obtenir des styles calculés par les navigateurs.
+         *
+         * @method getCss
+         * @param {string} property Propriété du style.
+         * @return {string|Edge|null}
+         * @since 1.0
+         */
+        "getCss": function (property) {
+            var prop = null, node = this.get()[0];
+            if(node){
+                if(doNodeGetCssByProperty.hasOwnProperty(property)){
+                    prop = doNodeGetCssByProperty[property](this, node, property);
+                }else {
+                    prop = window.getComputedStyle(node, null).getPropertyValue(property);
+                }
+            }
+            return prop
+        },
+        /**
+         * Permet de supprimer des propriétés définies dans l'attribut style.
+         *
+         * @method removeCss
+         * @param {string|array} properties Propriétés qu'on souhaite supprimer.
+         * @return {Node}
+         * @since 1.0
+         */
+        "removeCss": function (properties) {
+            var box = this.toolbox;
+            if(box.is(properties, "string")){ properties = properties.split(/[ ,]/) }
+            if(!box.is(properties, "array")){ properties = [properties] }
+            this.each(function () {
+                var v = this.v;
+                box.each(properties, function () {
+                    var property = box.camelCase(""+this.v, "-");
+                    v.style[property] = "";
+                });
+            });
+            return this
+        },
+        /**
+         * Permet d'ajouter des styles en passant par l'attribut style.
+         *
+         * @method addCss
+         * @param {string} property Propriété du style.
+         * @param {string} value Valeur qu'on souhaite ajouter.
+         * @return {Node}
+         * @since 1.0
+         */
+        "addCss": function (property, value) {
+            var box = this.toolbox;
+            this.each(function () {
+                property = box.camelCase(""+property, "-");
+                this.v.style[property] = value;
+            });
+            return this
+        },
+        /**
+         * Permet d'obtenir ou d'ajouter des styles en passant par l'attribut style.
+         *
+         * @method css
+         * @param {string} [property]
+         * @param {string} [value]
+         * @return {string}
+         * @since 1.0
+         */
+        "css": function (property, value) {
+            if(property === undefined){ return this.getAttr("style") }
+            if(value === undefined){ return this.getCss(property) }
+            return this.addCss(property, value)
         }
     
 };
@@ -1158,6 +1262,7 @@ var nodeDoSetByParameters = {
         return nodes ? $this.toolbox.toArray(nodes) : [];
     },
     "object": function ($this, value) {
+        // @TODO : Uitliser la fonction getElementsByObject
         var nodes = document.querySelectorAll("*"), res = [];
         if (nodes) {
             nodes = $this.toolbox.toArray(nodes);
@@ -1193,6 +1298,7 @@ zk().register(function Node($this) {
     this.parameters = $this.parameters;
     this.toolbox = $this.toolbox;
     this.entity = $this.entity;
+    this.container = $this.container;
     this.get = function (selector) {
         if (selector === undefined) { return nodes }
         var selType = self.toolbox.is(selector);
