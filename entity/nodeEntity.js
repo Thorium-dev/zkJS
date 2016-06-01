@@ -687,7 +687,6 @@ var methods = {
 
         // ===================================== LES METHODES AVEC CSS =========================================
 
-
         /**
          * Permet d'obtenir des styles calculés par les navigateurs.
          *
@@ -762,7 +761,17 @@ var methods = {
 
         // ===================================== LES METHODES AVEC STYLE =========================================
 
-
+        /**
+         * Permet de tester si un élément possède une propriété dans l'attribut style.
+         *
+         * @method hasStyle
+         * @param {string} property Propriété du style à tester.
+         * @return {boolean}
+         * @since 1.0
+         */
+        "hasStyle": function (property) {
+            return this.getStyle(property) ? true : false;
+        },
         /**
          * Permet d'obtenir des styles définies dans l'attribut style.
          *
@@ -778,6 +787,7 @@ var methods = {
                 box.each(attrs, function () {
                     var tab = this.v.split(":");
                     if(box.trim(tab[0]) === box.trim(property)){ attr = box.trim(tab[1]); return $this.entity.get("Error") }
+                    else { attr = null }
                 });
             }
             return attr
