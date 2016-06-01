@@ -266,16 +266,40 @@ var methods = {
             return (this.index(value) + 1) ? true : false
         },
         /**
-         * Permet d'obtenir la position d'un élément par rapport au bord gauche du document.
+         * Permet d'obtenir ou de définir la position d'un élément par rapport au bord gauche du document.
          *
          * @method x
-         * @return {number|null}
+         * @param {string} [value] Valeur à définir.
+         * @return {number|Node|null}
          * @since 1.0
          */
-        "x": function () {
-            var node = this.get()[0], x = null;
-            if(node){ x = nodeXYintoDocument(node, "Left") }
-            return x
+        "x": function (value) {
+            if(value === undefined){
+                var node = this.get()[0], x = null;
+                if(node){ x = nodeXYintoDocument(node, "Left") }
+                return x
+            }else {
+                this.style("left", value);
+                return this
+            }
+        },
+        /**
+         * Permet d'obtenir la  position à gauche de l'élément par rapport à son parent.
+         *
+         * @method innerX
+         * @param {string} [value] Valeur à définir.
+         * @return {number|Node|null}
+         * @since 1.0
+         */
+        "innerX": function (value) {
+            if(value === undefined){
+                var node = this.get()[0], x = null;
+                if(node){ x = node.offsetLeft }
+                return x
+            }else{
+                this.style("left", value);
+                return this
+            }
         },
 
         // ===================================== LES METHODES AVEC GET =========================================
