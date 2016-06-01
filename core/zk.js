@@ -401,7 +401,9 @@
          * @since 1.0
          */
         this.camelCase = function (el, separators) {
-            if(!self.is(el, "string|array")){ return el }
+            if (!self.is(el, "string") || !self.is(separators, "string")) {
+                return el
+            }
             el = el.split(new RegExp("["+separators+"]", "g"));
             return self.each(el, function () {
                if(this.i > 0){
