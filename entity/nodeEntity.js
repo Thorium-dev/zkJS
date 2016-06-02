@@ -6,6 +6,7 @@
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
 // @TODO : Faire la fonction caret (en relation avec la position du curseur dans les input et les textarea)
 // @TODO : Ajout des events lors de la création d'un objet
+// @TODO : Revoir LES METHODES AVEC ATTR
 
 var doIsThisNodeByKey = {
     "name": function ($this, node, value) {
@@ -481,11 +482,28 @@ var methods = {
          *
          * @method color
          * @param {string} [value] Valeur à définir.
-         * @return {string|Edge|Node|null}
+         * @return {string|Node|null}
          * @since 1.0
          */
         "color": function (value) {
             return this.css("color", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir la couleur d'un élément.
+         *
+         * @method color
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "id": function (value) {
+            if(value === undefined){
+                return this.attr("id")
+            }else{
+                var nodes = this.get();
+                this.getFirst().attr("id", value);
+                return this.set(nodes)
+            }
         },
 
         // ===================================== LES METHODES AVEC GET =========================================
