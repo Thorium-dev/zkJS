@@ -390,7 +390,6 @@ var methods = {
                 right = to.number(edge.right()) || 0;
             return (left + w + right) + "px";
         },
-
         /**
          * Permet d'obtenir ou de définir la hauteur d'un élément.
          *
@@ -443,6 +442,17 @@ var methods = {
                 top = to.number(edge.top()) || 0,
                 bottom = to.number(edge.bottom()) || 0;
             return (top + h + bottom) + "px";
+        },
+        /**
+         * Permet d'obtenir ou de définir les marges internes d'un élément.
+         *
+         * @method padding
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Edge|Node|null}
+         * @since 1.0
+         */
+        "padding": function (value) {
+            return this.css("padding", value)
         },
 
         // ===================================== LES METHODES AVEC GET =========================================
