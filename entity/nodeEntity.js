@@ -466,6 +466,17 @@ var methods = {
             return this.css("border", value)
         },
 
+        /**
+         * Permet d'obtenir ou de définir les marges externes d'un élément.
+         *
+         * @method margin
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Edge|Node|null}
+         * @since 1.0
+         */
+        "margin": function (value) {
+            return this.css("margin", value)
+        },
         // ===================================== LES METHODES AVEC GET =========================================
 
         "getFirst": function (value) {
