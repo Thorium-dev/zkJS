@@ -465,7 +465,6 @@ var methods = {
         "border": function (value) {
             return this.css("border", value)
         },
-
         /**
          * Permet d'obtenir ou de définir les marges externes d'un élément.
          *
@@ -477,6 +476,18 @@ var methods = {
         "margin": function (value) {
             return this.css("margin", value)
         },
+        /**
+         * Permet d'obtenir ou de définir la couleur d'un élément.
+         *
+         * @method color
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Edge|Node|null}
+         * @since 1.0
+         */
+        "color": function (value) {
+            return this.css("color", value)
+        },
+
         // ===================================== LES METHODES AVEC GET =========================================
 
         "getFirst": function (value) {
