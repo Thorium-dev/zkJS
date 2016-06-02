@@ -337,7 +337,6 @@ var methods = {
                 return this
             }
         },
-    
         /**
          * Permet d'obtenir ou de définir la largeur d'un élément.
          *
@@ -390,6 +389,60 @@ var methods = {
                 left = to.number(edge.left()) || 0,
                 right = to.number(edge.right()) || 0;
             return (left + w + right) + "px";
+        },
+
+        /**
+         * Permet d'obtenir ou de définir la hauteur d'un élément.
+         *
+         * @method height
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Edge|Node|null}
+         * @since 1.0
+         */
+        "height": function (value) {
+            return this.css("height", value)
+        },
+        /**
+         * Permet d'obtenir la hauteur d'un élément en incluant les marges internes.
+         *
+         * @method heightP
+         * @return {String}
+         * @since 1.0
+         */
+        "heightP": function () {
+            var to = this.entity.get("Convertor"), edge = this.css("padding");
+            var h = to.number(this.css("height")) || 0,
+                top = to.number(edge.top()) || 0,
+                bottom = to.number(edge.bottom()) || 0;
+            return (top + h + bottom) + "px";
+        },
+        /**
+         * Permet d'obtenir la hauteur d'un élément en incluant les bordures.
+         *
+         * @method heightB
+         * @return {String}
+         * @since 1.0
+         */
+        "heightB": function () {
+            var to = this.entity.get("Convertor"), edge = this.css("border-width");
+            var h = to.number(this.heightP()) || 0,
+                top = to.number(edge.top()) || 0,
+                bottom = to.number(edge.bottom()) || 0;
+            return (top + h + bottom) + "px";
+        },
+        /**
+         * Permet d'obtenir la hauteur d'un élément en incluant les marges externes.
+         *
+         * @method heightM
+         * @return {String}
+         * @since 1.0
+         */
+        "heightM": function () {
+            var to = this.entity.get("Convertor"), edge = this.css("margin");
+            var h = to.number(this.heightB()) || 0,
+                top = to.number(edge.top()) || 0,
+                bottom = to.number(edge.bottom()) || 0;
+            return (top + h + bottom) + "px";
         },
 
         // ===================================== LES METHODES AVEC GET =========================================
