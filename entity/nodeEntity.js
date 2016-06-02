@@ -196,7 +196,6 @@ var doNodeGetAttrByName = {
             if(propertyType === "regexp"){
                 if (property.test(tab[0])) { attr = tab[1]; return $this.entity.get("Error") }
             }
-
         });
         return attr
     },
@@ -794,7 +793,7 @@ var methods = {
             return has;
         },
         /**
-         * Permet d'obtenir des attributs.
+         * Permet d'obtenir des attributs. Pour les styles, il est conseillé d'utiliser la fonction getStyle.
          *
          * @method getAttr
          * @param {string} name Nom de l'attribut qu'on souhaite obtenir.
@@ -816,7 +815,7 @@ var methods = {
             return attr;
         },
         /**
-         * Permet de supprimer des attributs.
+         * Permet de supprimer des attributs. Pour les styles, il est conseillé d'utiliser la fonction removeStyle.
          *
          * @method removeAttr
          * @param {string|array} names Noms des attributs qu'on souhaite supprimer. Pour les chaînes de caractères, les valeurs doivent être séparées par des espaces ou des virgules.
@@ -850,7 +849,7 @@ var methods = {
             return this;
         },
         /**
-         * Permet d'ajouter des attributs.
+         * Permet d'ajouter des attributs. Pour les styles, il est conseillé d'utiliser la fonction addStyle.
          *
          * @method addAttr
          * @param {string|array} names Noms des attributs qu'on souhaite ajouter. Pour les chaînes de caractères, les valeurs doivent être séparées par des espaces ou des virgules.
@@ -882,7 +881,7 @@ var methods = {
             return this;
         },
         /**
-         * Permet d'obtenir ou d'ajouter des attributs.
+         * Permet d'obtenir ou d'ajouter des attributs. Pour les styles, il est conseillé d'utiliser la fonction style.
          *
          * @method attr
          * @param {string|array} names
