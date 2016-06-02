@@ -337,6 +337,60 @@ var methods = {
                 return this
             }
         },
+    
+        /**
+         * Permet d'obtenir ou de définir la largeur d'un élément.
+         *
+         * @method width
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Edge|Node|null}
+         * @since 1.0
+         */
+        "width": function (value) {
+            return this.css("width", value)
+        },
+        /**
+         * Permet d'obtenir la largeur d'un élément en incluant les marges internes.
+         *
+         * @method widthP
+         * @return {String}
+         * @since 1.0
+         */
+        "widthP": function () {
+            var to = this.entity.get("Convertor"), edge = this.css("padding");
+            var w = to.number(this.css("width")) || 0,
+                left = to.number(edge.left()) || 0,
+                right = to.number(edge.right()) || 0;
+            return (left + w + right) + "px";
+        },
+        /**
+         * Permet d'obtenir la largeur d'un élément en incluant les bordures.
+         *
+         * @method widthB
+         * @return {String}
+         * @since 1.0
+         */
+        "widthB": function () {
+            var to = this.entity.get("Convertor"), edge = this.css("border-width");
+            var w = to.number(this.widthP()) || 0,
+                left = to.number(edge.left()) || 0,
+                right = to.number(edge.right()) || 0;
+            return (left + w + right) + "px";
+        },
+        /**
+         * Permet d'obtenir la largeur d'un élément en incluant les marges externes.
+         *
+         * @method widthM
+         * @return {String}
+         * @since 1.0
+         */
+        "widthM": function () {
+            var to = this.entity.get("Convertor"), edge = this.css("margin");
+            var w = to.number(this.widthB()) || 0,
+                left = to.number(edge.left()) || 0,
+                right = to.number(edge.right()) || 0;
+            return (left + w + right) + "px";
+        },
 
         // ===================================== LES METHODES AVEC GET =========================================
 
