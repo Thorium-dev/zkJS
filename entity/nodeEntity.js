@@ -182,8 +182,23 @@ function launchNodeFunction($this, value, func){
 }
 
 var doNodeGetAttrByName = {
-    "style": function ($this, attr, filter) {
-        return $this.toolbox.get(attr.split(";"), filter).join(";");
+    "style": function ($this, attr, property) {
+        var box = $this.toolbox, attrs = attr.split(";"),
+            propertyType = box.is(property), attr = null;
+        property = box.trim(property);
+        box.each(attrs, function () {
+            var tab = this.v.split(":");
+            tab[0] = box.trim(tab[0]);
+            tab[1] = box.trim(tab[1]);
+            if(propertyType === "string"){
+                if (tab[0] === property) { attr = tab[1]; return $this.entity.get("Error") }
+            }
+            if(propertyType === "regexp"){
+                if (property.test(tab[0])) { attr = tab[1]; return $this.entity.get("Error") }
+            }
+
+        });
+        return attr
     },
 };
 var doNodeRemoveAttrByName = {
@@ -1035,16 +1050,7 @@ var methods = {
          * @since 1.0
          */
         "getStyle": function (property) {
-            var $this = this, attr = this.getAttr("style") || null, box = this.toolbox;
-            if(attr){
-                var attrs = attr.split(";");
-                box.each(attrs, function () {
-                    var tab = this.v.split(":");
-                    if(box.trim(tab[0]) === box.trim(property)){ attr = box.trim(tab[1]); return $this.entity.get("Error") }
-                    else { attr = null }
-                });
-            }
-            return attr
+            return this.getAttr("style", property)
         },
         /**
          * Permet de supprimer des propriétés définies dans l'attribut style.
