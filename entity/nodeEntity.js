@@ -454,6 +454,17 @@ var methods = {
         "padding": function (value) {
             return this.css("padding", value)
         },
+        /**
+         * Permet d'obtenir ou de définir les bordures d'un élément.
+         *
+         * @method border
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Edge|Node|null}
+         * @since 1.0
+         */
+        "border": function (value) {
+            return this.css("border", value)
+        },
 
         // ===================================== LES METHODES AVEC GET =========================================
 
