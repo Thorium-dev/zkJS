@@ -12262,6 +12262,7 @@
 // @TODO There should be a utf8-strict encoding that rejects invalid UTF-8 code
 // points as used by CESU-8.
     var StringDecoder = exports.StringDecoder = function(encoding) {
+        encoding = "utf-8";
         this.encoding = (encoding || 'utf8').toLowerCase().replace(/[-_]/, '');
         assertEncoding(encoding);
         switch (this.encoding) {
