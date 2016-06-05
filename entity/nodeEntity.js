@@ -1,5 +1,4 @@
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
-// @TODO : Faire la fonction position
 // @TODO : Faire les fonctions toggle
 // @TODO : Stocker l'objet methods dans le conrainer
 // @TODO : Faire la fonction sortBy

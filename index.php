@@ -42,7 +42,7 @@
     <script>
 
 
-        console.log($("ul").cursor("pointer"));
+        console.log($("ul").getAttr("style", "font-size"));
 
         mocha.run();
     </script>
