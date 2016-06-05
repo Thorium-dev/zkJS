@@ -1,6 +1,7 @@
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
 // @TODO : $({attr-id: "nom", attr-class: "rouge", text: /^a.b$/, content: /^a.b$/, name: "div", at: 3 })
 // @TODO : Faire la fonction repeat
+// @TODO : Faire la fonction position
 // @TODO : Stocker l'objet methods dans le conrainer
 // @TODO : Faire la fonction sortBy
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
@@ -23,6 +24,9 @@ var doIsThisNodeByKey = {
     "text": function ($this, node, value) {
         var text = node.textContent;
         return $this.toolbox.has(text, value) || false;
+    },
+    "content": function ($this, node, value) {
+        return this.text($this, node, value)
     },
 };
 /**
@@ -126,7 +130,6 @@ function getElementsByObject($this, element, selector) {
     }
     return res;
 }
-
 
 /**
  * Cette fonction permet d'insérer un élément après un autre
@@ -1592,17 +1595,7 @@ var nodeDoSetByParameters = {
         return nodes ? $this.toolbox.toArray(nodes) : [];
     },
     "object": function ($this, value) {
-        // @TODO : Uitliser la fonction getElementsByObject
-        var nodes = document.querySelectorAll("*"), res = [];
-        if (nodes) {
-            nodes = $this.toolbox.toArray(nodes);
-            $this.toolbox.each(nodes, function () {
-                if (isThisNode($this, this.v, value)) {
-                    res.push(this.v)
-                }
-            });
-        }
-        return res
+        return getElementsByObject($this, document, value);
     },
     "array": function ($this, nodes) {
         var res = [];

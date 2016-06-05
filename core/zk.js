@@ -1,8 +1,6 @@
 (function ($W) {
     'use strict';
 
-    //@TODO : Faire l'objet Edge (Gère les cotés margin, padding, border ...)
-
 
     var THIS = this, ZKID = parseInt(Math.random() * 100000000000);
 
@@ -318,8 +316,8 @@
             return res
         };
         function indexAndIndexes(el, value, what) {
-            var pType = self.is(value);
             if(!self.is(el, "string|array")){ return el }
+            var pType = self.is(value);
             var basePath = "_ENTITY_._PARAMETERS_." + self.is(el) + "." + what + ".";
             var f = APP.getContainer(basePath + pType);
             return f ? f(el, value) : APP.getContainer(basePath + "other")(el, value);
@@ -1258,8 +1256,8 @@
             "entity": APP.entity,
             "container": APP.container,
         };
-        var nodeEnity = APP.getContainer("_ENTITY_.node");
-        return Object.freeze(new nodeEnity($this)).set(selector);
+        var nodeEntity = APP.getContainer("_ENTITY_.node");
+        return Object.freeze(new nodeEntity($this)).set(selector);
     }
 
     /**

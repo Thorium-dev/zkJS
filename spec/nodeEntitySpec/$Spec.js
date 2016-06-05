@@ -1,19 +1,17 @@
-describe("Unit test for stringEntity", function() {
-    var str = "abcdef";
+describe("Unit test for nodeEntity", function() {
 
-    describe("Test each method", function () {
-        it("Loop 'abcdef'", function() {
-            var i = 0;
-            zk().toolbox.each(str, function () {
-                i++;
-            });
-            chaiExpect(i).equal(6, "Fail when loop 'abcdef'")
+    describe("Test $ selector", function () {
+        it("$ selector with string parameter", function() {
+            chaiExpect($("#days").get()).eql([document.querySelector("#days")])
         });
-        zk().toolbox.each(str, function () {
-            it("Test char " + this.v, function () {
-                chaiExpect(this.v).equal(str[this.i]);
-            });
+        it("$ selector with object parameter", function() {
+            var li = $({"name": "li", "content": "Tuesday"}).get()[0];
+            chaiExpect(li).equal(document.querySelector("li#day-2"));
+            var days1 = $({"attr-class": "day"}).get();
+            var days2 = zk("Convertor").array(document.querySelectorAll(".day"));
+            chaiExpect(days1).eql(days2)
         });
+
     });
 
 
