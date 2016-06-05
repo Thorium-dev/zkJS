@@ -40,7 +40,12 @@
     <script src="spec/nodeEntitySpec/$Spec.js"></script>
 
     <script>
-        
+
+
+        console.log($("#day-1").repeat(3, function () {
+            
+        }).get());
+
         mocha.run();
     </script>
 

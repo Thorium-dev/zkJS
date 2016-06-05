@@ -1,6 +1,6 @@
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
-// @TODO : $({attr-id: "nom", attr-class: "rouge", text: /^a.b$/, content: /^a.b$/, name: "div", at: 3 })
 // @TODO : Faire la fonction repeat
+// @TODO : Faire les fonctions text, html et content
 // @TODO : Faire la fonction position
 // @TODO : Stocker l'objet methods dans le conrainer
 // @TODO : Faire la fonction sortBy
@@ -84,7 +84,7 @@ function isThisNode($this, node, selector) {
     return isOk;
 }
 
-var doCreateElementByKey= {
+var doCreateElementByKey = {
     "class": function ($this, node, selector) {
         return node.setAttribute("class", selector["class"]);
     },
@@ -112,7 +112,7 @@ function createElementByObject($this, selector) {
                 node.setAttribute(k.slice(5), this.v);
             } else {
                 if (doCreateElementByKey.hasOwnProperty(k)) {
-                    node = doCreateElementByKey[k]($this, node, selector);
+                    doCreateElementByKey[k]($this, node, selector);
                 }
             }
         })
@@ -520,6 +520,75 @@ var methods = {
                 var nodes = this.get();
                 this.getFirst().attr("id", value);
                 return this.set(nodes)
+            }
+        },
+        /**
+         * Permet de répéter des éléments.
+         * La fonction reçoit en argument l'objet this avec :
+         *        - this.i : Index en cours
+         *        - this.z : Index en cours en partant de la fin
+         *        - this.v : Valeur de l'index en cours
+         *        - this.l : La taille totale de l'élément en cours. N'existe pour les objets litéraux
+         *        - this.all : L'élément sur lequel la méthode s'applique
+         *        - this.node : L'élément original
+         *        - this.clone : Copie de l'élément original
+         * @method repeat
+         * @param {*} [loop] Objet à parcourir.
+         * @param {function} [callback] Fonction à executer à chaque tour.
+         * @param {array} [args] Les arguments de la fonction callback.
+         * @return {Node}
+         * @since 1.0
+         */
+        "repeat": function (loop, callback, args) {
+            var f = this.parameters.repeat[this.toolbox.is(loop)];
+            if(f){ f(this, loop, callback, args) }
+            return this
+        },
+        /**
+         * Permet d'obtenir ou de définir le texte.
+         *
+         * @method text
+         * @param {string} [text] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "text": function (text) {
+            if(text === undefined){
+                return this.get()[0] ? this.get()[0].textContent : null;
+            }else{
+                this.each(function () {
+                    (this.v).textContent = text;
+                });
+                return this
+            }
+        },
+        /**
+         * Permet d'obtenir ou de définir le texte.
+         *
+         * @method content
+         * @param {string} [content] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "content": function (content) {
+            return this.text(content);
+        },
+        /**
+         * Permet d'obtenir ou de définir le texte (les éléments HTML sont pris en compte).
+         *
+         * @method html
+         * @param {string} [html] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "html": function (html) {
+            if(html === undefined){
+                return this.get()[0] ? this.get()[0].innerHTML : null;
+            }else{
+                this.each(function () {
+                    (this.v).innerHTML = html;
+                });
+                return this
             }
         },
 
@@ -1148,6 +1217,63 @@ var parameters = {
             }
         });
         return indexes
+    },
+
+    // repeat
+    "repeat.undefined": function ($this) {
+        return $this.parameters.repeat.number($this, 1);
+    },
+    "repeat.function": function ($this, callback, args) {
+        return $this.parameters.repeat.number($this, 1, callback, args);
+    },
+    "repeat.string": function ($this, loop, callback, args) {
+        return $this.parameters.repeat.object($this, {"text": loop}, callback, args);
+    },
+    "repeat.array": function ($this, loop, callback, args) {
+        var box = $this.toolbox;
+        box.each(loop, function () {
+            var v = this.all[this.z];
+            if(box.is(v, "string")){ v = {"text": v} }
+            if (box.is(v, "object")) {
+                $this.parameters.repeat.object($this, v, callback, args)
+            }
+        });
+        return $this;
+    },
+    "repeat.number": function ($this, loop, callback, args) {
+        var box = $this.toolbox;
+        if(!box.is(args, "array")){ args = [args] }
+        $this.each(function () {
+            var node = this.v, afterNode = node;
+            box.each(loop, function () {
+                var clone = node.cloneNode(true);
+                if(box.is(callback, "function")){
+                    this.node = node; this.clone = clone;
+                    var r = callback.apply(this, args);
+                    if(box.is(r, "node")){ r = r.get()[0] }
+                    if(box.is(r, "nodeelement")){ clone = r }
+                }
+                insertNodeAfter(clone, afterNode);
+                afterNode = clone;
+            });
+        });
+        return $this
+    },
+    "repeat.object": function ($this, loop, callback, args) {
+        var box = $this.toolbox;
+        $this.each(function () {
+            var node = this.v;
+            loop.name = node.cloneNode(true);
+            var clone = createElementByObject($this, loop);
+            if(box.is(callback, "function")){
+                if(!box.is(args, "array")){ args = [args] }
+                var r = callback.apply({node: node, clone: clone}, args);
+                if(box.is(r, "node")){ r = r.get()[0] }
+                if(box.is(r, "nodeelement")){ clone = r }
+            }
+            insertNodeAfter(clone, node);
+        });
+        return $this
     },
 
     // ===================================== LES METHODES AVEC GET =========================================
