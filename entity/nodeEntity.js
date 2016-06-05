@@ -1,7 +1,6 @@
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
-// @TODO : Faire la fonction repeat
-// @TODO : Faire les fonctions text, html et content
 // @TODO : Faire la fonction position
+// @TODO : Faire les fonctions toggle
 // @TODO : Stocker l'objet methods dans le conrainer
 // @TODO : Faire la fonction sortBy
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
@@ -94,6 +93,9 @@ var doCreateElementByKey = {
     "text": function ($this, node, selector) {
         node.textContent = selector.text;
         return node;
+    },
+    "content": function ($this, node, selector) {
+        return this.text($this, node, selector)
     },
     "html": function ($this, node, selector) {
         node.innerHTML = selector.html;
@@ -504,6 +506,191 @@ var methods = {
          */
         "color": function (value) {
             return this.css("color", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir la police d'un élément.
+         *
+         * @method font
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "font": function (value) {
+            return this.css("font", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir la taille de la police d'un élément.
+         *
+         * @method fontSize
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "fontSize": function (value) {
+            return this.css("font-size", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir l'arrière-plan d'un élément.
+         *
+         * @method background
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "background": function (value) {
+            return this.css("background", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir l'opacité d'un élément.
+         *
+         * @method opacity
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "opacity": function (value) {
+            return this.css("opacity", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir le mode d'affichage d'un élément.
+         *
+         * @method display
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "display": function (value) {
+            return this.css("display", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir la visibilité d'un élément.
+         *
+         * @method visibility
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "visibility": function (value) {
+            return this.css("visibility", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir le comportement en cas de dépassement du texte.
+         *
+         * @method overflow
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "overflow": function (value) {
+            return this.css("overflow", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir la flottaison.
+         *
+         * @method float
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "float": function (value) {
+            return this.css("float", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir le positionnement d'un élément.
+         *
+         * @method position
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "position": function (value) {
+            return this.css("position", value)
+        },
+        /**
+         * Permet de définir le positionnement absolute pour un élément.
+         *
+         * @method absolute
+         * @return {Node}
+         * @since 1.0
+         */
+        "absolute": function () {
+            return this.css("position", "absolute")
+        },
+        /**
+         * Permet de définir le positionnement relative pour un élément.
+         *
+         * @method relative
+         * @return {Node}
+         * @since 1.0
+         */
+        "relative": function () {
+            return this.css("position", "relative")
+        },
+        /**
+         * Permet d'obtenir ou de définir la position par rapport au haut.
+         *
+         * @method top
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "top": function (value) {
+            return this.css("top", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir la position par rapport à la droite.
+         *
+         * @method right
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "right": function (value) {
+            return this.css("right", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir la position par rapport au bas.
+         *
+         * @method bottom
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "bottom": function (value) {
+            return this.css("bottom", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir la position par rapport à la gauche.
+         *
+         * @method left
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "left": function (value) {
+            return this.css("left", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir l'ordre d'affichage en cas de superposition.
+         *
+         * @method zIndex
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "zIndex": function (value) {
+            return this.css("z-index", value)
+        },
+        /**
+         * Permet d'obtenir ou de définir le curseur de souris.
+         *
+         * @method cursor
+         * @param {string} [value] Valeur à définir.
+         * @return {string|Node|null}
+         * @since 1.0
+         */
+        "cursor": function (value) {
+            return this.css("cursor", value)
         },
         /**
          * Permet d'obtenir ou de définir la couleur d'un élément.
@@ -1218,7 +1405,6 @@ var parameters = {
         });
         return indexes
     },
-
     // repeat
     "repeat.undefined": function ($this) {
         return $this.parameters.repeat.number($this, 1);
@@ -1519,7 +1705,6 @@ var parameters = {
         });
         return $this.get();
     },
-
     // addMiddle
     "addMiddle.string": function ($this, value, isMove) {
         var box = $this.toolbox, values = document.querySelectorAll(value);
@@ -1553,7 +1738,6 @@ var parameters = {
         });
         return $this.get();
     },
-
     // addLast
     "addLast.string": function ($this, value, isMove) {
         var box = $this.toolbox, values = document.querySelectorAll(value);
@@ -1582,7 +1766,6 @@ var parameters = {
         });
         return $this.get();
     },
-
     // addAt
     "addAt.string": function ($this, indexes, value) {
         var box = $this.toolbox, values = document.querySelectorAll(value);
@@ -1631,7 +1814,6 @@ var parameters = {
         });
         return $this.get();
     },
-
     // addBefore
     "addBefore.string": function ($this, index, value) {
         value = document.querySelectorAll(value);
@@ -1663,7 +1845,6 @@ var parameters = {
         });
         return $this.get();
     },
-
     // addAfter
     "addAfter.string": function ($this, index, value) {
         var box = $this.toolbox;

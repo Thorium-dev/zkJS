@@ -42,9 +42,7 @@
     <script>
 
 
-        console.log($("#day-1").repeat(3, function () {
-            
-        }).get());
+        console.log($("ul").cursor("pointer"));
 
         mocha.run();
     </script>
