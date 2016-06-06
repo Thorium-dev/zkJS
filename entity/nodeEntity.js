@@ -132,6 +132,35 @@ function getElementsByObject($this, element, selector) {
     return res;
 }
 
+function setNodeMaxHeight($this, callback, args){
+    var temp = $this.entity.get("Node"),
+        box = $this.toolbox,
+        max = 0,
+        save = null,
+        to = $this.entity.get("Convertor");
+    // Obtention du max height
+    $this.each(function () {
+        temp.set(this.v);
+        var h = to.number(temp.heightP());
+        if(h > max){ max = h; save = this.v }
+    });
+    // Exécution de la fonction
+    if (box.is(callback, "function")) {
+        if(!box.is(args, "array")){ args = [args] }
+        var r = callback.apply({max: max, node: save}, args);
+        if (box.is(r, "number")) { max = r }
+    }
+    // Attribution du max height aux autres éléments
+    $this.each(function () {
+        if(this.v !== save){
+            var edge = temp.set(this.v).padding(),
+                p = to.number(edge.top()) + to.number(edge.bottom());
+            this.v.style.height = (max-p) + "px";
+        }
+    });
+    return max
+}
+
 /**
  * Cette fonction permet d'insérer un élément après un autre
  * @param  {[node]} nouvEl  [Elément à ajouter]
@@ -413,11 +442,14 @@ var methods = {
          * Permet d'obtenir ou de définir la hauteur d'un élément.
          *
          * @method height
-         * @param {string} [value] Valeur à définir.
+         * @param {string} [value] Valeur à définir. Si cette valeur vaut "*" les éléments prennent la même hauteur.
+         * @param {string} [callback] Fonction à executer avant d'attribuer la valeur max aux éléments.
+         * @param {string} [args] Les arguments de la fonction callback.
          * @return {string|Edge|Node|null}
          * @since 1.0
          */
-        "height": function (value) {
+        "height": function (value, callback, args) {
+            if(value === "*"){ setNodeMaxHeight(this, callback, args); return this }
             return this.css("height", value)
         },
         /**

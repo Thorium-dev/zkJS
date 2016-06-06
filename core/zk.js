@@ -150,7 +150,6 @@
                 var i, k, elType = self.is(el), r, ob;
                 if(elType === "string"){ el = el.split("") }
                 k = el.length;
-                if(!self.is(args, "array")){ args = [args] }
                 for (i = 0; i < k; i++) {
                     ob = {i: i, z: k - 1 - i, k: i, v: el[i], l: k, all: el};
                     r = f.apply(ob, args);
@@ -166,7 +165,6 @@
             },
             number: function (el, f, args) {
                 el = Math.abs(el);
-                if(!self.is(args, "array")){ args = [args] }
                 for (var i = 0; i < el; i++) {
                     var r = f.apply({i: i, z: el - 1 - i, all: el}, args);
                     if (self.is(r, "error")) { return el }
@@ -178,7 +176,6 @@
             },
             object: function (el, f, args) {
                 var i, r, ob;
-                if(!self.is(args, "array")){ args = [args] }
                 for (i in el) {
                     if (el.hasOwnProperty(i)) {
                         ob = {i: i, k: i, v: el[i], all: el};
@@ -193,7 +190,6 @@
             node: function (el, f, args) {
                 var i, k, nodes = el.get(), r, ob;
                 k = nodes.length;
-                if(!self.is(args, "array")){ args = [args] }
                 for (i = 0; i < k; i++) {
                     ob = {i: i, z: k - 1 - i, k: i, v: nodes[i], l: k, all: nodes};
                     r = f.apply(ob, args);
@@ -236,12 +232,8 @@
             if (self.is(callback, 'function')) {
                 var t = self.is(el);
                 if (doEachByObj.hasOwnProperty(t)) {
-                    if (args === undefined) {
-                        args = []
-                    }
-                    if (!self.is(args, 'array')) {
-                        args = [args]
-                    }
+                    if (args === undefined) { args = [] }
+                    if (!self.is(args, 'array')) { args = [args] }
                     el = doEachByObj[t](el, callback, args);
                 }
             }
