@@ -11,6 +11,7 @@
         }
         #days{
             padding-top: 20px;
+            width: 300px;
         }
         #days1{
             padding-top: 100px;
@@ -65,7 +66,7 @@
     <script>
 
 
-        $(".days").height("*");
+        $(".days").width("*").height("*");
         mocha.run();
     </script>
 

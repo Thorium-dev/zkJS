@@ -132,7 +132,7 @@ function getElementsByObject($this, element, selector) {
     return res;
 }
 
-function setNodeMaxHeight($this, callback, args){
+function setNodeMaxHeightWidth($this, callback, args, isWidth){
     var temp = $this.entity.get("Node"),
         box = $this.toolbox,
         max = 0,
@@ -141,7 +141,7 @@ function setNodeMaxHeight($this, callback, args){
     // Obtention du max height
     $this.each(function () {
         temp.set(this.v);
-        var h = to.number(temp.heightP());
+        var h = to.number(temp[(isWidth || "height") + "P"]());
         if(h > max){ max = h; save = this.v }
     });
     // Exécution de la fonction
@@ -154,8 +154,8 @@ function setNodeMaxHeight($this, callback, args){
     $this.each(function () {
         if(this.v !== save){
             var edge = temp.set(this.v).padding(),
-                p = to.number(edge.top()) + to.number(edge.bottom());
-            this.v.style.height = (max-p) + "px";
+                p = to.number(edge[isWidth ? "left" : "top"]()) + to.number(edge[isWidth ? "right" : "bottom"]());
+            this.v.style[isWidth ? "width" : "height"] = (max-p) + "px";
         }
     });
     return max
@@ -389,11 +389,14 @@ var methods = {
          * Permet d'obtenir ou de définir la largeur d'un élément.
          *
          * @method width
-         * @param {string} [value] Valeur à définir.
+         * @param {string} [value] Valeur à définir. Si cette valeur vaut "*" les éléments prennent la même largeur.
+         * @param {string} [callback] Fonction à executer avant d'attribuer la valeur max aux éléments.
+         * @param {string} [args] Les arguments de la fonction callback.
          * @return {string|Edge|Node|null}
          * @since 1.0
          */
-        "width": function (value) {
+        "width": function (value, callback, args) {
+            if(value === "*"){ setNodeMaxHeightWidth(this, callback, args, "width"); return this }
             return this.css("width", value)
         },
         /**
@@ -449,7 +452,7 @@ var methods = {
          * @since 1.0
          */
         "height": function (value, callback, args) {
-            if(value === "*"){ setNodeMaxHeight(this, callback, args); return this }
+            if(value === "*"){ setNodeMaxHeightWidth(this, callback, args); return this }
             return this.css("height", value)
         },
         /**
