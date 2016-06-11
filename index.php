@@ -28,7 +28,6 @@
         <li class="day" id="day-5">Friday</li>
         <li class="day" id="day-6">Saturday</li>
         <li class="day" id="day-7">Sunday</li>
-        <li class="day" id="day-7">Sunday</li>
     </ul>
     <ul class="days" id="days1" style="font-size: 20px;">
         <li class="day" id="day-1">Monday</li>
@@ -66,7 +65,7 @@
     <script>
 
 
-        $(".days").width("*").height("*");
+        console.log($("#days li").get("li").get("#day-5").get());
         mocha.run();
     </script>
 

@@ -290,7 +290,7 @@ function nodeXYintoDocument(node, what) {
     return val
 }
 
-var methods = {
+var nodeEntityMethods = {
 
         "each": function (callback, args) {
             return this.toolbox.each(this, callback, args)
@@ -312,6 +312,10 @@ var methods = {
         },
         "has": function (value) {
             return (this.index(value) + 1) ? true : false
+        },
+        "reverse": function () {
+            var nodes = this.toolbox.reverse(this.get());
+            console.log(nodes);
         },
         /**
          * Permet d'obtenir ou de définir la position d'un élément par rapport au bord gauche du document.
@@ -1385,7 +1389,7 @@ var methods = {
     
 };
 
-var parameters = {
+var nodeEntityParameters = {
 
     // index
     "index.string": function ($this, selector) {
@@ -1921,12 +1925,12 @@ var parameters = {
 
 var nodeDoGetByParameters = {
     "string": function ($this, selector) {
-        var indexes = $this.toolbox.indexes($this, selector);
-        return $this.toolbox.getAt($this.get(), indexes)
+        var box = $this.toolbox, indexes = $this.indexes(selector);
+        return box.getAt($this.get(), indexes)
     },
     "object": function ($this, selector) {
-        var indexes = $this.toolbox.indexes($this, selector);
-        return $this.toolbox.getAt($this.get(), indexes)
+        var box = $this.toolbox, indexes = $this.indexes(selector);
+        return box.getAt($this.get(), indexes)
     },
 
 };
@@ -1978,4 +1982,4 @@ zk().register(function Node($this) {
         }
         return self;
     };
-}, methods, parameters);
+}, nodeEntityMethods, nodeEntityParameters);
