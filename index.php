@@ -60,7 +60,7 @@
     </script>
 
     <script src="spec/stringEntitySpec/eachSpec.js"></script>
-    <script src="spec/nodeEntitySpec/$Spec.js"></script>
+    <script src="spec/nodeEntitySpec/nodeEntitySpec.js"></script>
 
     <script>
 
