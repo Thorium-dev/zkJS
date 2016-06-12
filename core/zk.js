@@ -2,7 +2,7 @@
     'use strict';
 
 
-    var THIS = this, ZKID = parseInt(Math.random() * 100000000000);
+    var THIS = this, ID = parseInt(Math.random() * 100000000000);
 
     var APP = {
         // Raccourcis vers _ENTITY_
@@ -1264,9 +1264,12 @@
      * @return {*} Elle retourne l'objet Node
      * @since 1.0
      */
-    $W.$ = function (selector) {
-        return nodeLauncher(selector)
-    };
+    if($W.$){
+        $W.$$ = function (selector) { return nodeLauncher(selector) };
+    }else{
+        $W.$ = function (selector) { return nodeLauncher(selector) };
+    }
+
     /**
      * Permet de sélectionner les entités
      *
