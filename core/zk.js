@@ -2,7 +2,7 @@
     'use strict';
 
 
-    var THIS = this, ID = parseInt(Math.random() * 100000000000);
+    var THIS = this, ID = parseInt(Math.random() * 1000000000000);
 
     var APP = {
         // Raccourcis vers _ENTITY_
@@ -445,6 +445,16 @@
             if(!self.is(el, "string|array")){ return el }
             el = el.split(new RegExp("["+separators+"]", "g"));
             return el.join("-");
+        };
+        /**
+         * Permet de générer un identifiant unique.
+         *
+         * @method generateID
+         * @return {Integer}
+         * @since 1.0
+         */
+        this.generateID = function () {
+            return (ID++) + parseInt(Math.random() * 1000);
         };
 
         // GET

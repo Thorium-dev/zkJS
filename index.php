@@ -65,6 +65,8 @@
     <script>
 
 
+        console.log(zk().toolbox.generateID());
+
         console.log($("#days li").get("li").get("#day-5").get());
         mocha.run();
     </script>
