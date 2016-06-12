@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bad75f10-0a2f-4689-aaf9-cc0177410271" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/zk.js" afterPath="$PROJECT_DIR$/core/zk.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
     </list>
     <ignored path="zkJS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -181,8 +180,8 @@
           <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/index.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="763">
-                  <caret line="67" column="47" selection-start-line="67" selection-start-column="47" selection-end-line="67" selection-end-column="47" />
+                <state relative-caret-position="463">
+                  <caret line="49" column="49" selection-start-line="49" selection-start-column="49" selection-end-line="49" selection-end-column="49" />
                   <folding />
                 </state>
               </provider>
@@ -519,13 +518,13 @@
           <file leaf-file-name="zk.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/core/zk.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="455" column="38" selection-start-line="455" selection-start-column="38" selection-end-line="455" selection-end-column="38" />
+                <state relative-caret-position="592">
+                  <caret line="1266" column="36" selection-start-line="1266" selection-start-column="36" selection-end-line="1266" selection-end-column="36" />
                   <folding>
-                    <element signature="e#889#2564#0" expanded="false" />
                     <element signature="e#956#1293#0" expanded="false" />
                     <element signature="e#1337#2119#0" expanded="false" />
                     <element signature="e#2159#2557#0" expanded="false" />
+                    <element signature="e#2669#42972#0" expanded="false" />
                     <element signature="e#3069#3931#0" expanded="false" />
                     <element signature="e#4438#5354#0" expanded="false" />
                     <element signature="e#4687#4787#0" expanded="false" />
@@ -618,74 +617,77 @@
                     <element signature="e#42161#42231#0" expanded="false" />
                     <element signature="e#42562#42627#0" expanded="false" />
                     <element signature="e#42903#42964#0" expanded="false" />
+                    <element signature="e#43068#45434#0" expanded="false" />
                     <element signature="e#43078#43862#0" expanded="false" />
-                    <element signature="e#44853#45387#0" expanded="false" />
-                    <element signature="e#45498#45849#0" expanded="false" />
-                    <element signature="e#45520#45715#0" expanded="false" />
-                    <element signature="e#46228#46422#0" expanded="false" />
-                    <marker date="1465725448000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="16968:17346" ph="{...}" />
-                    <marker date="1465725448000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
-                    <marker date="1465725448000" expanded="false" signature="45855:46050" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
+                    <element signature="e#43930#44810#0" expanded="false" />
+                    <element signature="e#44853#45427#0" expanded="false" />
+                    <element signature="e#45032#45316#0" expanded="false" />
+                    <element signature="e#46020#46403#0" expanded="false" />
+                    <element signature="e#46042#46269#0" expanded="false" />
+                    <element signature="e#46782#46976#0" expanded="false" />
+                    <marker date="1465727288000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="16968:17346" ph="{...}" />
+                    <marker date="1465727288000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
+                    <marker date="1465727288000" expanded="false" signature="46409:46604" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
                   </folding>
                 </state>
               </provider>
@@ -1814,12 +1816,12 @@
       <workItem from="1465164864919" duration="389000" />
       <workItem from="1465192250192" duration="5649000" />
       <workItem from="1465274071507" duration="2915000" />
-      <workItem from="1465663856838" duration="9466000" />
+      <workItem from="1465663856838" duration="11297000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="527932000" />
+    <option name="totallyTimeSpent" value="529763000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1903,10 +1905,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#889#2564#0" expanded="false" />
             <element signature="e#956#1293#0" expanded="false" />
             <element signature="e#1337#2119#0" expanded="false" />
             <element signature="e#2159#2557#0" expanded="false" />
+            <element signature="e#2669#42972#0" expanded="false" />
             <element signature="e#3069#3931#0" expanded="false" />
             <element signature="e#4438#5354#0" expanded="false" />
             <element signature="e#4687#4787#0" expanded="false" />
@@ -1999,74 +2001,77 @@
             <element signature="e#42161#42231#0" expanded="false" />
             <element signature="e#42562#42627#0" expanded="false" />
             <element signature="e#42903#42964#0" expanded="false" />
+            <element signature="e#43068#45434#0" expanded="false" />
             <element signature="e#43078#43862#0" expanded="false" />
-            <element signature="e#44853#45387#0" expanded="false" />
-            <element signature="e#45498#45849#0" expanded="false" />
-            <element signature="e#45520#45715#0" expanded="false" />
-            <element signature="e#46228#46422#0" expanded="false" />
-            <marker date="1465725448000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
-            <marker date="1465725448000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="16968:17346" ph="{...}" />
-            <marker date="1465725448000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="45855:46050" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
+            <element signature="e#43930#44810#0" expanded="false" />
+            <element signature="e#44853#45427#0" expanded="false" />
+            <element signature="e#45032#45316#0" expanded="false" />
+            <element signature="e#46020#46403#0" expanded="false" />
+            <element signature="e#46042#46269#0" expanded="false" />
+            <element signature="e#46782#46976#0" expanded="false" />
+            <marker date="1465727288000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
+            <marker date="1465727288000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="16968:17346" ph="{...}" />
+            <marker date="1465727288000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="46409:46604" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
           </folding>
         </state>
       </provider>
@@ -2237,10 +2242,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#889#2564#0" expanded="false" />
             <element signature="e#956#1293#0" expanded="false" />
             <element signature="e#1337#2119#0" expanded="false" />
             <element signature="e#2159#2557#0" expanded="false" />
+            <element signature="e#2669#42972#0" expanded="false" />
             <element signature="e#3069#3931#0" expanded="false" />
             <element signature="e#4438#5354#0" expanded="false" />
             <element signature="e#4687#4787#0" expanded="false" />
@@ -2333,74 +2338,77 @@
             <element signature="e#42161#42231#0" expanded="false" />
             <element signature="e#42562#42627#0" expanded="false" />
             <element signature="e#42903#42964#0" expanded="false" />
+            <element signature="e#43068#45434#0" expanded="false" />
             <element signature="e#43078#43862#0" expanded="false" />
-            <element signature="e#44853#45387#0" expanded="false" />
-            <element signature="e#45498#45849#0" expanded="false" />
-            <element signature="e#45520#45715#0" expanded="false" />
-            <element signature="e#46228#46422#0" expanded="false" />
-            <marker date="1465725448000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
-            <marker date="1465725448000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="16968:17346" ph="{...}" />
-            <marker date="1465725448000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="45855:46050" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
+            <element signature="e#43930#44810#0" expanded="false" />
+            <element signature="e#44853#45427#0" expanded="false" />
+            <element signature="e#45032#45316#0" expanded="false" />
+            <element signature="e#46020#46403#0" expanded="false" />
+            <element signature="e#46042#46269#0" expanded="false" />
+            <element signature="e#46782#46976#0" expanded="false" />
+            <marker date="1465727288000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
+            <marker date="1465727288000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="16968:17346" ph="{...}" />
+            <marker date="1465727288000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="46409:46604" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
           </folding>
         </state>
       </provider>
@@ -2556,10 +2564,10 @@
         <state relative-caret-position="1035">
           <caret line="319" column="43" selection-start-line="319" selection-start-column="43" selection-end-line="319" selection-end-column="43" />
           <folding>
-            <element signature="e#889#2564#0" expanded="false" />
             <element signature="e#956#1293#0" expanded="false" />
             <element signature="e#1337#2119#0" expanded="false" />
             <element signature="e#2159#2557#0" expanded="false" />
+            <element signature="e#2669#42972#0" expanded="false" />
             <element signature="e#3069#3931#0" expanded="false" />
             <element signature="e#4438#5354#0" expanded="false" />
             <element signature="e#4687#4787#0" expanded="false" />
@@ -2652,74 +2660,77 @@
             <element signature="e#42161#42231#0" expanded="false" />
             <element signature="e#42562#42627#0" expanded="false" />
             <element signature="e#42903#42964#0" expanded="false" />
+            <element signature="e#43068#45434#0" expanded="false" />
             <element signature="e#43078#43862#0" expanded="false" />
-            <element signature="e#44853#45387#0" expanded="false" />
-            <element signature="e#45498#45849#0" expanded="false" />
-            <element signature="e#45520#45715#0" expanded="false" />
-            <element signature="e#46228#46422#0" expanded="false" />
-            <marker date="1465725448000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
-            <marker date="1465725448000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="16968:17346" ph="{...}" />
-            <marker date="1465725448000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="45855:46050" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
+            <element signature="e#43930#44810#0" expanded="false" />
+            <element signature="e#44853#45427#0" expanded="false" />
+            <element signature="e#45032#45316#0" expanded="false" />
+            <element signature="e#46020#46403#0" expanded="false" />
+            <element signature="e#46042#46269#0" expanded="false" />
+            <element signature="e#46782#46976#0" expanded="false" />
+            <marker date="1465727288000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
+            <marker date="1465727288000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="16968:17346" ph="{...}" />
+            <marker date="1465727288000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="46409:46604" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
           </folding>
         </state>
       </provider>
@@ -2890,10 +2901,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#889#2564#0" expanded="false" />
             <element signature="e#956#1293#0" expanded="false" />
             <element signature="e#1337#2119#0" expanded="false" />
             <element signature="e#2159#2557#0" expanded="false" />
+            <element signature="e#2669#42972#0" expanded="false" />
             <element signature="e#3069#3931#0" expanded="false" />
             <element signature="e#4438#5354#0" expanded="false" />
             <element signature="e#4687#4787#0" expanded="false" />
@@ -2986,74 +2997,77 @@
             <element signature="e#42161#42231#0" expanded="false" />
             <element signature="e#42562#42627#0" expanded="false" />
             <element signature="e#42903#42964#0" expanded="false" />
+            <element signature="e#43068#45434#0" expanded="false" />
             <element signature="e#43078#43862#0" expanded="false" />
-            <element signature="e#44853#45387#0" expanded="false" />
-            <element signature="e#45498#45849#0" expanded="false" />
-            <element signature="e#45520#45715#0" expanded="false" />
-            <element signature="e#46228#46422#0" expanded="false" />
-            <marker date="1465725448000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
-            <marker date="1465725448000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="16968:17346" ph="{...}" />
-            <marker date="1465725448000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="45855:46050" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
+            <element signature="e#43930#44810#0" expanded="false" />
+            <element signature="e#44853#45427#0" expanded="false" />
+            <element signature="e#45032#45316#0" expanded="false" />
+            <element signature="e#46020#46403#0" expanded="false" />
+            <element signature="e#46042#46269#0" expanded="false" />
+            <element signature="e#46782#46976#0" expanded="false" />
+            <marker date="1465727288000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
+            <marker date="1465727288000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="16968:17346" ph="{...}" />
+            <marker date="1465727288000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="46409:46604" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
           </folding>
         </state>
       </provider>
@@ -3224,10 +3238,10 @@
         <state relative-caret-position="1275">
           <caret line="372" column="4" selection-start-line="372" selection-start-column="4" selection-end-line="372" selection-end-column="4" />
           <folding>
-            <element signature="e#889#2564#0" expanded="false" />
             <element signature="e#956#1293#0" expanded="false" />
             <element signature="e#1337#2119#0" expanded="false" />
             <element signature="e#2159#2557#0" expanded="false" />
+            <element signature="e#2669#42972#0" expanded="false" />
             <element signature="e#3069#3931#0" expanded="false" />
             <element signature="e#4438#5354#0" expanded="false" />
             <element signature="e#4687#4787#0" expanded="false" />
@@ -3320,74 +3334,77 @@
             <element signature="e#42161#42231#0" expanded="false" />
             <element signature="e#42562#42627#0" expanded="false" />
             <element signature="e#42903#42964#0" expanded="false" />
+            <element signature="e#43068#45434#0" expanded="false" />
             <element signature="e#43078#43862#0" expanded="false" />
-            <element signature="e#44853#45387#0" expanded="false" />
-            <element signature="e#45498#45849#0" expanded="false" />
-            <element signature="e#45520#45715#0" expanded="false" />
-            <element signature="e#46228#46422#0" expanded="false" />
-            <marker date="1465725448000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
-            <marker date="1465725448000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="16968:17346" ph="{...}" />
-            <marker date="1465725448000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="45855:46050" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
+            <element signature="e#43930#44810#0" expanded="false" />
+            <element signature="e#44853#45427#0" expanded="false" />
+            <element signature="e#45032#45316#0" expanded="false" />
+            <element signature="e#46020#46403#0" expanded="false" />
+            <element signature="e#46042#46269#0" expanded="false" />
+            <element signature="e#46782#46976#0" expanded="false" />
+            <marker date="1465727288000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
+            <marker date="1465727288000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="16968:17346" ph="{...}" />
+            <marker date="1465727288000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="46409:46604" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
           </folding>
         </state>
       </provider>
@@ -3558,10 +3575,10 @@
         <state relative-caret-position="1275">
           <caret line="372" column="4" selection-start-line="372" selection-start-column="4" selection-end-line="372" selection-end-column="4" />
           <folding>
-            <element signature="e#889#2564#0" expanded="false" />
             <element signature="e#956#1293#0" expanded="false" />
             <element signature="e#1337#2119#0" expanded="false" />
             <element signature="e#2159#2557#0" expanded="false" />
+            <element signature="e#2669#42972#0" expanded="false" />
             <element signature="e#3069#3931#0" expanded="false" />
             <element signature="e#4438#5354#0" expanded="false" />
             <element signature="e#4687#4787#0" expanded="false" />
@@ -3654,74 +3671,77 @@
             <element signature="e#42161#42231#0" expanded="false" />
             <element signature="e#42562#42627#0" expanded="false" />
             <element signature="e#42903#42964#0" expanded="false" />
+            <element signature="e#43068#45434#0" expanded="false" />
             <element signature="e#43078#43862#0" expanded="false" />
-            <element signature="e#44853#45387#0" expanded="false" />
-            <element signature="e#45498#45849#0" expanded="false" />
-            <element signature="e#45520#45715#0" expanded="false" />
-            <element signature="e#46228#46422#0" expanded="false" />
-            <marker date="1465725448000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
-            <marker date="1465725448000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="16968:17346" ph="{...}" />
-            <marker date="1465725448000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="45855:46050" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
+            <element signature="e#43930#44810#0" expanded="false" />
+            <element signature="e#44853#45427#0" expanded="false" />
+            <element signature="e#45032#45316#0" expanded="false" />
+            <element signature="e#46020#46403#0" expanded="false" />
+            <element signature="e#46042#46269#0" expanded="false" />
+            <element signature="e#46782#46976#0" expanded="false" />
+            <marker date="1465727288000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
+            <marker date="1465727288000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="16968:17346" ph="{...}" />
+            <marker date="1465727288000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="46409:46604" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
           </folding>
         </state>
       </provider>
@@ -3892,10 +3912,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#889#2564#0" expanded="false" />
             <element signature="e#956#1293#0" expanded="false" />
             <element signature="e#1337#2119#0" expanded="false" />
             <element signature="e#2159#2557#0" expanded="false" />
+            <element signature="e#2669#42972#0" expanded="false" />
             <element signature="e#3069#3931#0" expanded="false" />
             <element signature="e#4438#5354#0" expanded="false" />
             <element signature="e#4687#4787#0" expanded="false" />
@@ -3988,74 +4008,77 @@
             <element signature="e#42161#42231#0" expanded="false" />
             <element signature="e#42562#42627#0" expanded="false" />
             <element signature="e#42903#42964#0" expanded="false" />
+            <element signature="e#43068#45434#0" expanded="false" />
             <element signature="e#43078#43862#0" expanded="false" />
-            <element signature="e#44853#45387#0" expanded="false" />
-            <element signature="e#45498#45849#0" expanded="false" />
-            <element signature="e#45520#45715#0" expanded="false" />
-            <element signature="e#46228#46422#0" expanded="false" />
-            <marker date="1465725448000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
-            <marker date="1465725448000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="16968:17346" ph="{...}" />
-            <marker date="1465725448000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="45855:46050" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
+            <element signature="e#43930#44810#0" expanded="false" />
+            <element signature="e#44853#45427#0" expanded="false" />
+            <element signature="e#45032#45316#0" expanded="false" />
+            <element signature="e#46020#46403#0" expanded="false" />
+            <element signature="e#46042#46269#0" expanded="false" />
+            <element signature="e#46782#46976#0" expanded="false" />
+            <marker date="1465727288000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
+            <marker date="1465727288000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="16968:17346" ph="{...}" />
+            <marker date="1465727288000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="46409:46604" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
           </folding>
         </state>
       </provider>
@@ -4818,21 +4841,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="763">
-          <caret line="67" column="47" selection-start-line="67" selection-start-column="47" selection-end-line="67" selection-end-column="47" />
+        <state relative-caret-position="463">
+          <caret line="49" column="49" selection-start-line="49" selection-start-column="49" selection-end-line="49" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/zk.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="455" column="38" selection-start-line="455" selection-start-column="38" selection-end-line="455" selection-end-column="38" />
+        <state relative-caret-position="592">
+          <caret line="1266" column="36" selection-start-line="1266" selection-start-column="36" selection-end-line="1266" selection-end-column="36" />
           <folding>
-            <element signature="e#889#2564#0" expanded="false" />
             <element signature="e#956#1293#0" expanded="false" />
             <element signature="e#1337#2119#0" expanded="false" />
             <element signature="e#2159#2557#0" expanded="false" />
+            <element signature="e#2669#42972#0" expanded="false" />
             <element signature="e#3069#3931#0" expanded="false" />
             <element signature="e#4438#5354#0" expanded="false" />
             <element signature="e#4687#4787#0" expanded="false" />
@@ -4925,74 +4948,77 @@
             <element signature="e#42161#42231#0" expanded="false" />
             <element signature="e#42562#42627#0" expanded="false" />
             <element signature="e#42903#42964#0" expanded="false" />
+            <element signature="e#43068#45434#0" expanded="false" />
             <element signature="e#43078#43862#0" expanded="false" />
-            <element signature="e#44853#45387#0" expanded="false" />
-            <element signature="e#45498#45849#0" expanded="false" />
-            <element signature="e#45520#45715#0" expanded="false" />
-            <element signature="e#46228#46422#0" expanded="false" />
-            <marker date="1465725448000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
-            <marker date="1465725448000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="16968:17346" ph="{...}" />
-            <marker date="1465725448000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
-            <marker date="1465725448000" expanded="false" signature="45855:46050" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
+            <element signature="e#43930#44810#0" expanded="false" />
+            <element signature="e#44853#45427#0" expanded="false" />
+            <element signature="e#45032#45316#0" expanded="false" />
+            <element signature="e#46020#46403#0" expanded="false" />
+            <element signature="e#46042#46269#0" expanded="false" />
+            <element signature="e#46782#46976#0" expanded="false" />
+            <marker date="1465727288000" expanded="false" signature="2705:3030" ph="/** Permet de connaître ou de tester le type d'un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="3941:4387" ph="/** Permet de supprimer des caractères au début et à la fin d'une chaîne ...*/" />
+            <marker date="1465727288000" expanded="false" signature="8098:8816" ph="/** Permet de parcourir des objets. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9267:9465" ph="/** Permet de convertir un objet en tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="9561:9771" ph="/** Permet de trier les tableaux dans l'ordre croissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10084:10297" ph="/** Permet de trier les tableaux dans l'ordre décroissant. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="10611:11078" ph="/** Elle supprime les éléments dupliqués d'un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="11861:12164" ph="/** Permet d'obtenir l'index d'une valeur dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12283:12586" ph="/** Permet d'obtenir les index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="12709:13021" ph="/** Permet d'obtenir le dernier index d'une valeur. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13262:13610" ph="/** Permet de compter le nombre de fois q'une valeur existe dans un élément. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="13782:14133" ph="/** Permet de vérifier si une valeur existe dans un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14315:14573" ph="/** Permet de renverser une chaîne de caractères ou un tableau. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="14870:15164" ph="/** Permet de transformer une chaîne de caractères en camel case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="15587:15881" ph="/** Permet de transformer une chaîne de caractères en snake case. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="16968:17346" ph="{...}" />
+            <marker date="1465727288000" expanded="false" signature="17355:17589" ph="/** Permet d'obtenir les premiers éléments d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="17708:17927" ph="/** Permet d'obtenir le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18171:18393" ph="/** Permet d'obtenir les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="18510:18752" ph="/** Permet d'obtenir les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19020:19261" ph="/** Permet d'obtenir les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="19527:19802" ph="/** Permet d'obtenir une ou plusieurs plages d'un objet. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20131:20428" ph="/** Permet d'obtenir des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="20692:20900" ph="/** Permet d'obtenir des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="21818:22047" ph="/** Permet de supprimer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22168:22393" ph="/** Permet de supprimer le ou les éléments qui se trouvent au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="22676:22905" ph="/** Permet de supprimer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23323:23571" ph="/** Permet de supprimer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="23705:23952" ph="/** Permet de supprimer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24084:24339" ph="/** Permet de supprimer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="24479:24782" ph="/** Permet de supprimer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="25169:25383" ph="/** Permet de supprimer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26182:26404" ph="/** Permet d'ajouter des valeurs au début. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26523:26747" ph="/** Permet d'ajouter des valeurs au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="26970:27191" ph="/** Permet d'ajouter des valeurs à la fin. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="27683:27942" ph="/** Permet d'ajouter des éléments avant des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28079:28337" ph="/** Permet d'ajouter des éléments après des index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="28472:28738" ph="/** Permet d'ajouter des valeurs à des positions spécifiques. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="29092:29300" ph="/** Permet d'ajouter des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30225:30486" ph="/** Permet de changer les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="30822:31082" ph="/** Permet de changer les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="31677:31951" ph="/** Permet de changer les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32094:32367" ph="/** Permet de changer les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="32508:32789" ph="/** Permet de changer une plage. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33188:33471" ph="/** Permet de changer des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="33860:34106" ph="/** Permet de changer des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35071:35309" ph="/** Permet de mettre en majuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="35446:35683" ph="/** Permet de mettre en majuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36165:36377" ph="/** Permet de mettre en majuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="36848:37105" ph="/** Permet de mettre en majuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="37246:37502" ph="/** Permet de mettre en majuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38028:38272" ph="/** Permet de mettre en majuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="38827:39101" ph="/** Permet de mettre en majuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="39645:39868" ph="/** Permet de mettre en majuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40001:40239" ph="/** Permet de mettre en minuscule les premiers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40376:40613" ph="/** Permet de mettre en minuscule les derniers éléments. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="40748:40960" ph="/** Permet de mettre en minuscule les éléments au milieu. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41072:41329" ph="/** Permet de mettre en minuscule les éléments qui se situent avant index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41470:41726" ph="/** Permet de mettre en minuscule les éléments qui se situent après index. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="41865:42109" ph="/** Permet de mettre en minuscule une ou plusieurs plages. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42241:42515" ph="/** Permet de mettre en minuscule des éléments qui se trouvent à des index spécifiés. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="42637:42860" ph="/** Permet de mettre en minuscule des valeurs. ...*/" />
+            <marker date="1465727288000" expanded="false" signature="46409:46604" ph="/** Permet de sélectionner les éléments du DOM ...*/" />
           </folding>
         </state>
       </provider>

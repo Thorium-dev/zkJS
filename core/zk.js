@@ -1246,6 +1246,7 @@
                     "toolbox": APP.toolbox,
                     "entity": APP.entity,
                     "container": APP.container,
+                    "event": APP.event,
                 };
                 entity = new entity($this);
             }
@@ -1255,12 +1256,28 @@
     APP._ENTITY_ = new _ENTITY_();
     APP.entity = APP._ENTITY_;
 
+    function _EVENT_(){
+        var self = this;
+        this.get = function (path) {
+            return APP.container.get("_ENTITY_._EVENTS_." + path);
+        };
+        this.set = function (path, value) {
+            return APP.container.set("_ENTITY_._EVENTS_." + path, value);
+        };
+        this.remove = function (path) {
+            return APP.container.remove("_ENTITY_._EVENTS_." + path);
+        }
+    }
+    APP._EVENT_ = new _EVENT_();
+    APP.event = APP._EVENT_;
+
     function nodeLauncher(selector) {
         var $this = {
             "parameters": APP.getContainer("_ENTITY_._PARAMETERS_.node"),
             "toolbox": APP.toolbox,
             "entity": APP.entity,
             "container": APP.container,
+            "event": APP.event,
         };
         var nodeEntity = APP.getContainer("_ENTITY_.node");
         return Object.freeze(new nodeEntity($this)).set(selector);
