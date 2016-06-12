@@ -3,6 +3,7 @@ zk().register(function Convertor($this) {
     this.toolbox = $this.toolbox;
     this.entity = $this.entity;
     this.container = $this.container;
+    this.event = $this.event;
     this.number = function (value) {
         try{
             return eval(((value+"").replace(/[^\d\+\-\*\/%\.]+/g, "")).replace(/^(?:[^\d]+)|(?:[^\d]+)$/g, ""));

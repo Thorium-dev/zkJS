@@ -29,15 +29,15 @@
         <li class="day" id="day-6">Saturday</li>
         <li class="day" id="day-7">Sunday</li>
     </ul>
-    <ul class="days" id="days1" style="font-size: 20px;">
-        <li class="day" id="day-1">Monday</li>
-        <li class="day" id="day-2">Tuesday</li>
-        <li class="day" id="day-3">Wednesday</li>
-        <li class="day" id="day-4">Thursday</li>
-        <li class="day" id="day-5">Friday</li>
-        <li class="day" id="day-6">Saturday</li>
-        <li class="day" id="day-7">Sunday</li>
-    </ul>
+<!--    <ul class="days" id="days1" style="font-size: 20px;">-->
+<!--        <li class="day" id="day-1">Monday</li>-->
+<!--        <li class="day" id="day-2">Tuesday</li>-->
+<!--        <li class="day" id="day-3">Wednesday</li>-->
+<!--        <li class="day" id="day-4">Thursday</li>-->
+<!--        <li class="day" id="day-5">Friday</li>-->
+<!--        <li class="day" id="day-6">Saturday</li>-->
+<!--        <li class="day" id="day-7">Sunday</li>-->
+<!--    </ul>-->
 
 
     <div id="mocha"></div>
@@ -64,10 +64,11 @@
 
     <script>
 
-
-        console.log(zk().toolbox.generateID());
-
-        console.log($("#days li").get("li").get("#day-5").get());
+//        ($("#day-3").on("click", function cal1(){ alert("click")}));
+//        ($("#days li#day-3").on("click", function cal2(){}));
+        $("#day-3").on("over click", function() {
+            console.log(this);
+        });
         mocha.run();
     </script>
 

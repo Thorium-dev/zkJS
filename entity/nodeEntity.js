@@ -1,6 +1,6 @@
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
 // @TODO : Faire les fonctions toggle
-// @TODO : Stocker l'objet methods dans le conrainer
+// @TODO : Faire la fonction clickout
 // @TODO : Faire la fonction sortBy
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
 // @TODO : Faire la fonction caret (en relation avec la position du curseur dans les input et les textarea)
@@ -290,6 +290,19 @@ function nodeXYintoDocument(node, what) {
     return val
 }
 
+var allEventsAlias = {
+    out: 'mouseout',
+    over: 'mouseover',
+    down: 'mousedown',
+    up: 'mouseup',
+    enter: 'mouseenter',
+    leave: 'mouseleave',
+    move: 'mousemove',
+    kp: 'keypress',
+    kd: 'keydown',
+    ku: 'keyup'
+};
+
 var nodeEntityMethods = {
 
         "each": function (callback, args) {
@@ -317,6 +330,7 @@ var nodeEntityMethods = {
             var nodes = this.toolbox.reverse(this.get());
             console.log(nodes);
         },
+
         /**
          * Permet d'obtenir ou de définir la position d'un élément par rapport au bord gauche du document.
          *
@@ -815,6 +829,88 @@ var nodeEntityMethods = {
                 });
                 return this
             }
+        },
+
+
+        // ===================================== LES METHODES POUR LES EVENTS =========================================
+
+        /**
+         * Permet d'ajouter des événements.
+         *
+         * @method on
+         * @param {string} events Le nom de l'événement. On peut indiquer un espace de nom. On peut indiquer plusieurs événements en les séparant par des espaces ou virgules.
+         * @param {function} callback Fonction qui sera exécutée par l'événement.
+         * @return {Node}
+         * @since 1.0
+         */
+        "on": function (events, callback) {
+            var $this = this, e = $this.event, box = $this.toolbox;
+            if(!box.is(events, "string") || !box.is(callback, "function")){ return this }
+            events = events.split(/[ ,]/);
+            box.each(events, function () {
+                var event = this.v;
+                event = box.trim(event);
+                event = event.split(".");
+                var eType = event[0].trim(),
+                    space = (event.slice(1));
+                if(eType){
+                    if(allEventsAlias.hasOwnProperty(eType)){
+                        eType = allEventsAlias[eType]
+                    }
+                    $this.each(function () {
+                        var node = this.v, zkID = node.getAttribute("data-zk-id");
+                        if(!zkID){
+                            zkID = box.generateID();
+                            node.setAttribute("data-zk-id", zkID);
+                        }
+                        if(!space[0]){ space = [eType + zkID] }
+                        var path = "node." + zkID + "." + eType + ".",
+                            functions = e.get(path + "functions") || {};
+                        box.each(space, function () {
+                            var fs = functions[this.v];
+                            fs = (fs || []).concat(callback);
+                            functions[this.v] = fs;
+                        });
+
+                        e.set(path + "functions", functions);
+
+                        // @TODO : Traiter le cas de over et out puis clickout
+                        var launcher = function(e) {
+                            e = e || window.event;
+                            e.stopPropagation();
+                            var box = zk().toolbox, zkID = this.getAttribute("data-zk-id"), eType = e.type,
+                                functions = zk().event.get("node." + zkID + "." + eType + ".functions" ),
+                                $this = {
+                                    e: e,
+                                    node: this,
+                                    type: e.type,
+                                    related: e.relatedTarget || e[(e.type === 'mouseout') ? 'toElement' : 'fromElement']
+                                };
+                            $this.code = undefined; $this.char = undefined;
+                            if (e.type === 'keypress' || e.type === 'keyup' || e.type === 'keydown') {
+                                $this.code = e.keyCode || e.charCode;
+                                $this.char = String.fromCharCode(obj.code);
+                            }
+                            box.each(functions , function () {
+                                box.each(this.v, function () {
+                                    this.v.apply($this);
+                                })
+                            });
+                        };
+
+                        if (!e.get(path + "launcher")) {
+                            e.set(path + "launcher", launcher);
+                            if(node.addEventListener){
+                                node.addEventListener(eType, launcher, false)
+                            }else {
+                                node.attachEvent("on" + eType, launcher);
+                            }
+                        }
+
+                    });
+                }
+            });
+            return this;
         },
 
         // ===================================== LES METHODES AVEC GET =========================================
@@ -1967,6 +2063,7 @@ zk().register(function Node($this) {
     this.toolbox = $this.toolbox;
     this.entity = $this.entity;
     this.container = $this.container;
+    this.event = $this.event;
     this.get = function (selector) {
         if (selector === undefined) { return nodes }
         var selType = self.toolbox.is(selector);

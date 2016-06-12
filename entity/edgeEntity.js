@@ -4,6 +4,7 @@ zk().register(function Edge($this) {
     this.toolbox = $this.toolbox;
     this.entity = $this.entity;
     this.container = $this.container;
+    this.event = $this.event;
     this.get = function () {
         return edgesValues
     };

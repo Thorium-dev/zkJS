@@ -452,7 +452,7 @@
          * Permet de générer un identifiant unique.
          *
          * @method generateID
-         * @param {window|document|void} object
+         * @param {window|document|void} [object]
          * @return {Integer}
          * @since 1.0
          */
