@@ -2,7 +2,9 @@
     'use strict';
 
 
-    var THIS = this, ID = parseInt(Math.random() * 1000000000000);
+    var THIS = this, ID = parseInt(Math.random() * 1000000000000),
+        windowID = (ID++) + parseInt(Math.random() * 1000),
+        documentID = (ID++) + parseInt(Math.random() * 1000);
 
     var APP = {
         // Raccourcis vers _ENTITY_
@@ -450,10 +452,13 @@
          * Permet de générer un identifiant unique.
          *
          * @method generateID
+         * @param {window|document|void} object
          * @return {Integer}
          * @since 1.0
          */
-        this.generateID = function () {
+        this.generateID = function (object) {
+            if(object === window){ return windowID }
+            if(object === document){ return documentID }
             return (ID++) + parseInt(Math.random() * 1000);
         };
 
