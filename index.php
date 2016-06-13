@@ -66,10 +66,10 @@
 
 //        ($("#day-3").on("click", function cal1(){ alert("click")}));
 //        ($("#days li#day-3").on("click", function cal2(){}));
-        $("#day-3").on("coucou.hello click.space click.space2.space3", function() {
+        $("#days").out(function() {
             console.log(this.type);
             console.log(this.nameSpace);
-        }).trigger("coucou click.space2");
+        });
         mocha.run();
     </script>
 

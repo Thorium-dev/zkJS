@@ -836,11 +836,11 @@ var nodeEntityMethods = {
 
 
         /**
-         * Permet d'ajouter des événements.
+         * Permet d'ajouter des évènements.
          *
          * @method on
-         * @param {string} events Le nom de l'événement. On peut indiquer un espace de nom. On peut indiquer plusieurs événements en les séparant par des espaces ou virgules.
-         * @param {function} callback Fonction qui sera exécutée par l'événement.
+         * @param {string} events Le nom de l'évènement. On peut indiquer un espace de nom. On peut indiquer plusieurs évènements en les séparant par des espaces ou virgules.
+         * @param {function} callback Fonction qui sera exécutée par l'évènement.
          * @return {Node}
          * @since 1.0
          */
@@ -919,10 +919,10 @@ var nodeEntityMethods = {
             return this;
         },
         /**
-         * Permet de supprimer des événements.
+         * Permet de supprimer des évènements.
          *
          * @method off
-         * @param {string} events Le nom de l'événement. On peut indiquer un espace de nom. On peut indiquer plusieurs événements en les séparant par des espaces ou virgules.
+         * @param {string} events Le nom de l'évènement. On peut indiquer un espace de nom. On peut indiquer plusieurs évènements en les séparant par des espaces ou virgules.
          * @return {Node}
          * @since 1.0
          */
@@ -971,10 +971,10 @@ var nodeEntityMethods = {
             return this;
         },
         /**
-         * Permet de déclencher manuellement des événements.
+         * Permet de déclencher manuellement des évènements.
          *
          * @method trigger
-         * @param {string} events Le nom de l'événement. On peut indiquer un espace de nom. On peut indiquer plusieurs événements en les séparant par des espaces ou virgules.
+         * @param {string} events Le nom de l'évènement. On peut indiquer un espace de nom. On peut indiquer plusieurs évènements en les séparant par des espaces ou virgules.
          * @return {Node}
          * @since 1.0
          */
@@ -1029,9 +1029,132 @@ var nodeEntityMethods = {
             });
             return this;
         },
+        /**
+         * Permet d'ajouter l'évènement click.
+         *
+         * @method click
+         * @param {function} callback Fonction qui sera exécutée par l'évènement.
+         * @return {Node}
+         * @since 1.0
+         */
+        "click": function (callback) {
+            return this.on("click", callback);
+        },
+        /**
+        * Permet d'ajouter l'évènement mousedown.
+        *
+        * @method mousedown
+        * @param {function} callback Fonction qui sera exécutée par l'évènement.
+        * @return {Node}
+        * @since 1.0
+        */
+        "mousedown": function (callback) {
+            return this.on("mousedown", callback);
+        },
+        /**
+        * Permet d'ajouter l'évènement mouseup.
+        *
+        * @method mouseup
+        * @param {function} callback Fonction qui sera exécutée par l'évènement.
+        * @return {Node}
+        * @since 1.0
+        */
+        "mouseup": function (callback) {
+            return this.on("mouseup", callback);
+        },
+        /**
+        * Permet d'ajouter l'évènement mousemove.
+        *
+        * @method mousemove
+        * @param {function} callback Fonction qui sera exécutée par l'évènement.
+        * @return {Node}
+        * @since 1.0
+        */
+        "mousemove": function (callback) {
+            return this.on("mousemove", callback);
+        },
+        /**
+        * Permet d'ajouter l'évènement over.
+        *
+        * @method over
+        * @param {function} callback Fonction qui sera exécutée par l'évènement.
+        * @return {Node}
+        * @since 1.0
+        */
+        "over": function (callback) {
+            return this.on("mouseover", callback);
+        },
+        /**
+        * Permet d'ajouter l'évènement mouseover.
+        *
+        * @method mouseover
+        * @param {function} callback Fonction qui sera exécutée par l'évènement.
+        * @return {Node}
+        * @since 1.0
+        */
+        "mouseover": function (callback) {
+            return this.on("mouseover", callback);
+        },
+        /**
+        * Permet d'ajouter l'évènement out.
+        *
+        * @method out
+        * @param {function} callback Fonction qui sera exécutée par l'évènement.
+        * @return {Node}
+        * @since 1.0
+        */
+        "out": function (callback) {
+            return this.on("mouseout", callback);
+        },
+        /**
+        * Permet d'ajouter l'évènement mouseout.
+        *
+        * @method mouseout
+        * @param {function} callback Fonction qui sera exécutée par l'évènement.
+        * @return {Node}
+        * @since 1.0
+        */
+        "mouseout": function (callback) {
+            return this.on("mouseout", callback);
+        },
+        /**
+        * Permet d'ajouter l'évènement keydown.
+        *
+        * @method keydown
+        * @param {function} callback Fonction qui sera exécutée par l'évènement.
+        * @return {Node}
+        * @since 1.0
+        */
+        "keydown": function (callback) {
+            return this.on("keydown", callback);
+        },
+        /**
+        * Permet d'ajouter l'évènement keyup.
+        *
+        * @method keyup
+        * @param {function} callback Fonction qui sera exécutée par l'évènement.
+        * @return {Node}
+        * @since 1.0
+        */
+        "keyup": function (callback) {
+            return this.on("keyup", callback);
+        },
+        /**
+        * Permet d'ajouter l'évènement keypress.
+        *
+        * @method keypress
+        * @param {function} callback Fonction qui sera exécutée par l'évènement.
+        * @return {Node}
+        * @since 1.0
+        */
+        "keypress": function (callback) {
+            return this.on("keypress", callback);
+        },
 
 
-        // ===================================== LES METHODES AVEC GET =========================================
+
+
+    // ===================================== LES METHODES AVEC GET =========================================
 
         "getFirst": function (value) {
             return nodeGetFirstLast(this, value, "First")
