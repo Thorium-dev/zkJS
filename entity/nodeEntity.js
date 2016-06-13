@@ -17,7 +17,7 @@ var doIsThisNodeByKey = {
         return attr ? $this.toolbox.has(attr.split(" "), value) : false;
     },
     "id": function ($this, node, value) {
-        return this.class($this, node, value, "id")
+        return this["class"]($this, node, value, "id")
     },
     "text": function ($this, node, value) {
         var text = node.textContent;
@@ -886,10 +886,10 @@ var nodeEntityMethods = {
                                     type: e.type,
                                     related: e.relatedTarget || e[(e.type === 'mouseout') ? 'toElement' : 'fromElement']
                                 };
-                            $this.code = undefined; $this.char = undefined;
+                            $this.code = undefined; $this["char"] = undefined;
                             if (e.type === 'keypress' || e.type === 'keyup' || e.type === 'keydown') {
                                 $this.code = e.keyCode || e.charCode;
-                                $this.char = String.fromCharCode(obj.code);
+                                $this["char"] = String.fromCharCode($this.code);
                             }
                             box.each(functions , function () {
                                 box.each(this.v, function () {
