@@ -461,6 +461,17 @@
             if(object === document){ return documentID }
             return (ID++) + parseInt(Math.random() * 1000);
         };
+        /**
+         * Permet de savoir si un objet est vide.
+         * @method isEmpty
+         * @param {*} object Objet de référence.
+         * @return {boolean}
+         * @since 1.0
+         */
+        this.isEmpty = function (object) {
+            for(var k in object){ return false }
+            return true;
+        };
 
         // GET
 

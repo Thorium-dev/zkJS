@@ -834,6 +834,7 @@ var nodeEntityMethods = {
 
         // ===================================== LES METHODES POUR LES EVENTS =========================================
 
+
         /**
          * Permet d'ajouter des événements.
          *
@@ -846,12 +847,11 @@ var nodeEntityMethods = {
         "on": function (events, callback) {
             var $this = this, e = $this.event, box = $this.toolbox;
             if(!box.is(events, "string") || !box.is(callback, "function")){ return this }
-            events = events.split(/[ ,]/);
+            events = box.trim(events, /[ ,]/).split(/[ ,]/);
             box.each(events, function () {
                 var event = this.v;
-                event = box.trim(event);
                 event = event.split(".");
-                var eType = event[0].trim(),
+                var eType = event[0],
                     space = (event.slice(1));
                 if(eType){
                     if(allEventsAlias.hasOwnProperty(eType)){
@@ -871,7 +871,14 @@ var nodeEntityMethods = {
                             fs = (fs || []).concat(callback);
                             functions[this.v] = fs;
                         });
-
+                        /**
+                         * functions est objet littéral qui stocke les fonctions et les noms d'espaces. Il est sous la forme :
+                         * {
+                         *      "click506433621047": [fonction1, fonction2, ...],
+                         *      "space": [fonction1, fonction2, ...],
+                         *      "space2": [fonction1, fonction2, ...],
+                         * }
+                         */
                         e.set(path + "functions", functions);
 
                         // @TODO : Traiter le cas de over et out puis clickout
@@ -892,12 +899,12 @@ var nodeEntityMethods = {
                                 $this["char"] = String.fromCharCode($this.code);
                             }
                             box.each(functions , function () {
+                                $this.nameSpace = this.k;
                                 box.each(this.v, function () {
                                     this.v.apply($this);
                                 })
                             });
                         };
-
                         if (!e.get(path + "launcher")) {
                             e.set(path + "launcher", launcher);
                             if(node.addEventListener){
@@ -906,12 +913,123 @@ var nodeEntityMethods = {
                                 node.attachEvent("on" + eType, launcher);
                             }
                         }
-
                     });
                 }
             });
             return this;
         },
+        /**
+         * Permet de supprimer des événements.
+         *
+         * @method off
+         * @param {string} events Le nom de l'événement. On peut indiquer un espace de nom. On peut indiquer plusieurs événements en les séparant par des espaces ou virgules.
+         * @return {Node}
+         * @since 1.0
+         */
+        "off": function (events) {
+            var $this = this, e = $this.event, box = $this.toolbox;
+            if(!box.is(events, "string")){ return this }
+            events = box.trim(events, /[ ,]/).split(/[ ,]/);
+            box.each(events, function () {
+                var event = this.v;
+                event = event.split(".");
+                var eType = event[0],
+                    space = (event.slice(1));
+                if(eType){
+                    if(allEventsAlias.hasOwnProperty(eType)){
+                        eType = allEventsAlias[eType]
+                    }
+                    $this.each(function () {
+                        var node = this.v, zkID = node.getAttribute("data-zk-id");
+                        if(zkID){
+                            var path = "node." + zkID + "." + eType,
+                                temp = e.get(path);
+                            if(temp){
+                                var launcher = temp.launcher,
+                                    functions = temp.functions;
+                                if(space[0]){
+                                    box.each(space, function () {
+                                        delete functions[this.v];
+                                    });
+                                    if(box.isEmpty(functions)){
+                                        space = [];
+                                    }
+                                }
+                                if(!space[0]){
+                                    e.remove(path);
+                                    if(node.removeEventListener){
+                                        node.removeEventListener(eType, launcher, false);
+                                    }else {
+                                        node.detachEvent("on" + eType, launcher);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+            return this;
+        },
+        /**
+         * Permet de déclencher manuellement des événements.
+         *
+         * @method trigger
+         * @param {string} events Le nom de l'événement. On peut indiquer un espace de nom. On peut indiquer plusieurs événements en les séparant par des espaces ou virgules.
+         * @return {Node}
+         * @since 1.0
+         */
+        "trigger": function (events) {
+            var $this = this, e = $this.event, box = $this.toolbox;
+            if(!box.is(events, "string")){ return this }
+            events = box.trim(events, /[ ,]/).split(/[ ,]/);
+            box.each(events, function () {
+                var event = this.v;
+                event = event.split(".");
+                var eType = event[0],
+                    space = (event.slice(1));
+                if(eType){
+                    if(allEventsAlias.hasOwnProperty(eType)){
+                        eType = allEventsAlias[eType]
+                    }
+                    $this.each(function () {
+                        var node = this.v, zkID = node.getAttribute("data-zk-id");
+                        if(zkID){
+                            var path = "node." + zkID + "." + eType,
+                                temp = e.get(path);
+                            if(temp){
+                                var functions = temp.functions,
+                                    $this = {
+                                    e: window.event,
+                                    node: node,
+                                    type: eType,
+                                    related: undefined
+                                };
+                                $this.code = undefined; $this["char"] = undefined;
+                                if(space[0]){
+                                    box.each(space, function () {
+                                        var fs = functions[this.v] || [];
+                                        $this.nameSpace = this.v;
+                                        box.each(fs, function () {
+                                            this.v.apply($this);
+                                        });
+                                    });
+                                }
+                                if(!space[0]){
+                                    box.each(functions, function () {
+                                        $this.nameSpace = this.k;
+                                        box.each(this.v, function () {
+                                            this.v.apply($this);
+                                        });
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+            return this;
+        },
+
 
         // ===================================== LES METHODES AVEC GET =========================================
 
