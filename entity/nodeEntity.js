@@ -302,6 +302,21 @@ var allEventsAlias = {
     kd: 'keydown',
     ku: 'keyup'
 };
+var isOverOrOutEvent = {
+    mouseover: function (node, event, out) {
+        var rT = event.relatedTarget || event[out ? 'toElement' : 'fromElement'] || node;
+        if (zk().toolbox.is(rT, 'nodeelement')) {
+            while (rT && rT !== node) {
+                rT = rT.parentNode;
+            }
+            if (rT !== node) {
+                return true
+            }
+        }
+        return false
+    },
+    mouseout: function (node, event) { return this.mouseover(node, event, 1) }
+};
 
 var nodeEntityMethods = {
 
@@ -881,10 +896,11 @@ var nodeEntityMethods = {
                          */
                         e.set(path + "functions", functions);
 
-                        // @TODO : Traiter le cas de over et out puis clickout
+                        // @TODO : Traiter le cas de clickout
                         var launcher = function(e) {
                             e = e || window.event;
                             e.stopPropagation();
+
                             var box = zk().toolbox, zkID = this.getAttribute("data-zk-id"), eType = e.type,
                                 functions = zk().event.get("node." + zkID + "." + eType + ".functions" ),
                                 $this = {
@@ -901,7 +917,14 @@ var nodeEntityMethods = {
                             box.each(functions , function () {
                                 $this.nameSpace = this.k;
                                 box.each(this.v, function () {
-                                    this.v.apply($this);
+                                    if (isOverOrOutEvent.hasOwnProperty(e.type)) {
+                                        if (isOverOrOutEvent[e.type]($this.node, e)) {
+                                            this.v.apply($this);
+                                        }
+                                    }else {
+                                        this.v.apply($this);
+                                    }
+
                                 })
                             });
                         };

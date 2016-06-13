@@ -68,7 +68,6 @@
 //        ($("#days li#day-3").on("click", function cal2(){}));
         $("#days").out(function() {
             console.log(this.type);
-            console.log(this.nameSpace);
         });
         mocha.run();
     </script>
