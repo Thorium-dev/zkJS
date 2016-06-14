@@ -303,7 +303,7 @@ var allEventsAlias = {
     ku: 'keyup'
 };
 var isOverOrOutEvent = {
-    mouseover: function (node, event, out) {
+    "mouseover": function (node, event, out) {
         var rT = event.relatedTarget || event[out ? 'toElement' : 'fromElement'] || node;
         if (zk().toolbox.is(rT, 'nodeelement')) {
             while (rT && rT !== node) {
@@ -315,7 +315,7 @@ var isOverOrOutEvent = {
         }
         return false
     },
-    mouseout: function (node, event) { return this.mouseover(node, event, 1) }
+    "mouseout": function (node, event) { return this.mouseover(node, event, 1) }
 };
 
 var nodeEntityMethods = {
