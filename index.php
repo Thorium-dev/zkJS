@@ -66,9 +66,10 @@
 
 //        ($("#day-3").on("click", function cal1(){ alert("click")}));
 //        ($("#days li#day-3").on("click", function cal2(){}));
-        $("#days").out(function() {
+        $("#days").click(function() {
             console.log(this.type);
-        });
+        }).off("click");
+
         mocha.run();
     </script>
 
