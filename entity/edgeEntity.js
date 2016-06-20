@@ -1,10 +1,6 @@
 zk().register(function Edge($this) {
     var self = this, edges = ["top", "right", "bottom", "left"], edgesValues = [null, null, null, null];
-    this.parameters = $this.parameters;
-    this.toolbox = $this.toolbox;
-    this.entity = $this.entity;
-    this.container = $this.container;
-    this.event = $this.event;
+    zk().toolbox.each($this, function () { self[this.k] = this.v });
     this.get = function () {
         return edgesValues
     };

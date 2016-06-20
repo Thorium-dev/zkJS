@@ -1295,8 +1295,14 @@
             "container": APP.container,
             "event": APP.event,
         };
-        var nodeEntity = APP.getContainer("_ENTITY_.node");
-        return Object.freeze(new nodeEntity($this)).set(selector);
+        var path = "node";
+        if(selector === document){ path = "document" }
+        if(selector === window){ path = "window" }
+        if(path !== "node"){ delete $this.parameters }
+        var nodeEntity = APP.getContainer("_ENTITY_." + path);
+        nodeEntity = Object.freeze(new nodeEntity($this));
+        if(path === "node"){ nodeEntity.set(selector) }
+        return nodeEntity
     }
 
     /**

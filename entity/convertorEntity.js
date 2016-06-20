@@ -1,9 +1,5 @@
 zk().register(function Convertor($this) {
-    this.parameters = $this.parameters;
-    this.toolbox = $this.toolbox;
-    this.entity = $this.entity;
-    this.container = $this.container;
-    this.event = $this.event;
+    var self = this; zk().toolbox.each($this, function () { self[this.k] = this.v });
     this.number = function (value) {
         try{
             return eval(((value+"").replace(/[^\d\+\-\*\/%\.]+/g, "")).replace(/^(?:[^\d]+)|(?:[^\d]+)$/g, ""));

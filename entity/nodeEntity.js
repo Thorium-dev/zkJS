@@ -2329,11 +2329,7 @@ var nodeDoSetByParameters = {
 };
 zk().register(function Node($this) {
     var nodes = $this.nodes || [], self = this;
-    this.parameters = $this.parameters;
-    this.toolbox = $this.toolbox;
-    this.entity = $this.entity;
-    this.container = $this.container;
-    this.event = $this.event;
+    zk().toolbox.each($this, function () { self[this.k] = this.v });
     this.get = function (selector) {
         if (selector === undefined) { return nodes }
         var selType = self.toolbox.is(selector);

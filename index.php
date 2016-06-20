@@ -49,6 +49,7 @@
     <script src="entity/edgeEntity.js"></script>
     <script src="entity/errorEntity.js"></script>
     <script src="entity/nodeEntity.js"></script>
+    <script src="entity/documentEntity.js"></script>
     <script src="spec/lib/mocha.js"></script>
     <script src="spec/lib/chai.js"></script>
 
@@ -64,11 +65,7 @@
 
     <script>
 
-//        ($("#day-3").on("click", function cal1(){ alert("click")}));
-//        ($("#days li#day-3").on("click", function cal2(){}));
-        $("#days").click(function() {
-            console.log(this.type);
-        }).off("click");
+        console.log($(document));
 
         mocha.run();
     </script>
