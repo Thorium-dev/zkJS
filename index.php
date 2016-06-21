@@ -66,9 +66,10 @@
 
     <script>
 
-        $(document).on("click", function () {
-            console.log(this);
-        });
+
+//        $("#days").on("clickout.name", function () {
+//            console.log(this.target);
+//        });
 
         mocha.run();
     </script>

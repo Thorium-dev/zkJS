@@ -320,6 +320,16 @@ var isOverOrOutEvent = {
     },
     "mouseout": function (node, event) { return this.mouseover(node, event, 1) }
 };
+var nodeCustumEvents = {
+    "clickout": function (id, namespace) {
+        var doc = zk().entity.get("document");
+        doc.on("click." + id + "$" + namespace, function () {
+            var space = this.nameSpace.split("$");
+            var node = zk().get("node").set("[data-zk-id='"+space[0]+"']");
+            node.trigger("clickout." + space[1]);
+        })
+    }
+};
 function forOnEvent($this, events, callback){
     var e = $this.event, box = $this.toolbox;
     if(!box.is(events, "string") || !box.is(callback, "function")){ return this }
@@ -346,6 +356,9 @@ function forOnEvent($this, events, callback){
                     var fs = functions[this.v];
                     fs = (fs || []).concat(callback);
                     functions[this.v] = fs;
+                    if(nodeCustumEvents.hasOwnProperty(eType)){
+                        nodeCustumEvents[eType](zkID, this.v)
+                    }
                 });
                 /**
                  * functions est objet littéral qui stocke les fonctions et les noms d'espaces. Il est sous la forme :
@@ -463,10 +476,11 @@ function forTriggerEventFunction($this, events){
                     var path = "node." + zkID + "." + eType,
                         temp = e.get(path);
                     if(temp){
-                        var functions = temp.functions,
+                        var ev = window.event, functions = temp.functions,
                             $this = {
-                                e: window.event,
-                                node: node,
+                                e: ev,
+                                source: node,
+                                target: ev.srcElement || ev.toElement || ev.relatedTarget || ev.target,
                                 type: eType,
                                 related: undefined
                             };
@@ -523,7 +537,22 @@ var nodeEntityMethods = {
             var nodes = this.toolbox.reverse(this.get());
             console.log(nodes);
         },
-
+        /**
+         * Permet d'obtenir le chemin complet d'un élément.
+         *
+         * @method path
+         * @return {array}
+         * @since 1.0
+         */
+        "path": function () {
+            var node = this.get()[0], path = [];
+            if(node){
+                while(node = node.parentNode){
+                    path.push(node)
+                }
+            }
+            return path
+        },
         /**
          * Permet d'obtenir ou de définir la position d'un élément par rapport au bord gauche du document.
          *
