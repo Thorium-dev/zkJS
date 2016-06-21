@@ -1,5 +1,5 @@
 Array.prototype.each = function (func, args) {
-    return zk().toolbox().each(this, func, args)
+    return zk().toolbox.each(this, func, args)
 };
 
 var arrayIndexPath = "_ENTITY_._PARAMETERS_.array.index.";
@@ -15,14 +15,14 @@ zk().setContainer(arrayIndexPath + "other", function (el, value) {
 zk().setContainer(arrayIndexPath + "regexp", function (el, value) {
     var k = el.length;
     for (var i = 0; i < k; i++) {
-        if (zk().toolbox().is(el[i], 'string|number') && value.test(el[i])) {
+        if (zk().toolbox.is(el[i], 'string|number') && value.test(el[i])) {
             return i;
         }
     }
     return -1;
 });
 Array.prototype.index = function (value) {
-    return zk().toolbox().index(this, value)
+    return zk().toolbox.index(this, value)
 };
 
 var arrayIndexesPath = "_ENTITY_._PARAMETERS_.array.indexes.";
@@ -38,30 +38,30 @@ zk().setContainer(arrayIndexesPath + "other", function (el, value) {
 zk().setContainer(arrayIndexesPath + "regexp", function (el, value) {
     var k = el.length, indexes = [];
     for (var i = 0; i < k; i++) {
-        if (zk().toolbox().is(el[i], 'string|number') && value.test(el[i])) {
+        if (zk().toolbox.is(el[i], 'string|number') && value.test(el[i])) {
             indexes.push(i);
         }
     }
     return indexes;
 });
 Array.prototype.indexes = function (value) {
-    return zk().toolbox().indexes(this, value)
+    return zk().toolbox.indexes(this, value)
 };
 
 Array.prototype.lastIndex = function (value) {
-    return zk().toolbox().lastIndex(this, value)
+    return zk().toolbox.lastIndex(this, value)
 };
 
 Array.prototype.count = function (value) {
-    return zk().toolbox().count(this, value)
+    return zk().toolbox.count(this, value)
 };
 
 Array.prototype.has = function (value) {
-    return zk().toolbox().has(this, value)
+    return zk().toolbox.has(this, value)
 };
 
 Array.prototype.reverse = function () {
-    return zk().toolbox().reverse(this)
+    return zk().toolbox.reverse(this)
 };
 
 // ========================================= LES METHODES AVEC GET =============================================
@@ -71,7 +71,7 @@ zk().setContainer(arrayGetFirstPath + "other", function () {
     return []
 });
 zk().setContainer(arrayGetFirstPath + "number", function (el, value) {
-    return el.slice(0, Math.abs(value))
+    return (value < 1) ? [] : el.slice(0, value);
 });
 zk().setContainer(arrayGetFirstPath + "string", function (el, value) {
     return zk().getContainer(arrayGetFirstPath + "regexp")(el, new RegExp(value));
@@ -86,11 +86,11 @@ zk().setContainer(arrayGetFirstPath + "regexp", function (el, value) {
     return [];
 });
 Array.prototype.getFirst = function (value) {
-    return zk().toolbox().getFirst(this, value)
+    return zk().toolbox.getFirst(this, value)
 };
 
 Array.prototype.getMiddle = function () {
-    return zk().toolbox().getMiddle(this)
+    return zk().toolbox.getMiddle(this)
 };
 
 var arrayGetLastPath = "_ENTITY_._PARAMETERS_.array.getLast.";
@@ -98,7 +98,7 @@ zk().setContainer(arrayGetLastPath + "other", function () {
     return []
 });
 zk().setContainer(arrayGetLastPath + "number", function (el, value) {
-    return el.slice(-Math.abs(value))
+    return (value < 1) ? [] : el.slice(-value)
 });
 zk().setContainer(arrayGetLastPath + "string", function (el, value) {
     return zk().getContainer(arrayGetLastPath + "regexp")(el, new RegExp(value));
@@ -113,12 +113,12 @@ zk().setContainer(arrayGetLastPath + "regexp", function (el, value) {
     return [];
 });
 Array.prototype.getLast = function (value) {
-    return zk().toolbox().getLast(this, value)
+    return zk().toolbox.getLast(this, value)
 };
 
 var arrayGetBeforePath = "_ENTITY_._PARAMETERS_.array.getBefore.";
 zk().setContainer(arrayGetBeforePath + "other", function (el, index, isAfter) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     if (!box.is(index, "number")) {
         index = box.index(el, index)
     }
@@ -128,7 +128,7 @@ zk().setContainer(arrayGetBeforePath + "other", function (el, index, isAfter) {
     return [];
 });
 Array.prototype.getBefore = function (index) {
-    return zk().toolbox().getBefore(this, index)
+    return zk().toolbox.getBefore(this, index)
 };
 
 var arrayGetAfterPath = "_ENTITY_._PARAMETERS_.array.getAfter.";
@@ -136,12 +136,12 @@ zk().setContainer(arrayGetAfterPath + "other", function (el, index) {
     return zk().getContainer(arrayGetBeforePath + "other")(el, index, true);
 });
 Array.prototype.getAfter = function (index) {
-    return zk().toolbox().getAfter(this, index)
+    return zk().toolbox.getAfter(this, index)
 };
 
 var arrayGetBetweenPath = "_ENTITY_._PARAMETERS_.array.getBetween.";
 zk().setContainer(arrayGetBetweenPath + "array", function (el, indexes) {
-    var box = zk().toolbox(), i, k, res = [];
+    var box = zk().toolbox, i, k, res = [];
     if (!box.is(indexes, 'array')) {
         indexes = [indexes]
     }
@@ -156,7 +156,7 @@ zk().setContainer(arrayGetBetweenPath + "array", function (el, indexes) {
                 tab[j] = box.index(el, tab[j])
             }
             if (tab[j] < 0) {
-                tab[j] = NaN
+                tab[j] = false
             }
         }
         if (box.is(tab[0], "number") && box.is(tab[1], "number")) {
@@ -167,12 +167,12 @@ zk().setContainer(arrayGetBetweenPath + "array", function (el, indexes) {
     return res;
 });
 Array.prototype.getBetween = function (indexes) {
-    return zk().toolbox().getBetween(this, indexes)
+    return zk().toolbox.getBetween(this, indexes)
 };
 
 var arrayGetAtPath = "_ENTITY_._PARAMETERS_.array.getAt.";
 zk().setContainer(arrayGetAtPath + "array", function (el, indexes) {
-    var box = zk().toolbox(), n, k = el.length, res = box.is(el, "string") ? "" : [];
+    var box = zk().toolbox, n, k = el.length, res = box.is(el, "string") ? "" : [];
     if (!box.is(indexes, "array")) {
         indexes = [indexes]
     }
@@ -187,7 +187,7 @@ zk().setContainer(arrayGetAtPath + "array", function (el, indexes) {
     return res
 });
 Array.prototype.getAt = function (indexes) {
-    return zk().toolbox().getAt(this, indexes)
+    return zk().toolbox.getAt(this, indexes)
 };
 
 var arrayGetPath = "_ENTITY_._PARAMETERS_.array.get.";
@@ -196,7 +196,7 @@ zk().setContainer(arrayGetPath + "string", function (el, value) {
 });
 zk().setContainer(arrayGetPath + "regexp", function (el, value) {
     var res = [];
-    zk().toolbox().each(el, function () {
+    zk().toolbox.each(el, function () {
         if (value.test(this.v)) {
             res.push(this.v)
         }
@@ -208,8 +208,8 @@ zk().setContainer(arrayGetPath + "number", function (el, value) {
 });
 zk().setContainer(arrayGetPath + "array", function (el, value) {
     var res = [];
-    zk().toolbox().each(value, function () {
-        var f = zk().getContainer(arrayGetPath + zk().toolbox().is(this.v));
+    zk().toolbox.each(value, function () {
+        var f = zk().getContainer(arrayGetPath + zk().toolbox.is(this.v));
         if (f) {
             res = res.concat(f(el, this.v))
         }
@@ -217,13 +217,13 @@ zk().setContainer(arrayGetPath + "array", function (el, value) {
     return res
 });
 Array.prototype.get = function (value) {
-    return zk().toolbox().get(this, value)
+    return zk().toolbox.get(this, value)
 };
 
 // ========================================= LES METHODES AVEC REMOVE =============================================
 
 Array.prototype.removeDuplicate = function (isDesc) {
-    return zk().toolbox().removeDuplicate(this, isDesc)
+    return zk().toolbox.removeDuplicate(this, isDesc)
 };
 
 var arrayRemoveFirstPath = "_ENTITY_._PARAMETERS_.array.removeFirst.";
@@ -251,11 +251,11 @@ zk().setContainer(arrayRemoveFirstPath + "regexp", function (el, value) {
     return el;
 });
 Array.prototype.removeFirst = function (value) {
-    return zk().toolbox().removeFirst(this, value)
+    return zk().toolbox.removeFirst(this, value)
 };
 
 Array.prototype.removeMiddle = function () {
-    return zk().toolbox().removeMiddle(this)
+    return zk().toolbox.removeMiddle(this)
 };
 
 var arrayRemoveLastPath = "_ENTITY_._PARAMETERS_.array.removeLast.";
@@ -283,12 +283,12 @@ zk().setContainer(arrayRemoveLastPath + "regexp", function (el, value) {
     return el;
 });
 Array.prototype.removeLast = function (value) {
-    return zk().toolbox().removeLast(this, value)
+    return zk().toolbox.removeLast(this, value)
 };
 
 var arrayRemoveBeforePath = "_ENTITY_._PARAMETERS_.array.removeBefore.";
 zk().setContainer(arrayRemoveBeforePath + "other", function (el, index) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     if (!box.is(index, "number")) {
         index = box.index(el, index)
     }
@@ -298,12 +298,12 @@ zk().setContainer(arrayRemoveBeforePath + "other", function (el, index) {
     return el;
 });
 Array.prototype.removeBefore = function (index) {
-    return zk().toolbox().removeBefore(this, index)
+    return zk().toolbox.removeBefore(this, index)
 };
 
 var arrayRemoveAfterPath = "_ENTITY_._PARAMETERS_.array.removeAfter.";
 zk().setContainer(arrayRemoveAfterPath + "other", function (el, index) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     if (!box.is(index, "number")) {
         index = box.index(el, index)
     }
@@ -313,12 +313,12 @@ zk().setContainer(arrayRemoveAfterPath + "other", function (el, index) {
     return el;
 });
 Array.prototype.removeAfter = function (index) {
-    return zk().toolbox().removeAfter(this, index)
+    return zk().toolbox.removeAfter(this, index)
 };
 
 var arrayRemoveBetweenPath = "_ENTITY_._PARAMETERS_.array.removeBetween.";
 zk().setContainer(arrayRemoveBetweenPath + "array", function (el, indexes) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     if (!box.is(indexes, 'array')) {
         indexes = [indexes]
     }
@@ -331,7 +331,7 @@ zk().setContainer(arrayRemoveBetweenPath + "array", function (el, indexes) {
             indexes[i] = box.index(el, indexes[i])
         }
         if (indexes[i] < 0) {
-            indexes[i] = NaN
+            indexes[i] = false
         }
     }
     if (box.is(indexes[0], "number") && box.is(indexes[1], "number")) {
@@ -341,7 +341,7 @@ zk().setContainer(arrayRemoveBetweenPath + "array", function (el, indexes) {
     return el;
 });
 Array.prototype.removeBetween = function (indexes) {
-    return zk().toolbox().removeBetween(this, indexes)
+    return zk().toolbox.removeBetween(this, indexes)
 };
 
 var arrayRemoveAtPath = "_ENTITY_._PARAMETERS_.array.removeAt.";
@@ -349,7 +349,7 @@ zk().setContainer(arrayRemoveAtPath + "number", function (el, indexes) {
     return zk().getContainer(arrayRemoveAtPath + "array")(el, [indexes])
 });
 zk().setContainer(arrayRemoveAtPath + "array", function (el, indexes) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     indexes = box.removeDuplicate(indexes, true);
     box.each(indexes, function () {
         var n = this.v;
@@ -360,13 +360,13 @@ zk().setContainer(arrayRemoveAtPath + "array", function (el, indexes) {
     return el
 });
 Array.prototype.removeAt = function (indexes) {
-    return zk().toolbox().removeAt(this, indexes)
+    return zk().toolbox.removeAt(this, indexes)
 };
 
 var arrayRemovePath = "_ENTITY_._PARAMETERS_.array.remove.";
 zk().setContainer(arrayRemovePath + "other", function (el, value) {
     var res = [];
-    zk().toolbox().each(el, function () {
+    zk().toolbox.each(el, function () {
         if (value !== this.v) {
             res.push(this.v)
         }
@@ -375,7 +375,7 @@ zk().setContainer(arrayRemovePath + "other", function (el, value) {
 });
 zk().setContainer(arrayRemovePath + "regexp", function (el, value) {
     var res = [];
-    zk().toolbox().each(el, function () {
+    zk().toolbox.each(el, function () {
         if (!value.test(this.v)) {
             res.push(this.v)
         }
@@ -386,42 +386,42 @@ zk().setContainer(arrayRemovePath + "number", function (el, value) {
     return ( value < 0 ) ? el.slice(0, value) : el.slice(value);
 });
 zk().setContainer(arrayRemovePath + "array", function (el, value) {
-    var indexes = [], box = zk().toolbox();
+    var indexes = [], box = zk().toolbox;
     box.each(value, function () {
         indexes = indexes.concat(box.indexes(el, this.v));
     });
     return zk().getContainer(arrayRemoveAtPath + "array")(el, indexes);
 });
 Array.prototype.remove = function (value) {
-    return zk().toolbox().remove(this, value)
+    return zk().toolbox.remove(this, value)
 };
 
 // ========================================= LES METHODES AVEC ADD =============================================
 
 var arrayAddFirstPath = "_ENTITY_._PARAMETERS_.array.addFirst.";
 zk().setContainer(arrayAddFirstPath + "other", function (el, value) {
-    if (!zk().toolbox().is(value, "array")) {
+    if (!zk().toolbox.is(value, "array")) {
         value = [value]
     }
     return value.concat(el);
 });
 Array.prototype.addFirst = function (value) {
-    return zk().toolbox().addFirst(this, value)
+    return zk().toolbox.addFirst(this, value)
 };
 
 Array.prototype.addMiddle = function (value) {
-    return zk().toolbox().addMiddle(this, value)
+    return zk().toolbox.addMiddle(this, value)
 };
 
 var arrayAddLastPath = "_ENTITY_._PARAMETERS_.array.addLast.";
 zk().setContainer(arrayAddLastPath + "other", function (el, value) {
-    if (!zk().toolbox().is(value, "array")) {
+    if (!zk().toolbox.is(value, "array")) {
         value = [value]
     }
     return el.concat(value);
 });
 Array.prototype.addLast = function (value) {
-    return zk().toolbox().addLast(this, value)
+    return zk().toolbox.addLast(this, value)
 };
 
 /**
@@ -441,7 +441,7 @@ function doSlice(el, i1, i2, v) {
 }
 var arrayAddBeforePath = "_ENTITY_._PARAMETERS_.array.addBefore.";
 zk().setContainer(arrayAddBeforePath + "other", function (el, index, value) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     if (!box.is(index, "number")) {
         index = box.index(el, index)
     }
@@ -454,12 +454,12 @@ zk().setContainer(arrayAddBeforePath + "other", function (el, index, value) {
     return el;
 });
 Array.prototype.addBefore = function (index, value) {
-    return zk().toolbox().addBefore(this, index, value)
+    return zk().toolbox.addBefore(this, index, value)
 };
 
 var arrayAddAfterPath = "_ENTITY_._PARAMETERS_.array.addAfter.";
 zk().setContainer(arrayAddAfterPath + "other", function (el, index, value) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     if (!box.is(index, "number")) {
         index = box.index(el, index)
     }
@@ -472,14 +472,14 @@ zk().setContainer(arrayAddAfterPath + "other", function (el, index, value) {
     return el;
 });
 Array.prototype.addAfter = function (index, value) {
-    return zk().toolbox().addAfter(this, index, value)
+    return zk().toolbox.addAfter(this, index, value)
 };
 
 // addBetween n'existe pas
 
 var arrayAddAtPath = "_ENTITY_._PARAMETERS_.array.addAt.";
 zk().setContainer(arrayAddAtPath + "array", function (el, indexes, value) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     if (box.is(value, "array")) {
         value = value[0]
     }
@@ -497,11 +497,11 @@ zk().setContainer(arrayAddAtPath + "array", function (el, indexes, value) {
     return el;
 });
 Array.prototype.addAt = function (indexes, value) {
-    return zk().toolbox().addAt(this, indexes, value)
+    return zk().toolbox.addAt(this, indexes, value)
 };
 
 Array.prototype.add = function (value) {
-    return zk().toolbox().add(this, value)
+    return zk().toolbox.add(this, value)
 };
 
 // ========================================= LES METHODES AVEC CHANGE ===========================================
@@ -514,18 +514,18 @@ zk().setContainer(arrayChangeFirstPath + "number", function (el, oldValue, newVa
     return el;
 });
 zk().setContainer(arrayChangeFirstPath + "other", function (el, oldValue, newValue) {
-    var box = zk().toolbox(), index = box.index(el, oldValue);
+    var box = zk().toolbox, index = box.index(el, oldValue);
     if (index > -1) {
         el[index] = newValue
     }
     return el;
 });
 Array.prototype.changeFirst = function (oldValue, newValue) {
-    return zk().toolbox().changeFirst(this, oldValue, newValue)
+    return zk().toolbox.changeFirst(this, oldValue, newValue)
 };
 
 Array.prototype.changeMiddle = function (value) {
-    return zk().toolbox().changeMiddle(this, value)
+    return zk().toolbox.changeMiddle(this, value)
 };
 
 var arrayChangeLastPath = "_ENTITY_._PARAMETERS_.array.changeLast.";
@@ -536,19 +536,19 @@ zk().setContainer(arrayChangeLastPath + "number", function (el, oldValue, newVal
     return el;
 });
 zk().setContainer(arrayChangeLastPath + "other", function (el, oldValue, newValue) {
-    var box = zk().toolbox(), indexes = box.indexes(el, oldValue), index = indexes[indexes.length - 1];
+    var box = zk().toolbox, indexes = box.indexes(el, oldValue), index = indexes[indexes.length - 1];
     if (index) {
         el[index] = newValue
     }
     return el;
 });
 Array.prototype.changeLast = function (oldValue, newValue) {
-    return zk().toolbox().changeLast(this, oldValue, newValue)
+    return zk().toolbox.changeLast(this, oldValue, newValue)
 };
 
 var arrayChangeBeforePath = "_ENTITY_._PARAMETERS_.array.changeBefore.";
 zk().setContainer(arrayChangeBeforePath + "other", function (el, index, value) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     var el2 = box.removeBefore(el, index);
     if (el2.length < el.length) {
         el = box.addFirst(el2, value)
@@ -556,12 +556,12 @@ zk().setContainer(arrayChangeBeforePath + "other", function (el, index, value) {
     return el;
 });
 Array.prototype.changeBefore = function (index, value) {
-    return zk().toolbox().changeBefore(this, index, value)
+    return zk().toolbox.changeBefore(this, index, value)
 };
 
 var arrayChangeAfterPath = "_ENTITY_._PARAMETERS_.array.changeAfter.";
 zk().setContainer(arrayChangeAfterPath + "other", function (el, index, value) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     var el2 = box.removeAfter(el, index);
     if (el2.length < el.length) {
         el = box.addLast(el2, value)
@@ -569,12 +569,12 @@ zk().setContainer(arrayChangeAfterPath + "other", function (el, index, value) {
     return el;
 });
 Array.prototype.changeAfter = function (index, value) {
-    return zk().toolbox().changeAfter(this, index, value)
+    return zk().toolbox.changeAfter(this, index, value)
 };
 
 var arrayChangeBetweenPath = "_ENTITY_._PARAMETERS_.array.changeBetween.";
 zk().setContainer(arrayChangeBetweenPath + "array", function (el, indexes, value) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     if (!box.is(indexes, 'array')) {
         indexes = [indexes]
     }
@@ -587,7 +587,7 @@ zk().setContainer(arrayChangeBetweenPath + "array", function (el, indexes, value
             indexes[i] = box.index(el, indexes[i])
         }
         if (indexes[i] < 0) {
-            indexes[i] = NaN
+            indexes[i] = false
         }
     }
     if (box.is(indexes[0], "number") && box.is(indexes[1], "number")) {
@@ -605,12 +605,12 @@ zk().setContainer(arrayChangeBetweenPath + "array", function (el, indexes, value
  * @returns {*}
  */
 Array.prototype.changeBetween = function (indexes, value) {
-    return zk().toolbox().changeBetween(this, indexes, value)
+    return zk().toolbox.changeBetween(this, indexes, value)
 };
 
 var arrayChangeAtPath = "_ENTITY_._PARAMETERS_.array.changeAt.";
 zk().setContainer(arrayChangeAtPath + "array", function (el, indexes, value) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     if (box.is(indexes, 'number')) {
         indexes = [indexes]
     }
@@ -624,36 +624,36 @@ zk().setContainer(arrayChangeAtPath + "array", function (el, indexes, value) {
     return el
 });
 Array.prototype.changeAt = function (indexes, value) {
-    return zk().toolbox().changeAt(this, indexes, value)
+    return zk().toolbox.changeAt(this, indexes, value)
 };
 
 var arrayChangePath = "_ENTITY_._PARAMETERS_.array.change.";
 zk().setContainer(arrayChangePath + "other", function (el, oldValue, newValue) {
-    return zk().toolbox().each(el, function () {
+    return zk().toolbox.each(el, function () {
         if (oldValue === this.v) {
             return newValue
         }
     });
 });
 zk().setContainer(arrayChangePath + "regexp", function (el, oldValue, newValue) {
-    return zk().toolbox().each(el, function () {
+    return zk().toolbox.each(el, function () {
         if (oldValue.test(this.v)) {
             return newValue
         }
     });
 });
 zk().setContainer(arrayChangePath + "number", function (el, oldValue, newValue) {
-    return zk().toolbox()['change' + (oldValue < 0 ? 'Last' : 'First')](el, Math.abs(oldValue), newValue);
+    return zk().toolbox['change' + (oldValue < 0 ? 'Last' : 'First')](el, Math.abs(oldValue), newValue);
 });
 zk().setContainer(arrayChangePath + "array", function (el, oldValue, newValue) {
-    var indexes = [], box = zk().toolbox();
+    var indexes = [], box = zk().toolbox;
     box.each(oldValue, function () {
         indexes = indexes.concat(box.indexes(el, this.v));
     });
     return zk().getContainer(arrayChangeAtPath + "array")(el, indexes, newValue);
 });
 Array.prototype.change = function (oldValue, newValue) {
-    return zk().toolbox().change(this, oldValue, newValue)
+    return zk().toolbox.change(this, oldValue, newValue)
 };
 
 // ========================================= LES METHODES AVEC UPPER ===========================================
@@ -666,7 +666,7 @@ zk().setContainer(arrayUpperFirstPath + "number", function (el, value, upperLowe
             value = l
         }
         for (var i = 0; i < value; i++) {
-            if (zk().toolbox().is(el[i], "string")) {
+            if (zk().toolbox.is(el[i], "string")) {
                 el[i] = el[i]["to" + upperLower + "Case"]();
             }
         }
@@ -678,7 +678,7 @@ zk().setContainer(arrayUpperFirstPath + "string", function (el, value, upperLowe
     var i, k = el.length;
     for (i = 0; i < k; i++) {
         if (el[i] == value) {
-            if (zk().toolbox().is(el[i], "string")) {
+            if (zk().toolbox.is(el[i], "string")) {
                 el[i] = el[i]["to" + upperLower + "Case"]();
                 return el
             }
@@ -690,7 +690,7 @@ zk().setContainer(arrayUpperFirstPath + "regexp", function (el, value, upperLowe
     var i, k = el.length;
     for (i = 0; i < k; i++) {
         if (value.test(el[i])) {
-            if (zk().toolbox().is(el[i], "string")) {
+            if (zk().toolbox.is(el[i], "string")) {
                 el[i] = el[i]["to" + upperLower + "Case"]();
                 return el
             }
@@ -699,7 +699,7 @@ zk().setContainer(arrayUpperFirstPath + "regexp", function (el, value, upperLowe
     return el;
 });
 Array.prototype.upperFirst = function (value) {
-    return zk().toolbox().upperFirst(this, value)
+    return zk().toolbox.upperFirst(this, value)
 };
 
 var arrayUpperLastPath = "_ENTITY_._PARAMETERS_.array.upperLast.";
@@ -710,7 +710,7 @@ zk().setContainer(arrayUpperLastPath + "number", function (el, value, upperLower
             value = l
         }
         for (var i = l - value; i < l; i++) {
-            if (zk().toolbox().is(el[i], "string")) {
+            if (zk().toolbox.is(el[i], "string")) {
                 el[i] = el[i]["to" + upperLower + "Case"]();
             }
         }
@@ -722,7 +722,7 @@ zk().setContainer(arrayUpperLastPath + "string", function (el, value, upperLower
     var i, k = el.length;
     for (i = k - 1; i > -1; i--) {
         if (el[i] == value) {
-            if (zk().toolbox().is(el[i], "string")) {
+            if (zk().toolbox.is(el[i], "string")) {
                 el[i] = el[i]["to" + upperLower + "Case"]();
                 return el
             }
@@ -734,7 +734,7 @@ zk().setContainer(arrayUpperLastPath + "regexp", function (el, value, upperLower
     var i, k = el.length;
     for (i = k - 1; i > -1; i--) {
         if (value.test(el[i])) {
-            if (zk().toolbox().is(el[i], "string")) {
+            if (zk().toolbox.is(el[i], "string")) {
                 el[i] = el[i]["to" + upperLower + "Case"]();
                 return el
             }
@@ -743,11 +743,11 @@ zk().setContainer(arrayUpperLastPath + "regexp", function (el, value, upperLower
     return el;
 });
 Array.prototype.upperLast = function (value) {
-    return zk().toolbox().upperLast(this, value)
+    return zk().toolbox.upperLast(this, value)
 };
 
 function upperLowerTab(tab, upperLower) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     return box.each(tab, function () {
         var v = this.v;
         if (box.is(v, 'string')) {
@@ -757,12 +757,12 @@ function upperLowerTab(tab, upperLower) {
     });
 }
 Array.prototype.upperMiddle = function () {
-    return zk().toolbox().upperMiddle(this)
+    return zk().toolbox.upperMiddle(this)
 };
 
 var arrayUpperBeforePath = "_ENTITY_._PARAMETERS_.array.upperBefore.";
 zk().setContainer(arrayUpperBeforePath + "other", function (el, index, upperLower) {
-    var box = zk().toolbox(), k = el.length;
+    var box = zk().toolbox, k = el.length;
     if (!box.is(index, "number")) {
         index = box.index(el, index)
     }
@@ -779,12 +779,12 @@ zk().setContainer(arrayUpperBeforePath + "other", function (el, index, upperLowe
     return el;
 });
 Array.prototype.upperBefore = function (index) {
-    return zk().toolbox().upperBefore(this, index)
+    return zk().toolbox.upperBefore(this, index)
 };
 
 var arrayUpperAfterPath = "_ENTITY_._PARAMETERS_.array.upperAfter.";
 zk().setContainer(arrayUpperAfterPath + "other", function (el, index, upperLower) {
-    var box = zk().toolbox(), k = el.length;
+    var box = zk().toolbox, k = el.length;
     if (!box.is(index, "number")) {
         index = box.index(el, index)
     }
@@ -798,12 +798,12 @@ zk().setContainer(arrayUpperAfterPath + "other", function (el, index, upperLower
     return el;
 });
 Array.prototype.upperAfter = function (index) {
-    return zk().toolbox().upperAfter(this, index)
+    return zk().toolbox.upperAfter(this, index)
 };
 
 var arrayUpperBetweenPath = "_ENTITY_._PARAMETERS_.array.upperBetween.";
 zk().setContainer(arrayUpperBetweenPath + "array", function (el, indexes, lowerUpper) {
-    var box = zk().toolbox(), z, i, k, param;
+    var box = zk().toolbox, z, i, k, param;
     if (!box.is(indexes, 'array')) {
         indexes = [indexes]
     }
@@ -818,7 +818,7 @@ zk().setContainer(arrayUpperBetweenPath + "array", function (el, indexes, lowerU
                 param[i] = box.index(el, param[i])
             }
             if (param[i] < 0) {
-                param[i] = NaN
+                param[i] = false
             }
         }
         if (box.is(param[0], "number") && box.is(param[1], "number")) {
@@ -829,7 +829,7 @@ zk().setContainer(arrayUpperBetweenPath + "array", function (el, indexes, lowerU
     return el;
 });
 Array.prototype.upperBetween = function (indexes) {
-    return zk().toolbox().upperBetween(this, indexes)
+    return zk().toolbox.upperBetween(this, indexes)
 };
 
 var arrayUpperAtPath = "_ENTITY_._PARAMETERS_.array.upperAt.";
@@ -837,7 +837,7 @@ zk().setContainer(arrayUpperAtPath + "number", function (el, index, upperLower) 
     return zk().getContainer(arrayUpperAtPath + "array")(el, [index], upperLower)
 });
 zk().setContainer(arrayUpperAtPath + "array", function (el, indexes, upperLower) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     indexes = box.removeDuplicate(indexes, true);
     box.each(indexes, function () {
         var n = this.v;
@@ -850,19 +850,19 @@ zk().setContainer(arrayUpperAtPath + "array", function (el, indexes, upperLower)
     return el;
 });
 Array.prototype.upperAt = function (indexes) {
-    return zk().toolbox().upperAt(this, indexes)
+    return zk().toolbox.upperAt(this, indexes)
 };
 
 var arrayUpperPath = "_ENTITY_._PARAMETERS_.array.upper.";
 zk().setContainer(arrayUpperPath + "string", function (el, value, upperLower) {
-    return zk().toolbox().each(el, function () {
+    return zk().toolbox.each(el, function () {
         if (this.v === value) {
             return this.v["to" + upperLower + "Case"]()
         }
     });
 });
 zk().setContainer(arrayUpperPath + "regexp", function (el, value, upperLower) {
-    var box = zk().toolbox();
+    var box = zk().toolbox;
     return box.each(el, function () {
         if (value.test(this.v) && box.is(this.v, 'string')) {
             return this.v["to" + upperLower + "Case"]()
@@ -874,46 +874,46 @@ zk().setContainer(arrayUpperPath + "number", function (el, value, upperLower) {
     return zk().getContainer(path + 'number')(el, Math.abs(value), upperLower);
 });
 zk().setContainer(arrayUpperPath + "array", function (el, value, upperLower) {
-    var indexes = [], box = zk().toolbox();
+    var indexes = [], box = zk().toolbox;
     box.each(value, function () {
         indexes = indexes.concat(box.indexes(el, this.v));
     });
     return zk().getContainer(arrayUpperAtPath + "array")(el, indexes, upperLower);
 });
 Array.prototype.upper = function (value) {
-    return zk().toolbox().upper(this, value)
+    return zk().toolbox.upper(this, value)
 };
 
 // ========================================= LES METHODES AVEC LOWER ============================================
 
 Array.prototype.lowerFirst = function (value) {
-    return zk().toolbox().lowerFirst(this, value)
+    return zk().toolbox.lowerFirst(this, value)
 };
 
 Array.prototype.lowerLast = function (value) {
-    return zk().toolbox().lowerLast(this, value)
+    return zk().toolbox.lowerLast(this, value)
 };
 
 Array.prototype.lowerMiddle = function () {
-    return zk().toolbox().lowerMiddle(this)
+    return zk().toolbox.lowerMiddle(this)
 };
 
 Array.prototype.lowerBefore = function (index) {
-    return zk().toolbox().lowerBefore(this, index)
+    return zk().toolbox.lowerBefore(this, index)
 };
 
 Array.prototype.lowerAfter = function (index) {
-    return zk().toolbox().lowerAfter(this, index)
+    return zk().toolbox.lowerAfter(this, index)
 };
 
 Array.prototype.lowerBetween = function (indexes) {
-    return zk().toolbox().lowerBetween(this, indexes)
+    return zk().toolbox.lowerBetween(this, indexes)
 };
 
 Array.prototype.lowerAt = function (indexes) {
-    return zk().toolbox().lowerAt(this, indexes)
+    return zk().toolbox.lowerAt(this, indexes)
 };
 
 Array.prototype.lower = function (value) {
-    return zk().toolbox().lower(this, value)
+    return zk().toolbox.lower(this, value)
 };
