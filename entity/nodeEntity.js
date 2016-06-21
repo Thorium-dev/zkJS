@@ -1,7 +1,10 @@
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
+// @TODO : Faire les fonctions parent et parents
 // @TODO : Faire les fonctions toggle
 // @TODO : Faire la fonction clickout
 // @TODO : Faire la fonction sortBy
+// @TODO : Faire la fonction children
+// @TODO : Faire la fonction find (idem que get)
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
 // @TODO : Faire la fonction caret (en relation avec la position du curseur dans les input et les textarea)
 // @TODO : Ajout des events lors de la création d'un objet
@@ -317,7 +320,7 @@ var isOverOrOutEvent = {
     },
     "mouseout": function (node, event) { return this.mouseover(node, event, 1) }
 };
-function forOnEventFunction($this, events, callback){
+function forOnEvent($this, events, callback){
     var e = $this.event, box = $this.toolbox;
     if(!box.is(events, "string") || !box.is(callback, "function")){ return this }
     events = box.trim(events, /[ ,]/).split(/[ ,]/);
@@ -361,7 +364,8 @@ function forOnEventFunction($this, events, callback){
                         functions = zk().event.get("node." + zkID + "." + eType + ".functions" ),
                         $this = {
                             e: e,
-                            node: this,
+                            source: this,
+                            target: e.srcElement || e.toElement || e.relatedTarget || e.target,
                             type: e.type,
                             related: e.relatedTarget || e[(e.type === 'mouseout') ? 'toElement' : 'fromElement']
                         };
@@ -1034,7 +1038,7 @@ var nodeEntityMethods = {
          * @since 1.0
          */
         "on": function (events, callback) {
-            return forOnEventFunction(this, events, callback);
+            return forOnEvent(this, events, callback);
         },
         /**
          * Permet de supprimer des évènements.

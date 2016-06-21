@@ -50,6 +50,7 @@
     <script src="entity/errorEntity.js"></script>
     <script src="entity/nodeEntity.js"></script>
     <script src="entity/documentEntity.js"></script>
+    <script src="entity/windowEntity.js"></script>
     <script src="spec/lib/mocha.js"></script>
     <script src="spec/lib/chai.js"></script>
 
@@ -65,7 +66,9 @@
 
     <script>
 
-        console.log($(document));
+        $(document).on("click", function () {
+            console.log(this);
+        });
 
         mocha.run();
     </script>
