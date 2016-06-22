@@ -67,7 +67,9 @@
     <script>
 
 
-        console.log($(".days").find("#day-3").get());
+        $("#days").clickout(function () {
+            console.log("Salut");
+        });
 
         mocha.run();
     </script>

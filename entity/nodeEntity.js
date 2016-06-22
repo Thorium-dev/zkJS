@@ -2,8 +2,6 @@
 // @TODO : Faire les fonctions toggle
 // @TODO : Faire la fonction clickout
 // @TODO : Faire la fonction sortBy
-// @TODO : Faire la fonction children
-// @TODO : Faire la fonction find (idem que get)
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
 // @TODO : Faire la fonction caret (en relation avec la position du curseur dans les input et les textarea)
 // @TODO : Ajout des events lors de la création d'un objet
@@ -325,11 +323,11 @@ var nodeCustumEvents = {
         doc.on("click." + id + "$" + namespace, function () {
             var space = this.nameSpace.split("$"),
                 node = zk().get("node").set("[data-zk-id='"+space[0]+"']"),
-                target = this.target;
-            if(target !== node.get()[0]){
+                target = this.target,
+                path = zk().get("node").set(target).path();
+            if(target !== node.get()[0] && !path.has(node.get()[0])){
                 node.trigger("clickout." + space[1]);
             }
-
         })
     }
 };
@@ -1261,6 +1259,17 @@ var nodeEntityMethods = {
         */
         "keypress": function (callback) {
             return this.on("keypress", callback);
+        },
+        /**
+         * Permet d'ajouter l'évènement clickout (Quand on click en dehors d'un élément).
+         *
+         * @method clickout
+         * @param {function} callback Fonction qui sera exécutée par l'évènement.
+         * @return {Node}
+         * @since 1.0
+         */
+        "clickout": function (callback) {
+            return this.on("clickout", callback);
         },
 
         // ===================================== LES METHODES AVEC GET =========================================
