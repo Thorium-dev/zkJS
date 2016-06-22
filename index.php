@@ -67,9 +67,9 @@
     <script>
 
 
-        var res = $(document).click(function () {
-            console.log("nodeelement");
-        }).trigger("click");
+        var res = $(window).on("load", function () {
+            console.log("loaded !");
+        });
 
         console.log(res);
 
