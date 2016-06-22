@@ -67,9 +67,7 @@
     <script>
 
 
-//        $("#days").on("clickout.name", function () {
-//            console.log(this.target);
-//        });
+        console.log($("li").path().get());
 
         mocha.run();
     </script>

@@ -1,5 +1,4 @@
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
-// @TODO : Faire les fonctions parent et parents
 // @TODO : Faire les fonctions toggle
 // @TODO : Faire la fonction clickout
 // @TODO : Faire la fonction sortBy
@@ -322,11 +321,15 @@ var isOverOrOutEvent = {
 };
 var nodeCustumEvents = {
     "clickout": function (id, namespace) {
-        var doc = zk().entity.get("document");
+        var doc = zk().get("document");
         doc.on("click." + id + "$" + namespace, function () {
-            var space = this.nameSpace.split("$");
-            var node = zk().get("node").set("[data-zk-id='"+space[0]+"']");
-            node.trigger("clickout." + space[1]);
+            var space = this.nameSpace.split("$"),
+                node = zk().get("node").set("[data-zk-id='"+space[0]+"']"),
+                target = this.target;
+            if(target !== node.get()[0]){
+                node.trigger("clickout." + space[1]);
+            }
+
         })
     }
 };
@@ -538,10 +541,29 @@ var nodeEntityMethods = {
             console.log(nodes);
         },
         /**
+         * Permet d'obtenir le parent direct d'un élément.
+         *
+         * @method parent
+         * @return {Node}
+         * @since 1.0
+         */
+        "parent": function () {
+            var box = this.toolbox, res = [];
+            this.each(function () {
+                if(box.is(this.v, "nodeelement")){
+                    var p = this.v.parentNode;
+                    if(!box.has(res, p)){
+                        res.push(p);
+                    }
+                }
+            });
+            return this.set(res)
+        },
+        /**
          * Permet d'obtenir le chemin complet d'un élément.
          *
          * @method path
-         * @return {array}
+         * @return {Node}
          * @since 1.0
          */
         "path": function () {
@@ -551,7 +573,7 @@ var nodeEntityMethods = {
                     path.push(node)
                 }
             }
-            return path
+            return this.set(path)
         },
         /**
          * Permet d'obtenir ou de définir la position d'un élément par rapport au bord gauche du document.
