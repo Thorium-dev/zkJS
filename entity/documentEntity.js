@@ -76,28 +76,15 @@ zk().register(function Document($this){
     var self = this; zk().toolbox.each($this, function () { self[this.k] = this.v });
 
 }, {
-    /**
-     * Permet d'ajouter des évènements.
-     *
-     * @method on
-     * @param {string} events Le nom de l'évènement. On peut indiquer un espace de nom. On peut indiquer plusieurs évènements en les séparant par des espaces ou virgules.
-     * @param {function} callback Fonction qui sera exécutée par l'évènement.
-     * @return {Document}
-     * @since 1.0
-     */
+
     "on": function (events, callback) {
         return forDocumentWindowOnEvent(this, events, callback);
     },
-    /**
-     * Permet de supprimer des évènements.
-     *
-     * @method off
-     * @param {string} events Le nom de l'évènement. On peut indiquer un espace de nom. On peut indiquer plusieurs évènements en les séparant par des espaces ou virgules.
-     * @return {Document}
-     * @since 1.0
-     */
     "off": function (events) {
         return forNodeOffEvent(this, events, document);
+    },
+    "trigger": function (events) {
+        return forNodeTriggerEvent(this, events, document);
     },
 
     /**

@@ -364,7 +364,7 @@ function forNodeOnEvent($this, events, callback){
                 /**
                  * functions est objet littéral qui stocke les fonctions et les noms d'espaces. Il est sous la forme :
                  * {
-                         *      "click506433621047": [fonction1, fonction2, ...],
+                         *      "click-506433621047": [fonction1, fonction2, ...],
                          *      "space": [fonction1, fonction2, ...],
                          *      "space2": [fonction1, fonction2, ...],
                          * }
@@ -453,9 +453,9 @@ function forNodeOffEvent($this, events, docWin){
             });
         }
     });
-    return docWin ? docWin : $this;
+    return $this;
 }
-function forTriggerEventFunction($this, events){
+function forNodeTriggerEvent($this, events, docWin){
     var e = $this.event, box = $this.toolbox;
     if(!box.is(events, "string")){ return this }
     events = box.trim(events, /[ ,]/).split(/[ ,]/);
@@ -468,17 +468,20 @@ function forTriggerEventFunction($this, events){
             if(allEventsAlias.hasOwnProperty(eType)){
                 eType = allEventsAlias[eType]
             }
-            $this.each(function () {
-                var node = this.v, zkID = node.getAttribute("data-zk-id");
+            var loop = $this;
+            if(docWin === document){ loop = [document] }
+            if(docWin === window){ loop = [window] }
+            box.each(loop, function () {
+                var node = this.v, zkID = docWin ? box.generateID(docWin): node.getAttribute("data-zk-id");
                 if(zkID){
-                    var path = "node." + zkID + "." + eType,
+                    var path = (docWin ? box.is(docWin) : "node") + "." + zkID + "." + eType,
                         temp = e.get(path);
                     if(temp){
                         var ev = window.event, functions = temp.functions,
                             $this = {
                                 e: ev,
                                 source: node,
-                                target: ev.srcElement || ev.toElement || ev.relatedTarget || ev.target,
+                                target: undefined,
                                 type: eType,
                                 related: undefined
                             };
@@ -1106,7 +1109,7 @@ var nodeEntityMethods = {
          * @method on
          * @param {string} events Le nom de l'évènement. On peut indiquer un espace de nom. On peut indiquer plusieurs évènements en les séparant par des espaces ou virgules.
          * @param {function} callback Fonction qui sera exécutée par l'évènement.
-         * @return {Node}
+         * @return {Node|Document|Window}
          * @since 1.0
          */
         "on": function (events, callback) {
@@ -1117,7 +1120,7 @@ var nodeEntityMethods = {
          *
          * @method off
          * @param {string} events Le nom de l'évènement. On peut indiquer un espace de nom. On peut indiquer plusieurs évènements en les séparant par des espaces ou virgules.
-         * @return {Node}
+         * @return {Node|Document|Window}
          * @since 1.0
          */
         "off": function (events) {
@@ -1128,11 +1131,11 @@ var nodeEntityMethods = {
          *
          * @method trigger
          * @param {string} events Le nom de l'évènement. On peut indiquer un espace de nom. On peut indiquer plusieurs évènements en les séparant par des espaces ou virgules.
-         * @return {Node}
+         * @return {Node|Document|Window}
          * @since 1.0
          */
         "trigger": function (events) {
-            return forTriggerEventFunction(this, events);
+            return forNodeTriggerEvent(this, events);
         },
         /**
          * Permet d'ajouter l'évènement click.

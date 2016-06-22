@@ -67,9 +67,11 @@
     <script>
 
 
-        $(document).click(function () {
+        var res = $(document).click(function () {
             console.log("nodeelement");
-        }).off("click");
+        }).trigger("click");
+
+        console.log(res);
 
         mocha.run();
     </script>
