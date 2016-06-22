@@ -579,11 +579,22 @@ var nodeEntityMethods = {
          * Permet d'obtenir ou de filtrer les enfants de la sélection.
          *
          * @method find
-         * @param {*} selector Objet de référence.
+         * @param {*} selector Sélecteurs ou filtre
          * @return {Node}
          * @since 1.0
          */
         "find": function (selector) {
+            return this.children(selector)
+        },
+        /**
+         * Permet d'obtenir ou de filtrer les enfants de la sélection.
+         *
+         * @method children
+         * @param {*} selector Sélecteurs ou filtre
+         * @return {Node}
+         * @since 1.0
+         */
+        "children": function (selector) {
             var to = zk().get("convertor"), res = [];
             this.each(function () {
                 res = res.concat(to.array(this.v.children))
@@ -592,6 +603,7 @@ var nodeEntityMethods = {
             if(selector != undefined){ this.get(selector) }
             return this
         },
+
 
         /**
          * Permet d'obtenir ou de définir la position d'un élément par rapport au bord gauche du document.
