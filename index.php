@@ -67,7 +67,7 @@
     <script>
 
 
-        console.log($("li").path().get());
+        console.log($(".days").find("#day-3").get());
 
         mocha.run();
     </script>

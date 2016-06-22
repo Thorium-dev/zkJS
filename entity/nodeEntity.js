@@ -576,6 +576,24 @@ var nodeEntityMethods = {
             return this.set(path)
         },
         /**
+         * Permet d'obtenir ou de filtrer les enfants de la sélection.
+         *
+         * @method find
+         * @param {*} selector Objet de référence.
+         * @return {Node}
+         * @since 1.0
+         */
+        "find": function (selector) {
+            var to = zk().get("convertor"), res = [];
+            this.each(function () {
+                res = res.concat(to.array(this.v.children))
+            });
+            this.set(res);
+            if(selector != undefined){ this.get(selector) }
+            return this
+        },
+
+        /**
          * Permet d'obtenir ou de définir la position d'un élément par rapport au bord gauche du document.
          *
          * @method x
@@ -1075,9 +1093,7 @@ var nodeEntityMethods = {
             }
         },
 
-
         // ===================================== LES METHODES POUR LES EVENTS =========================================
-
 
         /**
          * Permet d'ajouter des évènements.
@@ -1235,10 +1251,7 @@ var nodeEntityMethods = {
             return this.on("keypress", callback);
         },
 
-
-
-
-    // ===================================== LES METHODES AVEC GET =========================================
+        // ===================================== LES METHODES AVEC GET =========================================
 
         "getFirst": function (value) {
             return nodeGetFirstLast(this, value, "First")
