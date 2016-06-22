@@ -1288,6 +1288,21 @@
     APP._EVENT_ = new _EVENT_();
     APP.event = APP._EVENT_;
 
+    function _CONFIG_(){
+        var self = this;
+        this.get = function (key) {
+
+        };
+        this.set = function (key, value) {
+
+        };
+        this.remove = function (key) {
+
+        }
+    }
+    APP._CONFIG_ = new _CONFIG_();
+    APP.config = APP._CONFIG_;
+
     function nodeLauncher(selector) {
         var $this = {
             "parameters": APP.getContainer("_ENTITY_._PARAMETERS_.node"),
@@ -1295,6 +1310,7 @@
             "entity": APP.entity,
             "container": APP.container,
             "event": APP.event,
+            "config": APP.config,
         };
         var path = "node";
         if(selector === document){ path = "document" }
