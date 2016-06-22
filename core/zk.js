@@ -112,6 +112,7 @@
                     type2 = new RegExp('\\b' + type + '\\b', 'i')
                 }
             }
+            if(t === "htmldocument"){ t = "document" }
             return (type === undefined || !t) ? t : (type2.test(t))
         };
         /**

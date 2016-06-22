@@ -67,9 +67,9 @@
     <script>
 
 
-        $("#days").clickout(function () {
-            console.log("Salut");
-        });
+        $(document).click(function () {
+            console.log("nodeelement");
+        }).off("click");
 
         mocha.run();
     </script>

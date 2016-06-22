@@ -1,4 +1,3 @@
-
 function forDocumentWindowOnEvent($this, events, callback){
     var e = $this.event, box = $this.toolbox;
     if(!box.is(events, "string") || !box.is(callback, "function")){ return this }
@@ -31,7 +30,6 @@ function forDocumentWindowOnEvent($this, events, callback){
                          * }
              */
             e.set(path + "functions", functions);
-            // @TODO : Traiter le cas de clickout
             var launcher = function(e) {
                 e = e || window.event;
                 e.stopPropagation();
@@ -77,8 +75,6 @@ function forDocumentWindowOnEvent($this, events, callback){
 zk().register(function Document($this){
     var self = this; zk().toolbox.each($this, function () { self[this.k] = this.v });
 
-
-
 }, {
     /**
      * Permet d'ajouter des évènements.
@@ -91,6 +87,95 @@ zk().register(function Document($this){
      */
     "on": function (events, callback) {
         return forDocumentWindowOnEvent(this, events, callback);
+    },
+    /**
+     * Permet de supprimer des évènements.
+     *
+     * @method off
+     * @param {string} events Le nom de l'évènement. On peut indiquer un espace de nom. On peut indiquer plusieurs évènements en les séparant par des espaces ou virgules.
+     * @return {Document}
+     * @since 1.0
+     */
+    "off": function (events) {
+        return forNodeOffEvent(this, events, document);
+    },
+
+    /**
+     * Permet d'ajouter l'évènement click.
+     *
+     * @method click
+     * @param {function} callback Fonction qui sera exécutée par l'évènement.
+     * @return {Document}
+     * @since 1.0
+     */
+    "click": function (callback) {
+        return this.on("click", callback);
+    },
+    /**
+     * Permet d'ajouter l'évènement mousedown.
+     *
+     * @method mousedown
+     * @param {function} callback Fonction qui sera exécutée par l'évènement.
+     * @return {Document}
+     * @since 1.0
+     */
+    "mousedown": function (callback) {
+        return this.on("mousedown", callback);
+    },
+    /**
+     * Permet d'ajouter l'évènement mouseup.
+     *
+     * @method mouseup
+     * @param {function} callback Fonction qui sera exécutée par l'évènement.
+     * @return {Document}
+     * @since 1.0
+     */
+    "mouseup": function (callback) {
+        return this.on("mouseup", callback);
+    },
+    /**
+     * Permet d'ajouter l'évènement mousemove.
+     *
+     * @method mousemove
+     * @param {function} callback Fonction qui sera exécutée par l'évènement.
+     * @return {Document}
+     * @since 1.0
+     */
+    "mousemove": function (callback) {
+        return this.on("mousemove", callback);
+    },
+    /**
+     * Permet d'ajouter l'évènement keydown.
+     *
+     * @method keydown
+     * @param {function} callback Fonction qui sera exécutée par l'évènement.
+     * @return {Document}
+     * @since 1.0
+     */
+    "keydown": function (callback) {
+        return this.on("keydown", callback);
+    },
+    /**
+     * Permet d'ajouter l'évènement keyup.
+     *
+     * @method keyup
+     * @param {function} callback Fonction qui sera exécutée par l'évènement.
+     * @return {Document}
+     * @since 1.0
+     */
+    "keyup": function (callback) {
+        return this.on("keyup", callback);
+    },
+    /**
+     * Permet d'ajouter l'évènement keypress.
+     *
+     * @method keypress
+     * @param {function} callback Fonction qui sera exécutée par l'évènement.
+     * @return {Document}
+     * @since 1.0
+     */
+    "keypress": function (callback) {
+        return this.on("keypress", callback);
     },
 
 

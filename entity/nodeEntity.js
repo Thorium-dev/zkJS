@@ -331,7 +331,7 @@ var nodeCustumEvents = {
         })
     }
 };
-function forOnEvent($this, events, callback){
+function forNodeOnEvent($this, events, callback){
     var e = $this.event, box = $this.toolbox;
     if(!box.is(events, "string") || !box.is(callback, "function")){ return this }
     events = box.trim(events, /[ ,]/).split(/[ ,]/);
@@ -370,7 +370,6 @@ function forOnEvent($this, events, callback){
                          * }
                  */
                 e.set(path + "functions", functions);
-                // @TODO : Traiter le cas de clickout
                 var launcher = function(e) {
                     e = e || window.event;
                     e.stopPropagation();
@@ -414,7 +413,7 @@ function forOnEvent($this, events, callback){
     });
     return $this;
 }
-function forOffEventFunction($this, events){
+function forNodeOffEvent($this, events, docWin){
     var e = $this.event, box = $this.toolbox;
     if(!box.is(events, "string")){ return this }
     events = box.trim(events, /[ ,]/).split(/[ ,]/);
@@ -424,27 +423,25 @@ function forOffEventFunction($this, events){
         var eType = event[0],
             space = (event.slice(1));
         if(eType){
-            if(allEventsAlias.hasOwnProperty(eType)){
-                eType = allEventsAlias[eType]
-            }
-            $this.each(function () {
-                var node = this.v, zkID = node.getAttribute("data-zk-id");
+            if(allEventsAlias.hasOwnProperty(eType)){ eType = allEventsAlias[eType] }
+            var loop = $this;
+            if(docWin === document){ loop = [document] }
+            if(docWin === window){ loop = [window] }
+            box.each(loop, function () {
+                var node = docWin ? docWin : this.v, zkID = docWin ? box.generateID(docWin) : node.getAttribute("data-zk-id");
                 if(zkID){
-                    var path = "node." + zkID + "." + eType,
+                    var path = (docWin ? box.is(docWin) : "node") + "." + zkID + "." + eType,
                         temp = e.get(path);
                     if(temp){
                         var launcher = temp.launcher,
                             functions = temp.functions;
                         if(space[0]){
-                            box.each(space, function () {
-                                delete functions[this.v];
-                            });
-                            if(box.isEmpty(functions)){
-                                space = [];
-                            }
+                            box.each(space, function () { delete functions[this.v] });
+                            if(box.isEmpty(functions)){ space = [] }
                         }
                         if(!space[0]){
                             e.remove(path);
+                            // @TODO : Retrait de l'évènement click de document pour clickout
                             if(node.removeEventListener){
                                 node.removeEventListener(eType, launcher, false);
                             }else {
@@ -456,7 +453,7 @@ function forOffEventFunction($this, events){
             });
         }
     });
-    return $this;
+    return docWin ? docWin : $this;
 }
 function forTriggerEventFunction($this, events){
     var e = $this.event, box = $this.toolbox;
@@ -601,8 +598,6 @@ var nodeEntityMethods = {
             if(selector != undefined){ this.get(selector) }
             return this
         },
-
-
         /**
          * Permet d'obtenir ou de définir la position d'un élément par rapport au bord gauche du document.
          *
@@ -1115,7 +1110,7 @@ var nodeEntityMethods = {
          * @since 1.0
          */
         "on": function (events, callback) {
-            return forOnEvent(this, events, callback);
+            return forNodeOnEvent(this, events, callback);
         },
         /**
          * Permet de supprimer des évènements.
@@ -1126,7 +1121,7 @@ var nodeEntityMethods = {
          * @since 1.0
          */
         "off": function (events) {
-            return forOffEventFunction(this, events);
+            return forNodeOffEvent(this, events);
         },
         /**
          * Permet de déclencher manuellement des évènements.
