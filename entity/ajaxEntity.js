@@ -1,5 +1,5 @@
 zk().register(function Ajax($this){
-    var self = this, xhr = null, box = $this.toolbox;
+    var self = this, xhr = null, $request = null, box = $this.toolbox;
     box.each($this, function () { self[this.k] = this.v });
 
     var settings = {
@@ -38,33 +38,33 @@ zk().register(function Ajax($this){
         }
     },
         getResponseByType = {
-        "text": function () {
-            return xhr.responseText
+            "text": function () {
+                return xhr.responseText
+            },
+            "xml": function () {
+                return xhr.responseXML || xhr.responseText;
+            },
+            "html": function () {
+                return this.xml()
+            },
+            "array": function () {
+                var rep = xhr.responseText;
+                try { rep = eval(rep) } catch (e) { console.log(e) }
+                return rep
+            },
+            "json": function () {
+                var rep = xhr.responseText;
+                try { rep = JSON.parse(rep) } catch (e) { console.log(e) }
+                return rep
+            },
+            "node": function () {
+                var rep = this.json();
+                if(box.is(rep, "object")){
+                    rep = createElementByObject($this, rep);
+                }
+                return rep || xhr.responseText
+            },
         },
-        "xml": function () {
-            return xhr.responseXML || xhr.responseText;
-        },
-        "html": function () {
-            return this.xml()
-        },
-        "array": function () {
-            var rep = xhr.responseText;
-            try { rep = eval(rep) } catch (e) { console.log(e) }
-            return rep
-        },
-        "json": function () {
-            var rep = xhr.responseText;
-            try { rep = JSON.parse(rep) } catch (e) { console.log(e) }
-            return rep
-        },
-        "node": function () {
-            var rep = this.json();
-            if(box.is(rep, "object")){
-                rep = createElementByObject($this, rep);
-            }
-            return rep || xhr.responseText
-        },
-    },
         convertXhrState = {
         "0": "init",
         "1": "create",
@@ -96,6 +96,7 @@ zk().register(function Ajax($this){
 
     this.send = function () {
         if(xhr){
+            $request = null;
             settings.headers["Content-Type"] = "text/" + settings.type;
             settings.headers["X-Requested-With"] = "XMLHttpRequest";
             xhrMethodType[settings.method]();
@@ -106,27 +107,31 @@ zk().register(function Ajax($this){
                 request.datas = settings.datas;
                 request.url = settings.url;
                 request.type = settings.type;
-                request.state = null;
-                request.status = null;
                 request.headers = xhr.getAllResponseHeaders();
+                request.response = null;
                 request.textResponse = xhr.responseText;
                 request.xmlResponse = xhr.responseXML;
                 request.state = xhr.readyState;
                 request.status = xhr.status;
+                request.success = false;
+                request.error = false;
                 var state = settings.state[convertXhrState[xhr.readyState]];
                 if(state){ state.apply(request) }
                 var status = settings.status[xhr.status];
                 if(status){ status.apply(request) }
                 if (xhr.readyState == 4) {
                     if(xhr.status == 200 || xhr.status == 0){
+                        request.success = true;
                         request.response = getResponseByType[request.type]();
                         var success = settings.success;
                         if(success){ success.apply(request) }
                     }else {
+                        request.error = true;
                         var error = settings.error;
                         if(error){ error.apply(request) }
                     }
                 }
+                $request = request;
             };
         }
         return self
@@ -134,7 +139,10 @@ zk().register(function Ajax($this){
 
     this.execute = function () { return this.send() };
 
+    this.response = function () { return $request ? $request.response : null };
+
     this.method = function (value) {
+        if(value === undefined){ return settings.method }
         value = (value + "").toUpperCase();
         if(xhrMethodType.hasOwnProperty(value)){
             settings.method = value;
@@ -143,6 +151,7 @@ zk().register(function Ajax($this){
     };
 
     this.datas = function (name, value) {
+        if(name === undefined){ return settings.datas }
         var nameType = box.is(name);
         if (nameType === "string") { settings.datas[name] = value }
         if(nameType === "object"){ settings.datas = name; }
@@ -150,6 +159,7 @@ zk().register(function Ajax($this){
     };
 
     this.headers = function (name, value) {
+        if(name === undefined){ return $request ? $request.headers : settings.headers }
         var nameType = box.is(name);
         if (nameType === "string") { settings.headers[name] = value }
         if(nameType === "object"){ settings.headers = name; }
@@ -157,11 +167,13 @@ zk().register(function Ajax($this){
     };
 
     this.url = function (url) {
+        if (url === undefined){ return settings.url }
         settings.url = url;
         return self
     };
 
     this.type = function (value) {
+        if(value === undefined){ return settings.type }
         if(getResponseByType.hasOwnProperty(value)){
             settings.type = value;
         }
@@ -169,6 +181,7 @@ zk().register(function Ajax($this){
     };
 
     this.state = function (name, callback) {
+        if(name){ return $request ? $request.state : null }
         var nameType = box.is(name);
         if (nameType !== "string") {
             nameType = {};
@@ -191,6 +204,7 @@ zk().register(function Ajax($this){
     };
 
     this.status = function (code, callback) {
+        if(code === undefined){ return $request ? $request.status : null }
         var codeType = box.is(code);
         if (codeType !== "object") {
             codeType = {};
@@ -209,16 +223,14 @@ zk().register(function Ajax($this){
     };
 
     this.success = function (callback) {
-        if(box.is(callback, "function")){
-            settings.success = callback;
-        }
+        if(callback === undefined){ return $request ? $request.success : null }
+        if(box.is(callback, "function")){ settings.success = callback }
         return self
     };
 
     this.error = function (callback) {
-        if(box.is(callback, "function")){
-            settings.error = callback;
-        }
+        if(callback === undefined){ return $request ? $request.error : null }
+        if(box.is(callback, "function")){ settings.error = callback }
         return self
     };
 
