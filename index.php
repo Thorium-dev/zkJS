@@ -42,16 +42,16 @@
 
     <div id="mocha"></div>
 
-    <script src="core/zk.js"></script>
-    <script src="entity/stringEntity.js"></script>
-    <script src="entity/arrayEntity.js"></script>
-    <script src="entity/convertorEntity.js"></script>
-    <script src="entity/edgeEntity.js"></script>
-    <script src="entity/errorEntity.js"></script>
-    <script src="entity/nodeEntity.js"></script>
-    <script src="entity/documentEntity.js"></script>
-    <script src="entity/windowEntity.js"></script>
-    <script src="entity/ajaxEntity.js"></script>
+    <script src="dev/core/zk.js"></script>
+    <script src="dev/entity/stringEntity.js"></script>
+    <script src="dev/entity/arrayEntity.js"></script>
+    <script src="dev/entity/convertorEntity.js"></script>
+    <script src="dev/entity/edgeEntity.js"></script>
+    <script src="dev/entity/errorEntity.js"></script>
+    <script src="dev/entity/nodeEntity.js"></script>
+    <script src="dev/entity/documentEntity.js"></script>
+    <script src="dev/entity/windowEntity.js"></script>
+    <script src="dev/entity/ajaxEntity.js"></script>
     <script src="spec/lib/mocha.js"></script>
     <script src="spec/lib/chai.js"></script>
 
