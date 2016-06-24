@@ -1,4 +1,3 @@
-
 zk().register(function Ajax($this){
     var self = this, xhr = null, box = $this.toolbox;
     box.each($this, function () { self[this.k] = this.v });
@@ -221,13 +220,15 @@ zk().register(function Ajax($this){
         return self
     };
 
-    this.done = function (callback) {
-        if(box.is(callback, "function")){
-            settings.state.done = callback;
-        }
-        return self
-    };
+    // Racourcis pour state
 
+    this.beforeSend = function (callback) { return this.state("beforeSend", callback) };
+
+    this.afterSend = function (callback) { return this.state("afterSend", callback) };
+
+    this.beforeDone = function (callback) { return this.state("beforeDone", callback) };
+
+    this.done = function (callback) { return this.state("done", callback) };
 
 
     // 0 : L'objet XHR a été créé, mais pas encore initialisé (la méthode open n'a pas encore été appelée)
