@@ -1,7 +1,6 @@
 zk().register(function Ajax($this){
     var self = this, xhr = null, $request = null, box = $this.toolbox;
     box.each($this, function () { self[this.k] = this.v });
-
     var settings = {
         "method": "GET",
         "datas": {},
@@ -94,6 +93,12 @@ zk().register(function Ajax($this){
         }
     }
 
+    /**
+     * Permet d'envoyer la requête ajax.
+     * @method send
+     * @return {Ajax}
+     * @since 1.0
+     */
     this.send = function () {
         if(xhr){
             $request = null;
@@ -137,10 +142,29 @@ zk().register(function Ajax($this){
         return self
     };
 
+    /**
+     * Permet d'envoyer la requête ajax.
+     * @method execute
+     * @return {Ajax}
+     * @since 1.0
+     */
     this.execute = function () { return this.send() };
 
+    /**
+     * Si la requête est terminée, elle permet d'obtenir la réponse.
+     * @method response
+     * @return {*}
+     * @since 1.0
+     */
     this.response = function () { return $request ? $request.response : null };
 
+    /**
+     * Permet d'obtenir ou de définir la méthode de la requête.
+     * @method method
+     * @param {String} [value] La valeur de la méthode.
+     * @return {*}
+     * @since 1.0
+     */
     this.method = function (value) {
         if(value === undefined){ return settings.method }
         value = (value + "").toUpperCase();
@@ -150,6 +174,14 @@ zk().register(function Ajax($this){
         return self;
     };
 
+    /**
+     * Permet d'obtenir ou de définir les données à transmettre au serveur.
+     * @method datas
+     * @param {String|Object} [name] Clé de la valeur ou objet contenant clé/valeur.
+     * @param {String} [value] Valeur de la clé.
+     * @return {*}
+     * @since 1.0
+     */
     this.datas = function (name, value) {
         if(name === undefined){ return settings.datas }
         var nameType = box.is(name);
@@ -158,6 +190,14 @@ zk().register(function Ajax($this){
         return self;
     };
 
+    /**
+     * Permet d'obtenir ou de définir les en-têtes d'une requête.
+     * @method headers
+     * @param {String|Object} [name] Clé de la valeur ou objet contenant clé/valeur.
+     * @param {String} [value] Valeur de la clé.
+     * @return {*}
+     * @since 1.0
+     */
     this.headers = function (name, value) {
         if(name === undefined){ return $request ? $request.headers : settings.headers }
         var nameType = box.is(name);
@@ -166,12 +206,26 @@ zk().register(function Ajax($this){
         return self;
     };
 
+    /**
+     * Permet d'obtenir ou de définir l'url de la requête.
+     * @method url
+     * @param {String} [url] Url de la requête.
+     * @return {*}
+     * @since 1.0
+     */
     this.url = function (url) {
         if (url === undefined){ return settings.url }
         settings.url = url;
         return self
     };
 
+    /**
+     * Permet d'obtenir ou de définir le type de données qui doit être renvoyé par le serveur.
+     * @method type
+     * @param {String} [value] Valeur de la clé.
+     * @return {*}
+     * @since 1.0
+     */
     this.type = function (value) {
         if(value === undefined){ return settings.type }
         if(getResponseByType.hasOwnProperty(value)){
@@ -180,6 +234,19 @@ zk().register(function Ajax($this){
         return self
     };
 
+    /**
+     * Permet d'obtenir l'etat de la requête ou de définir une fonction à exécuter quand la requête se trouve dans un état.
+     *      - 0 : L'objet XHR a été créé, mais pas encore initialisé (la méthode open n'a pas encore été appelée)
+     *      - 1 : L'objet XHR a été créé, mais pas encore envoyé (avec la méthode send )
+     *      - 2 : La méthode send vient d'être appelée
+     *      - 3 : Le serveur traite les informations et a commencé à renvoyer des données
+     *      - 4 : Le serveur a fini son travail, et toutes les données sont réceptionnées
+     * @method state
+     * @param {String|Object} [name] Nom de l'etat ou objet contenant nom/fonction.
+     * @param {Function} [callback] Fonction à exécuter.
+     * @return {*}
+     * @since 1.0
+     */
     this.state = function (name, callback) {
         if(name){ return $request ? $request.state : null }
         var nameType = box.is(name);
@@ -203,6 +270,14 @@ zk().register(function Ajax($this){
         return self;
     };
 
+    /**
+     * Permet d'obtenir le code status ou de définir une fonction à exécuter pour un code status.
+     * @method status
+     * @param {String|Object} [code] Code status ou objet contenant code/fonction.
+     * @param {Function} [callback] Fonction à exécuter.
+     * @return {*}
+     * @since 1.0
+     */
     this.status = function (code, callback) {
         if(code === undefined){ return $request ? $request.status : null }
         var codeType = box.is(code);
@@ -222,12 +297,26 @@ zk().register(function Ajax($this){
         return self;
     };
 
+    /**
+     * Permet d'obtenir ou de définir une fonction à exécuter pour une requête réussite.
+     * @method success
+     * @param {Function} [callback] Fonction à exécuter.
+     * @return {*}
+     * @since 1.0
+     */
     this.success = function (callback) {
         if(callback === undefined){ return $request ? $request.success : null }
         if(box.is(callback, "function")){ settings.success = callback }
         return self
     };
 
+    /**
+     * Permet d'obtenir ou de définir une fonction à exécuter pour une requête en echec.
+     * @method error
+     * @param {Function} [callback] Fonction à exécuter.
+     * @return {*}
+     * @since 1.0
+     */
     this.error = function (callback) {
         if(callback === undefined){ return $request ? $request.error : null }
         if(box.is(callback, "function")){ settings.error = callback }
@@ -236,20 +325,40 @@ zk().register(function Ajax($this){
 
     // Racourcis pour state
 
+    /**
+     * Permet de définir une fonction à exécuter avant l'envoie de la requête.
+     * @method beforeSend
+     * @param {Function} [callback] Fonction à exécuter.
+     * @return {*}
+     * @since 1.0
+     */
     this.beforeSend = function (callback) { return this.state("beforeSend", callback) };
 
+    /**
+     * Permet de définir une fonction à exécuter après l'envoie de la requête.
+     * @method afterSend
+     * @param {Function} [callback] Fonction à exécuter.
+     * @return {*}
+     * @since 1.0
+     */
     this.afterSend = function (callback) { return this.state("afterSend", callback) };
 
+    /**
+     * Permet de définir une fonction à exécuter quand le serveur traite les informations et commence à renvoyer des données
+     * @method afterSend
+     * @param {Function} [callback] Fonction à exécuter.
+     * @return {*}
+     * @since 1.0
+     */
     this.beforeDone = function (callback) { return this.state("beforeDone", callback) };
 
+    /**
+     * Permet d'obtenir ou de définir une fonction à exécuter pour une requête terminée.
+     * @method done
+     * @param {Function} [callback] Fonction à exécuter.
+     * @return {*}
+     * @since 1.0
+     */
     this.done = function (callback) { return this.state("done", callback) };
-
-
-    // 0 : L'objet XHR a été créé, mais pas encore initialisé (la méthode open n'a pas encore été appelée)
-    // 1 : L'objet XHR a été créé, mais pas encore envoyé (avec la méthode send )
-    // 2 : La méthode send vient d'être appelée
-    // 3 : Le serveur traite les informations et a commencé à renvoyer des données
-    // 4 : Le serveur a fini son travail, et toutes les données sont réceptionnées
-
 
 }, {}, {});
