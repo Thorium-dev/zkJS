@@ -132,6 +132,8 @@ zk().register(function Ajax($this){
         return self
     };
 
+    this.execute = function () { return this.send() };
+
     this.method = function (value) {
         value = (value + "").toUpperCase();
         if(xhrMethodType.hasOwnProperty(value)){
