@@ -51,6 +51,7 @@
     <script src="entity/nodeEntity.js"></script>
     <script src="entity/documentEntity.js"></script>
     <script src="entity/windowEntity.js"></script>
+    <script src="entity/ajaxEntity.js"></script>
     <script src="spec/lib/mocha.js"></script>
     <script src="spec/lib/chai.js"></script>
 
@@ -67,11 +68,10 @@
     <script>
 
 
-        var res = $(window).on("load", function () {
-            console.log("loaded !");
-        });
+        var xhr = zk("Ajax");
 
-        console.log(res);
+        xhr.url("ajax.php").status("send", "");
+        xhr.send();
 
         mocha.run();
     </script>
