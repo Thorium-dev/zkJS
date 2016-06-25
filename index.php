@@ -31,8 +31,18 @@
     </ul>
 
 
-    
+    <script src="dev/core/zk.js"></script>
+    <script src="dev/entity/convertorEntity.js"></script>
+    <script src="dev/entity/documentEntity.js"></script>
+    <script src="dev/entity/edgeEntity.js"></script>
+    <script src="dev/entity/errorEntity.js"></script>
+    <script src="dev/entity/nodeEntity.js"></script>
+    <script src="dev/entity/ajaxEntity.js"></script>
+
     <script>
+
+
+        zk("Ajax").send("ajax.php $post $json");
 
 
     </script>
