@@ -42,7 +42,7 @@
     <script>
 
 
-        console.log(zk("date").D());
+        console.log(zk("date").count("lundi"));
 
 
     </script>

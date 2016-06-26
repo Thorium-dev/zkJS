@@ -24,6 +24,7 @@ zk().register(function DATE($this){
         }
         return $self
     }
+    function daysInMonth(date) { return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() }
 
     this.set = function (date) {
         if(date === undefined){ return $self }
@@ -244,6 +245,27 @@ zk().register(function DATE($this){
             return format;
         });
         return format
+    } ;
+
+    /**
+     * Permet de compter le nombre de jours dans un mois ou le nombre de lundi par exemple
+     *
+     * @method count
+     * @param {String} [day] Chaîne de formattage. Par exemple : "%DD %dd+1 %MM %yy"
+     * @return {int}
+     * @since 1.0
+     */
+    $self.count = function(day){
+        var totalDays = daysInMonth($date);
+        if(day === undefined){ return totalDays }
+        var total = 0, reg = new RegExp('^'+day+'$','i') ;
+        var copyDate = $box.clone($date);
+        $box.each(totalDays, function(){
+            $date.setDate(this.i+1) ;
+            if(reg.test($self.DD())){ total++ }
+        }) ;
+        $date = copyDate ;
+        return total
     } ;
 
 
