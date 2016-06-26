@@ -473,6 +473,27 @@
             for(var k in object){ return false }
             return true;
         };
+        /**
+         * Permet de cloner un objet
+         * @method clone
+         * @param {object} object Objet à cloner
+         * @return {*}
+         * @since 1.0
+         */
+        this.clone = function(object) {
+            try {
+                var copy = new object.constructor(), id;
+                for (id in object) {
+                    if (object.hasOwnProperty(id)) {
+                        copy[id] = object[id];
+                    }
+                }
+                return copy;
+            }catch (e){
+                console.log(e);
+                return object
+            }
+        };
 
         // GET
 
