@@ -64,7 +64,7 @@ zk().register(function Ajax($this) {
                 if (box.is(rep, "object")) {
                     rep = createElementByObject($this, rep);
                 }
-                return rep || xhr.responseText
+                return self.entity.get("node").set(rep)
             },
         },
         convertXhrState = {
