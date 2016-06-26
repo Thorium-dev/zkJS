@@ -1,24 +1,30 @@
-describe("Unit test for ajaxEntity", function() {
+describe("Unit test for dateEntity", function() {
 
-    describe("Test for node response", function () {
-        it("Should response be a node", function() {
+    describe("Test to creating date entity", function () {
+        it("Date entity should be exist", function() {
             var box = zk().toolbox;
-            zk("Ajax")
-                .url("src/entity/ajax.php")
-                .method("post").type("node")
-                .success(function () {
-                    chaiExpect(box.is(this.response)).eql("node")
-                }).send();
-
+            chaiExpect(box.is(zk("Date"))).eql("date")
         });
-        it("Should response be a node (Shortcut)", function() {
-            var box = zk().toolbox;
-            zk("Ajax").send("src/entity/ajax.php $post $node", function () {
-                chaiExpect(box.is(this.response)).eql("node")
-            });
 
+    });
+
+    describe("Test about year", function () {
+        it("Year should have two chars", function() {
+            chaiExpect(zk("Date").set("2016-06-26").y()).eql("16")
         });
+        it("Should get full year", function() {
+            chaiExpect(zk("Date").set("2016-06-26").yy()).eql("2016")
+        });
+        it("Year should increase", function() {
+            chaiExpect(zk("Date").set("2016-06-26").y("+2").y()).eql("18")
+        });
+        it("Year should decrease", function() {
+            chaiExpect(zk("Date").set("2016-06-26").yy("-2").yy()).eql("2014")
+        });
+
     });
 
 
 });
+
+

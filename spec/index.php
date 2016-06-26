@@ -21,6 +21,7 @@
 
     <script src="../dev/core/zk.js"></script>
     <script src="../dev/entity/nodeEntity.js"></script>
+    <script src="../dev/entity/dateEntity.js"></script>
 
     <script src="lib/mocha.js"></script>
     <script src="lib/chai.js"></script>
@@ -34,6 +35,7 @@
 
     <script src="entity/stringSpec.js"></script>
     <script src="entity/ajaxSpec.js"></script>
+    <script src="entity/dateSpec.js"></script>
 
     <script>
         mocha.run();
