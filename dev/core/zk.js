@@ -1264,6 +1264,7 @@
                     "entity": APP.entity,
                     "container": APP.container,
                     "event": APP.event,
+                    "config": APP.config,
                 };
                 entity = new entity($this);
             }
@@ -1274,7 +1275,6 @@
     APP.entity = APP._ENTITY_;
 
     function _EVENT_(){
-        var self = this;
         this.get = function (path) {
             return APP.container.get("_ENTITY_._EVENTS_." + path);
         };
@@ -1289,15 +1289,14 @@
     APP.event = APP._EVENT_;
 
     function _CONFIG_(){
-        var self = this;
         this.get = function (key) {
-
+            return APP.container.get("_CONFIG_." + key);
         };
         this.set = function (key, value) {
-
+            return APP.container.set("_CONFIG_." + key, value);
         };
         this.remove = function (key) {
-
+            return APP.container.remove("_CONFIG_." + key);
         }
     }
     APP._CONFIG_ = new _CONFIG_();
@@ -3254,6 +3253,21 @@
         };
 
     }, {}, {});
+
+    // dateEntity
+    APP.config.set("date.months",
+        {
+            "fr" : ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            "en" : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        }
+    );
+    APP.config.set("date.days",
+        {
+            "fr" : ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+            "en" : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        }
+    );
+    APP.config.set("date.lang", "fr");
 
 
     function nodeLauncher(selector) {

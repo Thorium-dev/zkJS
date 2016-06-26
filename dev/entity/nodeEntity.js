@@ -2488,7 +2488,7 @@ var nodeDoSetByParameters = {
         return $this.toolbox.toArray(nodes)
     },
 };
-zk().register(function Node($this) {
+zk().register(function NODE($this) {
     var nodes = $this.nodes || [], self = this;
     zk().toolbox.each($this, function () { self[this.k] = this.v });
     this.get = function (selector) {
