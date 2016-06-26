@@ -332,6 +332,15 @@ zk().register(function DATE($this){
         return $self
     };
 
+    /**
+     * Permet d'obtenir la date courante
+     *
+     * @method now
+     * @return {DATE}
+     * @since 1.0
+     */
+    this.now = function(){ $date = new Date(); return $self };
+
 
 
 
