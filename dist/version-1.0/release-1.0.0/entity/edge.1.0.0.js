@@ -1,4 +1,4 @@
-zk().register(function EDGE($this) {
+APP.register(function EDGE($this) {
     var $self = this,
         $box = $this.toolbox,
         $edges = ["top", "right", "bottom", "left"],

@@ -8,7 +8,7 @@ describe("Unit test for dateEntity", function() {
 
     });
 
-    describe("Test about year", function () {
+    describe("Test for year", function () {
         it("Year should have two chars", function() {
             chaiExpect(zk("Date").set("2016-06-26").y()).eql("16")
         });
@@ -24,6 +24,23 @@ describe("Unit test for dateEntity", function() {
 
     });
 
+    describe("Test for short named month", function () {
+        it("Month should be 'Jui'", function() {
+            chaiExpect(zk("Date").set("2016-06-26").M()).eql("Jui")
+        });
+        it("Month should be 'Juin'", function() {
+            chaiExpect(zk("Date").set("2016-06-26").M(4)).eql("Juin")
+        });
+        it("Month should be 'Sep'", function() {
+            chaiExpect(zk("Date").set("2016-09-02").M()).eql("Sep")
+        });
+    });
+
+    describe("Test for full named month", function () {
+        it("Month should be 'Septembre'", function() {
+            chaiExpect(zk("Date").set("2016-09-02").MM()).eql("Septembre")
+        });
+    });
 
 });
 
