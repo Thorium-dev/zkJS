@@ -118,7 +118,7 @@ zk().register(function DATE($this){
         if(length === undefined){ length = 3 }
         return m.slice(0,Math.abs(length))
     };
-    
+
     /**
      * Permet d'obtenir le nom complet du jour.
      *
@@ -129,6 +129,98 @@ zk().register(function DATE($this){
     this.DD = function () {
         return $self.config.get("date.days." + settings.lang)[$self.w()];
     };
+
+    var symbols = {
+        "m": 'Month',
+        "d": 'Date',
+        "h": 'Hours',
+        "i": 'Minutes',
+        "s": 'Seconds',
+        "l": 'Milliseconds'
+    };
+    $box.each(symbols, function(){
+        var i = this.i, v = this.v ;
+        $self[i] = function (nb) { return getSetDate(nb, v) };
+        $self[i+i] = function (nb) {
+            var res = getSetDate(nb, v) ;
+            if (nb === undefined) {
+                res = parseInt(res);
+                if(res < 10){ res = "0" + res }
+                res += "";
+            }
+            return res
+        };
+    });
+
+    /**
+     * Permet d'obtenir ou de définir le jour.
+     *
+     * @method day|d|dd
+     * @param {*} [day] Le jour à définir. Par exemple : 25, "+3", "-1"
+     * @return {String|DATE}
+     * @since 1.0
+     */
+    $self.day = function(day){ return $self.dd(day) };
+
+    /**
+     * Permet d'obtenir ou de définir le mois.
+     *
+     * @method month|m|mm
+     * @param {*} [month] Le mois à définir. Par exemple : 6, "+2", "-1"
+     * @return {String|DATE}
+     * @since 1.0
+     */
+    $self.month = function(month){ return $self.mm(month) };
+
+    /**
+     * Permet d'obtenir ou de définir l'année.
+     *
+     * @method year|y|yy
+     * @param {*} [year] L'année à définir. Par exemple : 2015, "+3", "-1"
+     * @return {String|DATE}
+     * @since 1.0
+     */
+    $self.year = function(year){ return $self.yy(year) };
+
+    /**
+     * Permet d'obtenir ou de définir l'heure.
+     *
+     * @method hour|h|hh
+     * @param {*} [hour] L'heure à définir. Par exemple : 8, "+3", "-1"
+     * @return {String|DATE}
+     * @since 1.0
+     */
+    $self.hour = function(hour){ return $self.hh(hour) };
+
+    /**
+     * Permet d'obtenir ou de définir les minutes.
+     *
+     * @method minute|i|ii
+     * @param {*} [minute] La minute à définir. Par exemple : 30, "+3", "-1"
+     * @return {String|DATE}
+     * @since 1.0
+     */
+    $self.minute = function(minute){ return $self.ii(minute) };
+
+    /**
+     * Permet d'obtenir ou de définir les secondes.
+     *
+     * @method second|s|ss
+     * @param {*} [second] Les secondes à définir. Par exemple : 45, "+3", "-1"
+     * @return {String|DATE}
+     * @since 1.0
+     */
+    $self.second = function(second){ return $self.ss(second) };
+
+    /**
+     * Permet d'obtenir ou de définir les millisecondes.
+     *
+     * @method millisecond|l|ll
+     * @param {*} [millisecond] Les millisecondes à définir. Par exemple : 467, "+3", "-1"
+     * @return {String|DATE}
+     * @since 1.0
+     */
+    $self.millisecond = function(millisecond){ return $self.ll(millisecond) };
 
 
 
