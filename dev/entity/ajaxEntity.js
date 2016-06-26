@@ -1,6 +1,6 @@
-zk().register(function Ajax($this) {
-    var self = this, xhr = null, $request = null, box = $this.toolbox;
-    box.each($this, function () { self[this.k] = this.v });
+zk().register(function AJAX($this) {
+    var $self = this, xhr = null, $request = null, box = $this.toolbox;
+    box.each($this, function () { $self[this.k] = this.v });
     var settings = {
             "method": "get",
             "datas": {},
@@ -64,7 +64,7 @@ zk().register(function Ajax($this) {
                 if (box.is(rep, "object")) {
                     rep = createElementByObject($this, rep);
                 }
-                return self.entity.get("node").set(rep)
+                return $self.entity.get("node").set(rep)
             },
         },
         convertXhrState = {
@@ -111,14 +111,14 @@ zk().register(function Ajax($this) {
                 url = url.replace(/ +/g, " ").replace(/ = /g, "=");
                 url = url.replace(/\$(\w+)/g, function (str, s) {
                     if(getResponseByType.hasOwnProperty(s.toLowerCase())){
-                        self.type(s)
+                        $self.type(s)
                     }
                     if(xhrMethodType.hasOwnProperty(s.toLowerCase())){
-                        self.method(s)
+                        $self.method(s)
                     }
                     return ""
                 });
-                self.url(url);
+                $self.url(url);
                 if(box.is(successCallback, "function")){ settings.success = successCallback }
                 if(box.is(errorCallback, "function")){ settings.error = errorCallback }
             }
@@ -168,7 +168,7 @@ zk().register(function Ajax($this) {
                 $request = request;
             };
         }
-        return self
+        return $self
     };
 
     /**
@@ -209,7 +209,7 @@ zk().register(function Ajax($this) {
         if (xhrMethodType.hasOwnProperty(value)) {
             settings.method = value;
         }
-        return self;
+        return $self;
     };
 
     /**
@@ -231,7 +231,7 @@ zk().register(function Ajax($this) {
         if (nameType === "object") {
             settings.datas = name;
         }
-        return self;
+        return $self;
     };
 
     /**
@@ -253,7 +253,7 @@ zk().register(function Ajax($this) {
         if (nameType === "object") {
             settings.headers = name;
         }
-        return self;
+        return $self;
     };
 
     /**
@@ -268,7 +268,7 @@ zk().register(function Ajax($this) {
             return settings.url
         }
         settings.url = url;
-        return self
+        return $self
     };
 
     /**
@@ -285,7 +285,7 @@ zk().register(function Ajax($this) {
         if (getResponseByType.hasOwnProperty(value)) {
             settings.type = value;
         }
-        return self
+        return $self
     };
 
     /**
@@ -325,7 +325,7 @@ zk().register(function Ajax($this) {
                 }
             });
         }
-        return self;
+        return $self;
     };
 
     /**
@@ -356,7 +356,7 @@ zk().register(function Ajax($this) {
                 }
             });
         }
-        return self;
+        return $self;
     };
 
     /**
@@ -373,7 +373,7 @@ zk().register(function Ajax($this) {
         if (box.is(callback, "function")) {
             settings.success = callback
         }
-        return self
+        return $self
     };
 
     /**
@@ -390,7 +390,7 @@ zk().register(function Ajax($this) {
         if (box.is(callback, "function")) {
             settings.error = callback
         }
-        return self
+        return $self
     };
 
     // Racourcis pour state
