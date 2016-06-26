@@ -1,6 +1,6 @@
-zk().register(function Ajax($this) {
-    var self = this, xhr = null, $request = null, box = $this.toolbox;
-    box.each($this, function () { self[this.k] = this.v });
+zk().register(function AJAX($this) {
+    var $self = this, xhr = null, $request = null, $box = $this.toolbox;
+    $box.each($this, function () { $self[this.k] = this.v });
     var settings = {
             "method": "get",
             "datas": {},
@@ -15,25 +15,25 @@ zk().register(function Ajax($this) {
         xhrMethodType = {
             "get": function () {
                 var datas = "";
-                box.each(settings.datas, function () {
+                $box.each(settings.datas, function () {
                     datas += "&" + this.k + "=" + encodeURIComponent(this.v);
                 });
                 datas = datas.slice(1);
                 xhr.open("GET", settings.url + "?" + datas, true);
-                box.each(settings.headers, function () {
+                $box.each(settings.headers, function () {
                     xhr.setRequestHeader(this.k, this.v)
                 });
                 xhr.send(null);
             },
             "post": function () {
                 xhr.open("POST", settings.url, true);
-                box.each(settings.headers, function () {
+                $box.each(settings.headers, function () {
                     xhr.setRequestHeader(this.k, this.v)
                 });
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 var datas = "";
-                box.each(settings.datas, function () {
+                $box.each(settings.datas, function () {
                     datas += "&" + this.k + "=" + this.v;
                 });
                 datas = datas.slice(1);
@@ -61,10 +61,10 @@ zk().register(function Ajax($this) {
             },
             "node": function () {
                 var rep = this.json();
-                if (box.is(rep, "object")) {
+                if ($box.is(rep, "object")) {
                     rep = createElementByObject($this, rep);
                 }
-                return self.entity.get("node").set(rep)
+                return $self.entity.get("node").set(rep)
             },
         },
         convertXhrState = {
@@ -107,20 +107,20 @@ zk().register(function Ajax($this) {
      */
     this.send = function (url, successCallback, errorCallback) {
         if (xhr) {
-            if(box.is(url, "string") && url){
+            if($box.is(url, "string") && url){
                 url = url.replace(/ +/g, " ").replace(/ = /g, "=");
                 url = url.replace(/\$(\w+)/g, function (str, s) {
                     if(getResponseByType.hasOwnProperty(s.toLowerCase())){
-                        self.type(s)
+                        $self.type(s)
                     }
                     if(xhrMethodType.hasOwnProperty(s.toLowerCase())){
-                        self.method(s)
+                        $self.method(s)
                     }
                     return ""
                 });
-                self.url(url);
-                if(box.is(successCallback, "function")){ settings.success = successCallback }
-                if(box.is(errorCallback, "function")){ settings.error = errorCallback }
+                $self.url(url);
+                if($box.is(successCallback, "function")){ settings.success = successCallback }
+                if($box.is(errorCallback, "function")){ settings.error = errorCallback }
             }
             $request = null;
             settings.headers["Content-Type"] = "text/" + settings.type;
@@ -168,7 +168,7 @@ zk().register(function Ajax($this) {
                 $request = request;
             };
         }
-        return self
+        return $self
     };
 
     /**
@@ -209,7 +209,7 @@ zk().register(function Ajax($this) {
         if (xhrMethodType.hasOwnProperty(value)) {
             settings.method = value;
         }
-        return self;
+        return $self;
     };
 
     /**
@@ -224,14 +224,14 @@ zk().register(function Ajax($this) {
         if (name === undefined) {
             return settings.datas
         }
-        var nameType = box.is(name);
+        var nameType = $box.is(name);
         if (nameType === "string") {
             settings.datas[name] = value
         }
         if (nameType === "object") {
             settings.datas = name;
         }
-        return self;
+        return $self;
     };
 
     /**
@@ -246,14 +246,14 @@ zk().register(function Ajax($this) {
         if (name === undefined) {
             return $request ? $request.headers : settings.headers
         }
-        var nameType = box.is(name);
+        var nameType = $box.is(name);
         if (nameType === "string") {
             settings.headers[name] = value
         }
         if (nameType === "object") {
             settings.headers = name;
         }
-        return self;
+        return $self;
     };
 
     /**
@@ -268,7 +268,7 @@ zk().register(function Ajax($this) {
             return settings.url
         }
         settings.url = url;
-        return self
+        return $self
     };
 
     /**
@@ -285,7 +285,7 @@ zk().register(function Ajax($this) {
         if (getResponseByType.hasOwnProperty(value)) {
             settings.type = value;
         }
-        return self
+        return $self
     };
 
     /**
@@ -305,7 +305,7 @@ zk().register(function Ajax($this) {
         if (name) {
             return $request ? $request.state : null
         }
-        var nameType = box.is(name);
+        var nameType = $box.is(name);
         if (nameType !== "string") {
             nameType = {};
             nameType[name] = callback;
@@ -315,17 +315,17 @@ zk().register(function Ajax($this) {
             settings.state = {};
         }
         if (nameType === "object") {
-            box.each(name, function () {
+            $box.each(name, function () {
                 if (allXhrState.hasOwnProperty(this.k)) {
                     var state = allXhrState[this.k];
                     state = convertXhrState[state];
-                    if (box.is(this.v, "function")) {
+                    if ($box.is(this.v, "function")) {
                         settings.state[state] = this.v;
                     }
                 }
             });
         }
-        return self;
+        return $self;
     };
 
     /**
@@ -340,7 +340,7 @@ zk().register(function Ajax($this) {
         if (code === undefined) {
             return $request ? $request.status : null
         }
-        var codeType = box.is(code);
+        var codeType = $box.is(code);
         if (codeType !== "object") {
             codeType = {};
             codeType[code] = callback;
@@ -350,13 +350,13 @@ zk().register(function Ajax($this) {
             settings.status = {};
         }
         if (codeType === "object") {
-            box.each(code, function () {
-                if (box.is(this.v, "function")) {
+            $box.each(code, function () {
+                if ($box.is(this.v, "function")) {
                     settings.status[this.k + ""] = this.v;
                 }
             });
         }
-        return self;
+        return $self;
     };
 
     /**
@@ -370,10 +370,10 @@ zk().register(function Ajax($this) {
         if (callback === undefined) {
             return $request ? $request.success : null
         }
-        if (box.is(callback, "function")) {
+        if ($box.is(callback, "function")) {
             settings.success = callback
         }
-        return self
+        return $self
     };
 
     /**
@@ -387,10 +387,10 @@ zk().register(function Ajax($this) {
         if (callback === undefined) {
             return $request ? $request.error : null
         }
-        if (box.is(callback, "function")) {
+        if ($box.is(callback, "function")) {
             settings.error = callback
         }
-        return self
+        return $self
     };
 
     // Racourcis pour state
