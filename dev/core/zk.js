@@ -1303,11 +1303,588 @@
     APP._CONFIG_ = new _CONFIG_();
     APP.config = APP._CONFIG_;
 
+    // stringEntity
+    function stringEntity() {
+        String.prototype.each = function(func, args){ return zk().toolbox.each(this, func, args) };
 
-    // array.min.js
-    Array.prototype.each=function(b,a){return APP.toolbox.each(this,b,a)};var arrayIndexPath="_ENTITY_._PARAMETERS_.array.index.";APP.setContainer(arrayIndexPath+"other",function(c,d){var a=c.length;for(var b=0;b<a;b++){if(c[b]===d){return b}}return -1});APP.setContainer(arrayIndexPath+"regexp",function(c,d){var a=c.length;for(var b=0;b<a;b++){if(APP.toolbox.is(c[b],"string|number")&&d.test(c[b])){return b}}return -1});Array.prototype.index=function(a){return APP.toolbox.index(this,a)};var arrayIndexesPath="_ENTITY_._PARAMETERS_.array.indexes.";APP.setContainer(arrayIndexesPath+"other",function(d,e){var a=d.length,b=[];for(var c=0;c<a;c++){if(d[c]===e){b.push(c)}}return b});APP.setContainer(arrayIndexesPath+"regexp",function(d,e){var a=d.length,b=[];for(var c=0;c<a;c++){if(APP.toolbox.is(d[c],"string|number")&&e.test(d[c])){b.push(c)}}return b});Array.prototype.indexes=function(a){return APP.toolbox.indexes(this,a)};Array.prototype.lastIndex=function(a){return APP.toolbox.lastIndex(this,a)};Array.prototype.count=function(a){return APP.toolbox.count(this,a)};Array.prototype.has=function(a){return APP.toolbox.has(this,a)};Array.prototype.reverse=function(){return APP.toolbox.reverse(this)};var arrayGetFirstPath="_ENTITY_._PARAMETERS_.array.getFirst.";APP.setContainer(arrayGetFirstPath+"other",function(){return[]});APP.setContainer(arrayGetFirstPath+"number",function(a,b){return(b<1)?[]:a.slice(0,b)});APP.setContainer(arrayGetFirstPath+"string",function(a,b){return APP.getContainer(arrayGetFirstPath+"regexp")(a,new RegExp(b))});APP.setContainer(arrayGetFirstPath+"regexp",function(c,d){var a=c.length;for(var b=0;b<a;b++){if(d.test(c[b])){return[c[b]]}}return[]});Array.prototype.getFirst=function(a){return APP.toolbox.getFirst(this,a)};Array.prototype.getMiddle=function(){return APP.toolbox.getMiddle(this)};var arrayGetLastPath="_ENTITY_._PARAMETERS_.array.getLast.";APP.setContainer(arrayGetLastPath+"other",function(){return[]});APP.setContainer(arrayGetLastPath+"number",function(a,b){return(b<1)?[]:a.slice(-b)});APP.setContainer(arrayGetLastPath+"string",function(a,b){return APP.getContainer(arrayGetLastPath+"regexp")(a,new RegExp(b))});APP.setContainer(arrayGetLastPath+"regexp",function(c,d){var a=c.length;for(var b=(a-1);b+1;b--){if(d.test(c[b])){return[c[b]]}}return[]});Array.prototype.getLast=function(a){return APP.toolbox.getLast(this,a)};var arrayGetBeforePath="_ENTITY_._PARAMETERS_.array.getBefore.";APP.setContainer(arrayGetBeforePath+"other",function(c,b,a){var d=APP.toolbox;if(!d.is(b,"number")){b=d.index(c,b)}if(b>-1){return a?c.slice(b+1):c.slice(0,b)}return[]});Array.prototype.getBefore=function(a){return APP.toolbox.getBefore(this,a)};var arrayGetAfterPath="_ENTITY_._PARAMETERS_.array.getAfter.";APP.setContainer(arrayGetAfterPath+"other",function(b,a){return APP.getContainer(arrayGetBeforePath+"other")(b,a,true)});Array.prototype.getAfter=function(a){return APP.toolbox.getAfter(this,a)};var arrayGetBetweenPath="_ENTITY_._PARAMETERS_.array.getBetween.";APP.setContainer(arrayGetBetweenPath+"array",function(g,c){var h=APP.toolbox,e,a,d=[];if(!h.is(c,"array")){c=[c]}if(c.length%2){c.push(g.length-1)}a=c.length;for(e=0;e<a;e+=2){var f=[c[e],c[e+1]];for(var b=0;b<2;b++){if(!h.is(f[b],"number")){f[b]=h.index(g,f[b])}if(f[b]<0){f[b]=false}}if(h.is(f[0],"number")&&h.is(f[1],"number")){f=h.nSort(f);d=d.concat(g.slice(f[0]+1,f[1]))}}return d});Array.prototype.getBetween=function(a){return APP.toolbox.getBetween(this,a)};var arrayGetAtPath="_ENTITY_._PARAMETERS_.array.getAt.";APP.setContainer(arrayGetAtPath+"array",function(d,b){var e=APP.toolbox,f,a=d.length,c=e.is(d,"string")?"":[];if(!e.is(b,"array")){b=[b]}e.each(b,function(){f=this.v;if(e.is(f,"number")&&f>-1){if(f<a){c=c.concat(d[f])}}});return c});Array.prototype.getAt=function(a){return APP.toolbox.getAt(this,a)};var arrayGetPath="_ENTITY_._PARAMETERS_.array.get.";APP.setContainer(arrayGetPath+"string",function(a,b){return APP.getContainer(arrayGetPath+"regexp")(a,new RegExp(b))});APP.setContainer(arrayGetPath+"regexp",function(b,c){var a=[];APP.toolbox.each(b,function(){if(c.test(this.v)){a.push(this.v)}});return a});APP.setContainer(arrayGetPath+"number",function(a,b){return(b<0)?a.slice(b):a.slice(0,b)});APP.setContainer(arrayGetPath+"array",function(b,c){var a=[];APP.toolbox.each(c,function(){var d=APP.getContainer(arrayGetPath+APP.toolbox.is(this.v));if(d){a=a.concat(d(b,this.v))}});return a});Array.prototype.get=function(a){return APP.toolbox.get(this,a)};Array.prototype.removeDuplicate=function(a){return APP.toolbox.removeDuplicate(this,a)};var arrayRemoveFirstPath="_ENTITY_._PARAMETERS_.array.removeFirst.";APP.setContainer(arrayRemoveFirstPath+"number",function(a,b){return(b<1)?a:a.slice(b)});APP.setContainer(arrayRemoveFirstPath+"other",function(c,d){var b,a=c.length;for(b=0;b<a;b++){if(c[b]==d){c.splice(b,1);return c}}return c});APP.setContainer(arrayRemoveFirstPath+"regexp",function(c,d){var b,a=c.length;for(b=0;b<a;b++){if(d.test(c[b])){c.splice(b,1);return c}}return c});Array.prototype.removeFirst=function(a){return APP.toolbox.removeFirst(this,a)};Array.prototype.removeMiddle=function(){return APP.toolbox.removeMiddle(this)};var arrayRemoveLastPath="_ENTITY_._PARAMETERS_.array.removeLast.";APP.setContainer(arrayRemoveLastPath+"number",function(a,b){return(b<1)?this:a.slice(0,-b)});APP.setContainer(arrayRemoveLastPath+"other",function(c,d){var b,a=c.length;for(b=a-1;b>-1;b--){if(c[b]==d){c.splice(b,1);return c}}return c});APP.setContainer(arrayRemoveLastPath+"regexp",function(c,d){var b,a=c.length;for(b=a-1;b>-1;b--){if(d.test(c[b])){c.splice(b,1);return c}}return c});Array.prototype.removeLast=function(a){return APP.toolbox.removeLast(this,a)};var arrayRemoveBeforePath="_ENTITY_._PARAMETERS_.array.removeBefore.";APP.setContainer(arrayRemoveBeforePath+"other",function(b,a){var c=APP.toolbox;if(!c.is(a,"number")){a=c.index(b,a)}if(a>-1){return b.slice(a)}return b});Array.prototype.removeBefore=function(a){return APP.toolbox.removeBefore(this,a)};var arrayRemoveAfterPath="_ENTITY_._PARAMETERS_.array.removeAfter.";APP.setContainer(arrayRemoveAfterPath+"other",function(b,a){var c=APP.toolbox;if(!c.is(a,"number")){a=c.index(b,a)}if(a>-1){return b.slice(0,a+1)}return b});Array.prototype.removeAfter=function(a){return APP.toolbox.removeAfter(this,a)};var arrayRemoveBetweenPath="_ENTITY_._PARAMETERS_.array.removeBetween.";APP.setContainer(arrayRemoveBetweenPath+"array",function(c,a){var d=APP.toolbox;if(!d.is(a,"array")){a=[a]}if(a.length%2){a.push(c.length-1)}a=a.slice(0,2);for(var b=0;b<2;b++){if(!d.is(a[b],"number")){a[b]=d.index(c,a[b])}if(a[b]<0){a[b]=false}}if(d.is(a[0],"number")&&d.is(a[1],"number")){a=d.nSort(a);c=c.slice(0,a[0]+1).concat(c.slice(a[1]))}return c});Array.prototype.removeBetween=function(a){return APP.toolbox.removeBetween(this,a)};var arrayRemoveAtPath="_ENTITY_._PARAMETERS_.array.removeAt.";APP.setContainer(arrayRemoveAtPath+"number",function(b,a){return APP.getContainer(arrayRemoveAtPath+"array")(b,[a])});APP.setContainer(arrayRemoveAtPath+"array",function(b,a){var c=APP.toolbox;a=c.removeDuplicate(a,true);c.each(a,function(){var d=this.v;if(c.is(d,"number")&&d>-1){b=b.slice(0,d).concat(b.slice(d+1))}});return b});Array.prototype.removeAt=function(a){return APP.toolbox.removeAt(this,a)};var arrayRemovePath="_ENTITY_._PARAMETERS_.array.remove.";APP.setContainer(arrayRemovePath+"other",function(b,c){var a=[];APP.toolbox.each(b,function(){if(c!==this.v){a.push(this.v)}});return a});APP.setContainer(arrayRemovePath+"regexp",function(b,c){var a=[];APP.toolbox.each(b,function(){if(!c.test(this.v)){a.push(this.v)}});return a});APP.setContainer(arrayRemovePath+"number",function(a,b){return(b<0)?a.slice(0,b):a.slice(b)});APP.setContainer(arrayRemovePath+"array",function(b,d){var a=[],c=APP.toolbox;c.each(d,function(){a=a.concat(c.indexes(b,this.v))});return APP.getContainer(arrayRemoveAtPath+"array")(b,a)});Array.prototype.remove=function(a){return APP.toolbox.remove(this,a)};var arrayAddFirstPath="_ENTITY_._PARAMETERS_.array.addFirst.";APP.setContainer(arrayAddFirstPath+"other",function(a,b){if(!APP.toolbox.is(b,"array")){b=[b]}return b.concat(a)});Array.prototype.addFirst=function(a){return APP.toolbox.addFirst(this,a)};Array.prototype.addMiddle=function(a){return APP.toolbox.addMiddle(this,a)};var arrayAddLastPath="_ENTITY_._PARAMETERS_.array.addLast.";APP.setContainer(arrayAddLastPath+"other",function(a,b){if(!APP.toolbox.is(b,"array")){b=[b]}return a.concat(b)});Array.prototype.addLast=function(a){return APP.toolbox.addLast(this,a)};function doSlice(c,d,b,a){d=d||0;b=b||d;d=c.slice(0,d);b=c.slice(b);return(a!==undefined)?d.concat(a).concat(b):d.concat(b)}var arrayAddBeforePath="_ENTITY_._PARAMETERS_.array.addBefore.";APP.setContainer(arrayAddBeforePath+"other",function(b,a,d){var c=APP.toolbox;if(!c.is(a,"number")){a=c.index(b,a)}if(a>-1){if(!c.is(d,"array")){d=[d]}return doSlice(b,a,a,d)}return b});Array.prototype.addBefore=function(a,b){return APP.toolbox.addBefore(this,a,b)};var arrayAddAfterPath="_ENTITY_._PARAMETERS_.array.addAfter.";APP.setContainer(arrayAddAfterPath+"other",function(b,a,d){var c=APP.toolbox;if(!c.is(a,"number")){a=c.index(b,a)}if(a>-1){if(!c.is(d,"array")){d=[d]}return doSlice(b,a+1,a+1,d)}return b});Array.prototype.addAfter=function(a,b){return APP.toolbox.addAfter(this,a,b)};var arrayAddAtPath="_ENTITY_._PARAMETERS_.array.addAt.";APP.setContainer(arrayAddAtPath+"array",function(b,a,d){var c=APP.toolbox;if(c.is(d,"array")){d=d[0]}if(d!==undefined){if(!c.is(a,"array")){a=[a]}a=c.removeDuplicate(a,true);c.each(a,function(){if(c.is(this.v,"number")){b=APP.getContainer(arrayAddBeforePath+"other")(b,this.v,d)}})}return b});Array.prototype.addAt=function(a,b){return APP.toolbox.addAt(this,a,b)};Array.prototype.add=function(a){return APP.toolbox.add(this,a)};var arrayChangeFirstPath="_ENTITY_._PARAMETERS_.array.changeFirst.";APP.setContainer(arrayChangeFirstPath+"number",function(b,a,c){if(a>0){b=APP.getContainer(arrayAddFirstPath+"other")(b.slice(a),c)}return b});APP.setContainer(arrayChangeFirstPath+"other",function(c,b,e){var d=APP.toolbox,a=d.index(c,b);if(a>-1){c[a]=e}return c});Array.prototype.changeFirst=function(a,b){return APP.toolbox.changeFirst(this,a,b)};Array.prototype.changeMiddle=function(a){return APP.toolbox.changeMiddle(this,a)};var arrayChangeLastPath="_ENTITY_._PARAMETERS_.array.changeLast.";APP.setContainer(arrayChangeLastPath+"number",function(b,a,c){if(a>0){b=APP.getContainer(arrayAddLastPath+"other")(b.slice(0,-a),c)}return b});APP.setContainer(arrayChangeLastPath+"other",function(d,c,f){var e=APP.toolbox,b=e.indexes(d,c),a=b[b.length-1];if(a){d[a]=f}return d});Array.prototype.changeLast=function(a,b){return APP.toolbox.changeLast(this,a,b)};var arrayChangeBeforePath="_ENTITY_._PARAMETERS_.array.changeBefore.";APP.setContainer(arrayChangeBeforePath+"other",function(c,b,e){var d=APP.toolbox;var a=d.removeBefore(c,b);if(a.length<c.length){c=d.addFirst(a,e)}return c});Array.prototype.changeBefore=function(a,b){return APP.toolbox.changeBefore(this,a,b)};var arrayChangeAfterPath="_ENTITY_._PARAMETERS_.array.changeAfter.";APP.setContainer(arrayChangeAfterPath+"other",function(c,b,e){var d=APP.toolbox;var a=d.removeAfter(c,b);if(a.length<c.length){c=d.addLast(a,e)}return c});Array.prototype.changeAfter=function(a,b){return APP.toolbox.changeAfter(this,a,b)};var arrayChangeBetweenPath="_ENTITY_._PARAMETERS_.array.changeBetween.";APP.setContainer(arrayChangeBetweenPath+"array",function(c,a,e){var d=APP.toolbox;if(!d.is(a,"array")){a=[a]}if(a.length%2){a.push(c.length-1)}a=a.slice(0,2);for(var b=0;b<2;b++){if(!d.is(a[b],"number")){a[b]=d.index(c,a[b])}if(a[b]<0){a[b]=false}}if(d.is(a[0],"number")&&d.is(a[1],"number")){a=d.nSort(a);c=c.slice(0,a[0]+1).concat(e).concat(c.slice(a[1]))}return c});Array.prototype.changeBetween=function(a,b){return APP.toolbox.changeBetween(this,a,b)};var arrayChangeAtPath="_ENTITY_._PARAMETERS_.array.changeAt.";APP.setContainer(arrayChangeAtPath+"array",function(b,a,d){var c=APP.toolbox;if(c.is(a,"number")){a=[a]}a=c.removeDuplicate(a,true);c.each(a,function(){var e=this.v;if(c.is(e,"number")&&e>-1){b[e]=d}});return b});Array.prototype.changeAt=function(a,b){return APP.toolbox.changeAt(this,a,b)};var arrayChangePath="_ENTITY_._PARAMETERS_.array.change.";APP.setContainer(arrayChangePath+"other",function(b,a,c){return APP.toolbox.each(b,function(){if(a===this.v){return c}})});APP.setContainer(arrayChangePath+"regexp",function(b,a,c){return APP.toolbox.each(b,function(){if(a.test(this.v)){return c}})});APP.setContainer(arrayChangePath+"number",function(b,a,c){return APP.toolbox["change"+(a<0?"Last":"First")](b,Math.abs(a),c)});APP.setContainer(arrayChangePath+"array",function(c,b,e){var a=[],d=APP.toolbox;d.each(b,function(){a=a.concat(d.indexes(c,this.v))});return APP.getContainer(arrayChangeAtPath+"array")(c,a,e)});Array.prototype.change=function(a,b){return APP.toolbox.change(this,a,b)};var arrayUpperFirstPath="_ENTITY_._PARAMETERS_.array.upperFirst.";APP.setContainer(arrayUpperFirstPath+"number",function(c,e,d){if(e>0){var a=c.length;if(e>a){e=a}for(var b=0;b<e;b++){if(APP.toolbox.is(c[b],"string")){c[b]=c[b]["to"+d+"Case"]()}}}return c});APP.setContainer(arrayUpperFirstPath+"string",function(c,e,d){var b,a=c.length;for(b=0;b<a;b++){if(c[b]==e){if(APP.toolbox.is(c[b],"string")){c[b]=c[b]["to"+d+"Case"]();return c}}}return c});APP.setContainer(arrayUpperFirstPath+"regexp",function(c,e,d){var b,a=c.length;for(b=0;b<a;b++){if(e.test(c[b])){if(APP.toolbox.is(c[b],"string")){c[b]=c[b]["to"+d+"Case"]();return c}}}return c});Array.prototype.upperFirst=function(a){return APP.toolbox.upperFirst(this,a)};var arrayUpperLastPath="_ENTITY_._PARAMETERS_.array.upperLast.";APP.setContainer(arrayUpperLastPath+"number",function(c,e,d){if(e>0){var a=c.length;if(e>a){e=a}for(var b=a-e;b<a;b++){if(APP.toolbox.is(c[b],"string")){c[b]=c[b]["to"+d+"Case"]()}}}return c});APP.setContainer(arrayUpperLastPath+"string",function(c,e,d){var b,a=c.length;for(b=a-1;b>-1;b--){if(c[b]==e){if(APP.toolbox.is(c[b],"string")){c[b]=c[b]["to"+d+"Case"]();return c}}}return c});APP.setContainer(arrayUpperLastPath+"regexp",function(c,e,d){var b,a=c.length;for(b=a-1;b>-1;b--){if(e.test(c[b])){if(APP.toolbox.is(c[b],"string")){c[b]=c[b]["to"+d+"Case"]();return c}}}return c});Array.prototype.upperLast=function(a){return APP.toolbox.upperLast(this,a)};function upperLowerTab(a,c){var b=APP.toolbox;return b.each(a,function(){var d=this.v;if(b.is(d,"string")){d=d["to"+c+"Case"]()}return d})}Array.prototype.upperMiddle=function(){return APP.toolbox.upperMiddle(this)};var arrayUpperBeforePath="_ENTITY_._PARAMETERS_.array.upperBefore.";APP.setContainer(arrayUpperBeforePath+"other",function(d,b,f){var e=APP.toolbox,a=d.length;if(!e.is(b,"number")){b=e.index(d,b)}if(b>-1){if(b>=a){b=a}for(var c=0;c<b;c++){if(e.is(d[c],"string")){d[c]=d[c]["to"+f+"Case"]()}}}return d});Array.prototype.upperBefore=function(a){return APP.toolbox.upperBefore(this,a)};var arrayUpperAfterPath="_ENTITY_._PARAMETERS_.array.upperAfter.";APP.setContainer(arrayUpperAfterPath+"other",function(d,b,f){var e=APP.toolbox,a=d.length;if(!e.is(b,"number")){b=e.index(d,b)}if(b>-1&&b<a){for(var c=b+1;c<a;c++){if(e.is(d[c],"string")){d[c]=d[c]["to"+f+"Case"]()}}}return d});Array.prototype.upperAfter=function(a){return APP.toolbox.upperAfter(this,a)};var arrayUpperBetweenPath="_ENTITY_._PARAMETERS_.array.upperBetween.";APP.setContainer(arrayUpperBetweenPath+"array",function(d,b,h){var e=APP.toolbox,g,c,a,f;if(!e.is(b,"array")){b=[b]}if(b.length%2){b.push(d.length-1)}a=b.length;for(g=0;g<a;g+=2){f=[b[g],b[g+1]];for(c=0;c<2;c++){if(!e.is(f[c],"number")){f[c]=e.index(d,f[c])}if(f[c]<0){f[c]=false}}if(e.is(f[0],"number")&&e.is(f[1],"number")){f=e.nSort(f);d=doSlice(d,f[0]+1,f[1],upperLowerTab(d.slice(f[0]+1,f[1]),h))}}return d});Array.prototype.upperBetween=function(a){return APP.toolbox.upperBetween(this,a)};var arrayUpperAtPath="_ENTITY_._PARAMETERS_.array.upperAt.";APP.setContainer(arrayUpperAtPath+"number",function(b,a,c){return APP.getContainer(arrayUpperAtPath+"array")(b,[a],c)});APP.setContainer(arrayUpperAtPath+"array",function(b,a,d){var c=APP.toolbox;a=c.removeDuplicate(a,true);c.each(a,function(){var e=this.v;if(c.is(e,"number")&&e>-1){if(c.is(b[e],"string")){b[e]=b[e]["to"+d+"Case"]()}}});return b});Array.prototype.upperAt=function(a){return APP.toolbox.upperAt(this,a)};var arrayUpperPath="_ENTITY_._PARAMETERS_.array.upper.";APP.setContainer(arrayUpperPath+"string",function(a,c,b){return APP.toolbox.each(a,function(){if(this.v===c){return this.v["to"+b+"Case"]()}})});APP.setContainer(arrayUpperPath+"regexp",function(a,d,c){var b=APP.toolbox;return b.each(a,function(){if(d.test(this.v)&&b.is(this.v,"string")){return this.v["to"+c+"Case"]()}})});APP.setContainer(arrayUpperPath+"number",function(a,c,b){var d=(c<0)?arrayUpperLastPath:arrayUpperFirstPath;return APP.getContainer(d+"number")(a,Math.abs(c),b)});APP.setContainer(arrayUpperPath+"array",function(b,e,d){var a=[],c=APP.toolbox;c.each(e,function(){a=a.concat(c.indexes(b,this.v))});return APP.getContainer(arrayUpperAtPath+"array")(b,a,d)});Array.prototype.upper=function(a){return APP.toolbox.upper(this,a)};Array.prototype.lowerFirst=function(a){return APP.toolbox.lowerFirst(this,a)};Array.prototype.lowerLast=function(a){return APP.toolbox.lowerLast(this,a)};Array.prototype.lowerMiddle=function(){return APP.toolbox.lowerMiddle(this)};Array.prototype.lowerBefore=function(a){return APP.toolbox.lowerBefore(this,a)};Array.prototype.lowerAfter=function(a){return APP.toolbox.lowerAfter(this,a)};Array.prototype.lowerBetween=function(a){return APP.toolbox.lowerBetween(this,a)};Array.prototype.lowerAt=function(a){return APP.toolbox.lowerAt(this,a)};Array.prototype.lower=function(a){return APP.toolbox.lower(this,a)};
-    // string.min.js
-    String.prototype.each=function(b,a){return APP.toolbox.each(this,b,a)};var stringIndexPath="_ENTITY_._PARAMETERS_.string.index.";APP.setContainer(stringIndexPath+"other",function(){return -1});APP.setContainer(stringIndexPath+"string",function(a,b){return a.indexOf(b)});APP.setContainer(stringIndexPath+"number",function(a,b){return a.indexOf(b+"")});APP.setContainer(stringIndexPath+"regexp",function(b,c){var a=c.exec(b);return a?a.index:-1});String.prototype.index=function(a){return APP.toolbox.index(this,a)};var stringIndexesPath="_ENTITY_._PARAMETERS_.string.indexes.";APP.setContainer(stringIndexesPath+"other",function(){return[]});APP.setContainer(stringIndexesPath+"string",function(c,d){var a=[],b=-1;while((b=c.indexOf(d,b+1))!=-1){a.push(b)}return a});APP.setContainer(stringIndexesPath+"number",function(a,b){return APP.getContainer(stringIndexesPath+"string")(a,b+"")});APP.setContainer(stringIndexesPath+"regexp",function(c,e){var a,b=[],d=(e.ignoreCase?"i":"")+"g";e=new RegExp(e,d);while((a=e.exec(c))){b.push(a.index)}return b});String.prototype.indexes=function(a){return APP.toolbox.indexes(this,a)};String.prototype.lastIndex=function(a){return APP.toolbox.lastIndex(this,a)};String.prototype.count=function(a){return APP.toolbox.count(this,a)};String.prototype.has=function(a){return APP.toolbox.has(this,a)};String.prototype.reverse=function(){return APP.toolbox.reverse(this)};String.prototype.trim=function(a,b){return APP.toolbox.trim(this,a,b)};String.prototype.camelCase=function(a){return APP.toolbox.camelCase(this,a)};String.prototype.snakeCase=function(a){return APP.toolbox.snakeCase(this,a)};String.prototype.linkCase=function(a){return APP.toolbox.linkCase(this,a)};var stringGetFirstPath="_ENTITY_._PARAMETERS_.string.getFirst.";APP.setContainer(stringGetFirstPath+"other",function(){return""});APP.setContainer(stringGetFirstPath+"number",function(a,b){return a.slice(0,Math.abs(b))});APP.setContainer(stringGetFirstPath+"string",function(a,b){return APP.getContainer(stringGetFirstPath+"regexp")(a,new RegExp(b))});APP.setContainer(stringGetFirstPath+"regexp",function(a,c){var b=a.match(c);return b?b[0]:""});String.prototype.getFirst=function(a){return APP.toolbox.getFirst(this,a)};String.prototype.getMiddle=function(){return APP.toolbox.getMiddle(this)};var stringGetLastPath="_ENTITY_._PARAMETERS_.string.getLast.";APP.setContainer(stringGetLastPath+"other",function(){return""});APP.setContainer(stringGetLastPath+"number",function(a,b){return a.slice(-Math.abs(b))});APP.setContainer(stringGetLastPath+"string",function(a,b){return APP.getContainer(stringGetLastPath+"regexp")(a,b)});APP.setContainer(stringGetLastPath+"regexp",function(a,d){var c=(d.ignoreCase?"i":"")+"g",b=a.match(new RegExp(d,c));return b?b[b.length-1]:""});String.prototype.getLast=function(a){return APP.toolbox.getLast(this,a)};var stringGetBeforePath="_ENTITY_._PARAMETERS_.string.getBefore.";APP.setContainer(stringGetBeforePath+"other",function(b,a){var c=APP.toolbox;if(!c.is(a,"string|regexp|number")){return""}if(!c.is(a,"number")){a=c.index(b,a)}if(a>-1){return b.slice(0,a)}return""});String.prototype.getBefore=function(a){return APP.toolbox.getBefore(this,a)};var stringGetAfterPath="_ENTITY_._PARAMETERS_.string.getAfter.";APP.setContainer(stringGetAfterPath+"other",function(e,c){var f=APP.toolbox,a=f.is(c);if(!/string|number|regexp/.test(a)){return""}if(a==="string"){var d=c.length-1;c=e.indexOf(c);if(c>-1){c+=d}}if(a==="regexp"){var b=c.exec(e);c=b?b.index+b[0].length-1:-1}if(c>-1){return e.slice(c+1)}return""});String.prototype.getAfter=function(a){return APP.toolbox.getAfter(this,a)};function stringBetweenIndexes(e,d){var f=APP.toolbox;for(var c=0;c<2;c++){var a=f.is(d[c]);if(/string|number|regexp/.test(a)){if(a==="string"){d[c]=new RegExp(d[c]);a="regexp"}if(a==="regexp"){var b=d[c].exec(e);if(b){d[c]=b.index;if(c===0&&d[c]>-1){d[c]+=b[c].length-1}}else{d[c]=-1}}}else{d[c]=-1}}if(d[0]>=d[1]){d=[-1,-1]}return d}var stringGetBetweenPath="_ENTITY_._PARAMETERS_.string.getBetween.";APP.setContainer(stringGetBetweenPath+"array",function(f,b){var g=APP.toolbox,d,a,c="";if(!g.is(b,"array")){b=[b]}if(b.length%2){b.push(f.length-1)}a=b.length;for(d=0;d<a;d+=2){var e=[b[d],b[d+1]];e=stringBetweenIndexes(f,e);if(e[0]>-1&&e[1]>-1){c=c+f.slice(e[0]+1,e[1])}}return c});String.prototype.getBetween=function(a){return APP.toolbox.getBetween(this,a)};var stringGetAtPath="_ENTITY_._PARAMETERS_.string.getAt.";APP.setContainer(stringGetAtPath+"array",function(b,a){return APP.getContainer(arrayGetAtPath+"array")(b,a)});String.prototype.getAt=function(a){return APP.toolbox.getAt(this,a)};var stringGetPath="_ENTITY_._PARAMETERS_.string.get.";APP.setContainer(stringGetPath+"other",function(){return""});APP.setContainer(stringGetPath+"string",function(a,b){return APP.getContainer(stringGetPath+"regexp")(a,b)});APP.setContainer(stringGetPath+"regexp",function(b,d){var c=(d.ignoreCase?"i":"")+"g",a=b.match(new RegExp(d,c));return a?a.join(""):""});APP.setContainer(stringGetPath+"number",function(a,b){return(b<0)?a.slice(b):a.slice(0,b)});APP.setContainer(stringGetPath+"array",function(b,d){var c=APP.toolbox,a="";c.each(d,function(){var e=APP.getContainer(stringGetPath+c.is(this.v));if(e){a+=e(b,this.v)}});return a});String.prototype.get=function(a){return APP.toolbox.get(this,a)};var stringRemoveFirstPath="_ENTITY_._PARAMETERS_.string.removeFirst.";APP.setContainer(stringRemoveFirstPath+"other",function(a){return a});APP.setContainer(stringRemoveFirstPath+"number",function(a,b){return(b<1)?a:a.slice(b)});APP.setContainer(stringRemoveFirstPath+"string",function(a,b){return a.replace(new RegExp(b),"")});APP.setContainer(stringRemoveFirstPath+"regexp",function(b,c){var a=-1;return b.replace(c,function(d){a++;return a?d:""})});String.prototype.removeFirst=function(a){return APP.toolbox.removeFirst(this,a)};String.prototype.removeMiddle=function(){return APP.toolbox.removeMiddle(this)};var stringRemoveLastPath="_ENTITY_._PARAMETERS_.string.removeLast.";APP.setContainer(stringRemoveLastPath+"other",function(a){return a});APP.setContainer(stringRemoveLastPath+"number",function(a,b){return(b<1)?this:a.slice(0,-b)});APP.setContainer(stringRemoveLastPath+"string",function(a,b){return APP.getContainer(stringRemoveLastPath+"regexp")(a,new RegExp(b))});APP.setContainer(stringRemoveLastPath+"regexp",function(b,d){var c=b.match(d);if(!c){return b}d=c[c.length-1];var a=b.lastIndexOf(d);return doSlice(b,a,a+d.length)});String.prototype.removeLast=function(a){return APP.toolbox.removeLast(this,a)};var stringRemoveBeforePath="_ENTITY_._PARAMETERS_.string.removeBefore.";APP.setContainer(stringRemoveBeforePath+"other",function(b,a){var c=APP.toolbox.getBefore(b,a);return b.slice(b.indexOf(c)+c.length)});String.prototype.removeBefore=function(a){return APP.toolbox.removeBefore(this,a)};var stringRemoveAfterPath="_ENTITY_._PARAMETERS_.string.removeAfter.";APP.setContainer(stringRemoveAfterPath+"other",function(b,a){return b.slice(0,b.lastIndexOf(APP.toolbox.getAfter(b,a)))});String.prototype.removeAfter=function(a){return APP.toolbox.removeAfter(this,a)};var stringRemoveBetweenPath="_ENTITY_._PARAMETERS_.string.removeBetween.";APP.setContainer(stringRemoveBetweenPath+"array",function(b,a){var c=APP.toolbox;if(!c.is(a,"array")){a=[a]}if(a.length%2){a.push(b.length-1)}a=a.slice(0,2);a=stringBetweenIndexes(b,a);if(a[0]>-1&&a[1]>-1){b=b.slice(0,a[0]+1)+b.slice(a[1])}return b});String.prototype.removeBetween=function(a){return APP.toolbox.removeBetween(this,a)};var stringRemoveAtPath="_ENTITY_._PARAMETERS_.string.removeAt.";APP.setContainer(stringRemoveAtPath+"number",function(b,a){return APP.getContainer(stringRemoveAtPath+"array")(b,[a])});APP.setContainer(stringRemoveAtPath+"array",function(b,a){return APP.getContainer(arrayRemoveAtPath+"array")(b,a)});String.prototype.removeAt=function(a){return APP.toolbox.removeAt(this,a)};var stringRemovePath="_ENTITY_._PARAMETERS_.string.remove.";APP.setContainer(stringRemovePath+"other",function(a){return a});APP.setContainer(stringRemovePath+"string",function(a,b){return APP.getContainer(stringRemovePath+"regexp")(a,b)});APP.setContainer(stringRemovePath+"regexp",function(a,c){var b=(c.ignoreCase?"i":"")+"g";c=new RegExp(c,b);return a.replace(c,"")});APP.setContainer(stringRemovePath+"number",function(a,b){return(b<0)?a.slice(0,b):a.slice(b)});APP.setContainer(stringRemovePath+"array",function(a,c){var b=APP.toolbox;b.each(c,function(){var d=b.is(this.v);if(/string|regexp|number/.test(d)){a=APP.getContainer(stringRemovePath+d)(a,this.v)}});return a});String.prototype.remove=function(a){return APP.toolbox.remove(this,a)};var stringAddFirstPath="_ENTITY_._PARAMETERS_.string.addFirst.";APP.setContainer(stringAddFirstPath+"other",function(a,b){if(APP.toolbox.is(b,"string")){a=b+a}return a});String.prototype.addFirst=function(a){return APP.toolbox.addFirst(this,a)};String.prototype.addMiddle=function(a){return APP.toolbox.addMiddle(this,a)};var stringAddLastPath="_ENTITY_._PARAMETERS_.string.addLast.";APP.setContainer(stringAddLastPath+"other",function(a,b){if(APP.toolbox.is(b,"string|number")){a+=b+""}return a});String.prototype.addLast=function(a){return APP.toolbox.addLast(this,a)};var stringAddBeforePath="_ENTITY_._PARAMETERS_.string.addBefore.";APP.setContainer(stringAddBeforePath+"other",function(b,a,d){var c=APP.toolbox;if(!c.is(a,"number")){a=c.index(b,a)}if(a>-1){if(c.is(d,"array")){d=d.join("")}return doSlice(b,a,a,d)}return b});String.prototype.addBefore=function(a,b){return APP.toolbox.addBefore(this,a,b)};var stringAddAfterPath="_ENTITY_._PARAMETERS_.string.addAfter.";APP.setContainer(stringAddAfterPath+"other",function(b,a,d){var c=APP.toolbox;a=c.getAfter(b,a);return a?c.addBefore(b,a,d):b});String.prototype.addAfter=function(a,b){return APP.toolbox.addAfter(this,a,b)};var stringAddAtPath="_ENTITY_._PARAMETERS_.string.addAt.";APP.setContainer(stringAddAtPath+"array",function(b,a,d){var c=APP.toolbox;if(c.is(d,"string|number")){d=(d+"").slice(0,1)}else{d=undefined}if(d!==undefined){if(!c.is(a,"array")){a=[a]}a=c.removeDuplicate(a,true);c.each(a,function(){if(c.is(this.v,"number")){b=APP.getContainer(arrayAddBeforePath+"other")(b,this.v,d)}})}return b});String.prototype.addAt=function(a,b){return APP.toolbox.addAt(this,a,b)};String.prototype.add=function(a){return APP.toolbox.add(this,a)};var stringChangeFirstPath="_ENTITY_._PARAMETERS_.string.changeFirst.";APP.setContainer(stringChangeFirstPath+"number",function(b,a,c){if(a>0){if(APP.toolbox.is(c,"string|number")){b=c+b.slice(a)}}return b});APP.setContainer(stringChangeFirstPath+"other",function(c,a,e){var d=APP.toolbox;if(d.is(a,"string|regexp")){if(d.is(e,"string|number")){a=new RegExp(a);var b=-1;c=c.replace(a,function(f){b++;return b?f:e})}}return c});String.prototype.changeFirst=function(a,b){return APP.toolbox.changeFirst(this,a,b)};String.prototype.changeMiddle=function(a){return APP.toolbox.changeMiddle(this,a)};var stringChangeLastPath="_ENTITY_._PARAMETERS_.string.changeLast.";APP.setContainer(stringChangeLastPath+"number",function(b,a,c){if(a>0){b=APP.getContainer(stringAddLastPath+"other")(b.slice(0,-a),c)}return b});APP.setContainer(stringChangeLastPath+"other",function(c,a,g){var e=APP.toolbox;if(e.is(a,"string|regexp")){var f=(a.ignoreCase?"i":"")+"g";a=new RegExp(a,f);var d=c.match(a);if(d&&e.is(g,"string|number")){a=d[d.length-1];var b=c.lastIndexOf(a);c=doSlice(c,b,b+a.length,g)}}return c});String.prototype.changeLast=function(a,b){return APP.toolbox.changeLast(this,a,b)};var stringChangeBeforePath="_ENTITY_._PARAMETERS_.string.changeBefore.";APP.setContainer(stringChangeBeforePath+"other",function(c,b,e){var d=APP.toolbox,a=d.removeBefore(c,b,e);if(a!=c){c=d.addFirst(a,e)}return c});String.prototype.changeBefore=function(a,b){return APP.toolbox.changeBefore(this,a,b)};var stringChangeAfterPath="_ENTITY_._PARAMETERS_.string.changeAfter.";APP.setContainer(stringChangeAfterPath+"other",function(c,b,e){var d=APP.toolbox;var a=d.removeAfter(c,b);if(a!=c){c=d.addLast(a,e)}return c});String.prototype.changeAfter=function(a,b){return APP.toolbox.changeAfter(this,a,b)};var stringChangeBetweenPath="_ENTITY_._PARAMETERS_.string.changeBetween.";APP.setContainer(stringChangeBetweenPath+"array",function(b,a,d){var c=APP.toolbox;if(!c.is(a,"array")){a=[a]}if(a.length%2){a.push(b.length-1)}a=a.slice(0,2);a=stringBetweenIndexes(b,a);if(a[0]>-1&&a[1]>-1){if(c.is(d,"string|number")){b=b.slice(0,a[0]+1)+d+b.slice(a[1])}}return b});String.prototype.changeBetween=function(a,b){return APP.toolbox.changeBetween(this,a,b)};var stringChangeAtPath="_ENTITY_._PARAMETERS_.string.changeAt.";APP.setContainer(stringChangeAtPath+"array",function(b,a,d){var c=APP.toolbox;if(c.is(d,"string|number")){d=(d+"").slice(0,1);if(!c.is(a,"array")){a=[a]}a=c.removeDuplicate(a,true);c.each(a,function(){var e=this.v;if(c.is(e,"number")&&e>-1){b=b.slice(0,e)+d+b.slice(e+1)}})}return b});String.prototype.changeAt=function(a,b){return APP.toolbox.changeAt(this,a,b)};var stringChangePath="_ENTITY_._PARAMETERS_.string.change.";APP.setContainer(stringChangePath+"other",function(a){return a});APP.setContainer(stringChangePath+"string",function(b,a,c){return b.replace(new RegExp(a,"g"),c)});APP.setContainer(stringChangePath+"regexp",function(b,a,d){var c=(a.ignoreCase?"i":"")+"g";return b.replace(new RegExp(a,c),d)});APP.setContainer(stringChangePath+"number",function(b,a,c){return APP.toolbox["change"+(a<0?"Last":"First")](b,Math.abs(a),c)});String.prototype.change=function(a,b){return APP.toolbox.change(this,a,b)};var stringUpperFirstPath="_ENTITY_._PARAMETERS_.string.upperFirst.";APP.setContainer(stringUpperFirstPath+"number",function(a,c,b){if(c>0){a=(a.slice(0,c)["to"+b+"Case"]())+a.slice(c)}return a});APP.setContainer(stringUpperFirstPath+"string",function(a,c,b){return APP.getContainer(stringUpperFirstPath+"regexp")(a,c,b)});APP.setContainer(stringUpperFirstPath+"regexp",function(b,d,c){var a=-1;return b.replace(d,function(e){a++;return a?e:e["to"+c+"Case"]()})});String.prototype.upperFirst=function(a){return APP.toolbox.upperFirst(this,a)};var stringUpperLastPath="_ENTITY_._PARAMETERS_.string.upperLast.";APP.setContainer(stringUpperLastPath+"number",function(a,c,b){if(c>0){a=a.slice(0,-c)+(a.slice(-c)["to"+b+"Case"]())}return a});APP.setContainer(stringUpperLastPath+"string",function(a,c,b){return APP.getContainer(stringUpperLastPath+"regexp")(a,c,b)});APP.setContainer(stringUpperLastPath+"regexp",function(b,f,d){var e=(f.ignoreCase?"i":"")+"g";f=new RegExp(f,e);var c=b.match(f);if(c){f=c[c.length-1];var a=b.lastIndexOf(f);b=doSlice(b,a,a+f.length,f["to"+d+"Case"]())}return b});String.prototype.upperLast=function(a){return APP.toolbox.upperLast(this,a)};function upperLowerTab(a,c){var b=APP.toolbox;return b.each(a,function(){var d=this.v;if(b.is(d,"string")){d=d["to"+c+"Case"]()}return d})}String.prototype.upperMiddle=function(){return APP.toolbox.upperMiddle(this)};var stringUpperBeforePath="_ENTITY_._PARAMETERS_.string.upperBefore.";APP.setContainer(stringUpperBeforePath+"other",function(c,a,e){var d=APP.toolbox,b=-1,f=d.getBefore(c,a);return c.replace(f,function(g){b++;return b?g:g["to"+e+"Case"]()})});String.prototype.upperBefore=function(a){return APP.toolbox.upperBefore(this,a)};var stringUpperAfterPath="_ENTITY_._PARAMETERS_.string.upperAfter.";APP.setContainer(stringUpperAfterPath+"other",function(b,a,d){var c=APP.toolbox,e=c.getAfter(b,a);if(e){b=b.slice(b,b.indexOf(e))+e["to"+d+"Case"]()}return b});String.prototype.upperAfter=function(a){return APP.toolbox.upperAfter(this,a)};var stringUpperBetweenPath="_ENTITY_._PARAMETERS_.string.upperBetween.";APP.setContainer(stringUpperBetweenPath+"array",function(e,b,g){var f=APP.toolbox,c,a;if(!f.is(b,"array")){b=[b]}if(b.length%2){b.push(e.length-1)}a=b.length;for(c=0;c<a;c+=2){var d=[b[c],b[c+1]];d=stringBetweenIndexes(e,d);if(d[0]>-1&&d[1]>-1){e=e.slice(0,d[0]+1)+e.slice(d[0]+1,d[1])["to"+g+"Case"]()+e.slice(d[1])}}return e});String.prototype.upperBetween=function(a){return APP.toolbox.upperBetween(this,a)};var stringUpperAtPath="_ENTITY_._PARAMETERS_.string.upperAt.";APP.setContainer(stringUpperAtPath+"number",function(b,a,c){return APP.getContainer(stringUpperAtPath+"array")(b,[a],c)});APP.setContainer(stringUpperAtPath+"array",function(b,a,d){var c=APP.toolbox;a=c.removeDuplicate(a,true);c.each(a,function(){var e=this.v;if(c.is(e,"number")&&e>-1){if(c.is(b[e],"string")){b=b.slice(0,e)+(b.slice(e,e+1)["to"+d+"Case"]())+b.slice(e+1)}}});return b});String.prototype.upperAt=function(a){return APP.toolbox.upperAt(this,a)};var stringUpperPath="_ENTITY_._PARAMETERS_.string.upper.";APP.setContainer(stringUpperPath+"string",function(a,c,b){return APP.getContainer(stringUpperPath+"regexp")(a,c,b)});APP.setContainer(stringUpperPath+"regexp",function(a,d,b){var c=(d.ignoreCase?"i":"")+"g";d=new RegExp(d,c);return a.replace(d,function(e){return e["to"+b+"Case"]()})});APP.setContainer(stringUpperPath+"number",function(a,c,b){var d=(c<0)?stringUpperLastPath:stringUpperFirstPath;return APP.getContainer(d+"number")(a,Math.abs(c),b)});APP.setContainer(stringUpperPath+"array",function(a,d,c){var b=APP.toolbox;b.each(d,function(){var e=APP.getContainer(stringUpperPath+b.is(this.v));if(e){a=e(a,this.v,c)}});return a});String.prototype.upper=function(a){return APP.toolbox.upper(this,a)};String.prototype.lowerFirst=function(a){return APP.toolbox.lowerFirst(this,a)};String.prototype.lowerLast=function(a){return APP.toolbox.lowerLast(this,a)};String.prototype.lowerMiddle=function(){return APP.toolbox.lowerMiddle(this)};String.prototype.lowerBefore=function(a){return APP.toolbox.lowerBefore(this,a)};String.prototype.lowerAfter=function(a){return APP.toolbox.lowerAfter(this,a)};String.prototype.lowerBetween=function(a){return APP.toolbox.lowerBetween(this,a)};String.prototype.lowerAt=function(a){return APP.toolbox.lowerAt(this,a)};String.prototype.lower=function(a){return APP.toolbox.lower(this,a)};
+        var stringIndexPath = "_ENTITY_._PARAMETERS_.string.index.";
+        zk().setContainer(stringIndexPath+"other", function(){ return -1 });
+        zk().setContainer(stringIndexPath+"string", function(el, value){ return el.indexOf(value) });
+        zk().setContainer(stringIndexPath+"number", function(el, value){ return el.indexOf(value+"") });
+        zk().setContainer(stringIndexPath+"regexp", function(el, value){
+            var index = value.exec(el);
+            return index ? index['index'] : -1;
+        });
+        String.prototype.index = function(value){ return zk().toolbox.index(this, value) };
+
+        var stringIndexesPath = "_ENTITY_._PARAMETERS_.string.indexes.";
+        zk().setContainer(stringIndexesPath+"other", function(){ return [] });
+        zk().setContainer(stringIndexesPath + "string", function (el, value) {
+            var indexes = [], i = -1;
+            while ((i = el.indexOf(value, i+1)) != -1){ indexes.push(i) }
+            return indexes;
+        });
+        zk().setContainer(stringIndexesPath + "number", function (el, value) {
+            return zk().getContainer(stringIndexesPath + "string")(el, value + "");
+        });
+        zk().setContainer(stringIndexesPath+"regexp", function(el, value){
+            var result, indexes = [], ig = (value.ignoreCase ? "i" : "") + "g";
+            value = new RegExp(value, ig);
+            while ( (result = value.exec(el)) ) { indexes.push(result.index) }
+            return indexes;
+        });
+        String.prototype.indexes = function(value){ return zk().toolbox.indexes(this, value) };
+
+        String.prototype.lastIndex = function(value){ return zk().toolbox.lastIndex(this, value) };
+
+        String.prototype.count = function(value){ return zk().toolbox.count(this, value) };
+
+        String.prototype.has = function(value){ return zk().toolbox.has(this, value) };
+
+        String.prototype.reverse = function(){ return zk().toolbox.reverse(this) };
+
+        String.prototype.trim = function(strReg, direction){ return zk().toolbox.trim(this, strReg, direction) };
+
+        String.prototype.camelCase = function(separators){ return zk().toolbox.camelCase(this, separators) };
+
+        String.prototype.snakeCase = function(separators){ return zk().toolbox.snakeCase(this, separators) };
+
+        String.prototype.linkCase = function(separators){ return zk().toolbox.linkCase(this, separators) };
+
+// ========================================= LES METHODES AVEC GET =============================================
+
+        var stringGetFirstPath = "_ENTITY_._PARAMETERS_.string.getFirst.";
+        zk().setContainer(stringGetFirstPath+"other", function(){ return "" });
+        zk().setContainer(stringGetFirstPath+"number", function(el, value){ return el.slice(0, Math.abs(value)) });
+        zk().setContainer(stringGetFirstPath+"string", function(el, value){
+            return zk().getContainer(stringGetFirstPath+"regexp")(el, new RegExp(value));
+        });
+        zk().setContainer(stringGetFirstPath+"regexp", function(el, value){ var r = el.match(value); return r ? r[0] : ''; });
+        String.prototype.getFirst = function(value){ return zk().toolbox.getFirst(this, value) };
+
+        String.prototype.getMiddle = function(){ return zk().toolbox.getMiddle(this) };
+
+        var stringGetLastPath = "_ENTITY_._PARAMETERS_.string.getLast.";
+        zk().setContainer(stringGetLastPath+"other", function(){ return "" });
+        zk().setContainer(stringGetLastPath+"number", function(el, value){ return el.slice(-Math.abs(value)) });
+        zk().setContainer(stringGetLastPath+"string", function(el, value){
+            return zk().getContainer(stringGetLastPath+"regexp")(el, value)
+        });
+        zk().setContainer(stringGetLastPath+"regexp", function(el, value){
+            var ig = (value.ignoreCase ? "i" : "") + "g", r = el.match(new RegExp(value, ig)); return r ? r[r.length - 1] : '';
+        });
+        String.prototype.getLast = function(value){ return zk().toolbox.getLast(this, value) };
+
+        var stringGetBeforePath = "_ENTITY_._PARAMETERS_.string.getBefore.";
+        zk().setContainer(stringGetBeforePath+"other", function(el, index){
+            var box = zk().toolbox;
+            if(!box.is(index, "string|regexp|number")){ return "" }
+            if(!box.is(index, "number")){ index = box.index(el, index) }
+            if(index > -1 ){ return el.slice(0,index) }
+            return "";
+        });
+        String.prototype.getBefore = function(index){ return zk().toolbox.getBefore(this, index) };
+
+        var stringGetAfterPath = "_ENTITY_._PARAMETERS_.string.getAfter.";
+        zk().setContainer(stringGetAfterPath+"other", function(el, index){
+            var box = zk().toolbox, indexType = box.is(index);
+            if(!/string|number|regexp/.test(indexType)){ return "" }
+            if (indexType === "string") {
+                var indexLength = index.length - 1;
+                index = el.indexOf(index);
+                if(index > -1){ index += indexLength}
+            }
+            if (indexType === "regexp") {
+                var indexReg = index.exec(el);
+                index = indexReg ? indexReg.index + indexReg[0].length - 1 : -1;
+            }
+            if(index > -1 ){ return el.slice(index+1) }
+            return "";
+        });
+        String.prototype.getAfter = function(index){ return zk().toolbox.getAfter(this, index) };
+
+        function stringBetweenIndexes(el, indexes){
+            var box = zk().toolbox;
+            for (var j = 0; j < 2; j++){
+                var indexType = box.is(indexes[j]);
+                if (/string|number|regexp/.test(indexType)) {
+                    if (indexType === "string") {
+                        indexes[j] = new RegExp(indexes[j]); indexType = "regexp";
+                    }
+                    if (indexType === "regexp") {
+                        var indexReg = indexes[j].exec(el);
+                        if(indexReg){
+                            indexes[j] = indexReg.index;
+                            if (j === 0 && indexes[j] > -1) { indexes[j] += indexReg[j].length - 1 }
+                        }else {
+                            indexes[j] = -1
+                        }
+                    }
+                } else {
+                    indexes[j] = -1
+                }
+            }
+            if(indexes[0] >= indexes[1]){ indexes = [-1, -1] }
+            return indexes;
+
+        }
+        var stringGetBetweenPath = "_ENTITY_._PARAMETERS_.string.getBetween.";
+        zk().setContainer(stringGetBetweenPath+"array", function(el, indexes){
+            var box = zk().toolbox, i, k, res = "";
+            if (!box.is(indexes, 'array')) { indexes = [indexes] }
+            if (indexes.length % 2) { indexes.push(el.length - 1) }
+            k = indexes.length;
+            for (i = 0; i < k; i += 2) {
+                var tab = [indexes[i], indexes[i+1]];
+                tab = stringBetweenIndexes(el, tab);
+                if(tab[0] > -1 && tab[1] > -1){
+                    res = res + el.slice(tab[0]+1,tab[1]);
+                }
+            }
+            return res;
+        });
+        String.prototype.getBetween = function(indexes){ return zk().toolbox.getBetween(this, indexes) };
+
+        var stringGetAtPath = "_ENTITY_._PARAMETERS_.string.getAt.";
+        zk().setContainer(stringGetAtPath + "array", function (el, indexes){
+            return zk().getContainer(arrayGetAtPath+"array")(el, indexes);
+        });
+        String.prototype.getAt = function(indexes){ return zk().toolbox.getAt(this, indexes) };
+
+        var stringGetPath = "_ENTITY_._PARAMETERS_.string.get.";
+        zk().setContainer(stringGetPath+"other", function(){ return "" });
+        zk().setContainer(stringGetPath + "string", function(el, value){
+            return zk().getContainer(stringGetPath+"regexp")(el, value);
+        });
+        zk().setContainer(stringGetPath + "regexp", function(el, value){
+            var ig = (value.ignoreCase ? "i" : "") + "g", res = el.match(new RegExp(value, ig));
+            return res ? res.join("") : "";
+        });
+        zk().setContainer(stringGetPath + "number", function (el, value){
+            return ( value < 0 ) ? el.slice(value) : el.slice(0, value)
+        });
+        zk().setContainer(stringGetPath + "array", function (el, value){
+            var box = zk().toolbox, res = "";
+            box.each(value, function () {
+                var f = zk().getContainer(stringGetPath + box.is(this.v));
+                if(f){
+                    res += f(el, this.v);
+                }
+            });
+            return res;
+
+        });
+        String.prototype.get = function(value){ return zk().toolbox.get(this, value) };
+
+// ========================================= LES METHODES AVEC REMOVE =============================================
+
+        var stringRemoveFirstPath = "_ENTITY_._PARAMETERS_.string.removeFirst.";
+        zk().setContainer(stringRemoveFirstPath+"other", function (el) { return el });
+        zk().setContainer(stringRemoveFirstPath+"number", function (el, value) { return (value < 1) ? el : el.slice(value) });
+        zk().setContainer(stringRemoveFirstPath+"string", function(el, value){ return el.replace(new RegExp(value), "") });
+        zk().setContainer(stringRemoveFirstPath+"regexp", function(el, value){
+            var i = -1; return el.replace(value, function (str) { i++; return i ? str : "" })
+        });
+        String.prototype.removeFirst = function(value){ return zk().toolbox.removeFirst(this, value) };
+
+        String.prototype.removeMiddle = function(){ return zk().toolbox.removeMiddle(this) };
+
+        var stringRemoveLastPath = "_ENTITY_._PARAMETERS_.string.removeLast.";
+        zk().setContainer(stringRemoveLastPath+"other", function(el){ return el });
+        zk().setContainer(stringRemoveLastPath + "number", function (el, value) {
+            return (value < 1) ? this : el.slice(0, -value);
+        });
+        zk().setContainer(stringRemoveLastPath + "string", function (el, value) {
+            return zk().getContainer(stringRemoveLastPath + "regexp")(el, new RegExp(value))
+        });
+        zk().setContainer(stringRemoveLastPath+"regexp", function(el, value){
+            var r = el.match(value);
+            if (!r) { return el }
+            value = r[r.length - 1];
+            var i = el.lastIndexOf(value);
+            return doSlice(el, i, i + value.length);
+        });
+        String.prototype.removeLast = function(value){ return zk().toolbox.removeLast(this, value) };
+
+        var stringRemoveBeforePath = "_ENTITY_._PARAMETERS_.string.removeBefore.";
+        zk().setContainer(stringRemoveBeforePath+"other", function(el, index){
+            var before = zk().toolbox.getBefore(el, index);
+            return el.slice(el.indexOf(before) + before.length);
+        });
+        String.prototype.removeBefore = function(index){ return zk().toolbox.removeBefore(this, index) };
+
+        var stringRemoveAfterPath = "_ENTITY_._PARAMETERS_.string.removeAfter.";
+        zk().setContainer(stringRemoveAfterPath+"other", function(el, index){
+            return el.slice(0, el.lastIndexOf(zk().toolbox.getAfter(el, index)));
+        });
+        String.prototype.removeAfter = function(index){ return zk().toolbox.removeAfter(this, index) };
+
+        var stringRemoveBetweenPath = "_ENTITY_._PARAMETERS_.string.removeBetween.";
+        zk().setContainer(stringRemoveBetweenPath+"array", function(el, indexes){
+            var box = zk().toolbox;
+            if (!box.is(indexes, 'array')) { indexes = [indexes] }
+            if (indexes.length % 2) { indexes.push(el.length - 1) }
+            indexes = indexes.slice(0, 2);
+            indexes = stringBetweenIndexes(el, indexes);
+            if(indexes[0] > -1 && indexes[1] > -1){
+                el = el.slice(0, indexes[0]+1) + el.slice(indexes[1]);
+            }
+            return el;
+        });
+        String.prototype.removeBetween = function(indexes){ return zk().toolbox.removeBetween(this, indexes) };
+
+        var stringRemoveAtPath = "_ENTITY_._PARAMETERS_.string.removeAt.";
+        zk().setContainer(stringRemoveAtPath + "number", function (el, indexes){
+            return zk().getContainer(stringRemoveAtPath + "array")(el, [indexes])
+        });
+        zk().setContainer(stringRemoveAtPath + "array", function (el, indexes){
+            return zk().getContainer(arrayRemoveAtPath + "array")(el, indexes)
+        });
+        String.prototype.removeAt = function(indexes){ return zk().toolbox.removeAt(this, indexes) };
+
+        var stringRemovePath = "_ENTITY_._PARAMETERS_.string.remove.";
+        zk().setContainer(stringRemovePath+"other", function(el){ return el });
+        zk().setContainer(stringRemovePath+"string", function (el, value) {
+            return zk().getContainer(stringRemovePath + "regexp")(el, value)
+        });
+        zk().setContainer(stringRemovePath+"regexp", function(el, value){
+            var ig = (value.ignoreCase ? "i" : "") + "g";
+            value = new RegExp(value, ig); return el.replace(value, "");
+        });
+        zk().setContainer(stringRemovePath+"number", function (el, value){
+            return ( value < 0 ) ? el.slice(0, value) : el.slice(value);
+        });
+        zk().setContainer(stringRemovePath+"array", function (el, value){
+            var box = zk().toolbox;
+            box.each(value, function () {
+                var type = box.is(this.v);
+                if(/string|regexp|number/.test(type)){
+                    el = zk().getContainer(stringRemovePath + type)(el, this.v);
+                }
+            });
+            return el
+        });
+        String.prototype.remove = function(value){ return zk().toolbox.remove(this, value) };
+
+// ========================================= LES METHODES AVEC ADD =============================================
+
+        var stringAddFirstPath = "_ENTITY_._PARAMETERS_.string.addFirst.";
+        zk().setContainer(stringAddFirstPath+"other", function(el, value){
+            if(zk().toolbox.is(value, "string")){ el = value + el }
+            return el;
+        });
+        String.prototype.addFirst = function(value){ return zk().toolbox.addFirst(this, value) };
+
+        String.prototype.addMiddle = function(value){ return zk().toolbox.addMiddle(this, value) };
+
+        var stringAddLastPath = "_ENTITY_._PARAMETERS_.string.addLast.";
+        zk().setContainer(stringAddLastPath+"other", function(el, value){
+            if(zk().toolbox.is(value, "string|number")){ el += value + "" }
+            return el;
+        });
+        String.prototype.addLast = function(value){ return zk().toolbox.addLast(this, value) };
+
+        var stringAddBeforePath = "_ENTITY_._PARAMETERS_.string.addBefore.";
+        zk().setContainer(stringAddBeforePath+"other", function(el, index, value){
+            var box = zk().toolbox;
+            if(!box.is(index, "number")){ index = box.index(el, index) }
+            if(index > -1 ){
+                if(box.is(value, "array")){ value = value.join("") }
+                return doSlice(el, index, index, value)
+            }
+            return el;
+        });
+        String.prototype.addBefore = function(index, value){ return zk().toolbox.addBefore(this, index, value) };
+
+        var stringAddAfterPath = "_ENTITY_._PARAMETERS_.string.addAfter.";
+        zk().setContainer(stringAddAfterPath+"other", function(el, index, value){
+            var box = zk().toolbox; index = box.getAfter(el, index);
+            return index ? box.addBefore(el, index, value) : el;
+        });
+        String.prototype.addAfter = function(index, value){ return zk().toolbox.addAfter(this, index, value) };
+
+// addBetween n'existe pas
+
+        var stringAddAtPath = "_ENTITY_._PARAMETERS_.string.addAt.";
+        zk().setContainer(stringAddAtPath + "array", function (el, indexes, value) {
+            var box = zk().toolbox;
+            if(box.is(value, "string|number")){ value = (value+"").slice(0, 1) } else { value = undefined }
+            if(value !== undefined){
+                if(!box.is(indexes, "array")){ indexes = [indexes] }
+                indexes = box.removeDuplicate(indexes, true);
+                box.each(indexes, function () {
+                    if(box.is(this.v, "number")){
+                        el = zk().getContainer(arrayAddBeforePath+"other")(el, this.v, value);
+                    }
+                });
+            }
+            return el;
+        });
+        String.prototype.addAt = function(indexes, value){ return zk().toolbox.addAt(this, indexes, value) };
+
+        String.prototype.add = function(value){ return zk().toolbox.add(this, value) };
+
+
+// ========================================= LES METHODES AVEC CHANGE ===========================================
+
+        var stringChangeFirstPath = "_ENTITY_._PARAMETERS_.string.changeFirst.";
+        zk().setContainer(stringChangeFirstPath+"number", function (el, oldValue, newValue) {
+            if(oldValue > 0){
+                if(zk().toolbox.is(newValue, "string|number")){
+                    el = newValue + el.slice(oldValue);
+                }
+            }
+            return el;
+        });
+        zk().setContainer(stringChangeFirstPath+"other", function(el, oldValue, newValue){
+            var box = zk().toolbox;
+            if(box.is(oldValue, "string|regexp")){
+                if(box.is(newValue, "string|number")){
+                    oldValue = new RegExp(oldValue);
+                    var i = -1;
+                    el = el.replace(oldValue, function (str) { i++; return i ? str : newValue });
+                }
+            }
+            return el;
+        });
+        String.prototype.changeFirst = function(oldValue, newValue){ return zk().toolbox.changeFirst(this, oldValue, newValue) };
+
+        String.prototype.changeMiddle = function(value){ return zk().toolbox.changeMiddle(this, value) };
+
+        var stringChangeLastPath = "_ENTITY_._PARAMETERS_.string.changeLast.";
+        zk().setContainer(stringChangeLastPath+"number", function (el, oldValue, newValue) {
+            if(oldValue > 0){
+                el = zk().getContainer(stringAddLastPath+"other")(el.slice(0, -oldValue), newValue);
+            }
+            return el;
+        });
+        zk().setContainer(stringChangeLastPath+"other", function(el, oldValue, newValue){
+            var box = zk().toolbox;
+            if(box.is(oldValue, "string|regexp")){
+                var ig = (oldValue.ignoreCase ? "i" : "") + "g";
+                oldValue = new RegExp(oldValue, ig);
+                var r = el.match(oldValue);
+                if (r && box.is(newValue, "string|number")) {
+                    oldValue = r[r.length - 1];
+                    var i = el.lastIndexOf(oldValue);
+                    el = doSlice(el, i, i + oldValue.length, newValue);
+                }
+            }
+            return el;
+        });
+        String.prototype.changeLast = function(oldValue, newValue){ return zk().toolbox.changeLast(this, oldValue, newValue) };
+
+        var stringChangeBeforePath = "_ENTITY_._PARAMETERS_.string.changeBefore.";
+        zk().setContainer(stringChangeBeforePath+"other", function(el, index, value){
+            var box = zk().toolbox, el2 = box.removeBefore(el, index, value);
+            if(el2 != el){ el = box.addFirst(el2, value) }
+            return el;
+        });
+        String.prototype.changeBefore = function(index, value){ return zk().toolbox.changeBefore(this, index, value) };
+
+        var stringChangeAfterPath = "_ENTITY_._PARAMETERS_.string.changeAfter.";
+        zk().setContainer(stringChangeAfterPath+"other", function(el, index, value){
+            var box = zk().toolbox;
+            var el2 = box.removeAfter(el, index);
+            if(el2 != el){ el = box.addLast(el2, value) }
+            return el;
+        });
+        String.prototype.changeAfter = function(index, value){ return zk().toolbox.changeAfter(this, index, value) };
+
+        var stringChangeBetweenPath = "_ENTITY_._PARAMETERS_.string.changeBetween.";
+        zk().setContainer(stringChangeBetweenPath+"array", function(el, indexes, value){
+            var box = zk().toolbox;
+            if (!box.is(indexes, 'array')) { indexes = [indexes] }
+            if (indexes.length % 2) { indexes.push(el.length - 1) }
+            indexes = indexes.slice(0, 2);
+            indexes = stringBetweenIndexes(el, indexes);
+            if(indexes[0] > -1 && indexes[1] > -1){
+                if(box.is(value, "string|number")){
+                    el = el.slice(0, indexes[0]+1) + value + el.slice(indexes[1]);
+                }
+
+            }
+            return el;
+        });
+        String.prototype.changeBetween = function(indexes, value){ return zk().toolbox.changeBetween(this, indexes, value) };
+
+        var stringChangeAtPath = "_ENTITY_._PARAMETERS_.string.changeAt.";
+        zk().setContainer(stringChangeAtPath + "array", function (el, indexes, value) {
+            var box = zk().toolbox;
+            if(box.is(value, "string|number")){
+                value = (value+"").slice(0, 1);
+                if(!box.is(indexes, 'array')){ indexes = [indexes] }
+                indexes = box.removeDuplicate(indexes, true);
+                box.each(indexes, function () {
+                    var n = this.v;
+                    if (box.is(n, 'number') && n > -1) {
+                        el = el.slice(0, n) + value + el.slice(n+1);
+                    }
+                });
+            }
+            return el
+        });
+        String.prototype.changeAt = function(indexes, value){ return zk().toolbox.changeAt(this, indexes, value) };
+
+        var stringChangePath = "_ENTITY_._PARAMETERS_.string.change.";
+        zk().setContainer(stringChangePath+"other", function(el){ return el });
+        zk().setContainer(stringChangePath+"string", function(el, oldValue, newValue){
+            return el.replace(new RegExp(oldValue, "g"), newValue);
+        });
+        zk().setContainer(stringChangePath+"regexp", function(el, oldValue, newValue){
+            var ig = (oldValue.ignoreCase ? "i" : "") + "g";
+            return el.replace(new RegExp(oldValue, ig), newValue);
+        });
+        zk().setContainer(stringChangePath + "number", function (el, oldValue, newValue) {
+            return  zk().toolbox['change'+(oldValue<0?'Last':'First')](el, Math.abs(oldValue), newValue) ;
+        });
+        String.prototype.change = function(oldValue, newValue){ return zk().toolbox.change(this, oldValue, newValue) };
+
+// ========================================= LES METHODES AVEC UPPER ===========================================
+
+        var stringUpperFirstPath = "_ENTITY_._PARAMETERS_.string.upperFirst.";
+        zk().setContainer(stringUpperFirstPath+"number", function (el, value, upperLower) {
+            if(value > 0){
+                el = (el.slice(0, value)["to"+upperLower+"Case"]()) + el.slice(value);
+            }
+            return el
+        });
+        zk().setContainer(stringUpperFirstPath+"string", function(el, value, upperLower){
+            return zk().getContainer(stringUpperFirstPath+"regexp")(el, value, upperLower);
+        });
+        zk().setContainer(stringUpperFirstPath+"regexp", function(el, value, upperLower){
+            var i = -1; return el.replace(value, function (str) { i++; return i ? str : str["to"+upperLower+"Case"]() })
+        });
+        String.prototype.upperFirst = function(value){ return zk().toolbox.upperFirst(this, value) };
+
+        var stringUpperLastPath = "_ENTITY_._PARAMETERS_.string.upperLast.";
+        zk().setContainer(stringUpperLastPath+"number", function (el, value, upperLower) {
+            if(value > 0){ el = el.slice(0, -value) + (el.slice(-value)["to"+upperLower+"Case"]()); }
+            return el
+        });
+        zk().setContainer(stringUpperLastPath+"string", function(el, value, upperLower){
+            return zk().getContainer(stringUpperLastPath+"regexp")(el, value, upperLower);
+        });
+        zk().setContainer(stringUpperLastPath+"regexp", function(el, value, upperLower){
+            var ig = (value.ignoreCase ? "i" : "") + "g";
+            value = new RegExp(value, ig);
+            var r = el.match(value);
+            if (r) {
+                value = r[r.length - 1];
+                var i = el.lastIndexOf(value);
+                el = doSlice(el, i, i + value.length, value["to"+upperLower+"Case"]());
+            }
+            return el;
+        });
+        String.prototype.upperLast = function(value){ return zk().toolbox.upperLast(this, value) };
+
+        function upperLowerTab(tab, upperLower) {
+            var box = zk().toolbox;
+            return box.each(tab, function(){
+                var v = this.v;
+                if(box.is(v, 'string')){ v = v['to' + upperLower + 'Case']() }
+                return v;
+            }) ;
+        }
+        String.prototype.upperMiddle = function(){ return zk().toolbox.upperMiddle(this) };
+
+        var stringUpperBeforePath = "_ENTITY_._PARAMETERS_.string.upperBefore.";
+        zk().setContainer(stringUpperBeforePath+"other", function(el, index, upperLower){
+            var box = zk().toolbox, i = -1, before = box.getBefore(el, index);
+            return el.replace(before, function (str) { i++; return i ? str : str["to"+upperLower+"Case"]() })
+        });
+        String.prototype.upperBefore = function(index){ return zk().toolbox.upperBefore(this, index) };
+
+        var stringUpperAfterPath = "_ENTITY_._PARAMETERS_.string.upperAfter.";
+        zk().setContainer(stringUpperAfterPath+"other", function(el, index, upperLower){
+            var box = zk().toolbox, after = box.getAfter(el, index);
+            if(after){
+                el = el.slice(el, el.indexOf(after)) + after["to"+upperLower+"Case"]()
+            }
+            return el;
+        });
+        String.prototype.upperAfter = function(index){ return zk().toolbox.upperAfter(this, index) };
+
+        var stringUpperBetweenPath = "_ENTITY_._PARAMETERS_.string.upperBetween.";
+        zk().setContainer(stringUpperBetweenPath+"array", function(el, indexes, upperLower){
+            var box = zk().toolbox, i, k;
+            if (!box.is(indexes, 'array')) { indexes = [indexes] }
+            if (indexes.length % 2) { indexes.push(el.length - 1) }
+            k = indexes.length;
+            for (i = 0; i < k; i += 2) {
+                var tab = [indexes[i], indexes[i+1]];
+                tab = stringBetweenIndexes(el, tab);
+                if(tab[0] > -1 && tab[1] > -1){
+                    el = el.slice(0, tab[0]+1) + el.slice(tab[0]+1,tab[1])["to"+upperLower+"Case"]() + el.slice(tab[1]);
+                }
+            }
+            return el;
+        });
+        String.prototype.upperBetween = function(indexes){ return zk().toolbox.upperBetween(this, indexes) };
+
+        var stringUpperAtPath = "_ENTITY_._PARAMETERS_.string.upperAt.";
+        zk().setContainer(stringUpperAtPath + "number", function (el, index, upperLower) {
+            return zk().getContainer(stringUpperAtPath + "array")(el, [index], upperLower)
+        });
+        zk().setContainer(stringUpperAtPath + "array", function (el, indexes, upperLower) {
+            var box = zk().toolbox;
+            indexes = box.removeDuplicate(indexes, true);
+            box.each(indexes, function () {
+                var n = this.v;
+                if (box.is(n, 'number') && n > -1) {
+                    if (box.is(el[n], 'string')) {
+                        el = el.slice(0, n) + (el.slice(n, n+1)["to"+upperLower+"Case"]()) + el.slice(n+1);
+                    }
+                }
+            });
+            return el;
+        });
+        String.prototype.upperAt = function(indexes){ return zk().toolbox.upperAt(this, indexes) };
+
+        var stringUpperPath = "_ENTITY_._PARAMETERS_.string.upper.";
+        zk().setContainer(stringUpperPath+"string", function(el, value, upperLower){
+            return zk().getContainer(stringUpperPath+"regexp")(el, value, upperLower);
+        });
+        zk().setContainer(stringUpperPath+"regexp", function(el, value, upperLower){
+            var ig = (value.ignoreCase ? "i" : "") + "g"; value = new RegExp(value, ig);
+            return el.replace(value, function (str) { return str["to"+upperLower+"Case"]() })
+        });
+        zk().setContainer(stringUpperPath + "number", function (el, value, upperLower) {
+            var path = (value < 0 ) ? stringUpperLastPath : stringUpperFirstPath;
+            return zk().getContainer(path+'number')(el, Math.abs(value), upperLower);
+        });
+        zk().setContainer(stringUpperPath + "array", function (el, value, upperLower) {
+            var box = zk().toolbox;
+            box.each(value, function () {
+                var f = zk().getContainer(stringUpperPath + box.is(this.v));
+                if(f){
+                    el = f(el, this.v, upperLower);
+                }
+            });
+            return el;
+        });
+        String.prototype.upper = function(value){ return zk().toolbox.upper(this, value) };
+
+// ========================================= LES METHODES AVEC LOWER ============================================
+
+        String.prototype.lowerFirst = function(value){ return zk().toolbox.lowerFirst(this, value) };
+
+        String.prototype.lowerLast = function(value){ return zk().toolbox.lowerLast(this, value) };
+
+        String.prototype.lowerMiddle = function(){ return zk().toolbox.lowerMiddle(this) };
+
+        String.prototype.lowerBefore = function(index){ return zk().toolbox.lowerBefore(this, index) };
+
+        String.prototype.lowerAfter = function(index){ return zk().toolbox.lowerAfter(this, index) };
+
+        String.prototype.lowerBetween = function(indexes){ return zk().toolbox.lowerBetween(this, indexes) };
+
+        String.prototype.lowerAt = function(indexes){ return zk().toolbox.lowerAt(this, indexes) };
+
+        String.prototype.lower = function(value){ return zk().toolbox.lower(this, value) };
+
+    }
+    stringEntity();
 
 
     function nodeLauncher(selector) {
