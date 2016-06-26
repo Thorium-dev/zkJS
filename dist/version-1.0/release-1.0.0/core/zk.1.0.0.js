@@ -1264,6 +1264,7 @@
                     "entity": APP.entity,
                     "container": APP.container,
                     "event": APP.event,
+                    "config": APP.config,
                 };
                 entity = new entity($this);
             }
@@ -1274,7 +1275,6 @@
     APP.entity = APP._ENTITY_;
 
     function _EVENT_(){
-        var self = this;
         this.get = function (path) {
             return APP.container.get("_ENTITY_._EVENTS_." + path);
         };
@@ -1289,15 +1289,14 @@
     APP.event = APP._EVENT_;
 
     function _CONFIG_(){
-        var self = this;
         this.get = function (key) {
-
+            return APP.container.get("_CONFIG_." + key);
         };
         this.set = function (key, value) {
-
+            return APP.container.set("_CONFIG_." + key, value);
         };
         this.remove = function (key) {
-
+            return APP.container.remove("_CONFIG_." + key);
         }
     }
     APP._CONFIG_ = new _CONFIG_();
@@ -2811,8 +2810,98 @@
     }
     arrayEntity();
 
+    // edgeEntity
+    APP.register(function EDGE($this) {
+        var $self = this,
+            $box = $this.toolbox,
+            $edges = ["top", "right", "bottom", "left"],
+            $edgesValues = [null, null, null, null];
+        $box.each($this, function () { $self[this.k] = this.v });
+
+        /**
+         * Permet d'obtenir un tableau contenant les valeurs pour chaque côté.
+         *
+         * @method get
+         * @return {Array}
+         * @since 1.0
+         */
+        this.get = function () {
+            return $edgesValues
+        };
+        /**
+         * Permet de définir dans un même temps les valeurs pour les quatre côtés.
+         *
+         * @method set
+         * @param {*} value
+         * @return {EDGE}
+         * @since 1.0
+         */
+        this.set = function (value) {
+            if(!$box.is(value, "array")){ value = [value] }
+            value = value.slice(0, 4);
+            value = value.concat($edgesValues.slice(value.length));
+            $box.each(value, function () {
+                $self[$edges[this.i]](this.v)
+            });
+            return $self
+        };
+        /**
+         * Permet de définir ou d'obtenir la valeur du bord supérieur.
+         *
+         * @method top
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.top = function (value) {
+            if(value === undefined){ return $edgesValues[0] }
+            $edgesValues[0] = value;
+            return $self
+        };
+        /**
+         * Permet de définir ou d'obtenir la valeur du bord droit.
+         *
+         * @method right
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.right = function (value) {
+            if(value === undefined){ return $edgesValues[1] }
+            $edgesValues[1] = value;
+            return $self
+        };
+        /**
+         * Permet de définir ou d'obtenir la valeur du bord inférieur.
+         *
+         * @method bottom
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.bottom = function (value) {
+            if(value === undefined){ return $edgesValues[2] }
+            $edgesValues[2] = value;
+            return $self
+        };
+        /**
+         * Permet de définir ou d'obtenir la valeur du bord gauche.
+         *
+         * @method left
+         * @param {*} value
+         * @return {*}
+         * @since 1.0
+         */
+        this.left = function (value) {
+            if(value === undefined){ return $edgesValues[3] }
+            $edgesValues[3] = value;
+            return $self
+        };
+
+    }, {}, {});
+
     // ajaxEntity
-    APP.register(function Ajax($this) {
+    APP.register(function AJAX($this) {
         var self = this, xhr = null, $request = null, box = $this.toolbox;
         box.each($this, function () { self[this.k] = this.v });
         var settings = {
@@ -3254,6 +3343,21 @@
         };
 
     }, {}, {});
+
+    // dateEntity
+    APP.config.set("date.months",
+        {
+            "fr" : ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            "en" : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        }
+    );
+    APP.config.set("date.days",
+        {
+            "fr" : ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+            "en" : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        }
+    );
+    APP.config.set("date.lang", "fr");
 
 
     function nodeLauncher(selector) {
