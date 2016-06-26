@@ -54,6 +54,20 @@ describe("Unit test for dateEntity", function() {
         });
     });
 
+    describe("Test for month", function () {
+        it("Month should be '8'", function() {
+            chaiExpect(zk("Date").set("2016-08-02").m()).eql("8")
+        });
+        it("Month should be '08'", function() {
+            chaiExpect(zk("Date").set("2016-08-02").mm()).eql("08")
+        });
+        it("Month should be '10'", function() {
+            chaiExpect(zk("Date").set("2016-08-02").mm("+2").m()).eql("10")
+        });
+    });
+
+
+
 });
 
 
