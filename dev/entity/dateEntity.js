@@ -222,6 +222,30 @@ zk().register(function DATE($this){
      */
     $self.millisecond = function(millisecond){ return $self.ll(millisecond) };
 
+    /**
+     * Permet de formater une date
+     *
+     * @method format
+     * @param {String} format Chaîne de formattage. Par exemple : "%DD %dd+1 %MM %yy"
+     * @return {String}
+     * @since 1.0
+     */
+    $self.format = function(format){
+        if(format === undefined){ return ''}
+        format += '' ;
+        format = format.replace(/(\%\w{1,2})([+-]\d+)?/g, function (format, s1, s2) {
+            s1 = s1.slice(1);
+            if ($self.hasOwnProperty(s1)) { $self[s1](s2); return '%' + s1 }
+            return format;
+        });
+        format = format.replace(/\%\w{1,2}/g, function (format) {
+            format = format.slice(1);
+            if ($self.hasOwnProperty(format)) { return $self[format]() }
+            return format;
+        });
+        return format
+    } ;
+
 
 
 
