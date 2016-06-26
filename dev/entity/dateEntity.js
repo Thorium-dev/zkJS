@@ -26,10 +26,29 @@ zk().register(function DATE($this){
     }
     function daysInMonth(date) { return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() }
 
+    /**
+     * Permet d'obtenir une nouvelle date.
+     *
+     * @method set
+     * @param {*} date Date à définir
+     * @return {DATE}
+     * @since 1.0
+     */
     this.set = function (date) {
         if(date === undefined){ return $self }
         $date = new Date(date);
         return $self
+    };
+
+    /**
+     * Permet d'obtenir la date JavaScript
+     *
+     * @method get
+     * @return {Date}
+     * @since 1.0
+     */
+    this.get = function () {
+        return $date
     };
 
     /**
@@ -340,8 +359,5 @@ zk().register(function DATE($this){
      * @since 1.0
      */
     this.now = function(){ $date = new Date(); return $self };
-
-
-
 
 }, {}, {});
