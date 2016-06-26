@@ -49,7 +49,7 @@ zk().register(function DATE($this){
      * Permet d'obtenir ou de définir l'année. L'obtention se fait sur les deux derniers chiffres.
      *
      * @method y
-     * @param {String} [year] L'année à définir. Par exemple : 2015, "+3", "-1"
+     * @param {*} [year] L'année à définir. Par exemple : 2015, "+3", "-1"
      * @return {String|DATE}
      * @since 1.0
      */
@@ -63,13 +63,22 @@ zk().register(function DATE($this){
      * Permet d'obtenir ou de définir l'année.
      *
      * @method y
-     * @param {String} [year] L'année à définir. Par exemple : 2015, "+3", "-1"
+     * @param {*} [year] L'année à définir. Par exemple : 2015, "+3", "-1"
      * @return {String|DATE}
      * @since 1.0
      */
     this.yy = function (year) {
         return getSetDate(year, 'FullYear') ;
     };
+
+    /**
+     * Permet d'obtenir un chiffre correspondant un jour de la semaine. 0 pour Lundi, 1 pour Mardi, ...
+     *
+     * @method w
+     * @return {Number}
+     * @since 1.0
+     */
+    this.w = function () { return ($date.getDay()||7)-1 };
 
 
 

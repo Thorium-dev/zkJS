@@ -37,12 +37,12 @@
     <script src="dev/entity/edgeEntity.js"></script>
     <script src="dev/entity/errorEntity.js"></script>
     <script src="dev/entity/nodeEntity.js"></script>
-    <script src="dev/entity/ajaxEntity.js"></script>
+    <script src="dev/entity/dateEntity.js"></script>
 
     <script>
 
 
-        zk("Ajax").send("ajax.php $post $json");
+        console.log(zk("date").w());
 
 
     </script>
