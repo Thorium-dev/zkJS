@@ -42,6 +42,18 @@ describe("Unit test for dateEntity", function() {
         });
     });
 
+    describe("Test for short named day", function () {
+        it("Day should be 'Dim'", function() {
+            chaiExpect(zk("Date").set("2016-06-26").D()).eql("Dim")
+        });
+    });
+
+    describe("Test for full named day", function () {
+        it("Day should be 'Vendredi'", function() {
+            chaiExpect(zk("Date").set("2016-09-02").DD()).eql("Vendredi")
+        });
+    });
+
 });
 
 
