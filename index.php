@@ -42,7 +42,7 @@
     <script>
 
 
-        console.log(zk("date").M());
+        console.log(zk("date").D());
 
 
     </script>

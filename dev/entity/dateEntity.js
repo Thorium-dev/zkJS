@@ -93,9 +93,9 @@ zk().register(function DATE($this){
         if(length === undefined){ length = 3 }
         return m.slice(0,Math.abs(length))
     };
-    
+
     /**
-     * Permet d'obtenir le nom du mois.
+     * Permet d'obtenir le nom complet du mois.
      *
      * @method MM
      * @return {String}
@@ -103,6 +103,31 @@ zk().register(function DATE($this){
      */
     this.MM = function () {
         return $self.config.get("date.months." + settings.lang)[$date.getMonth()];
+    };
+
+    /**
+     * Permet d'obtenir le nom du jour.
+     *
+     * @method D
+     * @param {int} [length] Longueur de la chaîne
+     * @return {String}
+     * @since 1.0
+     */
+    this.D = function (length) {
+        var m = $self.config.get("date.days." + settings.lang)[$self.w()];
+        if(length === undefined){ length = 3 }
+        return m.slice(0,Math.abs(length))
+    };
+    
+    /**
+     * Permet d'obtenir le nom complet du jour.
+     *
+     * @method DD
+     * @return {String}
+     * @since 1.0
+     */
+    this.DD = function () {
+        return $self.config.get("date.days." + settings.lang)[$self.w()];
     };
 
 
