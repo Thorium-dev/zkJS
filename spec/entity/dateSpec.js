@@ -66,6 +66,12 @@ describe("Unit test for dateEntity", function() {
         });
     });
 
+    describe("Test for format function", function () {
+        it("Date should be 'Lundi 27 Juin 2016'", function() {
+            chaiExpect(zk("Date").set("2016-06-26").format("%DD %dd+1 %MM %yy")).eql("Lundi 27 Juin 2016")
+        });
+
+    });
 
 
 });
