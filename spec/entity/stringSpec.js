@@ -1,8 +1,8 @@
 describe("Unit test for stringEntity", function() {
     var str = "abcdef";
 
-    describe("Test each method", function () {
-        it("Loop 'abcdef'", function() {
+    describe("Test for each method", function () {
+        it("Should loop 'abcdef'", function() {
             var i = 0;
             zk().toolbox.each(str, function () {
                 i++;
@@ -10,7 +10,7 @@ describe("Unit test for stringEntity", function() {
             chaiExpect(i).equal(6, "Fail when loop 'abcdef'")
         });
         zk().toolbox.each(str, function () {
-            it("Test char " + this.v, function () {
+            it("Should be '" + this.v + "' char", function () {
                 chaiExpect(this.v).equal(str[this.i]);
             });
         });

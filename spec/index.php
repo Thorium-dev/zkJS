@@ -23,6 +23,7 @@
         var chaiAssert = chai.assert;
     </script>
 
+    <script src="entity/stringSpec.js"></script>
     <script src="entity/ajaxSpec.js"></script>
 
     <script>
