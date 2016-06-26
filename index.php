@@ -42,8 +42,8 @@
     <script>
 
 
-        var date = zk("date").next("Janvier");
-        console.log(date.yy());
+        var date = zk("date").previous("Janvier");
+        console.log(date.DD());
 
 
     </script>

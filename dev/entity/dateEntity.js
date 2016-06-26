@@ -161,7 +161,7 @@ zk().register(function DATE($this){
      * @return {String|DATE}
      * @since 1.0
      */
-    $self.day = function(day){ return $self.dd(day) };
+    this.day = function(day){ return $self.dd(day) };
 
     /**
      * Permet d'obtenir ou de définir le mois.
@@ -171,7 +171,7 @@ zk().register(function DATE($this){
      * @return {String|DATE}
      * @since 1.0
      */
-    $self.month = function(month){ return $self.mm(month) };
+    this.month = function(month){ return $self.mm(month) };
 
     /**
      * Permet d'obtenir ou de définir l'année.
@@ -181,7 +181,7 @@ zk().register(function DATE($this){
      * @return {String|DATE}
      * @since 1.0
      */
-    $self.year = function(year){ return $self.yy(year) };
+    this.year = function(year){ return $self.yy(year) };
 
     /**
      * Permet d'obtenir ou de définir l'heure.
@@ -191,7 +191,7 @@ zk().register(function DATE($this){
      * @return {String|DATE}
      * @since 1.0
      */
-    $self.hour = function(hour){ return $self.hh(hour) };
+    this.hour = function(hour){ return $self.hh(hour) };
 
     /**
      * Permet d'obtenir ou de définir les minutes.
@@ -201,7 +201,7 @@ zk().register(function DATE($this){
      * @return {String|DATE}
      * @since 1.0
      */
-    $self.minute = function(minute){ return $self.ii(minute) };
+    this.minute = function(minute){ return $self.ii(minute) };
 
     /**
      * Permet d'obtenir ou de définir les secondes.
@@ -211,7 +211,7 @@ zk().register(function DATE($this){
      * @return {String|DATE}
      * @since 1.0
      */
-    $self.second = function(second){ return $self.ss(second) };
+    this.second = function(second){ return $self.ss(second) };
 
     /**
      * Permet d'obtenir ou de définir les millisecondes.
@@ -221,7 +221,7 @@ zk().register(function DATE($this){
      * @return {String|DATE}
      * @since 1.0
      */
-    $self.millisecond = function(millisecond){ return $self.ll(millisecond) };
+    this.millisecond = function(millisecond){ return $self.ll(millisecond) };
 
     /**
      * Permet de formater une date
@@ -231,7 +231,7 @@ zk().register(function DATE($this){
      * @return {String}
      * @since 1.0
      */
-    $self.format = function(format){
+    this.format = function(format){
         if(format === undefined){ return ''}
         format += '' ;
         format = format.replace(/(\%\w{1,2})([+-]\d+)?/g, function (format, s1, s2) {
@@ -255,7 +255,7 @@ zk().register(function DATE($this){
      * @return {int}
      * @since 1.0
      */
-    $self.count = function(day){
+    this.count = function(day){
         var totalDays = daysInMonth($date);
         if(day === undefined){ return totalDays }
         var total = 0, reg = new RegExp('^'+day+'$','i');
@@ -276,7 +276,7 @@ zk().register(function DATE($this){
      * @return {DATE}
      * @since 1.0
      */
-    $self.next = function(next){
+    this.next = function(next){
         if(next===undefined){ return $self.d('+1') }
         var reg = new RegExp('^'+next+'$','i');
 
@@ -297,6 +297,38 @@ zk().register(function DATE($this){
         for(i=0 ; i<k ; i++){
             if(reg.test(months[i])){ $date.setMonth($date.getMonth()+i+1); return $self }
         }
+        return $self
+    };
+
+    /**
+     * Permet d'obtenir des dates précédentes
+     *
+     * @method previous
+     * @param {String} [previous] Par exemple : "Lundi" pour la date correspondant au Lundi précédent, "Janvier" pour la date correspondant au mois de Janvier précédent
+     * @return {DATE}
+     * @since 1.0
+     */
+    this.previous = function(previous){
+        if(previous===undefined){ return $self.d('-1') }
+        var reg = new RegExp('^'+previous+'$','i');
+
+        // @TODO :  Faire la recherche pour les nombres (vérifier si 0<next<32)
+
+        // Recherche pour les jours
+        var days = $self.config.get("date.days." + settings.lang);
+        days = days.concat(days.slice(0,$self.w())) ;
+        var i, k = days.length-1 ;
+        for(i=k ; i>-1 ; i--){
+            if(reg.test(days[i])){ $date.setDate($date.getDate()-k+i-1); return $self }
+        }
+        // Recherche pour les mois
+        var months = $self.config.get("date.months." + settings.lang);
+        months = months.concat(months.slice(0,$date.getMonth())) ;
+        var i, k = months.length-1 ;
+        for(i=k ; i>-1 ; i--){
+            if(reg.test(months[i])){ $date.setMonth($date.getMonth()-k+i-1); return $self }
+        }
+
         return $self
     };
 
