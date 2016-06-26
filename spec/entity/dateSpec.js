@@ -73,6 +73,13 @@ describe("Unit test for dateEntity", function() {
 
     });
 
+    describe("Test for count function", function () {
+        it("Number of 'lundi' should be 4", function() {
+            chaiExpect(zk("Date").set("2016-06-26").count("lundi")).eql(4)
+        });
+
+    });
+
 
 });
 
