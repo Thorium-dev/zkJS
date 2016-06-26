@@ -1,4 +1,4 @@
-APP.register(function Ajax($this) {
+APP.register(function AJAX($this) {
     var self = this, xhr = null, $request = null, box = $this.toolbox;
     box.each($this, function () { self[this.k] = this.v });
     var settings = {
