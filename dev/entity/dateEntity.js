@@ -258,15 +258,47 @@ zk().register(function DATE($this){
     $self.count = function(day){
         var totalDays = daysInMonth($date);
         if(day === undefined){ return totalDays }
-        var total = 0, reg = new RegExp('^'+day+'$','i') ;
+        var total = 0, reg = new RegExp('^'+day+'$','i');
         var copyDate = $box.clone($date);
         $box.each(totalDays, function(){
-            $date.setDate(this.i+1) ;
+            $date.setDate(this.i+1);
             if(reg.test($self.DD())){ total++ }
         }) ;
-        $date = copyDate ;
+        $date = copyDate;
         return total
-    } ;
+    };
+
+    /**
+     * Permet d'obtenir des dates à avenir
+     *
+     * @method next
+     * @param {String} [next] Par exemple : "Lundi" pour la date correspondant au Lundi suivant, "Janvier" pour la date correspondant au Janvier suivant
+     * @return {DATE}
+     * @since 1.0
+     */
+    $self.next = function(next){
+        if(next===undefined){ return $self.d('+1') }
+        var reg = new RegExp('^'+next+'$','i');
+
+        // @TODO :  Faire la recherche pour les nombres (vérifier si 0<next<32)
+
+        // Recherche pour les jours
+        var days = $self.config.get("date.days." + settings.lang);
+        days = days.concat(days).slice($self.w()+1);
+        var i, k = days.length ;
+        for(i=0 ; i<k ; i++){
+            //var v = i+1+parseInt($self.d(),10);
+            if(reg.test(days[i])){ $self.d(i+1+parseInt($self.d(),10)); return $self }
+        }
+        // Recherche pour les mois
+        var months = $self.config.get("date.months." + settings.lang);
+        months = months.concat(months).slice($date.getMonth()+1) ;
+        var i, k = months.length ;
+        for(i=0 ; i<k ; i++){
+            if(reg.test(months[i])){ $date.setMonth($date.getMonth()+i+1); return $self }
+        }
+        return $self
+    };
 
 
 

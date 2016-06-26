@@ -42,7 +42,8 @@
     <script>
 
 
-        console.log(zk("date").count("lundi"));
+        var date = zk("date").next("Janvier");
+        console.log(date.yy());
 
 
     </script>
