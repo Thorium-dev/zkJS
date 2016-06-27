@@ -94,7 +94,8 @@ var doCreateElementByKey = {
         return node;
     },
     "content": function ($this, node, selector) {
-        return this.text($this, node, selector)
+        node.textContent = selector.content;
+        return node;
     },
     "html": function ($this, node, selector) {
         node.innerHTML = selector.html;
@@ -109,16 +110,14 @@ function createElementByObject($this, selector) {
         delete selector.name;
         box.each(selector, function () {
             var k = this.k;
-            if (/^attr\-/.test(k)) {
-                node.setAttribute(k.slice(5), this.v);
-            } else {
-                if (doCreateElementByKey.hasOwnProperty(k)) {
-                    doCreateElementByKey[k]($this, node, selector);
-                }
+            if (doCreateElementByKey.hasOwnProperty(k)) {
+                doCreateElementByKey[k]($this, node, selector);
+            }else {
+                node.setAttribute(k, this.v);
             }
-        })
+        });
     }
-    return node
+    return node;
 }
 function getElementsByObject($this, element, selector) {
     var nodes = element.querySelectorAll("*"), res = [];

@@ -40,8 +40,12 @@
     <script>
 
 
-        var date = zk("date").previous("Janvier");
-        console.log(date.DD());
+        $("#days").add({
+            'class': 'coucou',
+            'name': 'li',
+            'content': 'Salut tout le monde !',
+            'placeholder': 'Hello'
+        });
 
 
     </script>
