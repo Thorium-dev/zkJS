@@ -67,6 +67,21 @@ zk().register(function VALIDATOR($this) {
         return $self
     };
 
+    /**
+     * Permet de définir une contrainte
+     *
+     * @method add
+     * @param {String} attr Nom de l'attribut ou contenu à contraindre.
+     * @param {*} constraint Contraint à appliquer sur l'attribut.
+     * @param {String|Function} [message] Message d'erreur.
+     * @param {*} [view] La vue qui contiendra le message d'erreur.
+     * @return {VALIDATOR}
+     * @since 1.0
+     */
+    this.add = function (attr, constraint, message, view) {
+        return $self.assert(attr, constraint, message, view)
+    };
+
     this.validate = function (node) {
 
     };
