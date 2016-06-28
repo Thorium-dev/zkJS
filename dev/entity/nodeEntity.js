@@ -2486,23 +2486,26 @@ var nodeDoSetByParameters = {
     "htmlcollection": function ($this, nodes) {
         return $this.toolbox.toArray(nodes)
     },
+    "node": function ($this, node) {
+        return node.get()
+    },
 };
 zk().register(function NODE($this) {
-    var nodes = $this.nodes || [], self = this;
-    zk().toolbox.each($this, function () { self[this.k] = this.v });
+    var $nodes = [], $self = this;
+    zk().toolbox.each($this, function () { $self[this.k] = this.v });
     this.get = function (selector) {
-        if (selector === undefined) { return nodes }
-        var selType = self.toolbox.is(selector);
+        if (selector === undefined) { return $nodes }
+        var selType = $self.toolbox.is(selector);
         if (nodeDoGetByParameters.hasOwnProperty(selType)) {
-            nodes = nodeDoGetByParameters[selType](self, selector);
+            $nodes = nodeDoGetByParameters[selType]($self, selector);
         }
-        return self
+        return $self
     };
     this.set = function (value) {
-        var valueType = self.toolbox.is(value);
+        var valueType = $self.toolbox.is(value);
         if (nodeDoSetByParameters.hasOwnProperty(valueType)) {
-            nodes = nodeDoSetByParameters[valueType](self, value);
+            $nodes = nodeDoSetByParameters[valueType]($self, value);
         }
-        return self;
+        return $self;
     };
 }, nodeEntityMethods, nodeEntityParameters);
