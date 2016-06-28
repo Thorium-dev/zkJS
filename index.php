@@ -41,7 +41,7 @@
     <script>
 
 
-        zk("validator").assert("class", true);
+        zk("validator").assert("text", /sunday/, "La classe n'est pas valid !", "#day-7").validate("#day-7");
 
 
     </script>
