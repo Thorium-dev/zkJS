@@ -36,16 +36,12 @@
     <script src="dev/entity/documentEntity.js"></script>
     <script src="dev/entity/errorEntity.js"></script>
     <script src="dev/entity/nodeEntity.js"></script>
+    <script src="dev/entity/validatorEntity.js"></script>
 
     <script>
 
 
-        $("#days").add({
-            'class': 'coucou',
-            'name': 'li',
-            'content': 'Salut tout le monde !',
-            'placeholder': 'Hello'
-        });
+        zk("validator").assert("class", true);
 
 
     </script>
