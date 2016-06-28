@@ -125,8 +125,15 @@ zk().register(function VALIDATOR($this) {
         return $self
     };
 
+    /**
+     * Permet de connaître l'état de la validation. A utiliser après la fonction validate.
+     *
+     * @method isValid
+     * @return {boolean}
+     * @since 1.0
+     */
     this.isValid = function () {
-
+        return $isValid
     };
 
 
