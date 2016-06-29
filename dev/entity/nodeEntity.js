@@ -1,4 +1,3 @@
-// @TODO : Faire la fonction val/value
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
 // @TODO : Faire les fonctions toggle
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
@@ -280,7 +279,48 @@ var doValByNodeName = {
             return node.value || ""
         }
         return node.value = val;
-    }
+    },
+    "option" : function (node, val) {
+        return this.input(node, val)
+    },
+    "button" : function (node, val) {
+        return this.input(node, val)
+    },
+    "li" : function (node, val) {
+        return this.input(node, val)
+    },
+    "meter" : function (node, val) {
+        return this.input(node, val)
+    },
+    "progress" : function (node, val) {
+        return this.input(node, val)
+    },
+    "param" : function (node, val) {
+        return this.input(node, val)
+    },
+    "select" : function (node, val) {
+        if(val === undefined){
+            node = node.options[node.selectedIndex];
+            return node.value || node.textContent || "";
+        }
+        var box = zk().toolbox, options = box.toArray(node.options);
+        options[node.selectedIndex].selected = false;
+        if(box.is(val, "number")){
+            node = options[Math.abs(val)];
+            if(node){
+                node.selected = true;
+            }
+        }else{
+            box.each(options, function () {
+                if(this.v.value === val || this.v.textContent === val){
+                    this.v.selected = true;
+                    return zk().get("Error");
+                }
+            });
+        }
+        return ;
+    },
+
 };
 
 /**

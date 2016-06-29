@@ -30,7 +30,11 @@
         <li class="day" id="day-7">Sunday</li>
     </ul>
 
-    <input type="text" value="test">
+    <select name="pays" id="pays">
+        <option value="France">France</option>
+        <option value="Japon">Japon</option>
+        <option value="">Italie</option>
+    </select>
 
 
     <script src="dev/core/zk.js"></script>
@@ -42,7 +46,7 @@
     <script>
 
 
-        var val = $("input").val();
+        var val = $("select").val(4);
 
         console.log(val);
 
