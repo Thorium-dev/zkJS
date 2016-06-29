@@ -274,6 +274,15 @@ var doNodeGetCssByProperty = {
     },
 };
 
+var doValByNodeName = {
+    "input" : function (node, val) {
+        if(val === undefined){
+            return node.value || ""
+        }
+        return node.value = val;
+    }
+};
+
 /**
  * Cette permet d'obtenir les coordonnées d'un élément dans tout le document
  * @param node
@@ -1179,6 +1188,48 @@ var nodeEntityMethods = {
                 });
                 return this
             }
+        },
+        /**
+         * Permet d'obtenir ou de définir le texte (pour les éléments de types input, select, ...).
+         *
+         * @method val
+         * @param {*} [val] Valeur à définir.
+         * @return {string|Node}
+         * @since 1.0
+         */
+        "val": function (val) {
+            if(val === undefined){
+                var node = this.get()[0], v = "";
+                if(node){
+                    var name = (node.nodeName).toLowerCase();
+                    if(doValByNodeName.hasOwnProperty(name)){
+                        v = doValByNodeName[name](node);
+                    }else{
+                        v = node.textContent;
+                    }
+                }
+                return v;
+            }
+            this.each(function () {
+                var name = (this.v.nodeName).toLowerCase();
+                if(doValByNodeName.hasOwnProperty(name)){
+                    doValByNodeName[name](this.v, val);
+                }else{
+                    this.v.textContent = val;
+                }
+            });
+            return this;
+        },
+        /**
+         * Permet d'obtenir ou de définir le texte (pour les éléments de types input, select, ...).
+         *
+         * @method value
+         * @param {*} [val] Valeur à définir.
+         * @return {string|Node}
+         * @since 1.0
+         */
+        "value": function (val) {
+            return this.val(val)
         },
 
         // ===================================== LES METHODES POUR LES EVENTS =========================================

@@ -30,6 +30,8 @@
         <li class="day" id="day-7">Sunday</li>
     </ul>
 
+    <input type="text" value="test">
+
 
     <script src="dev/core/zk.js"></script>
     <script src="dev/entity/convertorEntity.js"></script>
@@ -40,13 +42,9 @@
     <script>
 
 
-        $(document).click(function () {
-            console.log("Event from document");
-        });
+        var val = $("input").val();
 
-        $("#days").clickout(function () {
-           console.log(this);
-        }).off("clickout");
+        console.log(val);
 
 
     </script>
