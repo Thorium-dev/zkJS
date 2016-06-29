@@ -1,6 +1,6 @@
+// @TODO : Faire la fonction val/value
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
 // @TODO : Faire les fonctions toggle
-// @TODO : Faire la fonction clickout
 // @TODO : Faire la fonction sortBy
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
 // @TODO : Faire la fonction caret (en relation avec la position du curseur dans les input et les textarea)
@@ -316,7 +316,7 @@ var isOverOrOutEvent = {
     },
     "mouseout": function (node, event) { return this.mouseover(node, event, 1) }
 };
-var nodeCustumEvents = {
+var nodeCustumOnEvents = {
     "clickout": function (id, namespace) {
         var doc = zk().get("document");
         doc.on("click." + id + "$" + namespace, function () {
@@ -327,7 +327,12 @@ var nodeCustumEvents = {
             if(target !== node.get()[0] && !path.has(node.get()[0])){
                 node.trigger("clickout." + space[1]);
             }
-        })
+        });
+    }
+};
+var nodeCustumOffEvents = {
+    "clickout": function (id, namespace) {
+        zk().get("document").off("click." + id + "$" + namespace);
     }
 };
 function forNodeOnEvent($this, events, callback){
@@ -356,8 +361,8 @@ function forNodeOnEvent($this, events, callback){
                     var fs = functions[this.v];
                     fs = (fs || []).concat(callback);
                     functions[this.v] = fs;
-                    if(nodeCustumEvents.hasOwnProperty(eType)){
-                        nodeCustumEvents[eType](zkID, this.v)
+                    if(nodeCustumOnEvents.hasOwnProperty(eType)){
+                        nodeCustumOnEvents[eType](zkID, this.v)
                     }
                 });
                 /**
@@ -396,7 +401,7 @@ function forNodeOnEvent($this, events, callback){
                             }else {
                                 this.v.apply($this);
                             }
-                        })
+                        });
                     });
                 };
                 if (!e.get(path + "launcher")) {
@@ -420,7 +425,7 @@ function forNodeOffEvent($this, events, docWin){
         var event = this.v;
         event = event.split(".");
         var eType = event[0],
-            space = (event.slice(1));
+            space = event.slice(1);
         if(eType){
             if(allEventsAlias.hasOwnProperty(eType)){ eType = allEventsAlias[eType] }
             var loop = $this;
@@ -434,13 +439,16 @@ function forNodeOffEvent($this, events, docWin){
                     if(temp){
                         var launcher = temp.launcher,
                             functions = temp.functions;
-                        if(space[0]){
-                            box.each(space, function () { delete functions[this.v] });
-                            if(box.isEmpty(functions)){ space = [] }
-                        }
-                        if(!space[0]){
+                        if(space.length === 0){ space = [eType + "-" + zkID] }
+                        box.each(space, function () {
+                            if(nodeCustumOffEvents.hasOwnProperty(eType)){
+                                nodeCustumOffEvents[eType](zkID, this.v)
+                            }
+                            delete functions[this.v];
+                        });
+                        if(box.isEmpty(functions)){ space = [] }
+                        if(space.length === 0){
                             e.remove(path);
-                            // @TODO : Retrait de l'évènement click de document pour clickout
                             if(node.removeEventListener){
                                 node.removeEventListener(eType, launcher, false);
                             }else {

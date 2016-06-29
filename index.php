@@ -40,8 +40,13 @@
     <script>
 
 
-        var val = zk("validator").assert("text", "==10", "La classe n'est pas valid !", "#day-7").validate("#day-7");
-        console.log(val.isValid());
+        $(document).click(function () {
+            console.log("Event from document");
+        });
+
+        $("#days").clickout(function () {
+           console.log(this);
+        }).off("clickout");
 
 
     </script>
