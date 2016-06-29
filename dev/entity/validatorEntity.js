@@ -54,7 +54,14 @@ zk().register(function VALIDATOR($this) {
      *
      * @method assert
      * @param {String} attr Nom de l'attribut ou contenu à contraindre.
-     * @param {*} constraint Contraint à appliquer sur l'attribut.
+     * @param {*} constraint Contrainte à appliquer sur l'attribut. Cas d'utilisation :
+     *                       - "/url/" => $self.config.get("validator.url");
+     *                       - "/date.fr/" => $self.config.get("validator.date.fr");
+     *                       - "==10" => La valeur est égale à 10
+     *                       - "!='myString'" => La valeur est différente de 'myString'
+     *                       - "myString" => La valeur est égale à 'myString'
+     *                       - /\d+/ => La valeur doit correspondre à l'expression régulière.
+     *                       - true => Dans les autres cas, on fait une égalité stricte. Ici, la valeur doit être true
      * @param {String|Function} [message] Message d'erreur.
      * @param {*} [view] Sélecteur de la vue qui contiendra le message d'erreur.
      * @return {VALIDATOR}
@@ -97,6 +104,14 @@ zk().register(function VALIDATOR($this) {
         return $self
     };
 
+    /**
+     * Permet de valider un objet Node.
+     *
+     * @method validate
+     * @param {*} node L'objet Node qui sera validé.
+     * @return {VALIDATOR}
+     * @since 1.0
+     */
     this.validate = function (node) {
         $isValid = true;
         if(!$box.isEmpty($asserts)){
@@ -104,10 +119,34 @@ zk().register(function VALIDATOR($this) {
             if(node){
                 $box.each($asserts, function () {
                     var k = this.k, v = this.v,
-                        value = $moreAttr.hasOwnProperty(k) ? $moreAttr[k](node) : node.getAttribute(k);
+                        value = $box.trim($moreAttr.hasOwnProperty(k) ? $moreAttr[k](node) : node.getAttribute(k));
                     $box.each(v.constraints, function () {
-                        // @TODO : Elargir les contraintes
-                        if(!this.v.test(value)){
+
+                        var type  = $box.is(this.v), ok = true;
+                        if(type == "string"){
+                            if(/^\/.*\/$/.test(this.v)){
+                                this.v = $box.trim(this.v, "[\/ ]");
+                                this.v = $self.config.get("validator." + this.v);
+                                ok = this.v.test(value);
+                            }else{
+                                if(/^(?:==|===|!=|!==|<=|>=|<|>)/.test(this.v)){
+                                    try {
+                                        ok = (new Function("","return '" + value + "'" + this.v))();
+                                    }catch (e){
+                                        console.log(e);
+                                    }
+                                }else {
+                                    ok = (value === this.v);
+                                }
+                            }
+                        }else{
+                            if(type == "regexp"){
+                                ok = this.v.test(value);
+                            }else{
+                                ok = (this.v === value);
+                            }
+                        }
+                        if(!ok){
                             $isValid = false;
                             var msg = v.messages[this.i], vw = v.views[this.i];
                             addConstInObject(k, this.v, msg, vw, $errors);
@@ -119,9 +158,7 @@ zk().register(function VALIDATOR($this) {
                 });
             }
         }
-        if(!$isValid && $message){
-            $self.entity.get("Node").set($view).html($message)
-        }
+        if(!$isValid && $message){ $self.entity.get("Node").set($view).html($message) }
         return $self
     };
 

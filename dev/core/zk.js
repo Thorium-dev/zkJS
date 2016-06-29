@@ -3740,6 +3740,17 @@
     }, {}, {});
 
     // validatorEntity
+    APP.config.set("validator.url", /^(?:https?:\/\/|ftp:\/\/|gopher:\/\/|wais:\/\/|telnet:\/\/|mailto:|news:)[\d\w]+(?:[^ <>\d\w]?[\d\w]+)+$|^file:\/{2,3}[\w]+[:\|](?:[^ <>\d\w]?[\d\w]+)+$/i);
+    APP.config.set("validator.email", /^[\da-z]+(?:[\.\!\#\$\%\&\'\*\+\-\/\=\?\^\_\`\{\|\}\~]?[\da-z]+)+@[\da-z]+(?:[\.\!\#\$\%\&\'\*\+\-\/\=\?\^\_\`\{\|\}\~]?[\da-z]+)+\.[a-z]{2,4}$/i);
+    APP.config.set("validator.number", /^-?[\d]+$/);
+    APP.config.set("validator.tel.fr", /^0[1-7](?:[ \/-][0-9]{2}){4}$/);
+    APP.config.set("validator.day", /^(?:0?[1-9]|1[0-9]|2[0-9]|3[01])$/);
+    APP.config.set("validator.month", /^(?:0?[1-9]|1[0-2])$/);
+    APP.config.set("validator.year", /^[1-9][0-9]{3,}$/);
+    APP.config.set("validator.date", {
+        "fr": /^(:?0?[1-9]|[12][0-9]|3[01])[\/ -](:?0?[1-9]|1[0-2])[\/ -][1-9][0-9]{3}$/,
+        "en": /^[1-9][0-9]{3}[\/ -](:?0?[1-9]|1[0-2])[\/ -](:?0?[1-9]|[12][0-9]|3[01])$/,
+    });
 
 
     function nodeLauncher(selector) {
