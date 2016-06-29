@@ -1,7 +1,6 @@
 // @TODO : Faire la fonction val/value
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
 // @TODO : Faire les fonctions toggle
-// @TODO : Faire la fonction sortBy
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
 // @TODO : Faire la fonction caret (en relation avec la position du curseur dans les input et les textarea)
 // @TODO : Ajout des events lors de la création d'un objet

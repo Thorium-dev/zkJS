@@ -291,6 +291,9 @@
                 }
             })
         };
+
+        // @TODO : Faire la fonction sortBy (Ajouter en prototype pour Array)
+
         /**
          * Elle supprime les éléments dupliqués d'un tableau.
          * Le tableau est trié par ordre croissant ou décroissant selon la valeur de isDesc.
