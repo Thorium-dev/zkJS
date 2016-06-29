@@ -36,12 +36,11 @@
     <script src="dev/entity/documentEntity.js"></script>
     <script src="dev/entity/errorEntity.js"></script>
     <script src="dev/entity/nodeEntity.js"></script>
-    <script src="dev/entity/validatorEntity.js"></script>
 
     <script>
 
 
-        var val = zk("validator").assert("text", "==Sunday", "La classe n'est pas valid !", "#day-7").validate("#day-7");
+        var val = zk("validator").assert("text", "==10", "La classe n'est pas valid !", "#day-7").validate("#day-7");
         console.log(val.isValid());
 
 
