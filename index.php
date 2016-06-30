@@ -31,9 +31,9 @@
     </ul>
 
     <select name="pays" id="pays">
-        <option value="France">France</option>
+        <option value="France" selected>France</option>
         <option value="Japon">Japon</option>
-        <option value="">Italie</option>
+        <option value="" selected>Italie</option>
     </select>
 
 
@@ -46,9 +46,9 @@
     <script>
 
 
-        var val = $("select").val(4);
+        var val = $("option").selected();
 
-        console.log(val);
+        console.log(val.get());
 
 
     </script>

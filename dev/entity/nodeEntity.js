@@ -383,6 +383,17 @@ var nodeCustumOffEvents = {
         zk().get("document").off("click." + id + "$" + namespace);
     }
 };
+var nodeCanSelected = {
+    "option": function (node) {
+        return (node.hasAttribute("selected")) || (node.selected === true);
+    },
+
+};
+var nodeCanChecked = {
+    "input": function (node) {
+
+    }
+};
 function forNodeOnEvent($this, events, callback){
     var e = $this.event, box = $this.toolbox;
     if(!box.is(events, "string") || !box.is(callback, "function")){ return this }
@@ -641,6 +652,19 @@ function forDocumentWindowOnEvent($this, events, callback, docWin){
 }
 
 var nodeEntityMethods = {
+        "selected": function () {
+            var res = [];
+            this.each(function () {
+                var name = this.v.nodeName.toLowerCase();
+                if(nodeCanSelected.hasOwnProperty(name)){
+                    if(nodeCanSelected[name](this.v)){
+                        res.push(this.v);
+                    }
+                }
+            });
+            this.set(res);
+            return this;
+        },
 
         "each": function (callback, args) {
             return this.toolbox.each(this, callback, args)
