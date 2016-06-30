@@ -391,8 +391,11 @@ var nodeCanSelected = {
 };
 var nodeCanChecked = {
     "input": function (node) {
-
-    }
+        if(node.type === "checkbox" || node.type === "radio"){
+            return (node.hasAttribute("checked")) || (node.checked === true);
+        }
+        return false;
+    },
 };
 function forNodeOnEvent($this, events, callback){
     var e = $this.event, box = $this.toolbox;
@@ -652,19 +655,6 @@ function forDocumentWindowOnEvent($this, events, callback, docWin){
 }
 
 var nodeEntityMethods = {
-        "selected": function () {
-            var res = [];
-            this.each(function () {
-                var name = this.v.nodeName.toLowerCase();
-                if(nodeCanSelected.hasOwnProperty(name)){
-                    if(nodeCanSelected[name](this.v)){
-                        res.push(this.v);
-                    }
-                }
-            });
-            this.set(res);
-            return this;
-        },
 
         "each": function (callback, args) {
             return this.toolbox.each(this, callback, args)
@@ -1294,6 +1284,46 @@ var nodeEntityMethods = {
          */
         "value": function (val) {
             return this.val(val)
+        },
+        /**
+         * Permet d'obtenir les éléments sélectionnés
+         *
+         * @method selected
+         * @return {Node}
+         * @since 1.0
+         */
+        "selected": function () {
+            var res = [];
+            this.each(function () {
+                var name = this.v.nodeName.toLowerCase();
+                if(nodeCanSelected.hasOwnProperty(name)){
+                    if(nodeCanSelected[name](this.v)){
+                        res.push(this.v);
+                    }
+                }
+            });
+            this.set(res);
+            return this;
+        },
+        /**
+         * Permet d'obtenir les éléments cochés
+         *
+         * @method checked
+         * @return {Node}
+         * @since 1.0
+         */
+        "checked": function () {
+            var res = [];
+            this.each(function () {
+                var name = this.v.nodeName.toLowerCase();
+                if(nodeCanChecked.hasOwnProperty(name)){
+                    if(nodeCanChecked[name](this.v)){
+                        res.push(this.v);
+                    }
+                }
+            });
+            this.set(res);
+            return this;
         },
 
         // ===================================== LES METHODES POUR LES EVENTS =========================================

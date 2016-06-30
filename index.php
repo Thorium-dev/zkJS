@@ -36,6 +36,12 @@
         <option value="" selected>Italie</option>
     </select>
 
+    <input type="text" class="a">
+    <input type="checkbox" class="a" checked>
+    <input type="checkbox" class="a">
+    <input type="radio" class="a">
+    <input type="radio" class="a" checked>
+
 
     <script src="dev/core/zk.js"></script>
     <script src="dev/entity/convertorEntity.js"></script>
@@ -46,7 +52,7 @@
     <script>
 
 
-        var val = $("option").selected();
+        var val = $(".a").checked();
 
         console.log(val.get());
 
