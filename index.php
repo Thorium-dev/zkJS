@@ -53,7 +53,7 @@
     <script>
 
 
-        var url = zk("Router").host();
+        var url = zk("Router").path("/spec");
         console.log(url);
 
 

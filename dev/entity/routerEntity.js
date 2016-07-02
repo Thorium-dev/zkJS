@@ -45,6 +45,21 @@ zk().register(function ROUTER($this){
         return this;
     };
 
+    /**
+     * Permet d'obtenir le chemin (relativement à l'hôte) ou de le définir. Par exemple : /zkjs.fr
+     *
+     * @method path
+     * @param {string} [path]
+     * @return {ROUTER}
+     * @since 1.0
+     */
+    this.path = function (path) {
+        if(path === undefined){ return $location.path || ""; }
+        // @TODO : Revoir après la création des autres méthodes
+        $location.path = "" + path;
+        return this;
+    };
+
 
 
 }, {}, {});
