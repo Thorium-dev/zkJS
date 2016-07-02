@@ -8,7 +8,7 @@ zk().register(function ROUTER($this){
      *
      * @method url
      * @param {string} [url]
-     * @return {ROUTER}
+     * @return {ROUTER|string}
      * @since 1.0
      */
     this.url = function (url) {
@@ -22,7 +22,7 @@ zk().register(function ROUTER($this){
      *
      * @method hash
      * @param {string} [hash]
-     * @return {ROUTER}
+     * @return {ROUTER|string}
      * @since 1.0
      */
     this.hash = function (hash) {
@@ -36,7 +36,7 @@ zk().register(function ROUTER($this){
      *
      * @method host
      * @param {string} [host]
-     * @return {ROUTER}
+     * @return {ROUTER|string}
      * @since 1.0
      */
     this.host = function (host) {
@@ -50,13 +50,27 @@ zk().register(function ROUTER($this){
      *
      * @method path
      * @param {string} [path]
-     * @return {ROUTER}
+     * @return {ROUTER|string}
      * @since 1.0
      */
     this.path = function (path) {
         if(path === undefined){ return $location.path || ""; }
         // @TODO : Revoir après la création des autres méthodes
         $location.path = "" + path;
+        return this;
+    };
+
+    /**
+     * Permet d'obtenir le numéro de port de l'URL ou de le définir.
+     *
+     * @method port
+     * @param {string} [port]
+     * @return {ROUTER|string} Si l'URL n'a pas de port, une chaîne de caractères vide est renvoyée.
+     * @since 1.0
+     */
+    this.port = function (port) {
+        if(port === undefined){ return $location.port || ""; }
+        $location.port = "" + port;
         return this;
     };
 
