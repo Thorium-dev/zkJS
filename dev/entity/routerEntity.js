@@ -1,7 +1,9 @@
-
 zk().register(function ROUTER($this){
-    var $self = this, $location = window.location;
-    zk().toolbox.each($this, function () { $self[this.k] = this.v });
+    var $self = this, $location = window.location, $box = $this.toolbox;
+    $box.each($this, function () { $self[this.k] = this.v });
+
+    var s = $location.search.slice(1);
+    var $vars = s ? zk().get("Convertor").object(s, "&", "=") : {};
 
     /**
      * Permet d'obtenir l'url de la page courante ou de définir une nouvelle url. Par exemple : http://zkjs.fr/spec/
@@ -86,6 +88,19 @@ zk().register(function ROUTER($this){
         if(protocol === undefined){ return $location.protocol.slice(0, -1) || ""; }
         $location.protocol = "" + protocol;
         return this;
+    };
+
+    /**
+     * Permet d'obtenir les variables transmises à l'url ou de définir des variables.
+     *
+     * @method vars
+     * @param {string} [name]
+     * @return {object|string}
+     * @since 1.0
+     */
+    this.vars = function (name) {
+        if (name === undefined) { return $vars }
+        return $vars[name];
     };
 
 

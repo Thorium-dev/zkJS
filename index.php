@@ -53,7 +53,7 @@
     <script>
 
 
-        var url = zk("Router").protocol();
+        var url = zk("router").vars();
         console.log(url);
 
 
