@@ -74,6 +74,20 @@ zk().register(function ROUTER($this){
         return this;
     };
 
+    /**
+     * Permet d'obtenir le protocole de l'URL ou de le définir. Par exemple : http
+     *
+     * @method protocol
+     * @param {string} [protocol]
+     * @return {ROUTER|string}
+     * @since 1.0
+     */
+    this.protocol = function (protocol) {
+        if(protocol === undefined){ return $location.protocol.slice(0, -1) || ""; }
+        $location.protocol = "" + protocol;
+        return this;
+    };
+
 
 
 }, {}, {});

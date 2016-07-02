@@ -53,7 +53,7 @@
     <script>
 
 
-        var url = zk("Router").port("8080");
+        var url = zk("Router").protocol();
         console.log(url);
 
 
