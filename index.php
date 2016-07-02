@@ -52,7 +52,7 @@
     <script>
 
 
-        var val = $("option").select();
+        var val = $("input").check();
 
         console.log(val.get());
 

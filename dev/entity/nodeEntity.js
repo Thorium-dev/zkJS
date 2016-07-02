@@ -393,7 +393,6 @@ var nodeCanSelected = {
         }
 
     },
-
 };
 var nodeCanChecked = {
     "input": function (node) {
@@ -1331,6 +1330,13 @@ var nodeEntityMethods = {
             this.set(res);
             return this;
         },
+        /**
+         * Permet de sélectionner des éléments
+         *
+         * @method select
+         * @return {Node}
+         * @since 1.0
+         */
         "select": function (value) {
             this.each(function () {
                 var name = this.v.nodeName.toLowerCase();
@@ -1340,6 +1346,22 @@ var nodeEntityMethods = {
                     }else{
                         nodeCanSelected[name](this.v, value)
                     }
+                }
+            });
+            return this;
+        },
+        /**
+         * Permet de cocher des éléments
+         *
+         * @method check
+         * @return {Node}
+         * @since 1.0
+         */
+        "check": function () {
+            this.each(function () {
+                var name = this.v.nodeName.toLowerCase();
+                if(nodeCanChecked.hasOwnProperty(name)){
+                    this.v.checked = true
                 }
             });
             return this;
