@@ -48,13 +48,13 @@
     <script src="dev/entity/documentEntity.js"></script>
     <script src="dev/entity/errorEntity.js"></script>
     <script src="dev/entity/nodeEntity.js"></script>
+    <script src="dev/entity/routerEntity.js"></script>
 
     <script>
 
 
-        var val = $("input").check();
-
-        console.log(val.get());
+        var url = zk("Router").host();
+        console.log(url);
 
 
     </script>
