@@ -99,10 +99,10 @@ zk().register(function AJAX($this) {
     /**
      * Permet d'envoyer la requête ajax.
      * @method send
-     * @param {String} [url] Configuration rapide pour envoyer une requête ajax. Exemple : "http://zkjs.fr/ $get $json"
+     * @param {String} [url] Configuration rapide pour envoyer une requête ajax. Exemple : "http://ajax.fr/ $get $json"
      * @param {Function} [successCallback] Fonction à exécuter en cas de success.
      * @param {Function} [errorCallback] Fonction à exécuter en cas d'echec.
-     * @return {Ajax}
+     * @return {AJAX}
      * @since 1.0
      */
     this.send = function (url, successCallback, errorCallback) {
@@ -177,7 +177,7 @@ zk().register(function AJAX($this) {
      * @param {String} [url] Configuration rapide pour envoyer une requête ajax. Exemple : "http://zkjs.fr/ $get $json"
      * @param {Function} [successCallback] Fonction à exécuter en cas de success.
      * @param {Function} [errorCallback] Fonction à exécuter en cas d'echec.
-     * @return {Ajax}
+     * @return {AJAX}
      * @since 1.0
      */
     this.execute = function (url, successCallback, errorCallback) {

@@ -291,6 +291,9 @@
                 }
             })
         };
+
+        // @TODO : Faire la fonction sortBy (Ajouter en prototype pour Array)
+
         /**
          * Elle supprime les éléments dupliqués d'un tableau.
          * Le tableau est trié par ordre croissant ou décroissant selon la valeur de isDesc.
@@ -472,6 +475,27 @@
         this.isEmpty = function (object) {
             for(var k in object){ return false }
             return true;
+        };
+        /**
+         * Permet de cloner un objet
+         * @method clone
+         * @param {object} object Objet à cloner
+         * @return {*}
+         * @since 1.0
+         */
+        this.clone = function(object) {
+            try {
+                var copy = new object.constructor(), id;
+                for (id in object) {
+                    if (object.hasOwnProperty(id)) {
+                        copy[id] = object[id];
+                    }
+                }
+                return copy;
+            }catch (e){
+                console.log(e);
+                return object
+            }
         };
 
         // GET
@@ -2902,8 +2926,8 @@
     
     // ajaxEntity
     APP.register(function AJAX($this) {
-        var self = this, xhr = null, $request = null, box = $this.toolbox;
-        box.each($this, function () { self[this.k] = this.v });
+        var $self = this, xhr = null, $request = null, $box = $this.toolbox;
+        $box.each($this, function () { $self[this.k] = this.v });
         var settings = {
                 "method": "get",
                 "datas": {},
@@ -2918,25 +2942,25 @@
             xhrMethodType = {
                 "get": function () {
                     var datas = "";
-                    box.each(settings.datas, function () {
+                    $box.each(settings.datas, function () {
                         datas += "&" + this.k + "=" + encodeURIComponent(this.v);
                     });
                     datas = datas.slice(1);
                     xhr.open("GET", settings.url + "?" + datas, true);
-                    box.each(settings.headers, function () {
+                    $box.each(settings.headers, function () {
                         xhr.setRequestHeader(this.k, this.v)
                     });
                     xhr.send(null);
                 },
                 "post": function () {
                     xhr.open("POST", settings.url, true);
-                    box.each(settings.headers, function () {
+                    $box.each(settings.headers, function () {
                         xhr.setRequestHeader(this.k, this.v)
                     });
                     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                     var datas = "";
-                    box.each(settings.datas, function () {
+                    $box.each(settings.datas, function () {
                         datas += "&" + this.k + "=" + this.v;
                     });
                     datas = datas.slice(1);
@@ -2964,10 +2988,10 @@
                 },
                 "node": function () {
                     var rep = this.json();
-                    if (box.is(rep, "object")) {
+                    if ($box.is(rep, "object")) {
                         rep = createElementByObject($this, rep);
                     }
-                    return self.entity.get("node").set(rep)
+                    return $self.entity.get("node").set(rep)
                 },
             },
             convertXhrState = {
@@ -3002,28 +3026,28 @@
         /**
          * Permet d'envoyer la requête ajax.
          * @method send
-         * @param {String} [url] Configuration rapide pour envoyer une requête ajax. Exemple : "http://zkjs.fr/ $get $json"
+         * @param {String} [url] Configuration rapide pour envoyer une requête ajax. Exemple : "http://ajax.fr/ $get $json"
          * @param {Function} [successCallback] Fonction à exécuter en cas de success.
          * @param {Function} [errorCallback] Fonction à exécuter en cas d'echec.
-         * @return {Ajax}
+         * @return {AJAX}
          * @since 1.0
          */
         this.send = function (url, successCallback, errorCallback) {
             if (xhr) {
-                if(box.is(url, "string") && url){
+                if($box.is(url, "string") && url){
                     url = url.replace(/ +/g, " ").replace(/ = /g, "=");
                     url = url.replace(/\$(\w+)/g, function (str, s) {
                         if(getResponseByType.hasOwnProperty(s.toLowerCase())){
-                            self.type(s)
+                            $self.type(s)
                         }
                         if(xhrMethodType.hasOwnProperty(s.toLowerCase())){
-                            self.method(s)
+                            $self.method(s)
                         }
                         return ""
                     });
-                    self.url(url);
-                    if(box.is(successCallback, "function")){ settings.success = successCallback }
-                    if(box.is(errorCallback, "function")){ settings.error = errorCallback }
+                    $self.url(url);
+                    if($box.is(successCallback, "function")){ settings.success = successCallback }
+                    if($box.is(errorCallback, "function")){ settings.error = errorCallback }
                 }
                 $request = null;
                 settings.headers["Content-Type"] = "text/" + settings.type;
@@ -3071,7 +3095,7 @@
                     $request = request;
                 };
             }
-            return self
+            return $self
         };
 
         /**
@@ -3080,7 +3104,7 @@
          * @param {String} [url] Configuration rapide pour envoyer une requête ajax. Exemple : "http://zkjs.fr/ $get $json"
          * @param {Function} [successCallback] Fonction à exécuter en cas de success.
          * @param {Function} [errorCallback] Fonction à exécuter en cas d'echec.
-         * @return {Ajax}
+         * @return {AJAX}
          * @since 1.0
          */
         this.execute = function (url, successCallback, errorCallback) {
@@ -3112,7 +3136,7 @@
             if (xhrMethodType.hasOwnProperty(value)) {
                 settings.method = value;
             }
-            return self;
+            return $self;
         };
 
         /**
@@ -3127,14 +3151,14 @@
             if (name === undefined) {
                 return settings.datas
             }
-            var nameType = box.is(name);
+            var nameType = $box.is(name);
             if (nameType === "string") {
                 settings.datas[name] = value
             }
             if (nameType === "object") {
                 settings.datas = name;
             }
-            return self;
+            return $self;
         };
 
         /**
@@ -3149,14 +3173,14 @@
             if (name === undefined) {
                 return $request ? $request.headers : settings.headers
             }
-            var nameType = box.is(name);
+            var nameType = $box.is(name);
             if (nameType === "string") {
                 settings.headers[name] = value
             }
             if (nameType === "object") {
                 settings.headers = name;
             }
-            return self;
+            return $self;
         };
 
         /**
@@ -3171,7 +3195,7 @@
                 return settings.url
             }
             settings.url = url;
-            return self
+            return $self
         };
 
         /**
@@ -3188,7 +3212,7 @@
             if (getResponseByType.hasOwnProperty(value)) {
                 settings.type = value;
             }
-            return self
+            return $self
         };
 
         /**
@@ -3208,7 +3232,7 @@
             if (name) {
                 return $request ? $request.state : null
             }
-            var nameType = box.is(name);
+            var nameType = $box.is(name);
             if (nameType !== "string") {
                 nameType = {};
                 nameType[name] = callback;
@@ -3218,17 +3242,17 @@
                 settings.state = {};
             }
             if (nameType === "object") {
-                box.each(name, function () {
+                $box.each(name, function () {
                     if (allXhrState.hasOwnProperty(this.k)) {
                         var state = allXhrState[this.k];
                         state = convertXhrState[state];
-                        if (box.is(this.v, "function")) {
+                        if ($box.is(this.v, "function")) {
                             settings.state[state] = this.v;
                         }
                     }
                 });
             }
-            return self;
+            return $self;
         };
 
         /**
@@ -3243,7 +3267,7 @@
             if (code === undefined) {
                 return $request ? $request.status : null
             }
-            var codeType = box.is(code);
+            var codeType = $box.is(code);
             if (codeType !== "object") {
                 codeType = {};
                 codeType[code] = callback;
@@ -3253,13 +3277,13 @@
                 settings.status = {};
             }
             if (codeType === "object") {
-                box.each(code, function () {
-                    if (box.is(this.v, "function")) {
+                $box.each(code, function () {
+                    if ($box.is(this.v, "function")) {
                         settings.status[this.k + ""] = this.v;
                     }
                 });
             }
-            return self;
+            return $self;
         };
 
         /**
@@ -3273,10 +3297,10 @@
             if (callback === undefined) {
                 return $request ? $request.success : null
             }
-            if (box.is(callback, "function")) {
+            if ($box.is(callback, "function")) {
                 settings.success = callback
             }
-            return self
+            return $self
         };
 
         /**
@@ -3290,10 +3314,10 @@
             if (callback === undefined) {
                 return $request ? $request.error : null
             }
-            if (box.is(callback, "function")) {
+            if ($box.is(callback, "function")) {
                 settings.error = callback
             }
-            return self
+            return $self
         };
 
         // Racourcis pour state
@@ -3345,19 +3369,568 @@
     }, {}, {});
 
     // dateEntity
-    APP.config.set("date.months",
-        {
+    APP.config.set("date.months", {
             "fr" : ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
             "en" : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        }
-    );
-    APP.config.set("date.days",
-        {
+        });
+    APP.config.set("date.days", {
             "fr" : ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
             "en" : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        }
-    );
+        });
     APP.config.set("date.lang", "fr");
+    APP.register(function DATE($this){
+        var $self = this, $box = $this.toolbox, $date = new Date();
+        $box.each($this, function () { $self[this.k] = this.v });
+
+        var settings = {
+            "lang" : $self.config.get("date.lang"),
+        };
+        function getSetDate(nb, what){
+            if(nb === undefined){ return ($date['get'+what]()+((what==='Month')?1:0))+'' }
+            if ($box.is(nb, 'number')) {
+                nb = Math.abs(nb);
+                if (nb > 0) {
+                    try {
+                        $date['set' + what](nb-((what==='Month')?1:0))
+                    } catch (e) {
+                        $date.setDate(nb)
+                    }
+                }
+                return $self
+            }
+            if(/[\+\-]\d+/.test(nb)){
+                nb = (new Function("","return " + $date['get'+what]() + nb))() ;
+                try { $date['set'+what](nb) } catch (e) { $date.setDate(nb) }
+            }
+            return $self
+        }
+        function daysInMonth(date) { return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() }
+
+        /**
+         * Permet d'obtenir une nouvelle date.
+         *
+         * @method set
+         * @param {*} date Date à définir
+         * @return {DATE}
+         * @since 1.0
+         */
+        this.set = function (date) {
+            if(date === undefined){ return $self }
+            $date = new Date(date);
+            return $self
+        };
+
+        /**
+         * Permet d'obtenir la date JavaScript
+         *
+         * @method get
+         * @return {Date}
+         * @since 1.0
+         */
+        this.get = function () {
+            return $date
+        };
+
+        /**
+         * Permet d'obtenir ou de définir la langue de la date.
+         *
+         * @method lang
+         * @param {String} [lang] La langue à définir.
+         * @return {String|DATE}
+         * @since 1.0
+         */
+        this.lang = function (lang) {
+            if(lang === undefined){ return settings.lang }
+            settings.lang = lang;
+            return $self;
+        };
+
+        /**
+         * Permet d'obtenir ou de définir l'année. L'obtention se fait sur les deux derniers chiffres.
+         *
+         * @method y
+         * @param {*} [year] L'année à définir. Par exemple : 2015, "+3", "-1"
+         * @return {String|DATE}
+         * @since 1.0
+         */
+        this.y = function (year) {
+            var res = getSetDate(year, 'FullYear') ;
+            if(year === undefined){ res = res.slice(-2)}
+            return res
+        };
+
+        /**
+         * Permet d'obtenir ou de définir l'année.
+         *
+         * @method y
+         * @param {*} [year] L'année à définir. Par exemple : 2015, "+3", "-1"
+         * @return {String|DATE}
+         * @since 1.0
+         */
+        this.yy = function (year) {
+            return getSetDate(year, 'FullYear') ;
+        };
+
+        /**
+         * Permet d'obtenir un chiffre correspondant un jour de la semaine. 0 pour Lundi, 1 pour Mardi, ...
+         *
+         * @method w
+         * @return {Number}
+         * @since 1.0
+         */
+        this.w = function () { return ($date.getDay()||7)-1 };
+
+        /**
+         * Permet d'obtenir le nom du mois.
+         *
+         * @method M
+         * @param {int} [length] Longueur de la chaîne
+         * @return {String}
+         * @since 1.0
+         */
+        this.M = function (length) {
+            var m = $self.config.get("date.months." + settings.lang)[$date.getMonth()];
+            if(length === undefined){ length = 3 }
+            return m.slice(0,Math.abs(length))
+        };
+
+        /**
+         * Permet d'obtenir le nom complet du mois.
+         *
+         * @method MM
+         * @return {String}
+         * @since 1.0
+         */
+        this.MM = function () {
+            return $self.config.get("date.months." + settings.lang)[$date.getMonth()];
+        };
+
+        /**
+         * Permet d'obtenir le nom du jour.
+         *
+         * @method D
+         * @param {int} [length] Longueur de la chaîne
+         * @return {String}
+         * @since 1.0
+         */
+        this.D = function (length) {
+            var m = $self.config.get("date.days." + settings.lang)[$self.w()];
+            if(length === undefined){ length = 3 }
+            return m.slice(0,Math.abs(length))
+        };
+
+        /**
+         * Permet d'obtenir le nom complet du jour.
+         *
+         * @method DD
+         * @return {String}
+         * @since 1.0
+         */
+        this.DD = function () {
+            return $self.config.get("date.days." + settings.lang)[$self.w()];
+        };
+
+        var symbols = {
+            "m": 'Month',
+            "d": 'Date',
+            "h": 'Hours',
+            "i": 'Minutes',
+            "s": 'Seconds',
+            "l": 'Milliseconds'
+        };
+        $box.each(symbols, function(){
+            var i = this.i, v = this.v ;
+            $self[i] = function (nb) { return getSetDate(nb, v) };
+            $self[i+i] = function (nb) {
+                var res = getSetDate(nb, v) ;
+                if (nb === undefined) {
+                    res = parseInt(res);
+                    if(res < 10){ res = "0" + res }
+                    res += "";
+                }
+                return res
+            };
+        });
+
+        /**
+         * Permet d'obtenir ou de définir le jour.
+         *
+         * @method day|d|dd
+         * @param {*} [day] Le jour à définir. Par exemple : 25, "+3", "-1"
+         * @return {String|DATE}
+         * @since 1.0
+         */
+        this.day = function(day){ return $self.dd(day) };
+
+        /**
+         * Permet d'obtenir ou de définir le mois.
+         *
+         * @method month|m|mm
+         * @param {*} [month] Le mois à définir. Par exemple : 6, "+2", "-1"
+         * @return {String|DATE}
+         * @since 1.0
+         */
+        this.month = function(month){ return $self.mm(month) };
+
+        /**
+         * Permet d'obtenir ou de définir l'année.
+         *
+         * @method year|y|yy
+         * @param {*} [year] L'année à définir. Par exemple : 2015, "+3", "-1"
+         * @return {String|DATE}
+         * @since 1.0
+         */
+        this.year = function(year){ return $self.yy(year) };
+
+        /**
+         * Permet d'obtenir ou de définir l'heure.
+         *
+         * @method hour|h|hh
+         * @param {*} [hour] L'heure à définir. Par exemple : 8, "+3", "-1"
+         * @return {String|DATE}
+         * @since 1.0
+         */
+        this.hour = function(hour){ return $self.hh(hour) };
+
+        /**
+         * Permet d'obtenir ou de définir les minutes.
+         *
+         * @method minute|i|ii
+         * @param {*} [minute] La minute à définir. Par exemple : 30, "+3", "-1"
+         * @return {String|DATE}
+         * @since 1.0
+         */
+        this.minute = function(minute){ return $self.ii(minute) };
+
+        /**
+         * Permet d'obtenir ou de définir les secondes.
+         *
+         * @method second|s|ss
+         * @param {*} [second] Les secondes à définir. Par exemple : 45, "+3", "-1"
+         * @return {String|DATE}
+         * @since 1.0
+         */
+        this.second = function(second){ return $self.ss(second) };
+
+        /**
+         * Permet d'obtenir ou de définir les millisecondes.
+         *
+         * @method millisecond|l|ll
+         * @param {*} [millisecond] Les millisecondes à définir. Par exemple : 467, "+3", "-1"
+         * @return {String|DATE}
+         * @since 1.0
+         */
+        this.millisecond = function(millisecond){ return $self.ll(millisecond) };
+
+        /**
+         * Permet de formater une date
+         *
+         * @method format
+         * @param {String} format Chaîne de formattage. Par exemple : "%DD %dd+1 %MM %yy"
+         * @return {String}
+         * @since 1.0
+         */
+        this.format = function(format){
+            if(format === undefined){ return ''}
+            format += '' ;
+            format = format.replace(/(\%\w{1,2})([+-]\d+)?/g, function (format, s1, s2) {
+                s1 = s1.slice(1);
+                if ($self.hasOwnProperty(s1)) { $self[s1](s2); return '%' + s1 }
+                return format;
+            });
+            format = format.replace(/\%\w{1,2}/g, function (format) {
+                format = format.slice(1);
+                if ($self.hasOwnProperty(format)) { return $self[format]() }
+                return format;
+            });
+            return format
+        } ;
+
+        /**
+         * Permet de compter le nombre de jours dans un mois ou le nombre de lundi par exemple
+         *
+         * @method count
+         * @param {String} [day] Chaîne de formattage. Par exemple : "%DD %dd+1 %MM %yy"
+         * @return {int}
+         * @since 1.0
+         */
+        this.count = function(day){
+            var totalDays = daysInMonth($date);
+            if(day === undefined){ return totalDays }
+            var total = 0, reg = new RegExp('^'+day+'$','i');
+            var copyDate = $box.clone($date);
+            $box.each(totalDays, function(){
+                $date.setDate(this.i+1);
+                if(reg.test($self.DD())){ total++ }
+            }) ;
+            $date = copyDate;
+            return total
+        };
+
+        /**
+         * Permet d'obtenir des dates à avenir
+         *
+         * @method next
+         * @param {String} [next] Par exemple : "Lundi" pour la date correspondant au Lundi suivant, "Janvier" pour la date correspondant au Janvier suivant
+         * @return {DATE}
+         * @since 1.0
+         */
+        this.next = function(next){
+            if(next===undefined){ return $self.d('+1') }
+            var reg = new RegExp('^'+next+'$','i');
+
+            // @TODO :  Faire la recherche pour les nombres (vérifier si 0<next<32)
+
+            // Recherche pour les jours
+            var days = $self.config.get("date.days." + settings.lang);
+            days = days.concat(days).slice($self.w()+1);
+            var i, k = days.length ;
+            for(i=0 ; i<k ; i++){
+                //var v = i+1+parseInt($self.d(),10);
+                if(reg.test(days[i])){ $self.d(i+1+parseInt($self.d(),10)); return $self }
+            }
+            // Recherche pour les mois
+            var months = $self.config.get("date.months." + settings.lang);
+            months = months.concat(months).slice($date.getMonth()+1) ;
+            var i, k = months.length ;
+            for(i=0 ; i<k ; i++){
+                if(reg.test(months[i])){ $date.setMonth($date.getMonth()+i+1); return $self }
+            }
+            return $self
+        };
+
+        /**
+         * Permet d'obtenir des dates précédentes
+         *
+         * @method previous
+         * @param {String} [previous] Par exemple : "Lundi" pour la date correspondant au Lundi précédent, "Janvier" pour la date correspondant au mois de Janvier précédent
+         * @return {DATE}
+         * @since 1.0
+         */
+        this.previous = function(previous){
+            if(previous===undefined){ return $self.d('-1') }
+            var reg = new RegExp('^'+previous+'$','i');
+
+            // @TODO :  Faire la recherche pour les nombres (vérifier si 0<next<32)
+
+            // Recherche pour les jours
+            var days = $self.config.get("date.days." + settings.lang);
+            days = days.concat(days.slice(0,$self.w())) ;
+            var i, k = days.length-1 ;
+            for(i=k ; i>-1 ; i--){
+                if(reg.test(days[i])){ $date.setDate($date.getDate()-k+i-1); return $self }
+            }
+            // Recherche pour les mois
+            var months = $self.config.get("date.months." + settings.lang);
+            months = months.concat(months.slice(0,$date.getMonth())) ;
+            var i, k = months.length-1 ;
+            for(i=k ; i>-1 ; i--){
+                if(reg.test(months[i])){ $date.setMonth($date.getMonth()-k+i-1); return $self }
+            }
+
+            return $self
+        };
+
+        /**
+         * Permet d'obtenir la date courante
+         *
+         * @method now
+         * @return {DATE}
+         * @since 1.0
+         */
+        this.now = function(){ $date = new Date(); return $self };
+
+    }, {}, {});
+
+    // validatorEntity
+    APP.config.set("validator.url", /^(?:https?:\/\/|ftp:\/\/|gopher:\/\/|wais:\/\/|telnet:\/\/|mailto:|news:)[\d\w]+(?:[^ <>\d\w]?[\d\w]+)+$|^file:\/{2,3}[\w]+[:\|](?:[^ <>\d\w]?[\d\w]+)+$/i);
+    APP.config.set("validator.email", /^[\da-z]+(?:[\.\!\#\$\%\&\'\*\+\-\/\=\?\^\_\`\{\|\}\~]?[\da-z]+)+@[\da-z]+(?:[\.\!\#\$\%\&\'\*\+\-\/\=\?\^\_\`\{\|\}\~]?[\da-z]+)+\.[a-z]{2,4}$/i);
+    APP.config.set("validator.number", /^-?[\d]+$/);
+    APP.config.set("validator.tel.fr", /^0[1-7](?:[ \/-][0-9]{2}){4}$/);
+    APP.config.set("validator.day", /^(?:0?[1-9]|1[0-9]|2[0-9]|3[01])$/);
+    APP.config.set("validator.month", /^(?:0?[1-9]|1[0-2])$/);
+    APP.config.set("validator.year", /^[1-9][0-9]{3,}$/);
+    APP.config.set("validator.date", {
+        "fr": /^(:?0?[1-9]|[12][0-9]|3[01])[\/ -](:?0?[1-9]|1[0-2])[\/ -][1-9][0-9]{3}$/,
+        "en": /^[1-9][0-9]{3}[\/ -](:?0?[1-9]|1[0-2])[\/ -](:?0?[1-9]|[12][0-9]|3[01])$/,
+    });
+    APP.register(function VALIDATOR($this) {
+        var $self = this, $box = $this.toolbox;
+        $box.each($this, function () {
+            $self[this.k] = this.v
+        });
+
+        var $moreAttr = {
+
+                "text": function (node) {
+                    return node.textContent;
+                },
+                "content": function (node) {
+                    return node.textContent
+                },
+                "html": function (node) {
+                    return node.innerHTML
+                },
+
+            },
+            $isValid = true,
+            $message = null,
+            $view = null,
+            $asserts = {
+                /*"id": {
+                 "constraints": [],
+                 "messages": [],
+                 "views": []
+                 }*/
+            },
+            $errors = {
+                /*"id": {
+                 "constraints": [],
+                 "messages": [],
+                 "views": []
+                 }*/
+            };
+        function addConstInObject(attr, constraint, message, view, obj){
+            if (!obj[attr]) {
+                obj[attr] = { "constraints": [], "messages": [], "views": [] };
+            }
+            var cons = obj[attr]["constraints"];
+            cons.push(constraint);
+            obj[attr]["constraints"] = cons;
+            var mess = obj[attr]["messages"];
+            mess.push(message);
+            obj[attr]["messages"] = mess;
+            var v = obj[attr]["views"];
+            v.push(view);
+            obj[attr]["views"] = v;
+        }
+
+        /**
+         * Permet de définir une contrainte
+         *
+         * @method assert
+         * @param {String} attr Nom de l'attribut ou contenu à contraindre.
+         * @param {*} constraint Contrainte à appliquer sur l'attribut. Cas d'utilisation :
+         *                       - "/url/" => $self.config.get("validator.url");
+         *                       - "/date.fr/" => $self.config.get("validator.date.fr");
+         *                       - "==10" => La valeur est égale à 10
+         *                       - "!='myString'" => La valeur est différente de 'myString'
+         *                       - "myString" => La valeur est égale à 'myString'
+         *                       - /\d+/ => La valeur doit correspondre à l'expression régulière.
+         *                       - true => Dans les autres cas, on fait une égalité stricte. Ici, la valeur doit être true
+         * @param {String|Function} [message] Message d'erreur.
+         * @param {*} [view] Sélecteur de la vue qui contiendra le message d'erreur.
+         * @return {VALIDATOR}
+         * @since 1.0
+         */
+        this.assert = function (attr, constraint, message, view) {
+            if (attr !== undefined && constraint !== undefined) {
+                attr += "";
+                addConstInObject(attr, constraint, message, view, $asserts)
+            }
+            return $self
+        };
+
+        /**
+         * Permet de définir une contrainte
+         *
+         * @method add
+         * @param {String} attr Nom de l'attribut ou contenu à contraindre.
+         * @param {*} constraint Contraint à appliquer sur l'attribut.
+         * @param {String|Function} [message] Message d'erreur.
+         * @param {*} [view] La vue qui contiendra le message d'erreur.
+         * @return {VALIDATOR}
+         * @since 1.0
+         */
+        this.add = function (attr, constraint, message, view) {
+            return $self.assert(attr, constraint, message, view)
+        };
+
+        /**
+         * Permet de définir un message et une vue pour les messages d'erreurs.
+         *
+         * @method message
+         * @param {String|Function} [message] Message d'erreur.
+         * @param {*} [view] La vue qui contiendra le message d'erreur.
+         * @return {VALIDATOR}
+         * @since 1.0
+         */
+        this.message = function (message, view) {
+            $message = message; $view = view;
+            return $self
+        };
+
+        /**
+         * Permet de valider un objet Node.
+         *
+         * @method validate
+         * @param {*} node L'objet Node qui sera validé.
+         * @return {VALIDATOR}
+         * @since 1.0
+         */
+        this.validate = function (node) {
+            $isValid = true;
+            if(!$box.isEmpty($asserts)){
+                node = $self.entity.get("Node").set(node).get()[0];
+                if(node){
+                    $box.each($asserts, function () {
+                        var k = this.k, v = this.v,
+                            value = $box.trim($moreAttr.hasOwnProperty(k) ? $moreAttr[k](node) : node.getAttribute(k));
+                        $box.each(v.constraints, function () {
+
+                            var type  = $box.is(this.v), ok = true;
+                            if(type == "string"){
+                                if(/^\/.*\/$/.test(this.v)){
+                                    this.v = $box.trim(this.v, "[\/ ]");
+                                    this.v = $self.config.get("validator." + this.v);
+                                    ok = this.v.test(value);
+                                }else{
+                                    if(/^(?:==|===|!=|!==|<=|>=|<|>)/.test(this.v)){
+                                        try {
+                                            ok = (new Function("","return '" + value + "'" + this.v))();
+                                        }catch (e){
+                                            console.log(e);
+                                        }
+                                    }else {
+                                        ok = (value === this.v);
+                                    }
+                                }
+                            }else{
+                                if(type == "regexp"){
+                                    ok = this.v.test(value);
+                                }else{
+                                    ok = (this.v === value);
+                                }
+                            }
+                            if(!ok){
+                                $isValid = false;
+                                var msg = v.messages[this.i], vw = v.views[this.i];
+                                addConstInObject(k, this.v, msg, vw, $errors);
+                                if(msg !== undefined){
+                                    $self.entity.get("Node").set(vw).html(msg)
+                                }
+                            }
+                        });
+                    });
+                }
+            }
+            if(!$isValid && $message){ $self.entity.get("Node").set($view).html($message) }
+            return $self
+        };
+
+        /**
+         * Permet de connaître l'état de la validation. A utiliser après la fonction validate.
+         *
+         * @method isValid
+         * @return {boolean}
+         * @since 1.0
+         */
+        this.isValid = function () {
+            return $isValid
+        };
+
+
+    }, {}, {});
 
 
     function nodeLauncher(selector) {

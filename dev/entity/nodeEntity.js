@@ -1,7 +1,5 @@
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
 // @TODO : Faire les fonctions toggle
-// @TODO : Faire la fonction clickout
-// @TODO : Faire la fonction sortBy
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
 // @TODO : Faire la fonction caret (en relation avec la position du curseur dans les input et les textarea)
 // @TODO : Ajout des events lors de la création d'un objet
@@ -94,7 +92,8 @@ var doCreateElementByKey = {
         return node;
     },
     "content": function ($this, node, selector) {
-        return this.text($this, node, selector)
+        node.textContent = selector.content;
+        return node;
     },
     "html": function ($this, node, selector) {
         node.innerHTML = selector.html;
@@ -109,16 +108,14 @@ function createElementByObject($this, selector) {
         delete selector.name;
         box.each(selector, function () {
             var k = this.k;
-            if (/^attr\-/.test(k)) {
-                node.setAttribute(k.slice(5), this.v);
-            } else {
-                if (doCreateElementByKey.hasOwnProperty(k)) {
-                    doCreateElementByKey[k]($this, node, selector);
-                }
+            if (doCreateElementByKey.hasOwnProperty(k)) {
+                doCreateElementByKey[k]($this, node, selector);
+            }else {
+                node.setAttribute(k, this.v);
             }
-        })
+        });
     }
-    return node
+    return node;
 }
 function getElementsByObject($this, element, selector) {
     var nodes = element.querySelectorAll("*"), res = [];
@@ -276,6 +273,56 @@ var doNodeGetCssByProperty = {
     },
 };
 
+var doValByNodeName = {
+    "input" : function (node, val) {
+        if(val === undefined){
+            return node.value || ""
+        }
+        return node.value = val;
+    },
+    "option" : function (node, val) {
+        return this.input(node, val)
+    },
+    "button" : function (node, val) {
+        return this.input(node, val)
+    },
+    "li" : function (node, val) {
+        return this.input(node, val)
+    },
+    "meter" : function (node, val) {
+        return this.input(node, val)
+    },
+    "progress" : function (node, val) {
+        return this.input(node, val)
+    },
+    "param" : function (node, val) {
+        return this.input(node, val)
+    },
+    "select" : function (node, val) {
+        if(val === undefined){
+            node = node.options[node.selectedIndex];
+            return node.value || node.textContent || "";
+        }
+        var box = zk().toolbox, options = box.toArray(node.options);
+        options[node.selectedIndex].selected = false;
+        if(box.is(val, "number")){
+            node = options[Math.abs(val)];
+            if(node){
+                node.selected = true;
+            }
+        }else{
+            box.each(options, function () {
+                if(this.v.value === val || this.v.textContent === val){
+                    this.v.selected = true;
+                    return zk().get("Error");
+                }
+            });
+        }
+        return ;
+    },
+
+};
+
 /**
  * Cette permet d'obtenir les coordonnées d'un élément dans tout le document
  * @param node
@@ -317,7 +364,7 @@ var isOverOrOutEvent = {
     },
     "mouseout": function (node, event) { return this.mouseover(node, event, 1) }
 };
-var nodeCustumEvents = {
+var nodeCustumOnEvents = {
     "clickout": function (id, namespace) {
         var doc = zk().get("document");
         doc.on("click." + id + "$" + namespace, function () {
@@ -328,8 +375,32 @@ var nodeCustumEvents = {
             if(target !== node.get()[0] && !path.has(node.get()[0])){
                 node.trigger("clickout." + space[1]);
             }
-        })
+        });
     }
+};
+var nodeCustumOffEvents = {
+    "clickout": function (id, namespace) {
+        zk().get("document").off("click." + id + "$" + namespace);
+    }
+};
+var nodeCanSelected = {
+    "option": function (node, val) {
+        if(val === undefined){
+            return (node.hasAttribute("selected")) || (node.selected === true);
+        }
+        if(node.value == val){
+            node.selected = true;
+        }
+
+    },
+};
+var nodeCanChecked = {
+    "input": function (node) {
+        if(node.type === "checkbox" || node.type === "radio"){
+            return (node.hasAttribute("checked")) || (node.checked === true);
+        }
+        return false;
+    },
 };
 function forNodeOnEvent($this, events, callback){
     var e = $this.event, box = $this.toolbox;
@@ -357,8 +428,8 @@ function forNodeOnEvent($this, events, callback){
                     var fs = functions[this.v];
                     fs = (fs || []).concat(callback);
                     functions[this.v] = fs;
-                    if(nodeCustumEvents.hasOwnProperty(eType)){
-                        nodeCustumEvents[eType](zkID, this.v)
+                    if(nodeCustumOnEvents.hasOwnProperty(eType)){
+                        nodeCustumOnEvents[eType](zkID, this.v)
                     }
                 });
                 /**
@@ -397,7 +468,7 @@ function forNodeOnEvent($this, events, callback){
                             }else {
                                 this.v.apply($this);
                             }
-                        })
+                        });
                     });
                 };
                 if (!e.get(path + "launcher")) {
@@ -421,7 +492,7 @@ function forNodeOffEvent($this, events, docWin){
         var event = this.v;
         event = event.split(".");
         var eType = event[0],
-            space = (event.slice(1));
+            space = event.slice(1);
         if(eType){
             if(allEventsAlias.hasOwnProperty(eType)){ eType = allEventsAlias[eType] }
             var loop = $this;
@@ -435,13 +506,16 @@ function forNodeOffEvent($this, events, docWin){
                     if(temp){
                         var launcher = temp.launcher,
                             functions = temp.functions;
-                        if(space[0]){
-                            box.each(space, function () { delete functions[this.v] });
-                            if(box.isEmpty(functions)){ space = [] }
-                        }
-                        if(!space[0]){
+                        if(space.length === 0){ space = [eType + "-" + zkID] }
+                        box.each(space, function () {
+                            if(nodeCustumOffEvents.hasOwnProperty(eType)){
+                                nodeCustumOffEvents[eType](zkID, this.v)
+                            }
+                            delete functions[this.v];
+                        });
+                        if(box.isEmpty(functions)){ space = [] }
+                        if(space.length === 0){
                             e.remove(path);
-                            // @TODO : Retrait de l'évènement click de document pour clickout
                             if(node.removeEventListener){
                                 node.removeEventListener(eType, launcher, false);
                             }else {
@@ -1173,6 +1247,124 @@ var nodeEntityMethods = {
                 });
                 return this
             }
+        },
+        /**
+         * Permet d'obtenir ou de définir le texte (pour les éléments de types input, select, ...).
+         *
+         * @method val
+         * @param {*} [val] Valeur à définir.
+         * @return {string|Node}
+         * @since 1.0
+         */
+        "val": function (val) {
+            if(val === undefined){
+                var node = this.get()[0], v = "";
+                if(node){
+                    var name = (node.nodeName).toLowerCase();
+                    if(doValByNodeName.hasOwnProperty(name)){
+                        v = doValByNodeName[name](node);
+                    }else{
+                        v = node.textContent;
+                    }
+                }
+                return v;
+            }
+            this.each(function () {
+                var name = (this.v.nodeName).toLowerCase();
+                if(doValByNodeName.hasOwnProperty(name)){
+                    doValByNodeName[name](this.v, val);
+                }else{
+                    this.v.textContent = val;
+                }
+            });
+            return this;
+        },
+        /**
+         * Permet d'obtenir ou de définir le texte (pour les éléments de types input, select, ...).
+         *
+         * @method value
+         * @param {*} [val] Valeur à définir.
+         * @return {string|Node}
+         * @since 1.0
+         */
+        "value": function (val) {
+            return this.val(val)
+        },
+        /**
+         * Permet d'obtenir les éléments sélectionnés
+         *
+         * @method selected
+         * @return {Node}
+         * @since 1.0
+         */
+        "selected": function () {
+            var res = [];
+            this.each(function () {
+                var name = this.v.nodeName.toLowerCase();
+                if(nodeCanSelected.hasOwnProperty(name)){
+                    if(nodeCanSelected[name](this.v)){
+                        res.push(this.v);
+                    }
+                }
+            });
+            this.set(res);
+            return this;
+        },
+        /**
+         * Permet d'obtenir les éléments cochés
+         *
+         * @method checked
+         * @return {Node}
+         * @since 1.0
+         */
+        "checked": function () {
+            var res = [];
+            this.each(function () {
+                var name = this.v.nodeName.toLowerCase();
+                if(nodeCanChecked.hasOwnProperty(name)){
+                    if(nodeCanChecked[name](this.v)){
+                        res.push(this.v);
+                    }
+                }
+            });
+            this.set(res);
+            return this;
+        },
+        /**
+         * Permet de sélectionner des éléments
+         *
+         * @method select
+         * @return {Node}
+         * @since 1.0
+         */
+        "select": function (value) {
+            this.each(function () {
+                var name = this.v.nodeName.toLowerCase();
+                if(nodeCanSelected.hasOwnProperty(name)){
+                    if(value === undefined){
+                        this.v.selected = true
+                    }else{
+                        nodeCanSelected[name](this.v, value)
+                    }
+                }
+            });
+            return this;
+        },
+        /**
+         * Permet de cocher des éléments
+         *
+         * @method check
+         * @return {Node}
+         * @since 1.0
+         */
+        "check": function () {
+            this.each(function () {
+                var name = this.v.nodeName.toLowerCase();
+                if(nodeCanChecked.hasOwnProperty(name)){
+                    this.v.checked = true
+                }
+            });
+            return this;
         },
 
         // ===================================== LES METHODES POUR LES EVENTS =========================================
@@ -2487,23 +2679,26 @@ var nodeDoSetByParameters = {
     "htmlcollection": function ($this, nodes) {
         return $this.toolbox.toArray(nodes)
     },
+    "node": function ($this, node) {
+        return node.get()
+    },
 };
 zk().register(function NODE($this) {
-    var nodes = $this.nodes || [], self = this;
-    zk().toolbox.each($this, function () { self[this.k] = this.v });
+    var $nodes = [], $self = this;
+    zk().toolbox.each($this, function () { $self[this.k] = this.v });
     this.get = function (selector) {
-        if (selector === undefined) { return nodes }
-        var selType = self.toolbox.is(selector);
+        if (selector === undefined) { return $nodes }
+        var selType = $self.toolbox.is(selector);
         if (nodeDoGetByParameters.hasOwnProperty(selType)) {
-            nodes = nodeDoGetByParameters[selType](self, selector);
+            $nodes = nodeDoGetByParameters[selType]($self, selector);
         }
-        return self
+        return $self
     };
     this.set = function (value) {
-        var valueType = self.toolbox.is(value);
+        var valueType = $self.toolbox.is(value);
         if (nodeDoSetByParameters.hasOwnProperty(valueType)) {
-            nodes = nodeDoSetByParameters[valueType](self, value);
+            $nodes = nodeDoSetByParameters[valueType]($self, value);
         }
-        return self;
+        return $self;
     };
 }, nodeEntityMethods, nodeEntityParameters);
