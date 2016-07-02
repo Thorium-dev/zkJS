@@ -30,19 +30,31 @@
         <li class="day" id="day-7">Sunday</li>
     </ul>
 
+    <select name="pays" id="pays" multiple>
+        <option value="France">France</option>
+        <option value="Japon">Japon</option>
+        <option value="Italie">Italie</option>
+    </select>
+
+    <input type="text" class="a">
+    <input type="checkbox" class="a">
+    <input type="checkbox" class="a">
+    <input type="radio" class="a">
+    <input type="radio" class="a">
+
 
     <script src="dev/core/zk.js"></script>
     <script src="dev/entity/convertorEntity.js"></script>
     <script src="dev/entity/documentEntity.js"></script>
-    <script src="dev/entity/edgeEntity.js"></script>
     <script src="dev/entity/errorEntity.js"></script>
     <script src="dev/entity/nodeEntity.js"></script>
-    <script src="dev/entity/dateEntity.js"></script>
+    <script src="dev/entity/routerEntity.js"></script>
 
     <script>
 
 
-        console.log(zk("date").M());
+        var url = zk("router").vars();
+        console.log(url);
 
 
     </script>

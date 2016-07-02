@@ -1,4 +1,4 @@
-zk().register(function DATE($this){
+APP.register(function DATE($this){
     var $self = this, $box = $this.toolbox, $date = new Date();
     $box.each($this, function () { $self[this.k] = this.v });
 

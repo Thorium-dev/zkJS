@@ -42,6 +42,45 @@ describe("Unit test for dateEntity", function() {
         });
     });
 
+    describe("Test for short named day", function () {
+        it("Day should be 'Dim'", function() {
+            chaiExpect(zk("Date").set("2016-06-26").D()).eql("Dim")
+        });
+    });
+
+    describe("Test for full named day", function () {
+        it("Day should be 'Vendredi'", function() {
+            chaiExpect(zk("Date").set("2016-09-02").DD()).eql("Vendredi")
+        });
+    });
+
+    describe("Test for month", function () {
+        it("Month should be '8'", function() {
+            chaiExpect(zk("Date").set("2016-08-02").m()).eql("8")
+        });
+        it("Month should be '08'", function() {
+            chaiExpect(zk("Date").set("2016-08-02").mm()).eql("08")
+        });
+        it("Month should be '10'", function() {
+            chaiExpect(zk("Date").set("2016-08-02").mm("+2").m()).eql("10")
+        });
+    });
+
+    describe("Test for format function", function () {
+        it("Date should be 'Lundi 27 Juin 2016'", function() {
+            chaiExpect(zk("Date").set("2016-06-26").format("%DD %dd+1 %MM %yy")).eql("Lundi 27 Juin 2016")
+        });
+
+    });
+
+    describe("Test for count function", function () {
+        it("Number of 'lundi' should be 4", function() {
+            chaiExpect(zk("Date").set("2016-06-26").count("lundi")).eql(4)
+        });
+
+    });
+
+
 });
 
 
