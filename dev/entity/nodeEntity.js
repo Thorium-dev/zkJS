@@ -384,8 +384,14 @@ var nodeCustumOffEvents = {
     }
 };
 var nodeCanSelected = {
-    "option": function (node) {
-        return (node.hasAttribute("selected")) || (node.selected === true);
+    "option": function (node, val) {
+        if(val === undefined){
+            return (node.hasAttribute("selected")) || (node.selected === true);
+        }
+        if(node.value == val){
+            node.selected = true;
+        }
+
     },
 
 };
@@ -1323,6 +1329,19 @@ var nodeEntityMethods = {
                 }
             });
             this.set(res);
+            return this;
+        },
+        "select": function (value) {
+            this.each(function () {
+                var name = this.v.nodeName.toLowerCase();
+                if(nodeCanSelected.hasOwnProperty(name)){
+                    if(value === undefined){
+                        this.v.selected = true
+                    }else{
+                        nodeCanSelected[name](this.v, value)
+                    }
+                }
+            });
             return this;
         },
 

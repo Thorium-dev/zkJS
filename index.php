@@ -30,17 +30,17 @@
         <li class="day" id="day-7">Sunday</li>
     </ul>
 
-    <select name="pays" id="pays">
-        <option value="France" selected>France</option>
+    <select name="pays" id="pays" multiple>
+        <option value="France">France</option>
         <option value="Japon">Japon</option>
-        <option value="" selected>Italie</option>
+        <option value="Italie">Italie</option>
     </select>
 
     <input type="text" class="a">
-    <input type="checkbox" class="a" checked>
+    <input type="checkbox" class="a">
     <input type="checkbox" class="a">
     <input type="radio" class="a">
-    <input type="radio" class="a" checked>
+    <input type="radio" class="a">
 
 
     <script src="dev/core/zk.js"></script>
@@ -52,7 +52,7 @@
     <script>
 
 
-        var val = $(".a").checked();
+        var val = $("option").select();
 
         console.log(val.get());
 
