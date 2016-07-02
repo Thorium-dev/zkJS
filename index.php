@@ -53,7 +53,7 @@
     <script>
 
 
-        var url = zk("router").vars();
+        var url = zk("router").referrer();
         console.log(url);
 
 

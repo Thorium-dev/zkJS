@@ -116,6 +116,17 @@ zk().register(function ROUTER($this){
         return this;
     };
 
+    /**
+     * Permet d'obtenir l'url de la page lié à la page courante.
+     *
+     * @method referrer
+     * @return {string}
+     * @since 1.0
+     */
+    this.referrer = function () {
+        return document.referrer;
+    };
+
 
 
 }, {}, {});
