@@ -36,11 +36,21 @@
         <option value="Italie">Italie</option>
     </select>
 
-    <input type="text" class="a">
-    <input type="checkbox" class="a">
-    <input type="checkbox" class="a">
-    <input type="radio" class="a">
-    <input type="radio" class="a">
+    <form action="" name="form1">
+        <input type="text" class="a">
+        <input type="checkbox" class="a">
+        <input type="checkbox" class="a">
+        <input type="radio" class="a">
+        <input type="radio" class="a">
+    </form>
+
+    <form action="" name="form2">
+        <input type="text" class="a">
+        <input type="checkbox" class="a">
+        <input type="checkbox" class="a">
+        <input type="radio" class="a">
+        <input type="radio" class="a">
+    </form>
 
 
     <script src="dev/core/zk.js"></script>
@@ -49,11 +59,12 @@
     <script src="dev/entity/errorEntity.js"></script>
     <script src="dev/entity/nodeEntity.js"></script>
     <script src="dev/entity/routerEntity.js"></script>
+    <script src="dev/entity/formEntity.js"></script>
 
     <script>
 
 
-        var url = zk("router").referrer();
+        var url = zk("Form").get("form2").get();
         console.log(url);
 
 
