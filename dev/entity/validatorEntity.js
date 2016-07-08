@@ -188,5 +188,16 @@ zk().register(function VALIDATOR($this) {
         return $isValid
     };
 
+    /**
+     * Permet d'obtenir les erreurs générées par la contrainte.
+     *
+     * @method getErrors
+     * @return {object}
+     * @since 1.0
+     */
+    this.getErrors = function () {
+        return $errors
+    };
+
 
 }, {}, {});
