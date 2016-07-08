@@ -1332,7 +1332,8 @@ var nodeEntityMethods = {
          * Permet de sélectionner des éléments
          *
          * @method select
-         * @return {Node}
+         * @param {string} [value] Valeur à définir.
+         * @return {NODE}
          * @since 1.0
          */
         "select": function (value) {
@@ -1352,7 +1353,7 @@ var nodeEntityMethods = {
          * Permet de cocher des éléments
          *
          * @method check
-         * @return {Node}
+         * @return {NODE}
          * @since 1.0
          */
         "check": function () {
@@ -1360,6 +1361,27 @@ var nodeEntityMethods = {
                 var name = this.v.nodeName.toLowerCase();
                 if(nodeCanChecked.hasOwnProperty(name)){
                     this.v.checked = true
+                }
+            });
+            return this;
+        },
+        /**
+         * Permet d'obtenir ou de définir un identifiant unique. Il est déconseillé de supprimer cet identifiant.
+         *
+         * @method ID
+         * @param {boolean} [generate] Si cette valeur est définir à true, la fonction génère une nouvelle clé.
+         * @return {NODE|int|null}
+         * @since 1.0
+         */
+        "ID": function (generate) {
+            var $box = this.toolbox;
+            if(generate === undefined){
+                var node = this.get()[0];
+                return node ? parseInt(node.getAttribute("data-zk-id")) || null : null;
+            }
+            this.each(function () {
+                if(!this.v.hasAttribute("data-zk-id")){
+                    this.v.setAttribute("data-zk-id", $box.generateID())
                 }
             });
             return this;
