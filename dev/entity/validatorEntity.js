@@ -15,6 +15,12 @@ zk().register(function VALIDATOR($this) {
             "html": function (node) {
                 return node.innerHTML
             },
+            "val": function (node) {
+                return zk().get("Node").set(node).val();
+            },
+            "value": function (node) {
+                return this.val(node);
+            }
 
         },
         $isValid = true,
