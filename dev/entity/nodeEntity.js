@@ -1,3 +1,4 @@
+// @TODO : Faire la fonction create
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
 // @TODO : Faire les fonctions toggle
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
@@ -1163,21 +1164,18 @@ var nodeEntityMethods = {
             return this.css("cursor", value)
         },
         /**
-         * Permet d'obtenir ou de définir la couleur d'un élément.
+         * Permet d'obtenir ou de définir l'attribut id d'un élément.
          *
-         * @method color
+         * @method id
          * @param {string} [value] Valeur à définir.
-         * @return {string|Node|null}
+         * @return {string|NODE}
          * @since 1.0
          */
         "id": function (value) {
-            if(value === undefined){
-                return this.attr("id")
-            }else{
-                var nodes = this.get();
-                this.getFirst().attr("id", value);
-                return this.set(nodes)
-            }
+            if(value === undefined){ return this.attr("id") }
+            var nodes = this.get();
+            this.getFirst().attr("id", value);
+            return this.set(nodes)
         },
         /**
          * Permet de répéter des éléments.
