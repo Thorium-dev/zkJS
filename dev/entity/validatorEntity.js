@@ -128,11 +128,12 @@ zk().register(function VALIDATOR($this) {
     /**
      * Permet de valider un objet Node.
      * La fonction reçoit en argument l'objet this avec :
+     *      - this.property : Propriété de l'élément qui doit être testé.
+     *      - this.value : Valeur utilisée pour la validation.
      *      - this.isValid : L'état de la validation
-     *      - this.message : Le message global
-     *      - this.view : La vue global pour le message global
-     *      - this.validators : Objet contenant la liste des validateurs
-     *      - this.errors : Les erreurs générées par la validation
+     *      - this.message : Le message
+     *      - this.view : La vue pour le message
+     *      - this.constraint : Contrainte de la validation
      *      - this.node : Elément sur lequel se fait la validation
      *
      * @method validate
@@ -182,18 +183,19 @@ zk().register(function VALIDATOR($this) {
                                 $self.entity.get("Node").set(vw).html(msg)
                             }
                         }
+                        if($box.is(callback, "function")){
+                            callback.apply({
+                                value: value,
+                                property: k,
+                                isValid: $isValid,
+                                message: v.messages[this.i],
+                                view: v.views[this.i],
+                                constraint: this.v,
+                                node: node,
+                            });
+                        }
                     });
                 });
-                if($box.is(callback, "function")){
-                    callback.apply({
-                        isValid: $isValid,
-                        message: $message,
-                        view: $view,
-                        validators: $validators,
-                        errors: $errors,
-                        node: node,
-                    });
-                }
             }
         }
         if(!$isValid && $message){ $self.entity.get("Node").set($view).html($message) }
