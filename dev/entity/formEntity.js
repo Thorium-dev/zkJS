@@ -69,6 +69,13 @@ zk().register(function FORM($this){
         return this;
     };
 
+    /**
+     * Permet d'obtenir l'état de la validation.
+     *
+     * @method isValid
+     * @return {boolean}
+     * @since 1.0
+     */
     this.isValid = function () {
         return $isValid
     };
