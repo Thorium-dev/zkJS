@@ -37,19 +37,11 @@
     </select>
 
     <form action="" name="form1">
-        <input type="text" class="a">
-        <input type="checkbox" class="a">
-        <input type="checkbox" class="a">
-        <input type="radio" class="a">
-        <input type="radio" class="a">
-    </form>
-
-    <form action="" name="form2">
-        <input type="text" class="a">
-        <input type="checkbox" class="a">
-        <input type="checkbox" class="a">
-        <input type="radio" class="a">
-        <input type="radio" class="a">
+        <input type="text" class="a" pattern="alpha" data-zk-message="Valeur non valid !" data-zk-view="#error" value="">
+        <span id="error"></span>
+        <input type="text" class="a" pattern="beta" data-zk-message="Valeur non valid !" data-zk-view="#error2" value="">
+        <span id="error2"></span>
+        <input type="button" value="envoyer" id="submit" />
     </form>
 
 
@@ -60,12 +52,17 @@
     <script src="dev/entity/nodeEntity.js"></script>
     <script src="dev/entity/routerEntity.js"></script>
     <script src="dev/entity/formEntity.js"></script>
+    <script src="dev/entity/validatorEntity.js"></script>
 
     <script>
 
 
-        var url = zk("Form").get("form2").get();
-        console.log(url);
+        $("#submit").click(function () {
+            (zk("Form").validate(function () {
+                console.log(this);
+            }).getErrors());
+        });
+
 
 
     </script>

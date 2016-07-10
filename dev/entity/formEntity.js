@@ -1,8 +1,16 @@
+/**
+ * Attribut html pour VALIDATOR.assert :
+ *      pattern data-zk-assert data-zk-constraint
+ *      data-zk-message
+ *      data-zk-view
+ *
+ */
+
 zk().register(function FORM($this){
-    var $self = this, $box = $this.toolbox;
+    var $self = this, $box = $this.toolbox, $node = zk().get("Node");
     $box.each($this, function () { $self[this.k] = this.v });
 
-    var $forms = $box.toArray(document.forms);
+    var $forms = $box.toArray(document.forms), $isValid = true, $validators = {}, $errors = {};
 
     /**
      * Permet d'obtenir les formulaires de la page.
@@ -24,7 +32,54 @@ zk().register(function FORM($this){
             $forms = res;
         }
         return this;
-    }
+    };
+
+    /**
+     * Permet de valider des formulaires.
+     *
+     * @method validate
+     * @param {Function} callback Fonction qui sera exécutée à chaque validation
+     * @return {FORM}
+     * @since 1.0
+     */
+    this.validate = function (callback) {
+        $errors = {};
+        $box.each($forms, function () {
+            var elements = this.v.elements;
+            $box.each(elements, function () {
+                if(this.v.hasAttribute("pattern") || this.v.hasAttribute("data-zk-assert") || this.v.hasAttribute("data-zk-constraint")){
+                    $node = $node.set(this.v);
+                    var id = $node.ID(true).ID(),
+                        message = this.v.getAttribute("data-zk-message"),
+                        view = this.v.getAttribute("data-zk-view"),
+                        constraint = this.v.getAttribute("data-zk-assert") || this.v.getAttribute("data-zk-constraint");
+                    if(this.v.hasAttribute("pattern")){ constraint = new RegExp(this.v.getAttribute("pattern")); }
+                    var validator = zk().get("Validator");
+                    validator.assert("val", constraint, message, view);
+                    validator.validate(this.v, callback);
+                    if(!validator.isValid()){ $isValid = false; }
+                    $validators[id] = validator;
+                    if(!validator.isValid()){
+                        $errors[id] = validator.getErrors();
+                    }
+                }
+
+            });
+        });
+        return this;
+    };
+
+    this.isValid = function () {
+        return $isValid
+    };
+
+    this.getValidators = function () {
+        return $validators
+    };
+
+    this.getErrors = function () {
+        return $errors
+    };
 
 
 
