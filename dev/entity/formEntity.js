@@ -91,6 +91,13 @@ zk().register(function FORM($this){
         return $validators
     };
 
+    /**
+     * Permet d'obtenir les erreurs générées lors de la validation.
+     *
+     * @method getErrors
+     * @return {object}
+     * @since 1.0
+     */
     this.getErrors = function () {
         return $errors
     };
