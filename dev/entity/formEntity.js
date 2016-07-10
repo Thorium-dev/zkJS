@@ -80,6 +80,13 @@ zk().register(function FORM($this){
         return $isValid
     };
 
+    /**
+     * Permet d'obtenir les objets Validator utilisés pour la validation.
+     *
+     * @method getValidators
+     * @return {object}
+     * @since 1.0
+     */
     this.getValidators = function () {
         return $validators
     };
