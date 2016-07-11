@@ -9,8 +9,18 @@
 zk().register(function FORM($this){
     var $self = this, $box = $this.toolbox, $node = zk().get("Node");
     $box.each($this, function () { $self[this.k] = this.v });
+    var $forms = $box.toArray(document.forms), $isValid = true, $validators = {}, $errors = {}, $state = undefined;
 
-    var $forms = $box.toArray(document.forms), $isValid = true, $validators = {}, $errors = {};
+    // Le formulaire est envoyé que s'il est valide
+    zk().get("Node").set($forms).on("submit.zkFormEntitySubmitEvent", function () {
+        var form = zk().get("Form").set(this.target);
+        form.validate();
+        if(!form.isValid()){
+            this.e.preventDefault();
+            this.e.defaultPrevented = true;
+            this.e.returnValue = false;
+        }
+    });
 
     /**
      * Permet d'obtenir les formulaires de la page.
@@ -35,6 +45,25 @@ zk().register(function FORM($this){
     };
 
     /**
+     * Permet de définir des formulaires.
+     *
+     * @method set
+     * @param {*} value Sélecteur pour les formulaires.
+     * @return {FORM}
+     * @since 1.0
+     */
+    this.set = function (value) {
+        var nodes = zk().get("Node").set(value);
+        $forms = [];
+        nodes.each(function () {
+            if((this.v.nodeName).toLowerCase() === "form"){
+                $forms.push(this.v);
+            }
+        });
+        return $self;
+    };
+
+    /**
      * Permet de valider des formulaires.
      *
      * @method validate
@@ -43,7 +72,7 @@ zk().register(function FORM($this){
      * @since 1.0
      */
     this.validate = function (callback) {
-        $errors = {};
+        $errors = {}, $state = true;
         $box.each($forms, function () {
             var elements = this.v.elements;
             $box.each(elements, function () {
@@ -101,10 +130,6 @@ zk().register(function FORM($this){
     this.getErrors = function () {
         return $errors
     };
-
-
-
-
 
 
 }, {}, {});

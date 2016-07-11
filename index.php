@@ -36,12 +36,12 @@
         <option value="Italie">Italie</option>
     </select>
 
-    <form action="" name="form1">
-        <input type="text" class="a" pattern="alpha" data-zk-message="Valeur non valid !" data-zk-view="#error" value="">
+    <form action="ajax.php" name="form1" id="res">
+        <input type="text" class="a" data-zk-assert="alpha" data-zk-message="Valeur non valid !" data-zk-view="#error" value="">
         <div id="error"></div>
-        <input type="text" class="a" pattern="beta" data-zk-message="Valeur non valid !" data-zk-view="#error2" value="">
+        <input type="text" class="a" data-zk-assert="beta" data-zk-message="Valeur non valid !" data-zk-view="#error2" value="">
         <div id="error2"></div>
-        <input type="button" value="envoyer" id="submit" />
+        <input type="submit" value="envoyer" id="submit" />
     </form>
 
 
@@ -56,12 +56,12 @@
 
     <script>
 
-
         $("#submit").click(function () {
-            (zk("Form").validate(function () {
-                console.log(this);
-            }).getErrors());
+
         });
+
+
+        zk("Form");
 
 
 
