@@ -38,9 +38,9 @@
 
     <form action="" name="form1">
         <input type="text" class="a" pattern="alpha" data-zk-message="Valeur non valid !" data-zk-view="#error" value="">
-        <span id="error"></span>
+        <div id="error"></div>
         <input type="text" class="a" pattern="beta" data-zk-message="Valeur non valid !" data-zk-view="#error2" value="">
-        <span id="error2"></span>
+        <div id="error2"></div>
         <input type="button" value="envoyer" id="submit" />
     </form>
 

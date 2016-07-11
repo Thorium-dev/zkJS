@@ -175,13 +175,16 @@ zk().register(function VALIDATOR($this) {
                                 ok = (this.v === value);
                             }
                         }
+                        var vw = $self.entity.get("Node").set(v.views[this.i]);
                         if(!ok){
                             $isValid = false;
-                            var msg = v.messages[this.i], vw = v.views[this.i];
+                            var msg = v.messages[this.i];
                             addConstInObject(k, this.v, msg, vw, $errors);
                             if(msg !== undefined){
-                                $self.entity.get("Node").set(vw).html(msg)
+                                vw.addCss("display", "auto").html(msg)
                             }
+                        }else {
+                            vw.addCss("display", "none");
                         }
                         if($box.is(callback, "function")){
                             callback.apply({
