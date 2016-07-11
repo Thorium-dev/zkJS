@@ -1386,7 +1386,26 @@ var nodeEntityMethods = {
             });
             return this;
         },
-
+        /**
+         * Permet d'afficher des éléments
+         *
+         * @method show
+         * @return {NODE}
+         * @since 1.0
+         */
+        "show": function () {
+            return this.addCss("display", "block");
+        },
+        /**
+         * Permet de cacher des éléments
+         *
+         * @method hide
+         * @return {NODE}
+         * @since 1.0
+         */
+        "hide": function () {
+            return this.addCss("display", "none");
+        },
         // ===================================== LES METHODES POUR LES EVENTS =========================================
 
         /**
