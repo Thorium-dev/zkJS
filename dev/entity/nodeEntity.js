@@ -1209,7 +1209,7 @@ var nodeEntityMethods = {
          */
         "text": function (text) {
             if(text === undefined){
-                return this.get()[0] ? this.get()[0].textContent : null;
+                return this.get()[0] ? this.get()[0].textContent : "";
             }else{
                 this.each(function () {
                     (this.v).textContent = text;
@@ -1238,7 +1238,7 @@ var nodeEntityMethods = {
          */
         "html": function (html) {
             if(html === undefined){
-                return this.get()[0] ? this.get()[0].innerHTML : null;
+                return this.get()[0] ? this.get()[0].innerHTML : "";
             }else{
                 this.each(function () {
                     (this.v).innerHTML = html;
