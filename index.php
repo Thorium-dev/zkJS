@@ -33,7 +33,7 @@
 
         zk("datetimepicker").container(".date-container");
 
-        console.log($("button").getAttr("style", "color"));
+        console.log($("button").removeAttr("style"));
 
 
     </script>

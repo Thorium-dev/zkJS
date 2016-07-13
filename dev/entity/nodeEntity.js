@@ -213,27 +213,44 @@ function launchNodeFunction($this, value, func){
 }
 
 var doNodeGetAttrByName = {
-    "style": function ($this, attr, property) {
+    "style": function ($this, attr, property, isRemove) {
         var box = $this.toolbox, attrs = attr.split(";"),
-            propertyType = box.is(property), attr = "";
+            propertyType = box.is(property), res = "";
         property = box.trim(property);
         box.each(attrs, function () {
             var tab = this.v.split(":");
             tab[0] = box.trim(tab[0]);
             tab[1] = box.trim(tab[1]);
             if(propertyType === "regexp"){
-                if (property.test(tab[0])) { attr = tab[1]; return $this.entity.get("Error") }
+                if (property.test(tab[0])) {
+                    if(!isRemove){
+                        attr = tab[1];
+                        return $this.entity.get("Error")
+                    }
+                }else {
+                    res += ";" + this.v;
+                }
             }else {
-                if (tab[0] === property) { attr = tab[1]; return $this.entity.get("Error") }
+                if (tab[0] === property) {
+                    if(!isRemove){
+                        attr = tab[1];
+                        return $this.entity.get("Error")
+                    }
+                }else {
+                    res += ";" + this.v;
+                }
+                attr = "";
             }
         });
+        if(isRemove){
+            attr = res.slice(1);
+        }
         return attr
     },
 };
 var doNodeRemoveAttrByName = {
     "style": function ($this, attr, filter) {
-        var box = $this.toolbox;
-        return box.trim(box.remove(attr.split(";"), filter).join(";"), " ");
+        return doNodeGetAttrByName.style($this, attr, filter, true);
     },
 };
 var doNodeAddAttrByName = {
@@ -1872,7 +1889,7 @@ var nodeEntityMethods = {
             return attr;
         },
         /**
-         * Permet de supprimer des attributs. Pour les styles, il est conseillé d'utiliser la fonction removeStyle.
+         * Permet de supprimer des attributs.
          *
          * @method removeAttr
          * @param {string|array} names Noms des attributs qu'on souhaite supprimer. Pour les chaînes de caractères, les valeurs doivent être séparées par des espaces ou des virgules.
