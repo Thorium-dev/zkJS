@@ -315,11 +315,23 @@ var doNodeValByNodeName = {
         return this.input(node, val)
     },
     "select" : function (node, val) {
-        if(val === undefined){
-            node = node.options[node.selectedIndex];
-            return node.value || node.textContent || "";
-        }
         var box = zk().toolbox, options = box.toArray(node.options);
+        if(val === undefined){
+            if(node.hasAttribute("multiple")){
+                var res = [];
+                box.each(options, function () {
+                    var node = this.v;
+                    if(node.hasAttribute("selected")){
+                        res.push(node.value || node.textContent || "");
+                    }
+                });
+                return res;
+            }else{
+                node = node.options[node.selectedIndex];
+                return node.value || node.textContent || "";
+            }
+        }
+
         options[node.selectedIndex].selected = false;
         if(box.is(val, "number")){
             node = options[Math.abs(val)];
