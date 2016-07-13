@@ -2059,11 +2059,11 @@ var nodeEntityMethods = {
          *
          * @method getCss
          * @param {string} property Propriété du style.
-         * @return {string|Edge|null}
+         * @return {string|EDGE}
          * @since 1.0
          */
         "getCss": function (property) {
-            var prop = null, node = this.get()[0];
+            var prop = "", node = this.get()[0];
             if(node){
                 if(doNodeGetCssByProperty.hasOwnProperty(property)){
                     prop = doNodeGetCssByProperty[property](this, node, property);
@@ -2071,7 +2071,7 @@ var nodeEntityMethods = {
                     prop = window.getComputedStyle(node, null).getPropertyValue(property);
                 }
             }
-            return prop
+            return prop;
         },
         /**
          * Permet de supprimer des propriétés définies dans l'attribut style.
@@ -2095,11 +2095,11 @@ var nodeEntityMethods = {
             return this
         },
         /**
-         * Permet d'ajouter des styles en passant par l'attribut style.
+         * Permet d'ajouter des valeurs à l'attribut style.
          *
          * @method addCss
          * @param {string} property Propriété du style.
-         * @param {string} value Valeur qu'on souhaite ajouter.
+         * @param {string} value Valeur à ajouter.
          * @return {Node}
          * @since 1.0
          */
@@ -2109,7 +2109,19 @@ var nodeEntityMethods = {
                 property = box.camelCase(""+property, "-");
                 this.v.style[property] = value;
             });
-            return this
+            return this;
+        },
+        /**
+         * Permet de modifier les valeurs de l'attribut style.
+         *
+         * @method changeCss
+         * @param {string} property Propriété du style.
+         * @param {string} value Valeur à ajouter.
+         * @return {Node}
+         * @since 1.0
+         */
+        "changeCss": function (property, value) {
+            return this.addCss(property, value);
         },
         /**
          * Permet d'obtenir ou d'ajouter des styles en passant par l'attribut style.
