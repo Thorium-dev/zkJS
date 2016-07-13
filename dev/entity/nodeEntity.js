@@ -4,7 +4,6 @@
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
 // @TODO : Faire la fonction caret (en relation avec la position du curseur dans les input et les textarea)
 // @TODO : Ajout des events lors de la création d'un objet
-// @TODO : Revoir LES METHODES AVEC ATTR
 
 var doIsThisNodeByKey = {
     "name": function ($this, node, value) {
@@ -1953,6 +1952,19 @@ var nodeEntityMethods = {
                 });
             }
             return this;
+        },
+        /**
+         * Permet de changer des attributs. Pour les styles, il est conseillé d'utiliser la fonction changeStyle. Idem pour les class.
+         *
+         * @method changeAttr
+         * @param {string} name Nom de l'attribut qu'on souhaite changer.
+         * @param {string|number|boolean} value Nouvelle valeur.
+         * @return {Node}
+         * @since 1.0
+         */
+        "changeAttr": function (name, value) {
+            this.removeAttr(name);
+            return this.addAttr(name, value);
         },
         /**
          * Permet d'obtenir ou d'ajouter des attributs. Pour les styles, il est conseillé d'utiliser la fonction style.
