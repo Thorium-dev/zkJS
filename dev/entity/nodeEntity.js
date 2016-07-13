@@ -2116,7 +2116,7 @@ var nodeEntityMethods = {
          *
          * @method changeCss
          * @param {string} property Propriété du style.
-         * @param {string} value Valeur à ajouter.
+         * @param {string} value Nouvelle valeur.
          * @return {Node}
          * @since 1.0
          */
@@ -2129,7 +2129,7 @@ var nodeEntityMethods = {
          * @method css
          * @param {string} [property]
          * @param {string} [value]
-         * @return {string|Edge|Node|null}
+         * @return {string|Edge|Node}
          * @since 1.0
          */
         "css": function (property, value) {
@@ -2186,12 +2186,24 @@ var nodeEntityMethods = {
             return this.addCss(property, value)
         },
         /**
+         * Permet de modifier les valeurs de l'attribut style.
+         *
+         * @method changeStyle
+         * @param {string} property Propriété du style.
+         * @param {string} value Nouvelle valeur.
+         * @return {Node}
+         * @since 1.0
+         */
+        "changeStyle": function (property, value) {
+            return this.addStyle(property, value);
+        },
+        /**
          * Permet d'obtenir ou d'ajouter des styles en passant par l'attribut style.
          *
          * @method style
          * @param {string} [property]
          * @param {string} [value]
-         * @return {string|Node|null}
+         * @return {string|Node}
          * @since 1.0
          */
         "style": function (property, value) {
