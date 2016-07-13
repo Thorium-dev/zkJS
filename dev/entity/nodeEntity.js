@@ -215,17 +215,16 @@ function launchNodeFunction($this, value, func){
 var doNodeGetAttrByName = {
     "style": function ($this, attr, property) {
         var box = $this.toolbox, attrs = attr.split(";"),
-            propertyType = box.is(property), attr = null;
+            propertyType = box.is(property), attr = "";
         property = box.trim(property);
         box.each(attrs, function () {
             var tab = this.v.split(":");
             tab[0] = box.trim(tab[0]);
             tab[1] = box.trim(tab[1]);
-            if(propertyType === "string"){
-                if (tab[0] === property) { attr = tab[1]; return $this.entity.get("Error") }
-            }
             if(propertyType === "regexp"){
                 if (property.test(tab[0])) { attr = tab[1]; return $this.entity.get("Error") }
+            }else {
+                if (tab[0] === property) { attr = tab[1]; return $this.entity.get("Error") }
             }
         });
         return attr
