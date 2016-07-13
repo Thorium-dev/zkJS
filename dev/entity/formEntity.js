@@ -48,12 +48,12 @@ zk().register(function FORM($this){
      * Permet de définir des formulaires.
      *
      * @method set
-     * @param {*} value Sélecteur pour les formulaires.
+     * @param {*} selector Sélecteur pour les formulaires.
      * @return {FORM}
      * @since 1.0
      */
-    this.set = function (value) {
-        var nodes = zk().get("Node").set(value);
+    this.set = function (selector) {
+        var nodes = zk().get("Node").set(selector);
         $forms = [];
         nodes.each(function () {
             if((this.v.nodeName).toLowerCase() === "form"){
