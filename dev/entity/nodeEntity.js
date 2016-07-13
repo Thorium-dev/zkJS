@@ -1433,6 +1433,17 @@ var nodeEntityMethods = {
         "hide": function () {
             return this.addCss("display", "none");
         },
+        /**
+         * Permet de connaître le nombre d'éléments sélectionnés.
+         *
+         * @method length
+         * @return {number}
+         * @since 1.0
+         */
+        "length": function () {
+            return this.get().length;
+        },
+
         // ===================================== LES METHODES POUR LES EVENTS =========================================
 
         /**
