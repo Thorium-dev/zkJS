@@ -16,7 +16,7 @@
 
     </div>
 
-    <button>Slide</button>
+    <button style="color: red; font-size: 18px">Slide</button>
 
 
     <script src="dev/core/zk.js"></script>
@@ -32,6 +32,8 @@
     <script>
 
         zk("datetimepicker").container(".date-container");
+
+        console.log($("button").getAttr("style", "color"));
 
 
     </script>

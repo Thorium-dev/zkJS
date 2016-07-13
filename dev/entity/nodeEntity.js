@@ -274,7 +274,7 @@ var doNodeGetCssByProperty = {
     },
 };
 
-var doValByNodeName = {
+var doNodeValByNodeName = {
     "input" : function (node, val) {
         if(val === undefined){
             return node.value || ""
@@ -1259,8 +1259,8 @@ var nodeEntityMethods = {
                 var node = this.get()[0], v = "";
                 if(node){
                     var name = (node.nodeName).toLowerCase();
-                    if(doValByNodeName.hasOwnProperty(name)){
-                        v = doValByNodeName[name](node);
+                    if(doNodeValByNodeName.hasOwnProperty(name)){
+                        v = doNodeValByNodeName[name](node);
                     }else{
                         v = node.textContent;
                     }
@@ -1269,8 +1269,8 @@ var nodeEntityMethods = {
             }
             this.each(function () {
                 var name = (this.v.nodeName).toLowerCase();
-                if(doValByNodeName.hasOwnProperty(name)){
-                    doValByNodeName[name](this.v, val);
+                if(doNodeValByNodeName.hasOwnProperty(name)){
+                    doNodeValByNodeName[name](this.v, val);
                 }else{
                     this.v.textContent = val;
                 }
@@ -1848,7 +1848,7 @@ var nodeEntityMethods = {
             return has;
         },
         /**
-         * Permet d'obtenir des attributs. Pour les styles, il est conseillé d'utiliser la fonction getStyle.
+         * Permet d'obtenir des attributs.
          *
          * @method getAttr
          * @param {string} name Nom de l'attribut qu'on souhaite obtenir.
@@ -1857,13 +1857,16 @@ var nodeEntityMethods = {
          * @since 1.0
          */
         "getAttr": function (name, filter) {
-            var node = this.get()[0], attr = node.getAttribute(name);
-            if(attr){
-                if(filter !== undefined){
-                    if(doNodeGetAttrByName.hasOwnProperty(name)){
-                        attr = doNodeGetAttrByName[name](this, attr, filter);
-                    }else{
-                        attr = this.toolbox.get(attr.split(" "), filter).join(" ");
+            var node = this.get()[0], attr = "";
+            if(node){
+                attr = node.getAttribute(name);
+                if(attr){
+                    if(filter !== undefined){
+                        if(doNodeGetAttrByName.hasOwnProperty(name)){
+                            attr = doNodeGetAttrByName[name](this, attr, filter);
+                        }else{
+                            attr = this.toolbox.get(attr.split(" "), filter).join(" ");
+                        }
                     }
                 }
             }
