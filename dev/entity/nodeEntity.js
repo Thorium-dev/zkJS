@@ -1868,7 +1868,7 @@ var nodeEntityMethods = {
          * @method getAttr
          * @param {string} name Nom de l'attribut qu'on souhaite obtenir.
          * @param {*} filter Filtre sur le résultat.
-         * @return {string|null}
+         * @return {string}
          * @since 1.0
          */
         "getAttr": function (name, filter) {
@@ -1885,7 +1885,7 @@ var nodeEntityMethods = {
                     }
                 }
             }
-            return attr;
+            return attr || "";
         },
         /**
          * Permet de supprimer des attributs.
@@ -1972,7 +1972,7 @@ var nodeEntityMethods = {
          * @method attr
          * @param {string|array} names
          * @param {string|number|boolean} value
-         * @return {string|null|Node}
+         * @return {string|Node}
          * @since 1.0
          */
         "attr": function (names, value) {
@@ -1983,7 +1983,7 @@ var nodeEntityMethods = {
         // ===================================== LES METHODES AVEC CLASS =========================================
 
         /**
-         * Permet de tester si un élément possède une classe.
+         * Permet de savoir si l'attribut class d'un élément possède la valeur value.
          *
          * @method hasClass
          * @param {*} value
@@ -1995,32 +1995,32 @@ var nodeEntityMethods = {
             return has ? this.toolbox.has(has.split(" "), value) : false;
         },
         /**
-         * Permet d'obtenir des class.
+         * Permet d'obtenir l'attribut class d'un élément.
          *
          * @method getClass
          * @param {*} filter Filtre sur le résultat.
-         * @return {string|null}
+         * @return {string}
          * @since 1.0
          */
         "getClass": function (filter) {
             return this.getAttr("class", filter);
         },
         /**
-         * Permet de supprimer des class.
+         * Permet de supprimer les valeurs de l'attribut class.
          *
          * @method removeClass
-         * @param {*} filter Permet de cibler des valeurs paritculières.
+         * @param {*} value Permet de cibler des valeurs paritculières.
          * @return {Node}
          * @since 1.0
          */
-        "removeClass": function (filter) {
-            return this.removeAttr("class", filter);
+        "removeClass": function (value) {
+            return this.removeAttr("class", value);
         },
         /**
-         * Permet d'ajouter des attributs.
+         * Permet d'ajouter des valeurs à l'attribut class.
          *
          * @method addClass
-         * @param {string|number|boolean} value Valeur qu'on souhaite ajouter.
+         * @param {string} value Valeur qu'on souhaite ajouter.
          * @return {Node}
          * @since 1.0
          */
@@ -2028,11 +2028,24 @@ var nodeEntityMethods = {
             return this.addAttr("class", value);
         },
         /**
-         * Permet d'obtenir ou d'ajouter des class.
+         * Permet de changer les valeurs de l'attribut class.
+         *
+         * @method addClass
+         * @param {string} oldValue Valeur à changer.
+         * @param {string} newValue Nouvelle valeur.
+         * @return {Node}
+         * @since 1.0
+         */
+        "changeClass": function (oldValue, newValue) {
+            this.removeClass(oldValue);
+            return this.addClass(newValue);
+        },
+        /**
+         * Permet d'obtenir ou d'ajouter des valeurs à l'attribut class.
          *
          * @method class
-         * @param {string|number|boolean} value
-         * @return {string|null|Node}
+         * @param {string} value
+         * @return {string|Node}
          * @since 1.0
          */
         "class": function (value) {
