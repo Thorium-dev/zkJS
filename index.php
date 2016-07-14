@@ -69,6 +69,19 @@
             sel.header(false);
         });
 
+
+        sel.on("select", function () {
+            console.log(this);
+        });
+
+        sel.on("unSelect", function () {
+            console.log(this);
+        });
+
+        sel.on("show", function () {
+            console.log(this);
+        });
+
 //        $("select").attr("size", 6);
 
 

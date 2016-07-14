@@ -50,6 +50,13 @@ zk().register(function SELECTPICKER($this){
     }
     init();
 
+    var $events = {
+        "select": null,
+        "unSelect": null,
+        "show": null,
+        "hide": null,
+    };
+
     /**
      * Permet de définir l'élément select à utiliser. Fonctionne que si un élément select est défini.
      *
@@ -83,8 +90,23 @@ zk().register(function SELECTPICKER($this){
                 });
                 $items.children().on("click.zkSelectPickerItemsClickEvent", function () {
                     var node = $entity("Node").set(this.source).toggleClass("zk-selectpicker-item-selected");
+                    this["selectPicker"] = $self;
+                    this["container"] = $container.get();
+                    this["items"] = $items.get();
+                    this["select"] = $select.get();
+                    this["options"] = $options.get();
+                    this["header"] = $header.get();
                     if(!node.hasClass("zk-selectpicker-item-selected")){
                         $allChecked.get()[0].checked = false;
+                        if($events.unSelect){
+                            this["selectPickerEvent"] = "unSelect";
+                            $events.unSelect.apply(this, []);
+                        }
+                    }else {
+                        if($events.select){
+                            this["selectPickerEvent"] = "select";
+                            $events.select.apply(this, []);
+                        }
                     }
                 });
                 $container.on("clickout.zkSelectPickerClickoutEvent", function () {
@@ -162,6 +184,17 @@ zk().register(function SELECTPICKER($this){
     this.show = function (x, y) {
         if($hasSelect){
             $container.show(x, y);
+            if($events.show){
+                $events.show.apply({
+                    "selectPicker": $self,
+                    "container": $container.get(),
+                    "items": $items.get(),
+                    "select": $select.get(),
+                    "options": $options.get(),
+                    "header": $header.get(),
+                    "selectPickerEvent": "show",
+                }, []);
+            }
         }
         return $self;
     };
@@ -174,7 +207,20 @@ zk().register(function SELECTPICKER($this){
      * @since 1.0
      */
     this.hide = function () {
-        if($hasSelect){ $container.hide(); }
+        if ($hasSelect) {
+            $container.hide();
+            if($events.hide){
+                $events.hide.apply({
+                    "selectPicker": $self,
+                    "container": $container.get(),
+                    "items": $items.get(),
+                    "select": $select.get(),
+                    "options": $options.get(),
+                    "header": $header.get(),
+                    "selectPickerEvent": "hide",
+                }, []);
+            }
+        }
         return $self;
     };
 
@@ -212,6 +258,24 @@ zk().register(function SELECTPICKER($this){
         }
         init();
 
+        return $self;
+    };
+
+    /**
+     * Permet d'ajouter des évènements.
+     *
+     * @method on
+     * @param {string} event Le nom de l'évènement.
+     * @param {function} callback Fonction qui sera exécutée par l'évènement.
+     * @return {SELECTPICKER}
+     * @since 1.0
+     */
+    this.on = function (event, callback) {
+        if($events.hasOwnProperty(event)){
+            if($box.is(callback, "function")){
+                $events[event] = callback;
+            }
+        }
         return $self;
     };
 

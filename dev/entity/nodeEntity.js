@@ -1,4 +1,4 @@
-// @TODO : Faire la fonction create
+// @TODO : Revoir isThisNode pour retirer le prefix attr-
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
 // @TODO : Faire les fonctions toggle
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
