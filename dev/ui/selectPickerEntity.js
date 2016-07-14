@@ -62,7 +62,7 @@ zk().register(function SELECTPICKER($this){
     };
 
     /**
-     * Permet de définir le label du selectPicker.
+     * Permet d'obtenir ou de définir le label du selectPicker.
      *
      * @method label
      * @param {*} selector Sélecteur pour le label.
@@ -70,6 +70,11 @@ zk().register(function SELECTPICKER($this){
      * @since 1.0
      */
     this.label = function (selector) {
+        if(selector === undefined){ return $label }
+        if($label){
+            $label.removeAttr("data-zk-id data-zk-ref").removeClass("zk-selectpicker-label");
+            $label.off("click.zkSelectPickerLabelClickEvent");
+        }
         $label = $entity("Node").set(selector).ID(true).class("zk-selectpicker-label");
         $label.attr("data-zk-ref", $container.ID());
         $container.attr("data-zk-ref", $label.ID());
@@ -77,6 +82,7 @@ zk().register(function SELECTPICKER($this){
             var ref = this.source.getAttribute("data-zk-ref");
             $entity("Node").set("[data-zk-id='"+ref+"']").show();
         });
+        return $self;
     };
 
     /**
@@ -138,5 +144,25 @@ zk().register(function SELECTPICKER($this){
         return $self;
     };
 
+    /**
+     * Permet de détruire le selectPicker.
+     *
+     * @method destroy
+     * @return {SELECTPICKER}
+     * @since 1.0
+     */
+    this.destroy = function () {
+        if($hasSelect){
+            $items.off("click.zkSelectPickerItemsClickEvent");
+            $container.off("clickout.zkSelectPickerClickoutEvent").remove();
+        }
+        if($label){
+            $label.removeAttr("data-zk-id data-zk-ref").removeClass("zk-selectpicker-label");
+            $label.off("click.zkSelectPickerLabelClickEvent");
+        }
+        init();
+
+        return $self;
+    };
 
 }, {}, {});
