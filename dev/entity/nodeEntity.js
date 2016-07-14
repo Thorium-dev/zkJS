@@ -1417,10 +1417,13 @@ var nodeEntityMethods = {
          * Permet d'afficher des éléments
          *
          * @method show
+         * @param {string} [x] Position d'un élément par rapport au bord gauche du document.
+         * @param {string} [y] Position d'un élément par rapport au bord supérieur du document.
          * @return {NODE}
          * @since 1.0
          */
-        "show": function () {
+        "show": function (x, y) {
+            if(x){ this.x(x) } if (y) { this.y(y) }
             return this.addCss("display", "block");
         },
         /**
