@@ -1,9 +1,9 @@
+// @TODO : Revoir isThisNode pour retirer le prefix attr-
 // @TODO : getTextFirst, getTextMiddle, getTextLast, ...
 // @TODO : Faire les fonctions toggle
 // @TODO : Faire la fonction reverse (plus complexe que celui des tableaux)
 // @TODO : Faire la fonction caret (en relation avec la position du curseur dans les input et les textarea)
 // @TODO : Ajout des events lors de la création d'un objet
-// @TODO : Revoir LES METHODES AVEC ATTR
 
 var doIsThisNodeByKey = {
     "name": function ($this, node, value) {
@@ -81,12 +81,12 @@ function isThisNode($this, node, selector) {
 }
 
 var doCreateElementByKey = {
-    "class": function ($this, node, selector) {
-        return node.setAttribute("class", selector["class"]);
-    },
-    "id": function ($this, node, selector) {
-        return node.setAttribute("id", selector.id);
-    },
+    // "class": function ($this, node, selector) {
+    //     return node.setAttribute("class", selector["class"]);
+    // },
+    // "id": function ($this, node, selector) {
+    //     return node.setAttribute("id", selector.id);
+    // },
     "text": function ($this, node, selector) {
         node.textContent = selector.text;
         return node;
@@ -212,28 +212,52 @@ function launchNodeFunction($this, value, func){
 }
 
 var doNodeGetAttrByName = {
-    "style": function ($this, attr, property) {
+    "style": function ($this, attr, property, isRemove) {
         var box = $this.toolbox, attrs = attr.split(";"),
-            propertyType = box.is(property), attr = null;
+            propertyType = box.is(property), res = "";
         property = box.trim(property);
         box.each(attrs, function () {
             var tab = this.v.split(":");
             tab[0] = box.trim(tab[0]);
             tab[1] = box.trim(tab[1]);
-            if(propertyType === "string"){
-                if (tab[0] === property) { attr = tab[1]; return $this.entity.get("Error") }
-            }
             if(propertyType === "regexp"){
-                if (property.test(tab[0])) { attr = tab[1]; return $this.entity.get("Error") }
+                if (property.test(tab[0])) {
+                    if(!isRemove){
+                        attr = tab[1];
+                        return $this.entity.get("Error")
+                    }
+                }else {
+                    res += ";" + this.v;
+                }
+            }else {
+                if (tab[0] === property) {
+                    if(!isRemove){
+                        attr = tab[1];
+                        return $this.entity.get("Error")
+                    }
+                }else {
+                    res += ";" + this.v;
+                }
+                attr = "";
             }
         });
+        if(isRemove){
+            attr = res.slice(1);
+        }
         return attr
     },
 };
 var doNodeRemoveAttrByName = {
     "style": function ($this, attr, filter) {
-        var box = $this.toolbox;
-        return box.trim(box.remove(attr.split(";"), filter).join(";"), " ");
+        return doNodeGetAttrByName.style($this, attr, filter, true);
+    },
+    "checked": function ($this, attr, filter, node) {
+        node.checked = false;
+        return "";
+    },
+    "selected": function ($this, attr, filter, node) {
+        node.selected = false;
+        return "";
     },
 };
 var doNodeAddAttrByName = {
@@ -273,7 +297,7 @@ var doNodeGetCssByProperty = {
     },
 };
 
-var doValByNodeName = {
+var doNodeValByNodeName = {
     "input" : function (node, val) {
         if(val === undefined){
             return node.value || ""
@@ -299,11 +323,23 @@ var doValByNodeName = {
         return this.input(node, val)
     },
     "select" : function (node, val) {
-        if(val === undefined){
-            node = node.options[node.selectedIndex];
-            return node.value || node.textContent || "";
-        }
         var box = zk().toolbox, options = box.toArray(node.options);
+        if(val === undefined){
+            if(node.hasAttribute("multiple")){
+                var res = [];
+                box.each(options, function () {
+                    var node = this.v;
+                    if(node.hasAttribute("selected")){
+                        res.push(node.value || node.textContent || "");
+                    }
+                });
+                return res;
+            }else{
+                node = node.options[node.selectedIndex];
+                return node.value || node.textContent || "";
+            }
+        }
+
         options[node.selectedIndex].selected = false;
         if(box.is(val, "number")){
             node = options[Math.abs(val)];
@@ -1163,21 +1199,18 @@ var nodeEntityMethods = {
             return this.css("cursor", value)
         },
         /**
-         * Permet d'obtenir ou de définir la couleur d'un élément.
+         * Permet d'obtenir ou de définir l'attribut id d'un élément.
          *
-         * @method color
+         * @method id
          * @param {string} [value] Valeur à définir.
-         * @return {string|Node|null}
+         * @return {string|NODE}
          * @since 1.0
          */
         "id": function (value) {
-            if(value === undefined){
-                return this.attr("id")
-            }else{
-                var nodes = this.get();
-                this.getFirst().attr("id", value);
-                return this.set(nodes)
-            }
+            if(value === undefined){ return this.attr("id") }
+            var nodes = this.get();
+            this.getFirst().attr("id", value);
+            return this.set(nodes)
         },
         /**
          * Permet de répéter des éléments.
@@ -1211,7 +1244,7 @@ var nodeEntityMethods = {
          */
         "text": function (text) {
             if(text === undefined){
-                return this.get()[0] ? this.get()[0].textContent : null;
+                return this.get()[0] ? this.get()[0].textContent : "";
             }else{
                 this.each(function () {
                     (this.v).textContent = text;
@@ -1240,7 +1273,7 @@ var nodeEntityMethods = {
          */
         "html": function (html) {
             if(html === undefined){
-                return this.get()[0] ? this.get()[0].innerHTML : null;
+                return this.get()[0] ? this.get()[0].innerHTML : "";
             }else{
                 this.each(function () {
                     (this.v).innerHTML = html;
@@ -1261,8 +1294,8 @@ var nodeEntityMethods = {
                 var node = this.get()[0], v = "";
                 if(node){
                     var name = (node.nodeName).toLowerCase();
-                    if(doValByNodeName.hasOwnProperty(name)){
-                        v = doValByNodeName[name](node);
+                    if(doNodeValByNodeName.hasOwnProperty(name)){
+                        v = doNodeValByNodeName[name](node);
                     }else{
                         v = node.textContent;
                     }
@@ -1271,8 +1304,8 @@ var nodeEntityMethods = {
             }
             this.each(function () {
                 var name = (this.v.nodeName).toLowerCase();
-                if(doValByNodeName.hasOwnProperty(name)){
-                    doValByNodeName[name](this.v, val);
+                if(doNodeValByNodeName.hasOwnProperty(name)){
+                    doNodeValByNodeName[name](this.v, val);
                 }else{
                     this.v.textContent = val;
                 }
@@ -1334,7 +1367,8 @@ var nodeEntityMethods = {
          * Permet de sélectionner des éléments
          *
          * @method select
-         * @return {Node}
+         * @param {string} [value] Valeur à définir.
+         * @return {NODE}
          * @since 1.0
          */
         "select": function (value) {
@@ -1354,7 +1388,7 @@ var nodeEntityMethods = {
          * Permet de cocher des éléments
          *
          * @method check
-         * @return {Node}
+         * @return {NODE}
          * @since 1.0
          */
         "check": function () {
@@ -1365,6 +1399,71 @@ var nodeEntityMethods = {
                 }
             });
             return this;
+        },
+        /**
+         * Permet d'obtenir ou de définir un identifiant unique. Il est déconseillé de supprimer cet identifiant.
+         *
+         * @method ID
+         * @param {boolean} [generate] Si cette valeur est définir à true, la fonction génère une nouvelle clé.
+         * @return {NODE|int|null}
+         * @since 1.0
+         */
+        "ID": function (generate) {
+            var $box = this.toolbox;
+            if(generate === undefined){
+                var node = this.get()[0];
+                return node ? parseInt(node.getAttribute("data-zk-id")) || null : null;
+            }
+            this.each(function () {
+                if(!this.v.hasAttribute("data-zk-id")){
+                    this.v.setAttribute("data-zk-id", $box.generateID())
+                }
+            });
+            return this;
+        },
+        /**
+         * Permet d'afficher des éléments
+         *
+         * @method show
+         * @param {string} [x] Position d'un élément par rapport au bord gauche du document.
+         * @param {string} [y] Position d'un élément par rapport au bord supérieur du document.
+         * @return {NODE}
+         * @since 1.0
+         */
+        "show": function (x, y) {
+            if(x){ this.x(x) } if (y) { this.y(y) }
+            return this.addCss("display", "block");
+        },
+        /**
+         * Permet de cacher des éléments
+         *
+         * @method hide
+         * @return {NODE}
+         * @since 1.0
+         */
+        "hide": function () {
+            return this.addCss("display", "none");
+        },
+        /**
+         * Permet de connaître le nombre d'éléments sélectionnés.
+         *
+         * @method length
+         * @return {number}
+         * @since 1.0
+         */
+        "length": function () {
+            return this.get().length;
+        },
+        /**
+         * Permet de créer des éléments.
+         *
+         * @method create
+         * @param {object} selector Objet contenant les caractéristiques du nouvel élément.
+         * @return {Node}
+         * @since 1.0
+         */
+        "create": function (selector) {
+            return this.set(createElementByObject(this, selector));
         },
 
         // ===================================== LES METHODES POUR LES EVENTS =========================================
@@ -1809,29 +1908,32 @@ var nodeEntityMethods = {
             return has;
         },
         /**
-         * Permet d'obtenir des attributs. Pour les styles, il est conseillé d'utiliser la fonction getStyle.
+         * Permet d'obtenir des attributs.
          *
          * @method getAttr
          * @param {string} name Nom de l'attribut qu'on souhaite obtenir.
          * @param {*} filter Filtre sur le résultat.
-         * @return {string|null}
+         * @return {string}
          * @since 1.0
          */
         "getAttr": function (name, filter) {
-            var node = this.get()[0], attr = node.getAttribute(name);
-            if(attr){
-                if(filter !== undefined){
-                    if(doNodeGetAttrByName.hasOwnProperty(name)){
-                        attr = doNodeGetAttrByName[name](this, attr, filter);
-                    }else{
-                        attr = this.toolbox.get(attr.split(" "), filter).join(" ");
+            var node = this.get()[0], attr = "";
+            if(node){
+                attr = node.getAttribute(name);
+                if(attr){
+                    if(filter !== undefined){
+                        if(doNodeGetAttrByName.hasOwnProperty(name)){
+                            attr = doNodeGetAttrByName[name](this, attr, filter);
+                        }else{
+                            attr = this.toolbox.get(attr.split(" "), filter).join(" ");
+                        }
                     }
                 }
             }
-            return attr;
+            return attr || "";
         },
         /**
-         * Permet de supprimer des attributs. Pour les styles, il est conseillé d'utiliser la fonction removeStyle.
+         * Permet de supprimer des attributs.
          *
          * @method removeAttr
          * @param {string|array} names Noms des attributs qu'on souhaite supprimer. Pour les chaînes de caractères, les valeurs doivent être séparées par des espaces ou des virgules.
@@ -1851,7 +1953,7 @@ var nodeEntityMethods = {
                         if(filter !== undefined){
                             var attr = v.getAttribute(name);
                             if(doNodeRemoveAttrByName.hasOwnProperty(name)){
-                                attr = doNodeRemoveAttrByName[name]($this, attr, filter);
+                                attr = doNodeRemoveAttrByName[name]($this, attr, filter, v);
                             }else{
                                 attr = box.remove(attr.split(" "), filter).join(" ");
                             }
@@ -1897,12 +1999,25 @@ var nodeEntityMethods = {
             return this;
         },
         /**
+         * Permet de changer des attributs. Pour les styles, il est conseillé d'utiliser la fonction changeStyle. Idem pour les class.
+         *
+         * @method changeAttr
+         * @param {string} name Nom de l'attribut qu'on souhaite changer.
+         * @param {string|number|boolean} value Nouvelle valeur.
+         * @return {Node}
+         * @since 1.0
+         */
+        "changeAttr": function (name, value) {
+            this.removeAttr(name);
+            return this.addAttr(name, value);
+        },
+        /**
          * Permet d'obtenir ou d'ajouter des attributs. Pour les styles, il est conseillé d'utiliser la fonction style.
          *
          * @method attr
          * @param {string|array} names
          * @param {string|number|boolean} value
-         * @return {string|null|Node}
+         * @return {string|Node}
          * @since 1.0
          */
         "attr": function (names, value) {
@@ -1913,44 +2028,44 @@ var nodeEntityMethods = {
         // ===================================== LES METHODES AVEC CLASS =========================================
 
         /**
-         * Permet de tester si un élément possède une classe.
+         * Permet de savoir si l'attribut class d'un élément possède la valeur value.
          *
          * @method hasClass
-         * @param {*} value
+         * @param {*} name
          * @return {boolean}
          * @since 1.0
          */
-        "hasClass": function (value) {
+        "hasClass": function (name) {
             var has = this.getAttr("class");
-            return has ? this.toolbox.has(has.split(" "), value) : false;
+            return has ? this.toolbox.has(has.split(" "), name) : false;
         },
         /**
-         * Permet d'obtenir des class.
+         * Permet d'obtenir l'attribut class d'un élément.
          *
          * @method getClass
          * @param {*} filter Filtre sur le résultat.
-         * @return {string|null}
+         * @return {string}
          * @since 1.0
          */
         "getClass": function (filter) {
             return this.getAttr("class", filter);
         },
         /**
-         * Permet de supprimer des class.
+         * Permet de supprimer les valeurs de l'attribut class.
          *
          * @method removeClass
-         * @param {*} filter Permet de cibler des valeurs paritculières.
+         * @param {*} name Permet de cibler des valeurs paritculières.
          * @return {Node}
          * @since 1.0
          */
-        "removeClass": function (filter) {
-            return this.removeAttr("class", filter);
+        "removeClass": function (name) {
+            return this.removeAttr("class", name);
         },
         /**
-         * Permet d'ajouter des attributs.
+         * Permet d'ajouter des valeurs à l'attribut class.
          *
          * @method addClass
-         * @param {string|number|boolean} value Valeur qu'on souhaite ajouter.
+         * @param {string} value Valeur qu'on souhaite ajouter.
          * @return {Node}
          * @since 1.0
          */
@@ -1958,16 +2073,41 @@ var nodeEntityMethods = {
             return this.addAttr("class", value);
         },
         /**
-         * Permet d'obtenir ou d'ajouter des class.
+         * Permet de changer les valeurs de l'attribut class.
+         *
+         * @method addClass
+         * @param {string} oldValue Valeur à changer.
+         * @param {string} newValue Nouvelle valeur.
+         * @return {Node}
+         * @since 1.0
+         */
+        "changeClass": function (oldValue, newValue) {
+            this.removeClass(oldValue);
+            return this.addClass(newValue);
+        },
+        /**
+         * Permet d'alterner les valeurs de l'attribut class.
+         *
+         * @method toggleClass
+         * @param {string} name Nom de la class
+         * @return {Node}
+         * @since 1.0
+         */
+        "toggleClass": function (name) {
+            return this.hasClass(name) ? this.removeClass(name) : this.addClass(name);
+        },
+        /**
+         * Permet d'obtenir ou d'ajouter des valeurs à l'attribut class.
          *
          * @method class
-         * @param {string|number|boolean} value
-         * @return {string|null|Node}
+         * @param {string} value
+         * @return {string|Node}
          * @since 1.0
          */
         "class": function (value) {
             return this.attr("class", value);
         },
+
 
         // ===================================== LES METHODES AVEC CSS =========================================
 
@@ -1976,11 +2116,11 @@ var nodeEntityMethods = {
          *
          * @method getCss
          * @param {string} property Propriété du style.
-         * @return {string|Edge|null}
+         * @return {string|EDGE}
          * @since 1.0
          */
         "getCss": function (property) {
-            var prop = null, node = this.get()[0];
+            var prop = "", node = this.get()[0];
             if(node){
                 if(doNodeGetCssByProperty.hasOwnProperty(property)){
                     prop = doNodeGetCssByProperty[property](this, node, property);
@@ -1988,7 +2128,7 @@ var nodeEntityMethods = {
                     prop = window.getComputedStyle(node, null).getPropertyValue(property);
                 }
             }
-            return prop
+            return prop;
         },
         /**
          * Permet de supprimer des propriétés définies dans l'attribut style.
@@ -2012,11 +2152,11 @@ var nodeEntityMethods = {
             return this
         },
         /**
-         * Permet d'ajouter des styles en passant par l'attribut style.
+         * Permet d'ajouter des valeurs à l'attribut style.
          *
          * @method addCss
          * @param {string} property Propriété du style.
-         * @param {string} value Valeur qu'on souhaite ajouter.
+         * @param {string} value Valeur à ajouter.
          * @return {Node}
          * @since 1.0
          */
@@ -2026,7 +2166,19 @@ var nodeEntityMethods = {
                 property = box.camelCase(""+property, "-");
                 this.v.style[property] = value;
             });
-            return this
+            return this;
+        },
+        /**
+         * Permet de modifier les valeurs de l'attribut style.
+         *
+         * @method changeCss
+         * @param {string} property Propriété du style.
+         * @param {string} value Nouvelle valeur.
+         * @return {Node}
+         * @since 1.0
+         */
+        "changeCss": function (property, value) {
+            return this.addCss(property, value);
         },
         /**
          * Permet d'obtenir ou d'ajouter des styles en passant par l'attribut style.
@@ -2034,7 +2186,7 @@ var nodeEntityMethods = {
          * @method css
          * @param {string} [property]
          * @param {string} [value]
-         * @return {string|Edge|Node|null}
+         * @return {string|Edge|Node}
          * @since 1.0
          */
         "css": function (property, value) {
@@ -2091,12 +2243,24 @@ var nodeEntityMethods = {
             return this.addCss(property, value)
         },
         /**
+         * Permet de modifier les valeurs de l'attribut style.
+         *
+         * @method changeStyle
+         * @param {string} property Propriété du style.
+         * @param {string} value Nouvelle valeur.
+         * @return {Node}
+         * @since 1.0
+         */
+        "changeStyle": function (property, value) {
+            return this.addStyle(property, value);
+        },
+        /**
          * Permet d'obtenir ou d'ajouter des styles en passant par l'attribut style.
          *
          * @method style
          * @param {string} [property]
          * @param {string} [value]
-         * @return {string|Node|null}
+         * @return {string|Node}
          * @since 1.0
          */
         "style": function (property, value) {
@@ -2681,6 +2845,9 @@ var nodeDoSetByParameters = {
     },
     "node": function ($this, node) {
         return node.get()
+    },
+    "htmloptionscollection": function ($this, nodes) {
+        return $this.toolbox.toArray(nodes)
     },
 };
 zk().register(function NODE($this) {
