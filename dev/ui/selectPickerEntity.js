@@ -1,5 +1,6 @@
+// @TODO : Faire les fonctions add, remove, sort, on et off
 zk().register(function SELECTPICKER($this){
-    var $self = this, $box = $this.toolbox, $entity = $this.entity.get, $container, $items, $hasSelect, $select, $options, $label;
+    var $self = this, $box = $this.toolbox, $entity = $this.entity.get, $container, $items, $hasSelect, $select, $options, $label, $header, $allChecked, $search;
     $box.each($this, function () { $self[this.k] = this.v });
 
     function insertNodeBefore(nouvEl, beforeEl) {
@@ -11,10 +12,27 @@ zk().register(function SELECTPICKER($this){
         $container = $entity("Node").create({
             "name": "div",
             "class": "zk-selectpicker-container",
-            "html": "<ul></ul>",
+            "html": "<div class='zk-selectpicker-header'><input type='checkbox'><input type='text'></div><ul></ul>",
         });
         $container.display("none").absolute().ID(true);
-        $items = $entity("Node").set($container.get()[0].querySelector("ul"));
+        var container = $container.get()[0];
+        $header = $entity("Node").set(container.querySelector(".zk-selectpicker-header"));
+        $allChecked = $entity("Node").set(container.querySelector("[type='checkbox']"));
+        $allChecked.on("click.zkSelectPickerAllClickEvent", function () {
+            var checked = this.source.checked;
+            var items = this.source.parentNode.parentNode.querySelectorAll(".zk-selectpicker-items");
+            $box.each(items, function () {
+                var node = $entity("Node").set(this.v);
+                if(checked){
+                    node.class("zk-selectpicker-item-selected");
+                }else {
+                    node.removeClass("zk-selectpicker-item-selected");
+                }
+            });
+        });
+
+        $search = $entity("Node").set(container.querySelector("[type='text']"));
+        $items = $entity("Node").set(container.querySelector("ul"));
         $hasSelect = false, $select = null, $options = null, $label = null;
     }
     init();
@@ -51,7 +69,10 @@ zk().register(function SELECTPICKER($this){
                     });
                 });
                 $items.children().on("click.zkSelectPickerItemsClickEvent", function () {
-                    $entity("Node").set(this.source).toggleClass("zk-selectpicker-item-selected");
+                    var node = $entity("Node").set(this.source).toggleClass("zk-selectpicker-item-selected");
+                    if(!node.hasClass("zk-selectpicker-item-selected")){
+                        $allChecked.get()[0].checked = false;
+                    }
                 });
                 $container.on("clickout.zkSelectPickerClickoutEvent", function () {
                     $entity("Node").set(this.source).hide();
