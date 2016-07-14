@@ -81,12 +81,12 @@ function isThisNode($this, node, selector) {
 }
 
 var doCreateElementByKey = {
-    "class": function ($this, node, selector) {
-        return node.setAttribute("class", selector["class"]);
-    },
-    "id": function ($this, node, selector) {
-        return node.setAttribute("id", selector.id);
-    },
+    // "class": function ($this, node, selector) {
+    //     return node.setAttribute("class", selector["class"]);
+    // },
+    // "id": function ($this, node, selector) {
+    //     return node.setAttribute("id", selector.id);
+    // },
     "text": function ($this, node, selector) {
         node.textContent = selector.text;
         return node;
@@ -1442,6 +1442,17 @@ var nodeEntityMethods = {
          */
         "length": function () {
             return this.get().length;
+        },
+        /**
+         * Permet de créer des éléments.
+         *
+         * @method create
+         * @param {object} selector Objet contenant les caractéristiques du nouvel élément.
+         * @return {Node}
+         * @since 1.0
+         */
+        "create": function (selector) {
+            return this.set(createElementByObject(this, selector));
         },
 
         // ===================================== LES METHODES POUR LES EVENTS =========================================
