@@ -251,6 +251,14 @@ var doNodeRemoveAttrByName = {
     "style": function ($this, attr, filter) {
         return doNodeGetAttrByName.style($this, attr, filter, true);
     },
+    "checked": function ($this, attr, filter, node) {
+        node.checked = false;
+        return "";
+    },
+    "selected": function ($this, attr, filter, node) {
+        node.selected = false;
+        return "";
+    },
 };
 var doNodeAddAttrByName = {
     "style": function ($this, attr, value) {
@@ -1945,7 +1953,7 @@ var nodeEntityMethods = {
                         if(filter !== undefined){
                             var attr = v.getAttribute(name);
                             if(doNodeRemoveAttrByName.hasOwnProperty(name)){
-                                attr = doNodeRemoveAttrByName[name]($this, attr, filter);
+                                attr = doNodeRemoveAttrByName[name]($this, attr, filter, v);
                             }else{
                                 attr = box.remove(attr.split(" "), filter).join(" ");
                             }
