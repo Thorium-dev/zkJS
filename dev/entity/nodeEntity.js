@@ -2823,6 +2823,9 @@ var nodeDoSetByParameters = {
     "node": function ($this, node) {
         return node.get()
     },
+    "htmloptionscollection": function ($this, nodes) {
+        return $this.toolbox.toArray(nodes)
+    },
 };
 zk().register(function NODE($this) {
     var $nodes = [], $self = this;
