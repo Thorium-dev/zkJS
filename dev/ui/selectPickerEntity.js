@@ -20,6 +20,7 @@ zk().register(function SELECTPICKER($this){
         $allChecked = $entity("Node").set(container.querySelector("[type='checkbox']"));
         $allChecked.on("click.zkSelectPickerAllClickEvent", function () {
             var checked = this.source.checked;
+            // @TODO : Modifier la fonction parent dans nodeEntity pour résoudre ce problème.
             var items = this.source.parentNode.parentNode.querySelectorAll(".zk-selectpicker-items");
             $box.each(items, function () {
                 var node = $entity("Node").set(this.v);
@@ -30,8 +31,20 @@ zk().register(function SELECTPICKER($this){
                 }
             });
         });
-
         $search = $entity("Node").set(container.querySelector("[type='text']"));
+        $search.on("input.zkSelectPickerSearchInputEvent", function () {
+            var val = new RegExp(this.source.value, "i");
+            // @TODO : Modifier la fonction parent dans nodeEntity pour résoudre ce problème.
+            var items = this.source.parentNode.parentNode.querySelectorAll(".zk-selectpicker-items");
+            $box.each(items, function () {
+                var node = $entity("Node").set(this.v);
+                if(!val.test(node.attr("data-zk-value"))){
+                    node.display("none");
+                }else {
+                    node.display("block");
+                }
+            });
+        });
         $items = $entity("Node").set(container.querySelector("ul"));
         $hasSelect = false, $select = null, $options = null, $label = null;
     }
@@ -173,6 +186,8 @@ zk().register(function SELECTPICKER($this){
      * @since 1.0
      */
     this.destroy = function () {
+        $allChecked.off("click.zkSelectPickerAllClickEvent");
+        $search.off("input.zkSelectPickerSearchInputEvent");
         if($hasSelect){
             $items.off("click.zkSelectPickerItemsClickEvent");
             $container.off("clickout.zkSelectPickerClickoutEvent").remove();
