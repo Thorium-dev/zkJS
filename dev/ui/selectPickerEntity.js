@@ -59,16 +59,36 @@ zk().register(function SELECTPICKER($this){
         return $self;
     };
 
-    this.val = function () {
-        var res = [];
-        if($hasSelect){
-            $items.each(function () {
-                if($entity("Node").set(this.v).hasClass("zk-selectpicker-item-selected")){
-                    res.push(this.v.getAttribute("data-zk-value"))
-                }
-            });
+    /**
+     * Permet d'obtenir les valeurs sélectionnées ou de définir des valeurs à sélectionner.
+     *
+     * @method val
+     * @param {*} [values] Valeurs à sélectionner.
+     * @return {array|Node}
+     * @since 1.0
+     */
+    this.val = function (values) {
+        if(values === undefined){
+            var res = [];
+            if($hasSelect){
+                $items.each(function () {
+                    if($entity("Node").set(this.v).hasClass("zk-selectpicker-item-selected")){
+                        res.push(this.v.getAttribute("data-zk-value"))
+                    }
+                });
+            }
+            return res;
+        }else{
+            if($hasSelect){
+                if(!$box.is(values, "array")){ values = [values]; }
+                $items.each(function () {
+                    if($box.has(values, this.v.getAttribute("data-zk-value"))){
+                        $entity("Node").set(this.v).addClass("zk-selectpicker-item-selected")
+                    }
+                });
+            }
+            return this;
         }
-        return res;
     };
 
     this.show = function () {
