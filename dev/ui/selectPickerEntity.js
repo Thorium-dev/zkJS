@@ -12,7 +12,7 @@ zk().register(function SELECTPICKER($this){
         $container = $entity("Node").create({
             "name": "div",
             "class": "zk-selectpicker-container",
-            "html": "<div class='zk-selectpicker-header'><input type='checkbox'><input type='text'></div><ul></ul>",
+            "html": "<div class='zk-selectpicker-header'><input type='checkbox'><label for=''>All</label><input type='text'></div><ul></ul>",
         });
         $container.display("none").absolute().ID(true);
         var container = $container.get()[0];
