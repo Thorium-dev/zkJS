@@ -179,6 +179,20 @@ zk().register(function SELECTPICKER($this){
     };
 
     /**
+     * Permet d'afficher ou de masquer l'en-tête.
+     *
+     * @method header
+     * @param {boolean} show true pour afficher et false pour masquer.
+     * @return {SELECTPICKER}
+     * @since 1.0
+     */
+    this.header = function (show) {
+        if(show === true){ $header.show() }
+        if(show === false){ $header.hide() }
+        return $self;
+    };
+
+    /**
      * Permet de détruire le selectPicker.
      *
      * @method destroy

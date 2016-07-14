@@ -9,9 +9,8 @@
   box-shadow: 0 0 5px #dcdcdc;
 
   .zk-selectpicker-header {
-    //position: relative;
-    margin: 5px 5px 10px 5px;
-    padding: 5px 0;
+    margin: 5px 5px 15px 5px;
+    padding: 5px 0 10px 0;
     border-bottom: 1px solid #8e8e8e;
     text-align: center;
     input[type='checkbox']{
@@ -32,6 +31,8 @@
   ul {
     margin: 0;
     padding: 0;
+    max-height: 300px;
+    overflow: auto;
     list-style: none;
     .zk-selectpicker-items {
       display: block;
