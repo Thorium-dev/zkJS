@@ -1,4 +1,4 @@
-// @TODO : Faire les fonctions add, remove, sort, on et off
+// @TODO : Faire les fonctions add, remove et sort
 zk().register(function SELECTPICKER($this){
     var $self = this, $box = $this.toolbox, $entity = $this.entity.get, $container, $items, $hasSelect, $select, $options, $label, $header, $allChecked, $search;
     $box.each($this, function () { $self[this.k] = this.v });
@@ -91,11 +91,12 @@ zk().register(function SELECTPICKER($this){
                 $items.children().on("click.zkSelectPickerItemsClickEvent", function () {
                     var node = $entity("Node").set(this.source).toggleClass("zk-selectpicker-item-selected");
                     this["selectPicker"] = $self;
-                    this["container"] = $container.get();
-                    this["items"] = $items.get();
-                    this["select"] = $select.get();
-                    this["options"] = $options.get();
-                    this["header"] = $header.get();
+                    this["selectPickerContainer"] = $container.get();
+                    this["selectPickerItems"] = $items.get();
+                    this["selectPickerSelect"] = $select.get();
+                    this["selectPickerOptions"] = $options.get();
+                    this["selectPickerHeader"] = $header.get();
+                    this["selectPickerLabel"] = $label.get();
                     if(!node.hasClass("zk-selectpicker-item-selected")){
                         $allChecked.get()[0].checked = false;
                         if($events.unSelect){
@@ -187,11 +188,12 @@ zk().register(function SELECTPICKER($this){
             if($events.show){
                 $events.show.apply({
                     "selectPicker": $self,
-                    "container": $container.get(),
-                    "items": $items.get(),
-                    "select": $select.get(),
-                    "options": $options.get(),
-                    "header": $header.get(),
+                    "selectPickerContainer": $container.get(),
+                    "selectPickerItems": $items.get(),
+                    "selectPickerSelect": $select.get(),
+                    "selectPickerOptions": $options.get(),
+                    "selectPickerLabel": $label.get(),
+                    "selectPickerHeader": $header.get(),
                     "selectPickerEvent": "show",
                 }, []);
             }
@@ -212,11 +214,12 @@ zk().register(function SELECTPICKER($this){
             if($events.hide){
                 $events.hide.apply({
                     "selectPicker": $self,
-                    "container": $container.get(),
-                    "items": $items.get(),
-                    "select": $select.get(),
-                    "options": $options.get(),
-                    "header": $header.get(),
+                    "selectPickerContainer": $container.get(),
+                    "selectPickerItems": $items.get(),
+                    "selectPickerSelect": $select.get(),
+                    "selectPickerOptions": $options.get(),
+                    "selectPickerLabel": $label.get(),
+                    "selectPickerHeader": $header.get(),
                     "selectPickerEvent": "hide",
                 }, []);
             }
@@ -275,6 +278,21 @@ zk().register(function SELECTPICKER($this){
             if($box.is(callback, "function")){
                 $events[event] = callback;
             }
+        }
+        return $self;
+    };
+
+    /**
+     * Permet de supprimer des évènements.
+     *
+     * @method off
+     * @param {string} event Le nom de l'évènement.
+     * @return {SELECTPICKER}
+     * @since 1.0
+     */
+    this.off = function (event) {
+        if($events.hasOwnProperty(event)){
+            $events[event] = null;
         }
         return $self;
     };
