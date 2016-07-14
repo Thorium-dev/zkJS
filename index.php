@@ -2,45 +2,34 @@
 <html>
 <head>
     <title>zkJS dev version</title>
-    <link rel="stylesheet" href="spec/lib/mocha.css"/>
+    <link rel="stylesheet" href="styles/stylesheets/selectpicker.css"/>
     <style>
-        ul.days {
-            display: inline-block;
-            border: 1px solid red;
-            vertical-align: top;
-        }
-        #days{
-            padding-top: 20px;
-            width: 300px;
-        }
-        #days1{
-            padding-top: 100px;
-        }
+
     </style>
 </head>
 <body>
 
-    <ul class="days" id="days" style="font-size: 20px;">
-        <li class="day" id="day-1">Monday</li>
-        <li class="day" id="day-2">Tuesday</li>
-        <li class="day" id="day-3">Wednesday</li>
-        <li class="day" id="day-4">Thursday</li>
-        <li class="day" id="day-5">Friday</li>
-        <li class="day" id="day-6">Saturday</li>
-        <li class="day" id="day-7">Sunday</li>
-    </ul>
 
-    <select name="pays" id="pays" multiple>
-        <option value="France">France</option>
-        <option value="Japon">Japon</option>
-        <option value="Italie">Italie</option>
-    </select>
+    <button id="show">Show</button>
+    <button id="hide">Hide</button>
+    <button id="values">Values</button>
+    <button id="destroy">Destroy</button>
+    <button id="show-header">Show Header</button>
+    <button id="hide-header">Hide Header</button>
 
-    <input type="text" class="a">
-    <input type="checkbox" class="a">
-    <input type="checkbox" class="a">
-    <input type="radio" class="a">
-    <input type="radio" class="a">
+    <form action="ajax.php" method="post">
+        <label for="days">Selectionner un test</label>
+        <select name="days" multiple style="display: none">
+            <option value="Test 1">Test 1</option>
+            <option value="Test 2">Test 2</option>
+            <option value="Test 3">Test 3</option>
+            <option value="Test 4">Test 4</option>
+            <option value="Test 5">Test 5</option>
+            <option value="Test 6">Test 6</option>
+            <option value="Lorem ipsum dolor sit amet.">Lorem ipsum dolor sit amet.</option>
+        </select>
+        <input type="submit" value="Envoyer" />
+    </form>
 
 
     <script src="dev/core/zk.js"></script>
@@ -49,12 +38,51 @@
     <script src="dev/entity/errorEntity.js"></script>
     <script src="dev/entity/nodeEntity.js"></script>
     <script src="dev/entity/routerEntity.js"></script>
+    <script src="dev/entity/formEntity.js"></script>
+    <script src="dev/entity/validatorEntity.js"></script>
+    <script src="dev/ui/dateTimePickerEntity.js"></script>
+    <script src="dev/ui/selectPickerEntity.js"></script>
 
     <script>
 
+        var sel = zk("selectpicker").set("select");
 
-        var url = zk("router").referrer();
-        console.log(url);
+        sel.label("label");
+
+        $("button#show").click(function () {
+            sel.show();
+        });
+        $("button#hide").click(function () {
+            sel.hide();
+        });
+
+        $("button#values").click(function () {
+            sel.val(["Test 1", "Test 4"]);
+        });
+        $("button#destroy").click(function () {
+            sel.destroy();
+        });
+        $("button#show-header").click(function () {
+            sel.header(true);
+        });
+        $("button#hide-header").click(function () {
+            sel.header(false);
+        });
+
+
+        sel.on("select", function () {
+            console.log(this);
+        });
+
+        sel.on("unSelect", function () {
+            console.log(this);
+        });
+
+        sel.on("show", function () {
+            console.log(this);
+        });
+
+//        $("select").attr("size", 6);
 
 
     </script>

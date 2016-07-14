@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="168f9a6e-bcbb-4dd9-a404-0a818b2622bc" name="Foot Activity" url="http://footact.odns.fr">
+        <fileTransfer host="footact.odns.fr" port="21" rootFolder="/public_html" username="footact">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
