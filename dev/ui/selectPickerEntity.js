@@ -13,8 +13,8 @@ zk().register(function SELECTPICKER($this){
         "name": "div",
         "class": "zk-selectpicker-container",
         "html": "<ul></ul>",
-        "style": "display: none; position: absolute; top: 10px; left: 10px"
     });
+    $container.display("none").absolute();
     var $items = $entity("Node").set($container.get()[0].querySelector("ul"));
 
     /**
@@ -22,7 +22,7 @@ zk().register(function SELECTPICKER($this){
      *
      * @method set
      * @param {object} selector Sélecteur pour un élément select.
-     * @return {Node}
+     * @return {SELECTPICKER}
      * @since 1.0
      */
     this.set = function (selector) {
@@ -64,7 +64,7 @@ zk().register(function SELECTPICKER($this){
      *
      * @method val
      * @param {*} [values] Valeurs à sélectionner.
-     * @return {array|Node}
+     * @return {array|SELECTPICKER}
      * @since 1.0
      */
     this.val = function (values) {
@@ -78,27 +78,44 @@ zk().register(function SELECTPICKER($this){
                 });
             }
             return res;
-        }else{
-            if($hasSelect){
-                if(!$box.is(values, "array")){ values = [values]; }
-                $items.each(function () {
-                    if($box.has(values, this.v.getAttribute("data-zk-value"))){
-                        $entity("Node").set(this.v).addClass("zk-selectpicker-item-selected")
-                    }
-                });
-            }
-            return this;
         }
+        if($hasSelect){
+            if(!$box.is(values, "array")){ values = [values]; }
+            $items.each(function () {
+                if($box.has(values, this.v.getAttribute("data-zk-value"))){
+                    $entity("Node").set(this.v).addClass("zk-selectpicker-item-selected")
+                }
+            });
+        }
+        return $self;
     };
 
-    this.show = function () {
-        $container.show();
-        return this;
+    /**
+     * Permet d'afficher le selectPicker.
+     *
+     * @method show
+     * @param {string} [x] Position d'un élément par rapport au bord gauche du document.
+     * @param {string} [y] Position d'un élément par rapport au bord supérieur du document.
+     * @return {SELECTPICKER}
+     * @since 1.0
+     */
+    this.show = function (x, y) {
+        if($hasSelect){
+            $container.show(x, y);
+        }
+        return $self;
     };
 
+    /**
+     * Permet de cacher le selectPicker.
+     *
+     * @method hide
+     * @return {SELECTPICKER}
+     * @since 1.0
+     */
     this.hide = function () {
-        $container.hide();
-        return this;
+        if($hasSelect){ $container.hide(); }
+        return $self;
     };
 
 
