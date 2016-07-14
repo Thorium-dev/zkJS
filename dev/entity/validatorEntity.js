@@ -15,12 +15,18 @@ zk().register(function VALIDATOR($this) {
             "html": function (node) {
                 return node.innerHTML
             },
+            "val": function (node) {
+                return zk().get("Node").set(node).val();
+            },
+            "value": function (node) {
+                return this.val(node);
+            }
 
         },
         $isValid = true,
         $message = null,
         $view = null,
-        $asserts = {
+        $validators = {
             /*"id": {
              "constraints": [],
              "messages": [],
@@ -70,13 +76,13 @@ zk().register(function VALIDATOR($this) {
     this.assert = function (attr, constraint, message, view) {
         if (attr !== undefined && constraint !== undefined) {
             attr += "";
-            addConstInObject(attr, constraint, message, view, $asserts)
+            addConstInObject(attr, constraint, message, view, $validators)
         }
         return $self
     };
 
     /**
-     * Permet de définir une contrainte
+     * Voir la fonction assert
      *
      * @method add
      * @param {String} attr Nom de l'attribut ou contenu à contraindre.
@@ -87,6 +93,21 @@ zk().register(function VALIDATOR($this) {
      * @since 1.0
      */
     this.add = function (attr, constraint, message, view) {
+        return $self.assert(attr, constraint, message, view)
+    };
+
+    /**
+     * Voir la fonction assert
+     *
+     * @method constraint
+     * @param {String} attr Nom de l'attribut ou contenu à contraindre.
+     * @param {*} constraint Contraint à appliquer sur l'attribut.
+     * @param {String|Function} [message] Message d'erreur.
+     * @param {*} [view] La vue qui contiendra le message d'erreur.
+     * @return {VALIDATOR}
+     * @since 1.0
+     */
+    this.constraint = function (attr, constraint, message, view) {
         return $self.assert(attr, constraint, message, view)
     };
 
@@ -106,22 +127,30 @@ zk().register(function VALIDATOR($this) {
 
     /**
      * Permet de valider un objet Node.
+     * La fonction reçoit en argument l'objet this avec :
+     *      - this.property : Propriété de l'élément qui doit être testé.
+     *      - this.value : Valeur utilisée pour la validation.
+     *      - this.isValid : L'état de la validation
+     *      - this.message : Le message
+     *      - this.view : La vue pour le message
+     *      - this.constraint : Contrainte de la validation
+     *      - this.node : Elément sur lequel se fait la validation
      *
      * @method validate
      * @param {*} node L'objet Node qui sera validé.
+     * @param {Function} callback Fonction qui sera exécutée après la validation.
      * @return {VALIDATOR}
      * @since 1.0
      */
-    this.validate = function (node) {
+    this.validate = function (node, callback) {
         $isValid = true;
-        if(!$box.isEmpty($asserts)){
+        if(!$box.isEmpty($validators)){
             node = $self.entity.get("Node").set(node).get()[0];
             if(node){
-                $box.each($asserts, function () {
+                $box.each($validators, function () {
                     var k = this.k, v = this.v,
                         value = $box.trim($moreAttr.hasOwnProperty(k) ? $moreAttr[k](node) : node.getAttribute(k));
                     $box.each(v.constraints, function () {
-
                         var type  = $box.is(this.v), ok = true;
                         if(type == "string"){
                             if(/^\/.*\/$/.test(this.v)){
@@ -146,13 +175,27 @@ zk().register(function VALIDATOR($this) {
                                 ok = (this.v === value);
                             }
                         }
+                        var vw = $self.entity.get("Node").set(v.views[this.i]);
                         if(!ok){
                             $isValid = false;
-                            var msg = v.messages[this.i], vw = v.views[this.i];
+                            var msg = v.messages[this.i];
                             addConstInObject(k, this.v, msg, vw, $errors);
                             if(msg !== undefined){
-                                $self.entity.get("Node").set(vw).html(msg)
+                                vw.addCss("display", "auto").html(msg)
                             }
+                        }else {
+                            vw.addCss("display", "none");
+                        }
+                        if($box.is(callback, "function")){
+                            callback.apply({
+                                value: value,
+                                property: k,
+                                isValid: $isValid,
+                                message: v.messages[this.i],
+                                view: v.views[this.i],
+                                constraint: this.v,
+                                node: node,
+                            });
                         }
                     });
                 });
@@ -171,6 +214,17 @@ zk().register(function VALIDATOR($this) {
      */
     this.isValid = function () {
         return $isValid
+    };
+
+    /**
+     * Permet d'obtenir les erreurs générées par la contrainte.
+     *
+     * @method getErrors
+     * @return {object}
+     * @since 1.0
+     */
+    this.getErrors = function () {
+        return $errors
     };
 
 

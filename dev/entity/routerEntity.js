@@ -103,6 +103,30 @@ zk().register(function ROUTER($this){
         return $vars[name];
     };
 
+    /**
+     * Permet de recharger le document depuis l'URL actuelle. forceget est une valeur booléenne, qui lorsqu'elle vaut true force la page à être rechargée depuis le serveur. Si elle vaut false ou n'est pas précisée, le navigateur peut recharger la page depuis son cache.
+     *
+     * @method reload
+     * @param {boolean} [forceget]
+     * @return {ROUTER}
+     * @since 1.0
+     */
+    this.reload = function (forceget) {
+        $location.reload(forceget);
+        return this;
+    };
+
+    /**
+     * Permet d'obtenir l'url de la page lié à la page courante.
+     *
+     * @method referrer
+     * @return {string}
+     * @since 1.0
+     */
+    this.referrer = function () {
+        return document.referrer;
+    };
+
 
 
 }, {}, {});
