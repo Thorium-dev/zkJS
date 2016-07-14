@@ -218,6 +218,9 @@
             htmlformcontrolscollection: function (el, f, args) {
                 return doEachByObj.string(self.toArray(el), f, args);
             },
+            htmloptionscollection: function (el, f, args) {
+                return doEachByObj.string(self.toArray(el), f, args);
+            },
         };
         /**
          * Permet de parcourir des objets.
