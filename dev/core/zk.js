@@ -2,9 +2,9 @@
     'use strict';
 
 
-    var THIS = this, ID = parseInt(Math.random() * 1000000000000),
-        windowID = (ID++) + parseInt(Math.random() * 1000),
-        documentID = (ID++) + parseInt(Math.random() * 1000);
+    var THIS = this, ID = parseInt(Math.random() * 1000000),
+        windowID = (ID++) + parseInt(Math.random() * 1000000),
+        documentID = (ID++) + parseInt(Math.random() * 1000000);
 
     var APP = {
         // Raccourcis vers _ENTITY_
@@ -469,7 +469,7 @@
         this.generateID = function (object) {
             if(object === window){ return windowID }
             if(object === document){ return documentID }
-            return (ID++) + parseInt(Math.random() * 1000);
+            return (ID++) + parseInt(Math.random() * 1000000);
         };
         /**
          * Permet de savoir si un objet est vide.
