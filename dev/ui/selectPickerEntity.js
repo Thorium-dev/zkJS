@@ -1,6 +1,5 @@
 zk().register(function SELECTPICKER($this){
-    var $self = this, $box = $this.toolbox, $entity = $this.entity.get, $hasSelect = false,
-        $select = null, $options = null;
+    var $self = this, $box = $this.toolbox, $entity = $this.entity.get, $container, $items, $hasSelect, $select, $options, $label;
     $box.each($this, function () { $self[this.k] = this.v });
 
     function insertNodeBefore(nouvEl, beforeEl) {
@@ -8,20 +7,23 @@ zk().register(function SELECTPICKER($this){
         parent.insertBefore(nouvEl, beforeEl);
         return parent
     }
-
-    var $container = $entity("Node").create({
-        "name": "div",
-        "class": "zk-selectpicker-container",
-        "html": "<ul></ul>",
-    });
-    $container.display("none").absolute();
-    var $items = $entity("Node").set($container.get()[0].querySelector("ul"));
+    function init() {
+        $container = $entity("Node").create({
+            "name": "div",
+            "class": "zk-selectpicker-container",
+            "html": "<ul></ul>",
+        });
+        $container.display("none").absolute().ID(true);
+        $items = $entity("Node").set($container.get()[0].querySelector("ul"));
+        $hasSelect = false, $select = null, $options = null, $label = null;
+    }
+    init();
 
     /**
      * Permet de définir l'élément select à utiliser. Fonctionne que si un élément select est défini.
      *
      * @method set
-     * @param {object} selector Sélecteur pour un élément select.
+     * @param {*} selector Sélecteur pour un élément select.
      * @return {SELECTPICKER}
      * @since 1.0
      */
@@ -57,6 +59,24 @@ zk().register(function SELECTPICKER($this){
             }
         }
         return $self;
+    };
+
+    /**
+     * Permet de définir le label du selectPicker.
+     *
+     * @method label
+     * @param {*} selector Sélecteur pour le label.
+     * @return {SELECTPICKER}
+     * @since 1.0
+     */
+    this.label = function (selector) {
+        $label = $entity("Node").set(selector).ID(true).class("zk-selectpicker-label");
+        $label.attr("data-zk-ref", $container.ID());
+        $container.attr("data-zk-ref", $label.ID());
+        $label.on("click.zkSelectPickerLabelClickEvent", function () {
+            var ref = this.source.getAttribute("data-zk-ref");
+            $entity("Node").set("[data-zk-id='"+ref+"']").show();
+        });
     };
 
     /**
