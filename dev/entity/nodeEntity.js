@@ -2020,13 +2020,13 @@ var nodeEntityMethods = {
          * Permet de savoir si l'attribut class d'un élément possède la valeur value.
          *
          * @method hasClass
-         * @param {*} value
+         * @param {*} name
          * @return {boolean}
          * @since 1.0
          */
-        "hasClass": function (value) {
+        "hasClass": function (name) {
             var has = this.getAttr("class");
-            return has ? this.toolbox.has(has.split(" "), value) : false;
+            return has ? this.toolbox.has(has.split(" "), name) : false;
         },
         /**
          * Permet d'obtenir l'attribut class d'un élément.
@@ -2043,12 +2043,12 @@ var nodeEntityMethods = {
          * Permet de supprimer les valeurs de l'attribut class.
          *
          * @method removeClass
-         * @param {*} value Permet de cibler des valeurs paritculières.
+         * @param {*} name Permet de cibler des valeurs paritculières.
          * @return {Node}
          * @since 1.0
          */
-        "removeClass": function (value) {
-            return this.removeAttr("class", value);
+        "removeClass": function (name) {
+            return this.removeAttr("class", name);
         },
         /**
          * Permet d'ajouter des valeurs à l'attribut class.
@@ -2075,6 +2075,17 @@ var nodeEntityMethods = {
             return this.addClass(newValue);
         },
         /**
+         * Permet d'alterner les valeurs de l'attribut class.
+         *
+         * @method toggleClass
+         * @param {string} name Nom de la class
+         * @return {Node}
+         * @since 1.0
+         */
+        "toggleClass": function (name) {
+            return this.hasClass(name) ? this.removeClass(name) : this.addClass(name);
+        },
+        /**
          * Permet d'obtenir ou d'ajouter des valeurs à l'attribut class.
          *
          * @method class
@@ -2085,6 +2096,7 @@ var nodeEntityMethods = {
         "class": function (value) {
             return this.attr("class", value);
         },
+
 
         // ===================================== LES METHODES AVEC CSS =========================================
 
