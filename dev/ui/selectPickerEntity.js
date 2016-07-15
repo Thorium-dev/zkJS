@@ -171,9 +171,21 @@ zk().register(function SELECTPICKER($this){
         }
         if($hasSelect){
             if(!$box.is(values, "array")){ values = [values]; }
+            var one = 0;
             $items.each(function () {
+                if(!$multiple){
+                    var node = $entity("Node").set(this.v).removeClass("zk-selectpicker-item-selected");
+                }
                 if($box.has(values, this.v.getAttribute("data-zk-value"))){
-                    $entity("Node").set(this.v).addClass("zk-selectpicker-item-selected")
+                    if($multiple){
+                        $entity("Node").set(this.v).addClass("zk-selectpicker-item-selected");
+                    }else {
+                        if(!one){
+                            node.addClass("zk-selectpicker-item-selected");
+                            one = 1;
+                            $active = node;
+                        }
+                    }
                 }
             });
         }
@@ -310,6 +322,7 @@ zk().register(function SELECTPICKER($this){
             $allChecked.removeAttr("disabled");
         }else {
             $allChecked.get()[0].checked = false;
+            $allChecked.get()[0].disabled = true;
             var items = $container.get()[0].querySelectorAll(".zk-selectpicker-items");
             var one = 0;
             $box.each(items, function () {
@@ -319,6 +332,7 @@ zk().register(function SELECTPICKER($this){
                         node.removeClass("zk-selectpicker-item-selected")
                     }else {
                         one = 1;
+                        $active = node;
                     }
                 }
             });
