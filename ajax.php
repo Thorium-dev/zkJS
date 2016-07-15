@@ -4,4 +4,4 @@
         "deux" =>2,
         "trois" =>3
     );
-    echo json_encode($array);
+    echo json_encode($_POST);

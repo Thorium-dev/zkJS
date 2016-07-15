@@ -49,8 +49,14 @@ function isThisNode($this, node, selector) {
         for (var k in selector) {
             var v = selector[k];
             if (selector.hasOwnProperty(k)) {
-                if (/^attr\-/.test(k)) {
-                    var attr = node.getAttribute(k.slice(5));
+                if (doIsThisNodeByKey.hasOwnProperty(k)) {
+                    if (doIsThisNodeByKey[k]($this, node, v)) {
+                        isOk = true
+                    } else {
+                        return false
+                    }
+                }else {
+                    var attr = node.getAttribute(k);
                     if (attr) {
                         attr = attr.split(" ");
                         if (box.has(attr, v)) {
@@ -61,17 +67,8 @@ function isThisNode($this, node, selector) {
                     } else {
                         return false
                     }
-                } else {
-                    if (doIsThisNodeByKey.hasOwnProperty(k)) {
-                        if (doIsThisNodeByKey[k]($this, node, v)) {
-                            isOk = true
-                        } else {
-                            return false
-                        }
-                    } else {
-                        return false
-                    }
                 }
+
             } else {
                 return false
             }

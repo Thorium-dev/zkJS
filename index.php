@@ -51,6 +51,12 @@
 
         sel.label("label");
 
+        var nouv = zk("Node").set({
+            "data-zk-index": "0"
+        });
+
+        console.log(nouv.get());
+
         $("button#show").click(function () {
             sel.show();
         });
