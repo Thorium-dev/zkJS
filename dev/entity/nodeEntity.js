@@ -447,9 +447,13 @@ var nodeCanSelected = {
     },
 };
 var nodeCanChecked = {
-    "input": function (node) {
+    "input": function (node, val) {
         if(node.type === "checkbox" || node.type === "radio"){
-            return (node.hasAttribute("checked")) || (node.checked === true);
+            if(val === undefined){
+                node.checked = true
+            }else{
+                if(node.value == val){ node.checked = true; }
+            }
         }
         return false;
     },
@@ -1404,14 +1408,15 @@ var nodeEntityMethods = {
          * Permet de cocher des éléments
          *
          * @method check
+         * @param {string} [value] Valeur à définir.
          * @return {NODE}
          * @since 1.0
          */
-        "check": function () {
+        "check": function (value) {
             this.each(function () {
                 var name = this.v.nodeName.toLowerCase();
                 if(nodeCanChecked.hasOwnProperty(name)){
-                    this.v.checked = true
+                    nodeCanChecked[name](this.v, value);
                 }
             });
             return this;
