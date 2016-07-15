@@ -443,13 +443,7 @@ var nodeCustumOffEvents = {
 };
 var nodeCanSelected = {
     "option": function (node, val) {
-        if(val === undefined){
-            return (node.hasAttribute("selected")) || (node.selected === true);
-        }
-        if(node.value == val){
-            node.selected = true;
-        }
-
+        if(node.value == val){ node.selected = true; }
     },
 };
 var nodeCanChecked = {
@@ -1400,7 +1394,7 @@ var nodeEntityMethods = {
                     if(value === undefined){
                         this.v.selected = true
                     }else{
-                        nodeCanSelected[name](this.v, value)
+                        nodeCanSelected[name](this.v, value);
                     }
                 }
             });
