@@ -16,10 +16,12 @@
     <button id="destroy">Destroy</button>
     <button id="show-header">Show Header</button>
     <button id="hide-header">Hide Header</button>
+    <button id="multiple">Multiple</button>
+    <button id="single">Single</button>
 
     <form action="ajax.php" method="post">
         <label for="days">Selectionner un test</label>
-        <select name="days" multiple style="display: none">
+        <select name="days" style="display: none">
             <option value="Test 1">Test 1</option>
             <option value="Test 2">Test 2</option>
             <option value="Test 3">Test 3</option>
@@ -57,7 +59,7 @@
         });
 
         $("button#values").click(function () {
-            sel.val(["Test 1", "Test 4"]);
+            sel.val(["Test 3", "Test 4"]);
         });
         $("button#destroy").click(function () {
             sel.destroy();
@@ -69,20 +71,13 @@
             sel.header(false);
         });
 
-
-        sel.on("select", function () {
-            console.log(this);
+        $("button#multiple").click(function () {
+            sel.multiple(true);
         });
 
-        sel.on("unSelect", function () {
-            console.log(this);
+        $("button#single").click(function () {
+            sel.multiple(false);
         });
-
-        sel.on("show", function () {
-            console.log(this);
-        });
-
-//        $("select").attr("size", 6);
 
 
     </script>

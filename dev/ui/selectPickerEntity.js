@@ -58,8 +58,6 @@ zk().register(function SELECTPICKER($this){
         "hide": null,
     };
 
-    // $header.get()[0].querySelector("input[type='checkbox']").disabled = true;
-
     /**
      * Permet de définir l'élément select à utiliser. Fonctionne que si un élément select est défini.
      *
@@ -93,12 +91,21 @@ zk().register(function SELECTPICKER($this){
                 });
                 $items.children().on("click.zkSelectPickerItemsClickEvent", function () {
                     if(!$multiple){
-                        if($active){
-                            $active.removeClass("zk-selectpicker-item-selected");
+                        var oldActive = $active;
+                        $active = $entity("Node").set(this.source);
+                        if(oldActive){
+                            if(oldActive.get()[0] === $active.get()[0]){
+                                oldActive.toggleClass("zk-selectpicker-item-selected");
+                            }else{
+                                oldActive.removeClass("zk-selectpicker-item-selected");
+                                $active.toggleClass("zk-selectpicker-item-selected");
+                            }
+                        }else {
+                            $active.toggleClass("zk-selectpicker-item-selected");
                         }
+                    }else{
+                        $active = $entity("Node").set(this.source).toggleClass("zk-selectpicker-item-selected");
                     }
-                    $active = $entity("Node").set(this.source).toggleClass("zk-selectpicker-item-selected");
-                    // var index = parseInt($active.attr("data-zk-index"), 10);
                     $options.get()[parseInt($active.attr("data-zk-index"), 10)].selected = true;
                     this["selectPicker"] = $self;
                     this["selectPickerContainer"] = $container.get();
