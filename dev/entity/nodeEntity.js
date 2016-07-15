@@ -264,9 +264,31 @@ var doNodeAddAttrByName = {
     "style": function ($this, attr, value) {
         return value
     },
-    "id": function ($this, attr, value) {
-        return value
+    "checked": function ($this, attr, value, node) {
+        node.checked = value || true;
+        return undefined;
     },
+    "selected": function ($this, attr, value, node) {
+        node.selected = value || true;
+        return undefined;
+    },
+    "disabled": function ($this, attr, value, node) {
+        node.disabled = value || true;
+        return undefined;
+    },
+    "autofocus": function ($this, attr, value, node) {
+        node.autofocus = value || true;
+        return undefined;
+    },
+    "required": function ($this, attr, value, node) {
+        node.required = value || true;
+        return undefined;
+    },
+    "readOnly": function ($this, attr, value, node) {
+        node.readOnly = value || true;
+        return undefined;
+    },
+
 };
 var doNodeGetCssByProperty = {
     "border": function ($this, node, property) {
@@ -1977,7 +1999,7 @@ var nodeEntityMethods = {
          */
         "addAttr": function (names, value) {
             var $this = this, box = $this.toolbox;
-            if(box.is(value, "string|number|boolean")){
+            if(box.is(value, "string|number|boolean") || value === undefined){
                 if(box.is(names, "string")){ names = names.split(/[ ,]/) }
                 if(!box.is(names, "array")){ names = [names] }
                 box.each(names, function () {
@@ -1987,12 +2009,15 @@ var nodeEntityMethods = {
                         if(v.hasAttribute(name)){
                             attr = v.getAttribute(name);
                             if(doNodeAddAttrByName.hasOwnProperty(name)){
-                                attr = doNodeAddAttrByName[name]($this, attr, value);
+                                attr = doNodeAddAttrByName[name]($this, attr, value, v);
                             }else{
                                 attr = box.add(box.remove(attr.split(" "), value), value).join(" ");
                             }
                         }
-                        v.setAttribute(name, attr);
+                        if(doNodeAddAttrByName.hasOwnProperty(name)){
+                            attr = doNodeAddAttrByName[name]($this, attr, value, v);
+                        }
+                        if(attr !== undefined){ v.setAttribute(name, attr) }
                     });
                 });
             }
