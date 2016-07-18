@@ -35,15 +35,15 @@
 
 
     <script src="dev/core/zk.js"></script>
-    <script src="dev/entity/convertorEntity.js"></script>
-    <script src="dev/entity/documentEntity.js"></script>
-    <script src="dev/entity/errorEntity.js"></script>
-    <script src="dev/entity/nodeEntity.js"></script>
-    <script src="dev/entity/routerEntity.js"></script>
-    <script src="dev/entity/formEntity.js"></script>
-    <script src="dev/entity/validatorEntity.js"></script>
-    <script src="dev/ui/dateTimePickerEntity.js"></script>
-    <script src="dev/ui/selectPickerEntity.js"></script>
+    <script src="dev/entity/convertor.js"></script>
+    <script src="dev/entity/document.js"></script>
+    <script src="dev/entity/error.js"></script>
+    <script src="dev/entity/node.js"></script>
+    <script src="dev/entity/router.js"></script>
+    <script src="dev/entity/form.js"></script>
+    <script src="dev/entity/validator.js"></script>
+    <script src="dev/ui/dateTimePicker.js"></script>
+    <script src="dev/ui/selectPicker.js"></script>
 
     <script>
 
@@ -51,11 +51,6 @@
 
         sel.label("label");
 
-        var nouv = zk("Node").set({
-            "data-zk-index": "0"
-        });
-
-        console.log(nouv.get());
 
         $("button#show").click(function () {
             sel.show();
