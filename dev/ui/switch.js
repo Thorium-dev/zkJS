@@ -8,5 +8,13 @@ zk().register(function SWITCH($this){
         return parent
     }
 
+    this.set = function (selector) {
+
+    };
+    
+    this.label = function (selector) {
+
+    };
+
 
 }, {}, {});

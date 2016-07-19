@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>zkJS dev version</title>
-    <link rel="stylesheet" href="styles/stylesheets/selectpicker.css"/>
+    <link rel="stylesheet" href="styles/stylesheets/selectPicker.css"/>
+    <link rel="stylesheet" href="styles/stylesheets/switch.css"/>
     <style>
 
     </style>
@@ -30,6 +31,8 @@
             <option value="Test 6">Test 6</option>
             <option value="Lorem ipsum dolor sit amet.">Lorem ipsum dolor sit amet.</option>
         </select>
+        <label for="switch" id="switch-label"></label>
+        <input type="checkbox" id="switch" />
         <input type="submit" value="Envoyer" />
     </form>
 

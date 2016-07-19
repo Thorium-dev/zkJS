@@ -1,0 +1,25 @@
+#switch-label {
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  position: relative;
+  border: 1px solid red;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+
+
+  &:before {
+    content: "";
+    width: 30px;
+    height: 30px;
+    background-color: green;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    position: absolute;
+  }
+
+
+
+}
